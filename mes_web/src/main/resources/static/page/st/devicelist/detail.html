@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>设备总清单明细</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../static/css/font.css">
+    <link rel="stylesheet" href="../../../static/css/weadmin.css">
+    <!-- jqgrid -->
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/jquery-ui.theme.min.css'/>
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/ui.jqgrid.css'/>
+    <!--select2-->
+    <link rel="stylesheet" href='../../../static/Scripts/select2/css/select2.min.css'/>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="../../../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../../js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+    <!--jquery-->
+    <script src='../../../static/Scripts/jquery-1.10.2.min.js'></script>
+    <script src='../../../static/Scripts/jquery.json.js'></script>
+    <script src='../../../static/Scripts/Common.js'></script>
+    <!--jqgrid-->
+    <script src='../../../static/Scripts/jqgrid/js/i18n/grid.locale-cn.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery-ui.min.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery.jqGrid.js'></script>
+    <script src='../../../static/Scripts/Print.js'></script>
+    <script src='../../../static/Scripts/lodop/LodopFuncs.js'></script>
+</head>
+<style type="text/css">
+
+    .red-bg {
+        background-color: #e6afaf;
+    }
+
+</style>
+<body>
+<div class="weadmin-body">
+    <form class="layui-form">
+        <div class="weadmin-block">
+
+            <button type="button" class="layui-btn layui-btn-sm" onclick="FnPrint()">打印</button>
+
+            &nbsp;&nbsp;
+            <div class="layui-inline">
+                <span>加工类型</span>
+            </div>
+            <div class="layui-inline">
+                <select id="proType" name="proType"  lay-filter="proType" lay-search="">
+                    <option value=></option>
+                    <option value="外购">外购</option>
+                    <option value="金工">金工</option>
+                    <option value="半成品">半成品</option>
+                </select>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="weadmin-body-table">
+    <table id="jqGrid"></table>
+</div>
+</body>
+<script>
+    var orderNo = GetQueryString("orderNo");
+    $(function () {
+        initJqgrid();
+        $.get('/st/devicelist/getbyorderno', {orderNo: orderNo, proType: ''}, function (data) {
+            if (data.result != null) {
+                $("#jqGrid").jqGrid("setGridParam", { datatype: 'local', data: data.result, rowNum:data.result.length }).trigger("reloadGrid");
+            }
+        });
+    });
+
+    function initJqgrid() {
+        $("#jqGrid").jqGrid({
+            mtype: "GET",
+            datatype: "local",
+            colModel: [
+                {name: "id", key: true,  hidden:true },
+                {label: "生产订单号", name: "orderNo", width: 120, sortable: false, editable: false, align: "left"},
+                {label: "存货编码", name: "invCode", width: 120, sortable: false, editable: false, align: "left"},
+                {label: "存货名称", name: "invName", width:160, sortable: false, editable: false, align: "left"},
+                {label: "规格型号", name: "invStd", width:130, sortable: false, editable: false, align: "left"},
+                {label: "计量单位", name: "unit", width:80, sortable: false, editable: false, align: "left"},
+                {label: "下料尺寸", name: "matSize", width:120, sortable: false, editable: false, align: "left"},
+                {label: "订单数量", name: "orderQty", width:80, sortable: false, editable: false, align: "right"},
+                {label: "已领量", name: "outQty", width:80, sortable: false, editable: false, align: "right"},
+                {label: "未领量", name: "unOutQty", width:80, sortable: false, editable: false, align: "right"},
+                {label: "加工类型", name: "proType", width:100, sortable: false, editable: false, align: "left"},
+                {name: "conNo", hidden: true}
+            ],
+            viewrecords: true,
+            multiselect: false,
+            autowidth: true,
+            shrinkToFit: false,
+            autoScroll: true,
+            scrollrows: true, // 是否显示行滚动条
+            rownumbers: true,
+            rowNum: -1,
+            colMenu: false,
+            cellEdit: false,
+            userDataOnFooter:true,
+            beforeProcessing: function (data, st, xhr) {//登录失效时请求将被拦截，提示用户：未登录
+                if (data.success == false){
+                    layer.msg(data.msg);
+                }
+                return true;
+            },
+            loadBeforeSend:function (jqXHR) {
+                var token = sessionStorage.getItem("mestoken");
+                jqXHR.setRequestHeader('Authorization',  token);
+
+            }
+        });
+
+        $("#jqGrid").setGridHeight($(window).outerHeight() - $(".weadmin-body").height() - 100);
+    }
+
+    layui.use(['form', 'admin', 'jquery', 'miniTab', 'table', 'laydate', 'layer', 'tableSelect'], function() {
+        var form = layui.form,
+            admin = layui.admin,
+            $ = layui.jquery,
+            table = layui.table,
+            laydate = layui.laydate,
+            miniTab = layui.miniTab,
+            layer = layui.layer,
+            tableSelect = layui.tableSelect;
+        miniTab.listen();
+
+        form.on('select(proType)', function (data) {
+            var proType = $("#proType option:checked").text();
+            $.get('/st/devicelist/getbyorderno', {orderNo: orderNo, proType: proType}, function (data) {
+                if (data.result != null) {
+                    $("#jqGrid").jqGrid("setGridParam", { datatype: 'local', data: data.result, rowNum:data.result.length }).trigger("reloadGrid");
+                }
+            });
+        });
+    });
+
+    function FnPrint() {
+        var proType = $("#proType").val();
+        if (proType == '') {
+            layer.msg("请选择加工类型!", {icon: 6});
+            return;
+        }
+        $.get('/st/devicelist/getbyorderno', {orderNo: orderNo, proType: proType}, function (data) {
+            if (data.result != null && data.result.length > 0) {
+                var row = data.result[0];
+                var orderNo = row.orderNo == null ? "" : row.orderNo;
+                var fromNo = row.fromNo == null ? "" : row.fromNo;
+                var conNo = row.conNo == null ? "" : row.conNo;
+                var cmemo = row.cmemo == null ? "" : row.cmemo;
+
+                var len = data.result.length;
+                var sumPages = new Array();
+
+                if (len < 24) {
+                    sumPages.push(data.result);
+                } else {
+                    var dList = new Array();
+                    for (var i=0; i<len; i++) {
+                        if (i != 0 && i % 23 == 0) {
+                            sumPages.push(dList);
+                            dList = new Array();
+                        }
+                        var d = data.result[i];
+                        dList.push(d);
+                    }
+                    if (dList.length > 0) {
+                        sumPages.push(dList);
+                    }
+                }
+
+                len = sumPages.length;
+                for (var i = 0; i<sumPages.length; i++) {
+                    var dList = sumPages[i];
+
+                    var LODOP = getLodop();
+                    LODOP.PRINT_INIT("设备总清单");
+                    LODOP.SET_PRINT_PAGESIZE(1, 1000, '', '');
+
+                    LODOP.SET_PRINT_STYLE("FontSize", 15);
+                    LODOP.ADD_PRINT_TEXT("1mm", "90mm", "100mm", "5mm", "设备总清单");
+                    LODOP.SET_PRINT_STYLEA(0,"FontName","黑体");
+
+                    var barcode;
+                    if (proType == '金工') {
+                        barcode = 'J-' + row.id;
+                    } else if (proType == '外购') {
+                        barcode = 'W-' + row.id;
+                    } else {
+                        barcode = 'B-' + row.id;
+                    }
+
+
+                    LODOP.ADD_PRINT_BARCODE("1mm", "6mm", "50mm", "10mm", "128A", barcode);
+                    LODOP.SET_PRINT_STYLEA(0, "DataCharset", "UTF-8");
+                    LODOP.SET_PRINT_STYLEA(0,"ShowBarText",0);
+
+                    LODOP.SET_PRINT_STYLE("FontSize", 11);
+                    LODOP.ADD_PRINT_TEXT("13mm", "5mm", "100mm", "10mm", "SRP运算单号 " + orderNo);
+                    LODOP.ADD_PRINT_TEXT("13mm", "75mm", "100mm", "10mm", fromNo);
+                    LODOP.ADD_PRINT_TEXT("13mm", "120mm", "80mm", "10mm", cmemo);
+
+                    LODOP.ADD_PRINT_TEXT("18.5mm", "5mm", "100mm", "10mm", "合同号 " + conNo);
+
+                    LODOP.ADD_PRINT_TABLE("23mm", "2mm", "198mm", "270mm", tableData(dList));
+
+                    var irow = 131;
+                    for (var j = 0; j < dList.length; j++) {
+                        var r = dList[j];
+                        LODOP.ADD_PRINT_BARCODE(irow + "px", "154mm", "45mm", "8mm", "128A", r.barcodeId);
+                        LODOP.SET_PRINT_STYLEA(0,"ShowBarText",0);
+                        irow += 40;
+                    }
+
+                    var index = i + 1;
+                    LODOP.ADD_PRINT_TEXT("278mm", "95mm", "50mm", "10mm", "第" + index + "页/共" + len + "页");
+
+                    LODOP.PRINT();
+                    //LODOP.PREVIEW();
+                }
+
+
+                //LODOP.PRINT_DESIGN();
+            }
+        });
+    }
+
+    function tableData(detailList) {
+        var css = "<style> table,td,th {table-layout: fixed;border: 1px black solid;border-collapse: collapse;font-size: 11px;}</style><table>";
+
+        var td = "<tr style='' align='center'> " +
+            "<td style='width: 90px; height: 40px;'>编码</td>" +
+            "<td style='width:100px'>名称</td>" +
+            "<td style='width:130px'>规格</td>" +
+            "<td style='width:30px'>计量单位</td>" +
+            "<td style='width:90px'>下料尺寸</td>" +
+            "<td style='width:50px'>总数量</td>" +
+            "<td style='width:50px'>已领量</td>" +
+            "<td style='width:50px'>未领量</td>" +
+            "<td style='width:30px'>加工类型</td>" +
+            "<td style='width:240px'>条码</td>" +
+            "</tr>";
+
+        for (var i = 0; i < detailList.length; i++) {
+            var row = detailList[i];
+            var invCode = row.invCode == null ? "": row.invCode;
+            var invName = row.invName == null ? "" : row.invName;
+            var invStd = row.invStd == null ? "" : row.invStd;
+            var unit = row.unit == null ? "" : row.unit;
+            var matSize = row.matSize == null ? "" : row.matSize;
+            var proType = row.proType == null ? "" : row.proType;
+            var orderQty = row.orderQty == null ? "" : row.orderQty;
+            var outQty = row.outQty == null ? "" : row.outQty;
+            var unOutQty = row.unOutQty == null ? "" : row.unOutQty;
+
+            td += "<tr style='' align='center'> " +
+                "<td style='width: 90px; height: 40px;'>" + invCode + "</td>" +
+                "<td style='width:130px'>" + invName + "</td>" +
+                "<td style='width:130px'>" + invStd + "</td>" +
+                "<td style='width:30px'>" + unit + "</td>" +
+                "<td style='width:90px'>" + matSize + "</td>" +
+                "<td style='width:40px'>" + orderQty + "</td>" +
+                "<td style='width:40px'>" + outQty + "</td>" +
+                "<td style='width:40px'>" + unOutQty + "</td>" +
+                "<td style='width:30px'>" + proType + "</td>" +
+                "<td style='width:240px'></td>" +
+                "</tr>";
+        }
+
+        var txt = css + td + "</table>";
+        return txt;
+    }
+</script>
+
+</html>

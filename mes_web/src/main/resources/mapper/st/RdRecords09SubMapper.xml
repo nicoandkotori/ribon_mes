@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.st.mapper.RdRecords09SubMapper">
+  <resultMap id="BaseResultMap" type="com.web.st.entity.RdRecords09Sub">
+    <!--@mbg.generated-->
+    <!--@Table rdrecords09sub-->
+    <id column="AutoID" jdbcType="BIGINT" property="autoid" />
+    <result column="ID" jdbcType="BIGINT" property="id" />
+    <result column="cBG_ItemCode" jdbcType="VARCHAR" property="cbgItemcode" />
+    <result column="cBG_ItemName" jdbcType="VARCHAR" property="cbgItemname" />
+    <result column="cBG_CaliberKey1" jdbcType="VARCHAR" property="cbgCaliberkey1" />
+    <result column="cBG_CaliberKeyName1" jdbcType="VARCHAR" property="cbgCaliberkeyname1" />
+    <result column="cBG_CaliberKey2" jdbcType="VARCHAR" property="cbgCaliberkey2" />
+    <result column="cBG_CaliberKeyName2" jdbcType="VARCHAR" property="cbgCaliberkeyname2" />
+    <result column="cBG_CaliberKey3" jdbcType="VARCHAR" property="cbgCaliberkey3" />
+    <result column="cBG_CaliberKeyName3" jdbcType="VARCHAR" property="cbgCaliberkeyname3" />
+    <result column="cBG_CaliberCode1" jdbcType="VARCHAR" property="cbgCalibercode1" />
+    <result column="cBG_CaliberName1" jdbcType="VARCHAR" property="cbgCalibername1" />
+    <result column="cBG_CaliberCode2" jdbcType="VARCHAR" property="cbgCalibercode2" />
+    <result column="cBG_CaliberName2" jdbcType="VARCHAR" property="cbgCalibername2" />
+    <result column="cBG_CaliberCode3" jdbcType="VARCHAR" property="cbgCalibercode3" />
+    <result column="cBG_CaliberName3" jdbcType="VARCHAR" property="cbgCalibername3" />
+    <result column="iBG_Ctrl" jdbcType="BIT" property="ibgCtrl" />
+    <result column="cBG_Auditopinion" jdbcType="VARCHAR" property="cbgAuditopinion" />
+    <result column="iBGSTSum" jdbcType="OTHER" property="ibgstsum" />
+    <result column="iBGIASum" jdbcType="OTHER" property="ibgiasum" />
+    <result column="cBG_CaliberKey4" jdbcType="VARCHAR" property="cbgCaliberkey4" />
+    <result column="cBG_CaliberKeyName4" jdbcType="VARCHAR" property="cbgCaliberkeyname4" />
+    <result column="cBG_CaliberKey5" jdbcType="VARCHAR" property="cbgCaliberkey5" />
+    <result column="cBG_CaliberKeyName5" jdbcType="VARCHAR" property="cbgCaliberkeyname5" />
+    <result column="cBG_CaliberKey6" jdbcType="VARCHAR" property="cbgCaliberkey6" />
+    <result column="cBG_CaliberKeyName6" jdbcType="VARCHAR" property="cbgCaliberkeyname6" />
+    <result column="cBG_CaliberCode4" jdbcType="VARCHAR" property="cbgCalibercode4" />
+    <result column="cBG_CaliberName4" jdbcType="VARCHAR" property="cbgCalibername4" />
+    <result column="cBG_CaliberCode5" jdbcType="VARCHAR" property="cbgCalibercode5" />
+    <result column="cBG_CaliberName5" jdbcType="VARCHAR" property="cbgCalibername5" />
+    <result column="cBG_CaliberCode6" jdbcType="VARCHAR" property="cbgCalibercode6" />
+    <result column="cBG_CaliberName6" jdbcType="VARCHAR" property="cbgCalibername6" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    AutoID, ID, cBG_ItemCode, cBG_ItemName, cBG_CaliberKey1, cBG_CaliberKeyName1, cBG_CaliberKey2, 
+    cBG_CaliberKeyName2, cBG_CaliberKey3, cBG_CaliberKeyName3, cBG_CaliberCode1, cBG_CaliberName1, 
+    cBG_CaliberCode2, cBG_CaliberName2, cBG_CaliberCode3, cBG_CaliberName3, iBG_Ctrl, 
+    cBG_Auditopinion, iBGSTSum, iBGIASum, cBG_CaliberKey4, cBG_CaliberKeyName4, cBG_CaliberKey5, 
+    cBG_CaliberKeyName5, cBG_CaliberKey6, cBG_CaliberKeyName6, cBG_CaliberCode4, cBG_CaliberName4, 
+    cBG_CaliberCode5, cBG_CaliberName5, cBG_CaliberCode6, cBG_CaliberName6
+  </sql>
+</mapper>

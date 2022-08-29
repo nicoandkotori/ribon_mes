@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.web.u8system.mapper.U8ScmItemMapper" >
+    <resultMap id="BaseResultMap" type="com.web.u8system.entity.U8ScmItem" >
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="cInvCode" property="cInvCode" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="selectByInvCode" resultMap="BaseResultMap">
+      select * from SCM_Item where  cInvCode = #{cInvCode} and cfree1= #{cfree1}and cfree2 = #{cfree2} and cfree3 = #{cfree3}
+    </select>
+
+    <insert id="insert" parameterType="com.web.u8system.entity.U8ScmItem">
+        insert into SCM_Item (cInvCode, PartId,cfree1,cfree2,cfree3) values (#{cInvCode}, #{partId}, #{cfree1}, #{cfree2}, #{cfree3})
+    </insert>
+
+</mapper>

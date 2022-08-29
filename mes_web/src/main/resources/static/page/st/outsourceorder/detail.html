@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>委外订单明细表</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../static/css/font.css">
+    <link rel="stylesheet" href="../../../static/css/weadmin.css">
+    <!-- jqgrid -->
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/jquery-ui.theme.min.css'/>
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/ui.jqgrid.css'/>
+    <!--select2-->
+    <link rel="stylesheet" href='../../../static/Scripts/select2/css/select2.min.css'/>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="../../../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../../js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+    <!--jquery-->
+    <script src='../../../static/Scripts/jquery-1.10.2.min.js'></script>
+    <script src='../../../static/Scripts/jquery.json.js'></script>
+    <script src='../../../static/Scripts/Common.js'></script>
+    <!--jqgrid-->
+    <script src='../../../static/Scripts/jqgrid/js/i18n/grid.locale-cn.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery-ui.min.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery.jqGrid.js'></script>
+    <script src='../../../static/Scripts/Print.js'></script>
+    <script src='../../../static/Scripts/lodop/LodopFuncs.js'></script>
+</head>
+<style type="text/css">
+
+    .red-bg {
+        background-color: #e6afaf;
+    }
+
+</style>
+<body>
+<div class="weadmin-body">
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 we-search">
+            <div class="layui-row">
+                <div class="layui-inline">
+                    <span>委外订单号</span>
+                </div>
+                <div class="layui-inline">
+                    <input type="text" class="layui-input weadmin-input" name="ccode" id="ccode" readonly autocomplete="off">
+                </div>
+                <div class="layui-inline">
+                    <span>委外合同</span>
+                </div>
+                <div class="layui-inline">
+                    <input type="text" class="layui-input weadmin-input" name="cdefine2" id="cdefine2" readonly autocomplete="off">
+                </div>
+
+                <div class="layui-inline">
+                    <span>委外商</span>
+                </div>
+                <div class="layui-inline">
+                    <input type="text" class="layui-input weadmin-input" style="width: 300px;" name="cvenabbname" id="cvenabbname" readonly autocomplete="off">
+                </div>
+                <div class="layui-inline">
+                    <span>订单日期</span>
+                </div>
+                <div class="layui-inline">
+                    <input type="text" class="layui-input weadmin-input"  name="ddate" id="ddate" readonly autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-inline">
+                    <span>业务员</span>
+                </div>
+                <div class="layui-inline">
+                    <input type="text" class="layui-input weadmin-input" name="cpersonname" id="cpersonname" readonly autocomplete="off">
+                </div>
+                <div class="layui-inline">
+                    <span>备注</span>
+                </div>
+                <div class="layui-inline">
+                    <input type="text" class="layui-input weadmin-input" style="width: 300px;" name="cmemo" id="cmemo" readonly autocomplete="off">
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div class="weadmin-block">
+
+        <button type="button" class="layui-btn layui-btn-sm" onclick="FnPrint()" id="FnPrint" >打印</button>
+
+    </div>
+</div>
+<div class="weadmin-body-table">
+    <table id="jqGrid"></table>
+</div>
+</body>
+<script>
+    $(function () {
+        initJqgrid();
+        var ccode = GetQueryString("ccode");
+        $.get('/st/outsourceorder/getbycode', {ccode: ccode}, function (data) {
+            if (data.result != null) {
+                var m = data.result.m;
+                var list = data.result.list;
+                $("form").setForm(m);
+                $("#jqGrid").jqGrid("setGridParam", { datatype: 'local', data: list, rowNum:list.length }).trigger("reloadGrid");
+            }
+        });
+    });
+
+    function initJqgrid() {
+        $("#jqGrid").jqGrid({
+            mtype: "GET",
+            datatype: "local",
+            colModel: [
+                {name: "modetailsid", key: true,  hidden:true },
+                {label: "编码", name: "cinvcode", width: 120, sortable: false, editable: false, align: "left"},
+                {label: "名称", name: "cinvname", width: 120, sortable: false, editable: false, align: "left"},
+                {label: "规格", name: "cinvstd", width:100, sortable: false, editable: false, align: "left"},
+                {label: "未到货数量", name: "uninqty", width:100, sortable: false, editable: false, align: "right"},
+                {label: "订单数量", name: "iquantity", width:100, sortable: false, editable: false, align: "right"},
+                {label: "已到货量", name: "inqty", width:100, sortable: false, editable: false, align: "right"},
+                {label: "计划交货日期", name: "darrivedate", width:120, sortable: false, editable: false, align: "left"},
+                {name: "barcodeId", hidden: true}
+            ],
+            viewrecords: true,
+            multiselect: false,
+            autowidth: true,
+            shrinkToFit: false,
+            autoScroll: true,
+            scrollrows: true, // 是否显示行滚动条
+            rownumbers: true,
+            rowNum: -1,
+            colMenu: false,
+            cellEdit: false,
+            userDataOnFooter:true,
+            beforeProcessing: function (data, st, xhr) {//登录失效时请求将被拦截，提示用户：未登录
+                if (data.success == false){
+                    layer.msg(data.msg);
+                }
+                return true;
+            },
+            loadBeforeSend:function (jqXHR) {
+                var token = sessionStorage.getItem("mestoken");
+                jqXHR.setRequestHeader('Authorization',  token);
+
+            }
+        });
+
+        $("#jqGrid").setGridHeight($(window).outerHeight() - $(".weadmin-body").height() - 100);
+    }
+
+    layui.use(['form', 'admin', 'jquery', 'miniTab', 'table', 'laydate', 'layer', 'tableSelect'], function() {
+        var form = layui.form,
+            admin = layui.admin,
+            $ = layui.jquery,
+            table = layui.table,
+            laydate = layui.laydate,
+            miniTab = layui.miniTab,
+            layer = layui.layer,
+            tableSelect = layui.tableSelect;
+        miniTab.listen();
+    });
+
+    function FnPrint() {
+        var ccode = $("#ccode").val();
+        var cdefine2 = $("#cdefine2").val();
+        var cvenabbname = $("#cvenabbname").val();
+        var ddate = $("#ddate").val();
+        var cpersonname = $("#cpersonname").val();
+        var cmemo = $("#cmemo").val();
+
+        var list = $("#jqGrid").jqGrid("getRowData");
+
+        var len = list.length;
+        var sumPages = new Array();
+
+        if (len < 19) {
+            sumPages.push(list);
+        } else {
+            var dList = new Array();
+            for (var i=0; i<len; i++) {
+                if (i != 0 && i % 18 == 0) {
+                    sumPages.push(dList);
+                    dList = new Array();
+                }
+                var d = list[i];
+                dList.push(d);
+            }
+            if (dList.length > 0) {
+                sumPages.push(dList);
+            }
+        }
+
+        len = sumPages.length;
+        if (len > 1) {
+            for (var i = 0; i<sumPages.length; i++) {
+                var dList = sumPages[i];
+
+                var LODOP = getLodop();
+                LODOP.PRINT_INIT("委外订单");
+                LODOP.SET_PRINT_PAGESIZE(2, 1000, '', '');
+
+                LODOP.SET_PRINT_STYLE("FontSize", 15);
+                LODOP.ADD_PRINT_TEXT("1mm", "130mm", "100mm", "5mm", "委外订单");
+                LODOP.SET_PRINT_STYLEA(0,"FontName","黑体");
+
+                var barcode = 'M-' + ccode;
+                LODOP.ADD_PRINT_BARCODE("1mm", "5mm", "50mm", "10mm", "128A", barcode);
+                LODOP.SET_PRINT_STYLEA(0, "DataCharset", "UTF-8");
+                LODOP.SET_PRINT_STYLEA(0,"ShowBarText",0);
+
+                LODOP.SET_PRINT_STYLE("FontSize", 11);
+                LODOP.ADD_PRINT_TEXT("12mm", "5mm", "100mm", "5mm", "委外订单号：" + ccode);
+                LODOP.ADD_PRINT_TEXT("12mm", "60mm", "100mm", "5mm", "委外合同号：" + cdefine2);
+                LODOP.ADD_PRINT_TEXT("12mm", "120mm", "120mm", "5mm", "委外商：" + cvenabbname);
+                LODOP.ADD_PRINT_TEXT("12mm", "240mm", "100mm", "5mm", "订单日期：" + ddate);
+
+                LODOP.ADD_PRINT_TEXT("17mm", "5mm", "100mm", "5mm", "业务员：" + cpersonname);
+                LODOP.ADD_PRINT_TEXT("17mm", "60mm", "200mm", "5mm", "备注：" + cmemo);
+
+                LODOP.ADD_PRINT_TABLE("23mm", "5mm", "285mm", "180mm", tableData(dList));
+
+                var irow = 124;
+                for (var j = 0; j < dList.length; j++) {
+                    var row = dList[j];
+                    LODOP.ADD_PRINT_BARCODE(irow + "px", "231mm", "50mm", "8mm", "128A", row.barcodeId);
+                    LODOP.SET_PRINT_STYLEA(0,"ShowBarText",0);
+                    irow += 35;
+                }
+
+                var index = i + 1;
+                LODOP.ADD_PRINT_TEXT("205mm", "132mm", "50mm", "10mm", "第" + index + "页/共" + len + "页");
+
+                LODOP.PRINT();
+            }
+        } else {
+            var LODOP = getLodop();
+            LODOP.PRINT_INIT("委外订单");
+            LODOP.SET_PRINT_PAGESIZE(2, 1000, '', '');
+
+            LODOP.SET_PRINT_STYLE("FontSize", 15);
+            LODOP.ADD_PRINT_TEXT("1mm", "130mm", "100mm", "5mm", "委外订单");
+            LODOP.SET_PRINT_STYLEA(0,"FontName","黑体");
+
+            var barcode = 'M-' + ccode;
+            LODOP.ADD_PRINT_BARCODE("1mm", "5mm", "50mm", "10mm", "128A", barcode);
+            LODOP.SET_PRINT_STYLEA(0, "DataCharset", "UTF-8");
+            LODOP.SET_PRINT_STYLEA(0,"ShowBarText",0);
+
+            LODOP.SET_PRINT_STYLE("FontSize", 11);
+            LODOP.ADD_PRINT_TEXT("12mm", "5mm", "100mm", "5mm", "委外订单号：" + ccode);
+            LODOP.ADD_PRINT_TEXT("12mm", "60mm", "100mm", "5mm", "委外合同号：" + cdefine2);
+            LODOP.ADD_PRINT_TEXT("12mm", "120mm", "120mm", "5mm", "委外商：" + cvenabbname);
+            LODOP.ADD_PRINT_TEXT("12mm", "240mm", "100mm", "5mm", "订单日期：" + ddate);
+
+            LODOP.ADD_PRINT_TEXT("17mm", "5mm", "100mm", "5mm", "业务员：" + cpersonname);
+            LODOP.ADD_PRINT_TEXT("17mm", "60mm", "200mm", "5mm", "备注：" + cmemo);
+
+            LODOP.ADD_PRINT_TABLE("23mm", "5mm", "285mm", "180mm", tableData(list));
+
+            var irow = 124;
+            for (var j = 0; j < list.length; j++) {
+                var row = list[j];
+                LODOP.ADD_PRINT_BARCODE(irow + "px", "231mm", "50mm", "8mm", "128A", row.barcodeId);
+                LODOP.SET_PRINT_STYLEA(0, "ShowBarText", 0);
+                irow += 35;
+            }
+
+            LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED",1);
+            LODOP.PREVIEW();
+        }
+    }
+
+    function tableData(detailList) {
+        var css = "<style> table,td,th {table-layout: fixed;border: 1px black solid;border-collapse: collapse;font-size: 11px;}</style><table>";
+
+        var td = "<tr style='' align='center'> " +
+            "<td style='width: 60px; height: 35px;'>编号</td>" +
+            "<td style='width:180px'>编码</td>" +
+            "<td style='width:160px'>名称</td>" +
+            "<td style='width:90px'>未到货数量</td>" +
+            "<td style='width:90px'>订单数量</td>" +
+            "<td style='width:90px'>已到货量</td>" +
+            "<td style='width:120px'>计划交期日期</td>" +
+            "<td style='width:240px'>条码</td>" +
+            "</tr>";
+
+        for (var i = 0; i < detailList.length; i++) {
+            var row = detailList[i];
+            var invCode = row.cinvcode == null ? "": row.cinvcode;
+            var invName = row.cinvname == null ? "" : row.cinvname;
+            var unInQty = row.uninqty == null ? "" : row.uninqty;
+            var iQuantity = row.iquantity == null ? "" : row.iquantity;
+            var inQty = row.inqty == null ? "" : row.inqty;
+            var darrivedate = row.darrivedate == null ? "" : row.darrivedate;
+
+            var index = i + 1;
+            td += "<tr style='' align='center'> " +
+                "<td style='width: 60px; height: 35px;'>" + index + "</td>" +
+                "<td style='width:180px'>" + invCode + "</td>" +
+                "<td style='width:160px'>" + invName + "</td>" +
+                "<td style='width:90px'>" + unInQty + "</td>" +
+                "<td style='width:90px'>" + iQuantity + "</td>" +
+                "<td style='width:90px'>" + inQty + "</td>" +
+                "<td style='width:120px'>" + darrivedate + "</td>" +
+                "<td style='width:240px'></td>" +
+                "</tr>";
+        }
+
+        var txt = css + td + "</table>";
+        return txt;
+    }
+</script>
+
+</html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.sa.mapper.OaSaleContractContrastDetailMapper">
+  <resultMap id="BaseResultMap" type="com.web.sa.entity.OaSaleContractContrastDetail">
+    <!--@mbg.generated-->
+    <!--@Table formson_0103-->
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="formmain_id" jdbcType="BIGINT" property="formmainId" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="field0016" jdbcType="VARCHAR" property="field0016" />
+    <result column="field0017" jdbcType="VARCHAR" property="field0017" />
+    <result column="field0018" jdbcType="VARCHAR" property="field0018" />
+    <result column="field0019" jdbcType="VARCHAR" property="field0019" />
+    <result column="field0020" jdbcType="VARCHAR" property="field0020" />
+    <result column="field0021" jdbcType="NUMERIC" property="field0021" />
+    <result column="field0022" jdbcType="VARCHAR" property="field0022" />
+    <result column="field0023" jdbcType="VARCHAR" property="field0023" />
+    <result column="field0024" jdbcType="VARCHAR" property="field0024" />
+    <result column="field0025" jdbcType="VARCHAR" property="field0025" />
+    <result column="field0026" jdbcType="NUMERIC" property="field0026" />
+    <result column="field0027" jdbcType="VARCHAR" property="field0027" />
+<!--    <result column="field0028" jdbcType="VARCHAR" property="field0028" />-->
+    <result column="field0029" jdbcType="VARCHAR" property="field0029" />
+    <result column="field0030" jdbcType="VARCHAR" property="field0030" />
+    <result column="field0063" jdbcType="VARCHAR" property="field0063" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, formmain_id, sort, field0016, field0017, field0018, field0019, field0020, field0021, 
+    field0022, field0023, field0024, field0025, field0026, field0027, field0028, field0029, 
+    field0030
+  </sql>
+
+  <select id="getList" parameterType="com.web.sa.entity.OaSaleContractContrastDetail" resultMap="BaseResultMap">
+    select   t.*
+    from   ${database}.dbo.formson_0111 t
+    left join ${database}.dbo.formmain_0110 t1 on t.formmain_id=t1.id
+    where t.id=#{main.id,jdbcType=BIGINT}
+  </select>
+<!--  and COALESCE(field0046,'')='' and  COALESCE(field0018,'')!=''-->
+<!--  and (t1.field0031!='' or t1.field0032 is  not null)-->
+  <update id="updateSoCode" parameterType="com.web.sa.entity.OaSaleContractContrastDetail">
+    Update ${database}.dbo.formson_0111 Set field0046= #{main.field0046,jdbcType=VARCHAR}  where ID=#{main.id,jdbcType=BIGINT}
+
+  </update>
+</mapper>

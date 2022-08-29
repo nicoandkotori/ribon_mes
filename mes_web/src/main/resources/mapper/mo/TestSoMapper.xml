@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.web.mo.mapper.TestSoMapper" >
+  <resultMap id="BaseResultMap" type="com.web.mo.entity.TestSo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="psp_code" property="pspCode" jdbcType="VARCHAR" />
+    <result column="ps_code" property="psCode" jdbcType="VARCHAR" />
+    <result column="develop" property="develop" jdbcType="VARCHAR" />
+    <result column="qty" property="qty" jdbcType="DECIMAL" />
+    <result column="qtys" property="qtys" jdbcType="DECIMAL" />
+    <result column="cur_qty" property="curQty" jdbcType="DECIMAL" />
+    <result column="po_qty" property="poQty" jdbcType="DECIMAL" />
+    <result column="ky_qty" property="kyQty" jdbcType="DECIMAL" />
+    <result column="ad_qty" property="adQty" jdbcType="DECIMAL" />
+    <result column="pro_type" property="proType" jdbcType="VARCHAR" />
+    <result column="m_inv_code" property="mInvCode" jdbcType="VARCHAR" />
+    <result column="m_inv_name" property="mInvName" jdbcType="VARCHAR" />
+    <result column="m_inv_std" property="mInvStd" jdbcType="VARCHAR" />
+    <result column="mat_size" property="matSize" jdbcType="VARCHAR" />
+    <result column="product_inv_code" property="productInvCode" jdbcType="VARCHAR" />
+    <result column="product_inv_name" property="productInvName" jdbcType="VARCHAR" />
+    <result column="part_name" property="partName" jdbcType="VARCHAR" />
+    <result column="con_no" property="conNo" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="from_no" property="fromNo" jdbcType="VARCHAR" />
+    <result column="cust_name" property="custName" jdbcType="VARCHAR" />
+    <result column="so_qty" property="soQty" jdbcType="DECIMAL" />
+    <result column="yqty" property="yqty" jdbcType="DECIMAL" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="status_id" property="statusId" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="iz_delete" property="izDelete" jdbcType="BIT" />
+    <result column="delete_user" property="deleteUser" jdbcType="VARCHAR" />
+    <result column="delete_date" property="deleteDate" jdbcType="TIMESTAMP" />
+    <result column="check_user" property="checkUser" jdbcType="VARCHAR" />
+    <result column="check_date" property="checkDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, psp_code, ps_code, develop, qty, qtys, cur_qty, po_qty, ky_qty, ad_qty, pro_type, 
+    m_inv_code, m_inv_name, m_inv_std, mat_size, product_inv_code, product_inv_name,
+    part_name, con_no, order_no, from_no, cust_name, so_qty, yqty, memo, status_id, create_user, 
+    create_date, update_user, update_date, iz_delete, delete_user, delete_date, check_user, 
+    check_date
+  </sql>
+
+  <delete id="deleteByUser" parameterType="java.lang.String" >
+    delete from production_test_so
+    where create_user = #{createUser,jdbcType=VARCHAR}
+  </delete>
+
+  <update id="updatePartName1" parameterType="com.web.mo.entity.TestSo" >
+    update production_test_so
+    set part_name=(SUBSTRING((SUBSTRING(develop,LEN(product_inv_code)+3,len(develop))),1,charindex('->',(SUBSTRING(develop,LEN(product_inv_code)+3,len(develop))))-1)) where len(develop )-len(replace(develop,'>',''))>1
+    and  create_user = #{createUser,jdbcType=VARCHAR}
+  </update>
+  <update id="updatePartName2" parameterType="com.web.mo.entity.TestSo" >
+   update production_test_so
+   set part_name=(SUBSTRING(develop,LEN(product_inv_code)+3,len(develop)))  where len(develop )-len(replace(develop,'>',''))=1
+   and  create_user = #{createUser,jdbcType=VARCHAR}
+  </update>
+  <update id="updatePartName3" parameterType="com.web.mo.entity.TestSo" >
+   update production_test_so set part_name=inv.cInvName from production_test_so te left join ${u8DB}.dbo.Inventory inv on te.part_name=inv.cInvCode
+    where create_user = #{createUser,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateMatSize1" parameterType="com.web.mo.entity.TestSo" >
+    update t1 set t1.m_inv_code=t2.ps_code,t1.memo=t2.memo from production_test_so t1 inner join production_test_so t2 on t1.ps_code=t2.psp_code and t1.develop=SUBSTRING(t2.develop,1,LEN(t1.develop)) where t2.pro_type='原材料'
+    and  t1.create_user = #{createUser,jdbcType=VARCHAR} and t2.create_user = #{createUser,jdbcType=VARCHAR}
+  </update>
+  <update id="updateMatSize2" parameterType="com.web.mo.entity.TestSo" >
+   update production_test_so set m_inv_name=inv.cInvName,m_inv_std=inv.cinvstd from production_test_so inner join ${u8DB}.dbo.Inventory inv on production_test_so.m_inv_code=inv.cInvCode
+    where create_user = #{createUser,jdbcType=VARCHAR}
+  </update>
+<!--  <update id="updateMatSize3" parameterType="com.web.mo.entity.TestSo" >-->
+<!--   update production_test_so set mat_size=op.define22  from production_test_so     LEFT JOIN ${u8DB}.dbo.Bas_Part bas ON bas.invCode=production_test_so.ps_code left join  ${u8DB}.dbo.bom_opcomponent op on op.ComponentId=bas.PartId-->
+<!--    where create_user = #{createUser,jdbcType=VARCHAR}-->
+<!--  </update>-->
+    <update id="updateMatSize3" parameterType="com.web.mo.entity.TestSo" >
+        update production_test_so set mat_size=
+        (   select top 1 op.define22
+            from  ${u8DB}.dbo.Bas_Part bas
+            left join  ${u8DB}.dbo.bom_opcomponent op on op.ComponentId=bas.PartId
+            left join  ${u8DB}.dbo.bom_parent parent on parent.bomid=op.bomid
+            left join  ${u8DB}.dbo.bas_part parentpart on parentpart.partid=parent.parentid
+            where production_test_so.ps_code=parentpart.invCode
+           and production_test_so.m_inv_code=bas.invCode
+
+        )
+        where create_user = #{createUser,jdbcType=VARCHAR}
+    </update>
+
+  <insert id="insertTestSoList" parameterType="com.web.mo.entity.TestSo" >
+    insert into production_test_so_list (id, psp_code, ps_code,
+    develop, qty, qtys,
+    cur_qty, po_qty, ky_qty,
+    ad_qty, pro_type, m_inv_code,
+    m_inv_name, m_inv_std, mat_size,
+    product_inv_code, product_inv_name, part_name,
+    con_no, order_no, from_no,
+    cust_name, so_qty, memo,
+    status_id, create_user, create_date,
+    update_user, update_date, iz_delete,
+    delete_user, delete_date, yqty,
+    check_user, check_date)
+   select id, psp_code, ps_code,
+    develop, qty, qtys,
+    cur_qty, po_qty, ky_qty,
+    ad_qty, pro_type, m_inv_code,
+    m_inv_name, m_inv_std, mat_size,
+    product_inv_code, product_inv_name, part_name,
+    con_no, order_no, from_no,
+    cust_name, so_qty, memo,
+    status_id, create_user, create_date,
+    update_user, update_date, iz_delete,
+    delete_user, delete_date, yqty,
+    check_user, check_date from production_test_so where  create_user = #{main.createUser,jdbcType=VARCHAR}
+  </insert>
+
+
+</mapper>

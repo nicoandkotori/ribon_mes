@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.6.3/css/layui.css" media="all">
+  
+    <link rel="stylesheet" type="text/css" href="../css/fine_content.css" />
+ 
+    <link rel="stylesheet" href="../css/public.css" media="all">
+
+
+    <!-- jqgrid -->
+    <link rel="stylesheet" href='../lib/jqgrid/css/jquery-ui.theme.min.css'/>
+    <link rel="stylesheet" href='../lib/jqgrid/css/ui.jqgrid.css'/>
+    <link rel="stylesheet" href="../css/fine_jqgrid.css">
+
+    <!--jquery-->
+    <script src='../lib/jquery-3.4.1/jquery-3.4.1.min.js'></script>
+     <!--jqgrid-->
+    <script src='../lib/jqgrid/js/i18n/grid.locale-cn.js'></script>
+    <script src='../lib/jqgrid/js/jquery-ui.min.js'></script>
+    <script src='../lib/jqgrid/js/jquery.jqGrid.js'></script>
+</head>
+<body class="fine_body"  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="fine_filter layui-form layui-form-pane">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">编码</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="sex" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="sex" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">客户类型</label>
+                    <div class="layui-input-inline">
+                        <select name="interest" lay-filter="aihao">
+                            <option value=""></option>
+                            <option value="0">美洲</option>
+                            <option value="1" >亚洲</option>
+                            <option value="2">欧洲</option>
+                     
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">联系人</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="classify" autocomplete="off" class="layui-input">
+                    </div>
+                </div> 
+                <div id="div_search_1"  class="layui-inline">
+                    <button type="submit" class="layui-btn   layui-btn-sm layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                    <button type="submit" class="layui-btn   layui-btn-sm layui-btn-primary"  lay-submit lay-filter="more-btn"><i class="layui-icon layui-icon-more" ></i> 更 多</button>
+                </div>
+            </div>
+             
+        </div>
+        
+        <div id="filter_more" class="fine_filter layui-form layui-form-pane">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">地址类型</label>
+                    <div class="layui-input-inline">
+                        
+                        <div class="layui-input-block">
+                            <select name="interest" lay-filter="aihao">
+                                <option value=""></option>
+                                <option value="0">户籍地址</option>
+                                <option value="1" >公司地址</option>
+                                <option value="2">现住地址</option>
+                         
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">地址</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="sex" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">证件编号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="city" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">开户账号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="classify" autocomplete="off" class="layui-input">
+                    </div>
+                </div> 
+                <div id="div_search_2" class="layui-inline" > 
+                    <button type="submit" class="layui-btn   layui-btn-sm layui-btn-primary"  lay-submit lay-filter="more-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                    <button type="submit" class="layui-btn   layui-btn-sm layui-btn-primary"  lay-submit lay-filter="less-btn"><i class="layui-icon layui-icon-up" ></i> 精 简</button>
+                </div>
+            </div>
+             
+        </div>
+       
+    </div>
+    <div class="fine_blank_10"></div>
+    <div class="layuimini-main">
+        <div class="fine_table_tool">
+           
+            <button type="button" class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon"></i>增行</button>
+            <button type="button" class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon"></i>编辑</button>
+            <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"><i class="layui-icon"></i> 添加 </button>
+            <button class="layui-btn layui-btn-sm layui-btn-primary data-delete-btn" lay-event="delete"><i class="layui-icon"></i> 删除 </button>
+        </div>
+        <div class="fine_table"> 
+            <table id="jqGrid"></table>
+            <div id="jqGridPager"></div>
+        </div>
+    </div>
+    
+        
+
+   
+</div>
+<script src="../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script>
+        $(function () {
+        initJqgrid();
+        $("#filter_more").hide();
+        //alert(parent.document.getElementById('layuiminiHomeTabIframe').style.height = document.body.scrollHeight);
+    });
+
+    function initJqgrid() {
+        $("#jqGrid").jqGrid({
+            mtype: "GET",
+            datatype: "json",
+            url : "../api/jqgrid.json",
+            colModel: [
+                {label: "客商编号", name: "custCode", width: 120},
+                {label: "父级客商编号", name: "parentCustCode", width: 120},
+                {label: "客商名称", name: "custName", width: 200},
+              
+                {label: "联系人", name: "person", width: 120},
+                {label: "联系电话", name: "tel", width: 120},
+                {label: "客商类型", name: "CSTKIND", width: 120},
+                {label: "地址类型", name: "ADDRESSTYPE", width: 120},
+                {label: "证照编号", name: "License", width: 120},
+                {label: "开户总行名称", name: "BankName", width: 120,hidden:true},
+                {label: "开户行名称", name: "BankBranchName", width: 120,hidden:true},
+                {label: "开户账号", name: "BankAccountNo", width: 120,hidden:true},
+            ],
+            viewrecords: true,
+            multiselect: false,
+            autowidth: true,
+            shrinkToFit: false,
+            autoScroll: true,
+            scrollrows: true, // 是否显示行滚动条
+            rownumbers: true,
+            rowNum: -1,
+            rowList: [20, 50, 100],
+            colMenu: false,
+            cellEdit: false,
+           // pager: "#jqGridPager",
+            cmTemplate:{sortable: false, align: "center"},
+            beforeProcessing: function (data, st, xhr) {//登录失效时请求将被拦截，提示用户：未登录
+               /* if (data.success == false){
+                    layer.msg(data.errormsg);
+                }
+                return true;*/
+            },
+            loadBeforeSend:function (jqXHR) {
+               /* var token = sessionStorage.getItem("mestoken");
+                jqXHR.setRequestHeader('Authorization',  token);*/
+            },
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+
+            },
+            loadComplete:function(response){
+            }
+        });
+        $("#jqGrid").setGridHeight($(window).outerHeight() - $(".layuimini-container").height() - 50-$("#jqGridPager").height());
+        // alert($(".inner_page_body").height() );
+        // alert($(".layuimini-container").height() );
+        
+    }
+
+
+    
+    layui.use(['form', 'table'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table;
+
+        
+
+        // 监听搜索操作
+        form.on('submit(data-search-btn)', function (data) {
+            var result = JSON.stringify(data.field);
+            layer.alert(result, {
+                title: '最终的搜索信息'
+            });
+
+            //执行搜索重载
+            table.reload('currentTableId', {
+                page: {
+                    curr: 1
+                }
+                , where: {
+                    searchParams: result
+                }
+            }, 'data');
+
+            return false;
+        });
+
+        ///更多 的搜索
+        form.on('submit(more-btn)', function (data) {
+           
+            $("#div_search_1").hide();
+
+            //$("#demo").attr("style","display:block;");//显示div
+            $("#filter_more").show();
+
+            return false;
+        });
+
+        ///更多
+        form.on('submit(more-search-btn)', function (data) {
+            var result = JSON.stringify(data.field);
+            layer.alert(result, {
+                title: '最终的搜索信息'
+            });
+
+            //执行搜索重载
+            table.reload('currentTableId', {
+                page: {
+                    curr: 1
+                }
+                , where: {
+                    searchParams: result
+                }
+            }, 'data');
+
+            return false;
+        });
+
+         ///精简 的搜索
+         form.on('submit(less-btn)', function (data) {
+           
+           $("#div_search_1").show();
+           $("#filter_more").hide();
+
+           return false;
+       });
+
+
+
+        
+        /**
+         * toolbar监听事件
+         */
+        table.on('toolbar(currentTableFilter)', function (obj) {
+            if (obj.event === 'add') {  // 监听添加操作
+                var index = layer.open({
+                    title: '添加用户',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: '../page/table/add.html',
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+            } else if (obj.event === 'delete') {  // 监听删除操作
+                var checkStatus = table.checkStatus('currentTableId')
+                    , data = checkStatus.data;
+                layer.alert(JSON.stringify(data));
+            }
+        });
+
+        //监听表格复选框选择
+        table.on('checkbox(currentTableFilter)', function (obj) {
+            console.log(obj)
+        });
+
+        table.on('tool(currentTableFilter)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'edit') {
+
+                var index = layer.open({
+                    title: '编辑用户',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: '../page/table/edit.html',
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+                return false;
+            } else if (obj.event === 'delete') {
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del();
+                    layer.close(index);
+                });
+            }
+        });
+
+    });
+</script>
+
+</body>
+</html>

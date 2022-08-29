@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/mes_web/mes_web.iml" filepath="$PROJECT_DIR$/mes_web/mes_web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ribon_mes.iml" filepath="$PROJECT_DIR$/ribon_mes.iml" />
+    </modules>
+  </component>
+</project>

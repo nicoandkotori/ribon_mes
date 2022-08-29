@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.basicinfo.mapper.DepartmentMapper">
+  <resultMap id="BaseResultMap" type="com.web.basicinfo.entity.Department">
+    <!--@mbg.generated-->
+    <!--@Table Department-->
+    <id column="cDepCode" jdbcType="VARCHAR" property="cdepcode" />
+    <result column="bDepEnd" jdbcType="BIT" property="bdepend" />
+    <result column="cDepName" jdbcType="VARCHAR" property="cdepname" />
+    <result column="iDepGrade" jdbcType="TINYINT" property="idepgrade" />
+    <result column="cDepPerson" jdbcType="VARCHAR" property="cdepperson" />
+    <result column="cDepProp" jdbcType="VARCHAR" property="cdepprop" />
+    <result column="cDepPhone" jdbcType="VARCHAR" property="cdepphone" />
+    <result column="cDepAddress" jdbcType="VARCHAR" property="cdepaddress" />
+    <result column="cDepMemo" jdbcType="VARCHAR" property="cdepmemo" />
+    <result column="iCreLine" jdbcType="FLOAT" property="icreline" />
+    <result column="cCreGrade" jdbcType="VARCHAR" property="ccregrade" />
+    <result column="iCreDate" jdbcType="INTEGER" property="icredate" />
+    <result column="cOfferGrade" jdbcType="VARCHAR" property="coffergrade" />
+    <result column="iOfferRate" jdbcType="FLOAT" property="iofferrate" />
+    <result column="pubufts" jdbcType="TIMESTAMP" property="pubufts" />
+    <result column="bShop" jdbcType="BIT" property="bshop" />
+    <result column="cDepGUID" jdbcType="OTHER" property="cdepguid" />
+    <result column="dDepBeginDate" jdbcType="TIMESTAMP" property="ddepbegindate" />
+    <result column="dDepEndDate" jdbcType="TIMESTAMP" property="ddependdate" />
+    <result column="vAuthorizeDoc" jdbcType="VARCHAR" property="vauthorizedoc" />
+    <result column="vAuthorizeUnit" jdbcType="VARCHAR" property="vauthorizeunit" />
+    <result column="cDepFax" jdbcType="VARCHAR" property="cdepfax" />
+    <result column="cDepPostCode" jdbcType="VARCHAR" property="cdeppostcode" />
+    <result column="cDepEmail" jdbcType="VARCHAR" property="cdepemail" />
+    <result column="cDepType" jdbcType="VARCHAR" property="cdeptype" />
+    <result column="bInheritDutyBasic" jdbcType="INTEGER" property="binheritdutybasic" />
+    <result column="bInheritWorkCalendar" jdbcType="INTEGER" property="binheritworkcalendar" />
+    <result column="cDutyCode" jdbcType="VARCHAR" property="cdutycode" />
+    <result column="cRestCode" jdbcType="VARCHAR" property="crestcode" />
+    <result column="bIM" jdbcType="BIT" property="bim" />
+    <result column="cDepNameEn" jdbcType="VARCHAR" property="cdepnameen" />
+    <result column="bRetail" jdbcType="BIT" property="bretail" />
+    <result column="cDepFullName" jdbcType="VARCHAR" property="cdepfullname" />
+    <result column="iDepOrder" jdbcType="INTEGER" property="ideporder" />
+    <result column="cDepLeader" jdbcType="VARCHAR" property="cdepleader" />
+    <result column="dModifyDate" jdbcType="TIMESTAMP" property="dmodifydate" />
+    <result column="cESpaceMembID" jdbcType="VARCHAR" property="cespacemembid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    cDepCode, bDepEnd, cDepName, iDepGrade, cDepPerson, cDepProp, cDepPhone, cDepAddress, 
+    cDepMemo, iCreLine, cCreGrade, iCreDate, cOfferGrade, iOfferRate, pubufts, bShop, 
+    cDepGUID, dDepBeginDate, dDepEndDate, vAuthorizeDoc, vAuthorizeUnit, cDepFax, cDepPostCode, 
+    cDepEmail, cDepType, bInheritDutyBasic, bInheritWorkCalendar, cDutyCode, cRestCode, 
+    bIM, cDepNameEn, bRetail, cDepFullName, iDepOrder, cDepLeader, dModifyDate, cESpaceMembID
+  </sql>
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.basicinfo.entity.Department">
+    <!--@mbg.generated-->
+    update Department
+    <set>
+      <if test="bdepend != null">
+        bDepEnd = #{bdepend,jdbcType=BIT},
+      </if>
+      <if test="cdepname != null">
+        cDepName = #{cdepname,jdbcType=VARCHAR},
+      </if>
+      <if test="idepgrade != null">
+        iDepGrade = #{idepgrade,jdbcType=TINYINT},
+      </if>
+      <if test="cdepperson != null">
+        cDepPerson = #{cdepperson,jdbcType=VARCHAR},
+      </if>
+      <if test="cdepprop != null">
+        cDepProp = #{cdepprop,jdbcType=VARCHAR},
+      </if>
+      <if test="cdepphone != null">
+        cDepPhone = #{cdepphone,jdbcType=VARCHAR},
+      </if>
+      <if test="cdepaddress != null">
+        cDepAddress = #{cdepaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cdepmemo != null">
+        cDepMemo = #{cdepmemo,jdbcType=VARCHAR},
+      </if>
+      <if test="icreline != null">
+        iCreLine = #{icreline,jdbcType=FLOAT},
+      </if>
+      <if test="ccregrade != null">
+        cCreGrade = #{ccregrade,jdbcType=VARCHAR},
+      </if>
+      <if test="icredate != null">
+        iCreDate = #{icredate,jdbcType=INTEGER},
+      </if>
+      <if test="coffergrade != null">
+        cOfferGrade = #{coffergrade,jdbcType=VARCHAR},
+      </if>
+      <if test="iofferrate != null">
+        iOfferRate = #{iofferrate,jdbcType=FLOAT},
+      </if>
+      <if test="pubufts != null">
+        pubufts = #{pubufts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bshop != null">
+        bShop = #{bshop,jdbcType=BIT},
+      </if>
+      <if test="cdepguid != null">
+        cDepGUID = #{cdepguid,jdbcType=OTHER},
+      </if>
+      <if test="ddepbegindate != null">
+        dDepBeginDate = #{ddepbegindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ddependdate != null">
+        dDepEndDate = #{ddependdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vauthorizedoc != null">
+        vAuthorizeDoc = #{vauthorizedoc,jdbcType=VARCHAR},
+      </if>
+      <if test="vauthorizeunit != null">
+        vAuthorizeUnit = #{vauthorizeunit,jdbcType=VARCHAR},
+      </if>
+      <if test="cdepfax != null">
+        cDepFax = #{cdepfax,jdbcType=VARCHAR},
+      </if>
+      <if test="cdeppostcode != null">
+        cDepPostCode = #{cdeppostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="cdepemail != null">
+        cDepEmail = #{cdepemail,jdbcType=VARCHAR},
+      </if>
+      <if test="cdeptype != null">
+        cDepType = #{cdeptype,jdbcType=VARCHAR},
+      </if>
+      <if test="binheritdutybasic != null">
+        bInheritDutyBasic = #{binheritdutybasic,jdbcType=INTEGER},
+      </if>
+      <if test="binheritworkcalendar != null">
+        bInheritWorkCalendar = #{binheritworkcalendar,jdbcType=INTEGER},
+      </if>
+      <if test="cdutycode != null">
+        cDutyCode = #{cdutycode,jdbcType=VARCHAR},
+      </if>
+      <if test="crestcode != null">
+        cRestCode = #{crestcode,jdbcType=VARCHAR},
+      </if>
+      <if test="bim != null">
+        bIM = #{bim,jdbcType=BIT},
+      </if>
+      <if test="cdepnameen != null">
+        cDepNameEn = #{cdepnameen,jdbcType=VARCHAR},
+      </if>
+      <if test="bretail != null">
+        bRetail = #{bretail,jdbcType=BIT},
+      </if>
+      <if test="cdepfullname != null">
+        cDepFullName = #{cdepfullname,jdbcType=VARCHAR},
+      </if>
+      <if test="ideporder != null">
+        iDepOrder = #{ideporder,jdbcType=INTEGER},
+      </if>
+      <if test="cdepleader != null">
+        cDepLeader = #{cdepleader,jdbcType=VARCHAR},
+      </if>
+      <if test="dmodifydate != null">
+        dModifyDate = #{dmodifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cespacemembid != null">
+        cESpaceMembID = #{cespacemembid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cDepCode = #{cdepcode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.web.basicinfo.entity.Department">
+    <!--@mbg.generated-->
+    update Department
+    set bDepEnd = #{bdepend,jdbcType=BIT},
+      cDepName = #{cdepname,jdbcType=VARCHAR},
+      iDepGrade = #{idepgrade,jdbcType=TINYINT},
+      cDepPerson = #{cdepperson,jdbcType=VARCHAR},
+      cDepProp = #{cdepprop,jdbcType=VARCHAR},
+      cDepPhone = #{cdepphone,jdbcType=VARCHAR},
+      cDepAddress = #{cdepaddress,jdbcType=VARCHAR},
+      cDepMemo = #{cdepmemo,jdbcType=VARCHAR},
+      iCreLine = #{icreline,jdbcType=FLOAT},
+      cCreGrade = #{ccregrade,jdbcType=VARCHAR},
+      iCreDate = #{icredate,jdbcType=INTEGER},
+      cOfferGrade = #{coffergrade,jdbcType=VARCHAR},
+      iOfferRate = #{iofferrate,jdbcType=FLOAT},
+      pubufts = #{pubufts,jdbcType=TIMESTAMP},
+      bShop = #{bshop,jdbcType=BIT},
+      cDepGUID = #{cdepguid,jdbcType=OTHER},
+      dDepBeginDate = #{ddepbegindate,jdbcType=TIMESTAMP},
+      dDepEndDate = #{ddependdate,jdbcType=TIMESTAMP},
+      vAuthorizeDoc = #{vauthorizedoc,jdbcType=VARCHAR},
+      vAuthorizeUnit = #{vauthorizeunit,jdbcType=VARCHAR},
+      cDepFax = #{cdepfax,jdbcType=VARCHAR},
+      cDepPostCode = #{cdeppostcode,jdbcType=VARCHAR},
+      cDepEmail = #{cdepemail,jdbcType=VARCHAR},
+      cDepType = #{cdeptype,jdbcType=VARCHAR},
+      bInheritDutyBasic = #{binheritdutybasic,jdbcType=INTEGER},
+      bInheritWorkCalendar = #{binheritworkcalendar,jdbcType=INTEGER},
+      cDutyCode = #{cdutycode,jdbcType=VARCHAR},
+      cRestCode = #{crestcode,jdbcType=VARCHAR},
+      bIM = #{bim,jdbcType=BIT},
+      cDepNameEn = #{cdepnameen,jdbcType=VARCHAR},
+      bRetail = #{bretail,jdbcType=BIT},
+      cDepFullName = #{cdepfullname,jdbcType=VARCHAR},
+      iDepOrder = #{ideporder,jdbcType=INTEGER},
+      cDepLeader = #{cdepleader,jdbcType=VARCHAR},
+      dModifyDate = #{dmodifydate,jdbcType=TIMESTAMP},
+      cESpaceMembID = #{cespacemembid,jdbcType=VARCHAR}
+    where cDepCode = #{cdepcode,jdbcType=VARCHAR}
+  </update>
+</mapper>

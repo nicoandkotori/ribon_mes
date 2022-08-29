@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.st.mapper.OutsourceOrderMapper">
+
+  <select id="getList" resultType="com.web.st.dto.OutsourceOrderDTO">
+    select m.MOID, m.cCode, m.cDefine2, m.dDate, ven.cVenAbbName, dep.cDepName, m.cMemo, p.cPersonName
+    from OM_MoMain m
+    left join Vendor ven on m.cVenCode = ven.cVenCode
+    left join Department dep on m.cDepCode = dep.cDepCode
+    left join Person p on m.cPersonCode = p.cPersonCode
+    where m.cVerifier is not null and m.cVerifier != ''
+    <if test="query.ccode != null and query.ccode != ''">
+      and m.cCode like '%' + #{query.ccode} + '%'
+    </if>
+    <if test="query.cvenabbname != null and query.cvenabbname != ''">
+      and ven.cVenAbbName like '%' + #{query.cvenabbname} + '%'
+    </if>
+    <if test="query.cdefine2 != null and query.cdefine2 != ''">
+      and m.cDefine2 like '%' + #{query.cdefine2} + '%'
+    </if>
+    <if test="query.dateStart != null">
+      and m.dDate >= #{query.dateStart}
+    </if>
+    <if test="query.dateEnd != null">
+      and m.dDate &lt; #{query.dateEnd}
+    </if>
+    order by m.cCode desc
+  </select>
+
+  <select id="getByCode" parameterType="java.lang.String" resultType="com.web.st.dto.OutsourceOrderDTO">
+    select m.MOID, m.cCode, m.cDefine2, m.dDate, ven.cVenAbbName, m.cDepCode, dep.cDepName,
+    p.cPersonName, m.cMemo
+    from OM_MoMain m
+    left join Vendor ven on m.cVenCode = ven.cVenCode
+    left join Department dep on m.cDepCode = dep.cDepCode
+    left join Person p on m.cPersonCode = p.cPersonCode
+    where m.cVerifier is not null and m.cVerifier != ''
+    and m.cCode = #{ccode}
+  </select>
+
+  <select id="getListByCode" parameterType="java.lang.String" resultType="com.web.st.dto.OutsourceOrderDTO">
+    select d.MODetailsID, d.cInvCode, inv.cInvName, inv.cInvStd, d.iQuantity, d.dArriveDate, inv.i_id as iid,
+    (select sum(iQuantity) from Rdrecords01 where iOMoDID = d.MODetailsID) as inQty,
+    (select sum(iQuantity) from CurrentStock where cWhCode = '01' and cInvCode = d.cInvCode) as curQty
+    from OM_MoMain m
+    left join OM_MODetails d on m.MOID = d.MOID
+    left join Inventory inv on d.cInvCode = inv.cInvCode
+    where m.cVerifier is not null and m.cVerifier != ''
+    and m.cCode = #{ccode}
+  </select>
+
+  <select id="getDetail" resultType="com.web.st.dto.OutsourceOrderDTO">
+    select t.MODetailsID, t.cInvCode, t.cInvName, t.cInvStd,
+    t.iQuantity - case when t.inQty is null then 0 else t.inQty end as uninqty
+    from (
+    select d.MODetailsID, d.cInvCode, inv.cInvName, inv.cInvStd, d.iQuantity,
+    (select sum(iQuantity) from Rdrecords01 where iOMoDID = d.MODetailsID) as inQty
+    from OM_MoMain m
+    left join OM_MODetails d on m.MOID = d.MOID
+    left join Inventory inv on d.cInvCode = inv.cInvCode
+    where m.cVerifier is not null and m.cVerifier != ''
+    and m.cCode = #{ccode} and inv.i_id = #{barcode}) t
+    where t.iQuantity - case when t.inQty is null then 0 else t.inQty end > 0
+  </select>
+</mapper>

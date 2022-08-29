@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.web.system.mapper.MenuPdaMapper" >
+  <resultMap id="BaseResultMap" type="com.web.system.entity.MenuPda" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pda_menu_code" property="menuCode" jdbcType="VARCHAR" />
+    <result column="parent_pda_menu_code" property="parentMenuCode" jdbcType="VARCHAR" />
+    <result column="pda_menu_name" property="menuName" jdbcType="VARCHAR" />
+    <result column="pda_menu_order" property="menuOrder" jdbcType="INTEGER" />
+    <result column="pda_menu_url" property="menuUrl" jdbcType="VARCHAR" />
+    <result column="pda_menu_icon" property="menuIcon" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="PdaResultMap" type="com.web.system.dto.MenuPdaVM" >
+
+    <result column="pda_menu_name" property="pdaMenuName" jdbcType="VARCHAR" />
+    <result column="pda_menu_url" property="pdaMenuUrl" jdbcType="VARCHAR" />
+    <result column="pda_menu_icon" property="pdaMenuIcon" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, pda_menu_code, parent_pda_menu_code, pda_menu_name, pda_menu_order, pda_menu_url, 
+    pda_menu_icon
+  </sql>
+
+  <select id="listByRoleId"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from sys_menu_pda
+    <where>
+
+      <if test="roleId != null">
+        and id in (
+        select menu_id from sys_role_menu_pda
+        where role_id = #{roleId}
+        )
+      </if>
+    </where>
+    ORDER BY pda_menu_code,pda_menu_order
+  </select>
+  <select id="selectAuthMenuByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+
+    select <include refid="Base_Column_List" /> from sys_menu_pda a
+    <where>
+
+      <if test="userId != null and userId!=''">
+        AND id in (
+        select menu_id from sys_role_menu_pda rm left join sys_role_user_pda ru on rm.role_id=ru.role_id
+        where user_id = #{userId,jdbcType=VARCHAR}
+
+        )
+      </if>
+    </where>
+
+    ORDER BY pda_menu_code,pda_menu_order
+
+  </select>
+
+
+  <select id="selectByMenu" parameterType="Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from sys_menu_pda
+    <where>
+      <if test="parentCode != null">
+        parent_pda_menu_code = #{parentCode,jdbcType=NVARCHAR}
+      </if>
+      <if test="userId != null">
+        and Id in (
+          select menu_id from sys_role_menu_pda
+          where role_id in (
+          select role_id from sys_role_user_pda
+          where UserID = #{userId,jdbcType=NVARCHAR}
+          )
+        )
+      </if>
+    </where>
+    order BY pda_menu_order
+  </select>
+  <select id="selectParentMenuList" parameterType="java.lang.String" resultMap="BaseResultMap">
+    with cte as
+    (
+    select id,pda_menu_code,pda_menu_name,pda_menu_order,parent_pda_menu_code,pda_menu_url,pda_menu_icon from sys_menu_pda a
+    <where>
+      <if test="userId != null">
+        id in (
+        select MenuId from sys_role_menu_pda
+        where role_id in (
+          select role_id from sys_role_user
+          where UserID = #{userId,jdbcType=NVARCHAR}
+          )
+        )
+      </if>
+    </where>
+    union all
+    select k.id,k.pda_menu_code,k.pda_menu_name,k.pda_menu_order,k.parent_pda_menu_code,k.pda_menu_url,k.pda_menu_icon
+    from sys_menu_pda k inner join cte
+    c on c.parent_pda_menu_code = k.pda_menu_code
+
+    )select distinct * from cte where parent_pda_menu_code is null ORDER BY pda_menu_code
+  </select>
+  <select id="getPdaMenu" parameterType="Map" resultMap="PdaResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from sys_menu_pda
+    <where>
+      parent_pda_menu_code=(select pda_menu_code from sys_menu_pda where pda_menu_name=#{menuName,jdbcType=NVARCHAR})
+      <if test="userId != null">
+        AND  id in (
+        select menu_id from sys_role_menu_pda
+        where role_id in (
+          select role_id from sys_role_user_pda
+          where User_Id=#{userId,jdbcType=NVARCHAR}
+          )
+        )
+      </if>
+    </where>
+    ORDER by pda_menu_order
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_menu_pda
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_menu_pda
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+</mapper>

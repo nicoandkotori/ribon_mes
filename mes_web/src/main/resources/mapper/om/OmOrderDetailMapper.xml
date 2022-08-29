@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.om.mapper.OmOrderDetailMapper">
+  <resultMap id="BaseResultMap" type="com.web.om.entity.OmOrderDetail">
+    <!--@mbg.generated-->
+    <!--@Table om_order_detail-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="main_id" jdbcType="VARCHAR" property="mainId" />
+    <result column="product_inv_code" jdbcType="VARCHAR" property="productInvCode" />
+    <result column="product_inv_name" jdbcType="VARCHAR" property="productInvName" />
+    <result column="product_inv_std" jdbcType="VARCHAR" property="productInvStd" />
+    <result column="product_inv_unit" jdbcType="VARCHAR" property="productInvUnit" />
+    <result column="product_qty" jdbcType="DECIMAL" property="productQty" />
+    <result column="material_price" jdbcType="DECIMAL" property="materialPrice" />
+    <result column="material_amount" jdbcType="DECIMAL" property="materialAmount" />
+    <result column="work_price" jdbcType="DECIMAL" property="workPrice" />
+    <result column="total_work_amount" jdbcType="DECIMAL" property="totalWorkAmount" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="plan_start_date" jdbcType="TIMESTAMP" property="planStartDate" />
+    <result column="plan_end_date" jdbcType="TIMESTAMP" property="planEndDate" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="iz_delete" jdbcType="INTEGER" property="izDelete" />
+    <result column="delete_user" jdbcType="VARCHAR" property="deleteUser" />
+    <result column="delete_date" jdbcType="TIMESTAMP" property="deleteDate" />
+    <result column="u8_mo_detail_id" jdbcType="INTEGER" property="u8MoDetailId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, main_id, product_inv_code, product_inv_name, product_inv_std, product_inv_unit, 
+    product_qty, material_price, material_amount, work_price, total_work_amount, price, 
+    amount, plan_start_date, plan_end_date, create_user, create_date, update_user, update_date, 
+    iz_delete, delete_user, delete_date, u8_mo_detail_id
+  </sql>
+</mapper>

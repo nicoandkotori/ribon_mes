@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.ar.mapper.CostSimReportMapper">
+  <resultMap id="BaseResultMap" type="com.web.ar.entity.CostSimReport">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="iyear" jdbcType="INTEGER" property="iyear" />
+    <result column="imonth" jdbcType="INTEGER" property="imonth" />
+    <result column="cust_name" jdbcType="VARCHAR" property="custName" />
+    <result column="cust_code" jdbcType="VARCHAR" property="custCode" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="inv_code" jdbcType="VARCHAR" property="invCode" />
+    <result column="inv_name" jdbcType="VARCHAR" property="invName" />
+    <result column="inv_std" jdbcType="VARCHAR" property="invStd" />
+    <result column="inv_type" jdbcType="VARCHAR" property="invType" />
+    <result column="wh_name" jdbcType="VARCHAR" property="whName" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="iqty" jdbcType="DECIMAL" property="iqty" />
+    <result column="inum" jdbcType="DECIMAL" property="inum" />
+    <result column="kqty" jdbcType="DECIMAL" property="kqty" />
+    <result column="knum" jdbcType="DECIMAL" property="knum" />
+    <result column="mqty" jdbcType="DECIMAL" property="mqty" />
+    <result column="mnum" jdbcType="DECIMAL" property="mnum" />
+    <result column="wnum" jdbcType="DECIMAL" property="wnum" />
+    <result column="wmny" jdbcType="DECIMAL" property="wmny" />
+    <result column="omum" jdbcType="DECIMAL" property="omum" />
+    <result column="tolnum" jdbcType="DECIMAL" property="tolnum" />
+    <result column="iprice" jdbcType="DECIMAL" property="iprice" />
+
+    <result column="wtol" jdbcType="DECIMAL" property="wtol" />
+    <result column="sale_amount" jdbcType="DECIMAL" property="saleAmount" />
+
+
+
+    <result column="inv_codes" jdbcType="VARCHAR" property="invCodes" />
+    <result column="inv_names" jdbcType="VARCHAR" property="invNames" />
+    <result column="inv_stds" jdbcType="VARCHAR" property="invStds" />
+    <result column="status_id" jdbcType="VARCHAR" property="statusId" />
+    <result column="cprice" jdbcType="DECIMAL" property="cprice" />
+    <result column="cmonery" jdbcType="DECIMAL" property="cmonery" />
+    <result column="cInvDefine3" jdbcType="DECIMAL" property="cinvdefine3" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, iyear, imonth, cust_name, cust_code, order_no, inv_code, inv_name, inv_std, inv_type, 
+    wh_name, unit, iqty, inum, kqty, knum, mqty, mnum, wnum, wmny, omum, tolnum, iprice
+  </sql>
+  <!--and  t.iyear=#{iyear,jdbcType=INTEGER} and  t.imonth=#{imonth,jdbcType=INTEGER}-->
+  <select id="getList" resultMap="BaseResultMap" parameterType="com.web.ar.entity.CostSimReport" >
+    select t.*,COALESCE(wnum,0)+COALESCE(wmny,0) wtol,t1.sale_amount
+    from ar_cost_sim_report t left join ar_cost_sim_price t1 on t.iyear=t1.iyear and t.imonth=t1.imonth and t.cust_code=t1.cust_code and t.order_no=t1.order_no and  t.inv_code=t1.inv_code and t.wh_name=t1.wh_name
+    where 1=1 and COALESCE(t.iz_delete,0)=0
+
+    <if test="main.orderNo != null and main.orderNo != ''">
+      AND t.order_no  like  '%'+#{main.orderNo,jdbcType=VARCHAR}+'%'
+    </if>
+    <if test="main.invCode != null and main.invCode != ''">
+      AND t.inv_code  like  '%'+#{main.invCode,jdbcType=VARCHAR}+'%'
+    </if>
+    order by COALESCE(t.order_no,''),t.inv_code
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ar_cost_sim_report
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteall" >
+    delete from ar_cost_sim_report where 1=1
+
+  </delete>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ar_cost_sim_report
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.web.ar.entity.CostSimReport">
+    insert into ar_cost_sim_report (id, iyear, imonth, 
+      cust_name, cust_code, order_no, 
+      inv_code, inv_name, inv_std, 
+      inv_type, wh_name, unit, 
+      iqty, inum, kqty, knum, 
+      mqty, mnum, wnum, wmny, 
+      omum, tolnum, iprice
+      )
+    values (#{id,jdbcType=VARCHAR}, #{iyear,jdbcType=INTEGER}, #{imonth,jdbcType=INTEGER}, 
+      #{custName,jdbcType=VARCHAR}, #{custCode,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, 
+      #{invCode,jdbcType=VARCHAR}, #{invName,jdbcType=VARCHAR}, #{invStd,jdbcType=VARCHAR}, 
+      #{invType,jdbcType=VARCHAR}, #{whName,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, 
+      #{iqty,jdbcType=DECIMAL}, #{inum,jdbcType=DECIMAL}, #{kqty,jdbcType=DECIMAL}, #{knum,jdbcType=DECIMAL}, 
+      #{mqty,jdbcType=DECIMAL}, #{mnum,jdbcType=DECIMAL}, #{wnum,jdbcType=DECIMAL}, #{wmny,jdbcType=DECIMAL}, 
+      #{omum,jdbcType=DECIMAL}, #{tolnum,jdbcType=DECIMAL}, #{iprice,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.web.ar.entity.CostSimReport">
+    insert into ar_cost_sim_report
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="iyear != null">
+        iyear,
+      </if>
+      <if test="imonth != null">
+        imonth,
+      </if>
+      <if test="custName != null">
+        cust_name,
+      </if>
+      <if test="custCode != null">
+        cust_code,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="invCode != null">
+        inv_code,
+      </if>
+      <if test="invName != null">
+        inv_name,
+      </if>
+      <if test="invStd != null">
+        inv_std,
+      </if>
+      <if test="invType != null">
+        inv_type,
+      </if>
+      <if test="whName != null">
+        wh_name,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="iqty != null">
+        iqty,
+      </if>
+      <if test="inum != null">
+        inum,
+      </if>
+      <if test="kqty != null">
+        kqty,
+      </if>
+      <if test="knum != null">
+        knum,
+      </if>
+      <if test="mqty != null">
+        mqty,
+      </if>
+      <if test="mnum != null">
+        mnum,
+      </if>
+      <if test="wnum != null">
+        wnum,
+      </if>
+      <if test="wmny != null">
+        wmny,
+      </if>
+      <if test="omum != null">
+        omum,
+      </if>
+      <if test="tolnum != null">
+        tolnum,
+      </if>
+      <if test="iprice != null">
+        iprice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="iyear != null">
+        #{iyear,jdbcType=INTEGER},
+      </if>
+      <if test="imonth != null">
+        #{imonth,jdbcType=INTEGER},
+      </if>
+      <if test="custName != null">
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="custCode != null">
+        #{custCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="invCode != null">
+        #{invCode,jdbcType=VARCHAR},
+      </if>
+      <if test="invName != null">
+        #{invName,jdbcType=VARCHAR},
+      </if>
+      <if test="invStd != null">
+        #{invStd,jdbcType=VARCHAR},
+      </if>
+      <if test="invType != null">
+        #{invType,jdbcType=VARCHAR},
+      </if>
+      <if test="whName != null">
+        #{whName,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="iqty != null">
+        #{iqty,jdbcType=DECIMAL},
+      </if>
+      <if test="inum != null">
+        #{inum,jdbcType=DECIMAL},
+      </if>
+      <if test="kqty != null">
+        #{kqty,jdbcType=DECIMAL},
+      </if>
+      <if test="knum != null">
+        #{knum,jdbcType=DECIMAL},
+      </if>
+      <if test="mqty != null">
+        #{mqty,jdbcType=DECIMAL},
+      </if>
+      <if test="mnum != null">
+        #{mnum,jdbcType=DECIMAL},
+      </if>
+      <if test="wnum != null">
+        #{wnum,jdbcType=DECIMAL},
+      </if>
+      <if test="wmny != null">
+        #{wmny,jdbcType=DECIMAL},
+      </if>
+      <if test="omum != null">
+        #{omum,jdbcType=DECIMAL},
+      </if>
+      <if test="tolnum != null">
+        #{tolnum,jdbcType=DECIMAL},
+      </if>
+      <if test="iprice != null">
+        #{iprice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.ar.entity.CostSimReport">
+    update ar_cost_sim_report
+    <set>
+      <if test="iyear != null">
+        iyear = #{iyear,jdbcType=INTEGER},
+      </if>
+      <if test="imonth != null">
+        imonth = #{imonth,jdbcType=INTEGER},
+      </if>
+      <if test="custName != null">
+        cust_name = #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="custCode != null">
+        cust_code = #{custCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="invCode != null">
+        inv_code = #{invCode,jdbcType=VARCHAR},
+      </if>
+      <if test="invName != null">
+        inv_name = #{invName,jdbcType=VARCHAR},
+      </if>
+      <if test="invStd != null">
+        inv_std = #{invStd,jdbcType=VARCHAR},
+      </if>
+      <if test="invType != null">
+        inv_type = #{invType,jdbcType=VARCHAR},
+      </if>
+      <if test="whName != null">
+        wh_name = #{whName,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="iqty != null">
+        iqty = #{iqty,jdbcType=DECIMAL},
+      </if>
+      <if test="inum != null">
+        inum = #{inum,jdbcType=DECIMAL},
+      </if>
+      <if test="kqty != null">
+        kqty = #{kqty,jdbcType=DECIMAL},
+      </if>
+      <if test="knum != null">
+        knum = #{knum,jdbcType=DECIMAL},
+      </if>
+      <if test="mqty != null">
+        mqty = #{mqty,jdbcType=DECIMAL},
+      </if>
+      <if test="mnum != null">
+        mnum = #{mnum,jdbcType=DECIMAL},
+      </if>
+      <if test="wnum != null">
+        wnum = #{wnum,jdbcType=DECIMAL},
+      </if>
+      <if test="wmny != null">
+        wmny = #{wmny,jdbcType=DECIMAL},
+      </if>
+      <if test="omum != null">
+        omum = #{omum,jdbcType=DECIMAL},
+      </if>
+      <if test="tolnum != null">
+        tolnum = #{tolnum,jdbcType=DECIMAL},
+      </if>
+      <if test="iprice != null">
+        iprice = #{iprice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.web.ar.entity.CostSimReport">
+    update ar_cost_sim_report
+    set iyear = #{iyear,jdbcType=INTEGER},
+      imonth = #{imonth,jdbcType=INTEGER},
+      cust_name = #{custName,jdbcType=VARCHAR},
+      cust_code = #{custCode,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      inv_code = #{invCode,jdbcType=VARCHAR},
+      inv_name = #{invName,jdbcType=VARCHAR},
+      inv_std = #{invStd,jdbcType=VARCHAR},
+      inv_type = #{invType,jdbcType=VARCHAR},
+      wh_name = #{whName,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      iqty = #{iqty,jdbcType=DECIMAL},
+      inum = #{inum,jdbcType=DECIMAL},
+      kqty = #{kqty,jdbcType=DECIMAL},
+      knum = #{knum,jdbcType=DECIMAL},
+      mqty = #{mqty,jdbcType=DECIMAL},
+      mnum = #{mnum,jdbcType=DECIMAL},
+      wnum = #{wnum,jdbcType=DECIMAL},
+      wmny = #{wmny,jdbcType=DECIMAL},
+      omum = #{omum,jdbcType=DECIMAL},
+      tolnum = #{tolnum,jdbcType=DECIMAL},
+      iprice = #{iprice,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateKQty" parameterType="com.web.ar.entity.CostSimReport">
+   update ar_cost_sim_report set kqty=round(COALESCE((select sum(qtys) as qtys from ar_test_acc where bpu=1 and unit='kg'),0),3) ,
+   KNum=round(COALESCE((select sum(imonery) as imonery from ar_test_acc where bpu=1 and unit='kg'),0),3)
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateMQty" parameterType="com.web.ar.entity.CostSimReport">
+    update ar_cost_sim_report set mqty=round(COALESCE((select sum(qtys) as qtys from ar_test_acc where bpu=1 and unit='米'),0),3) ,
+    mNum=round(COALESCE((select sum(imonery) as imonery from ar_test_acc where bpu=1 and unit='米'),0),3)
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateONum" parameterType="com.web.ar.entity.CostSimReport">
+    update ar_cost_sim_report set omum=round(COALESCE((select sum(imonery) as imonery from ar_test_acc where bpu=1 and unit!='米' and unit!='kg'),0),3)
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateWNum" parameterType="com.web.ar.entity.CostSimReport">
+    update ar_cost_sim_report  set WNum=round(COALESCE((select sum(COALESCE(cmonery,0)) as cmonery from ar_test_acc where bPro=1 ),0),3) ,
+    WMny=round(COALESCE((select sum(imonery) as imonery from ar_test_acc where bPro=1  ),0),3)
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateTotalNum" parameterType="com.web.ar.entity.CostSimReport">
+    update ar_cost_sim_report  set   TolNum=KNum+MNum+omum+WMny+COALESCE(WNum,0)
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+
+
+
+
+
+
+
+
+
+
+  <select id="getMetalList" resultMap="BaseResultMap" parameterType="com.web.ar.entity.CostSimReport" >
+    select #{main.iyear} iyear ,#{main.imonth} imonth, cs.id,inv.cinvcode inv_code,inv.cinvname inv_name,inv.cinvstd inv_std,cp.cComunitName unit ,cs.iqty
+    from ar_cost_sim_report cs  inner join ${database}.dbo.inventory inv on cs.inv_code=inv.cinvcode
+    inner join  ${database}.dbo.ComputationUnit cp on inv.cComunitCode=cp.cComunitCode  where  COALESCE(iz_delete,0)=0 and  cs.iyear=#{main.iyear,jdbcType=INTEGER}  and cs.imonth=#{main.imonth,jdbcType=INTEGER}
+    order by inv.cinvcode
+
+  </select>
+
+
+
+
+  <select id="getMetalListForSave" resultMap="BaseResultMap" parameterType="com.web.ar.entity.CostSimReport" >
+    SELECT cs.id,inv.CinvCode inv_code,inv.cinvname inv_name,inv.cInvStd inv_std,cp.cComUnitName unit,cs.iqty ,sum(COALESCE(ta.iMonery,0)) as imonery
+    from  ar_cost_sim_report cs
+           left join  ar_test_acc_list ta on cs.ID=ta.CSID
+           left join  ${database}.dbo.Inventory inv on cs.inv_code=inv.cInvCode
+           left join  ${database}.dbo.Inventory invs on ta.ps_code=invs.cInvCode
+           left join  ${database}.dbo.ComputationUnit cp on inv.cComunitCode=cp.cComunitCode where ta.bpro=1 and invs.cInvDefine3='金工'
+    group by cs.id,inv.CinvCode,inv.cinvname,inv.cInvStd,cp.cComUnitName,cs.iqty
+
+  </select>
+
+  <select id="getDetailList" resultMap="BaseResultMap" parameterType="com.web.ar.entity.CostSimReport" >
+    SELECT ta.status_id,ta.id,cs.inv_code inv_code,inv.cinvname inv_name,ta.ps_code inv_codes,invs.cinvname as inv_names,invs.cinvstd  inv_stds, ta.qty,ta.qtys,(COALESCE(ta.iprice,0)) iprice,COALESCE(ta.cprice,0) cprice,COALESCE(ta.imonery,0)  imonery,COALESCE(ta.cmonery,0) cmonery,cp.cComunitName unit,invs.cInvDefine3
+    from ar_cost_sim_report  cs
+    left join ar_test_acc_list ta on cs.ID=ta.CSID
+    left join ${database}.dbo.Inventory inv on cs.inv_code=inv.cInvCode
+    left join ${database}.dbo.Inventory invs on ta.ps_code=invs.cInvCode
+    inner join  ${database}.dbo.ComputationUnit cp on invs.cComunitCode=cp.cComunitCode
+    where   cs.inv_code= #{main.invCode,jdbcType=VARCHAR}
+  </select>
+  <select id="getMetalDetailList" resultMap="BaseResultMap" parameterType="com.web.ar.entity.CostSimReport" >
+    SELECT ta.id,cs.inv_code inv_code,inv.cinvname inv_name,ta.ps_code inv_codes,invs.cinvname as inv_names,invs.cinvstd  inv_stds, ta.qty,ta.qtys,ta.iprice iprice,ta.imonery  imonery
+    from  ar_cost_sim_report  cs
+    left join  ar_test_acc_list ta on cs.ID=ta.CSID
+    left join ${database}.dbo.Inventory inv on cs.inv_code=inv.cInvCode
+    left join ${database}.dbo.Inventory invs on ta.ps_code=invs.cInvCode
+    where ta.bpro=1 and cs.inv_code= #{main.invCode,jdbcType=VARCHAR}  and invs.cInvDefine3='金工'
+  </select>
+
+  <insert id="insertSo" parameterType="com.web.ar.entity.CostSimReport">
+    insert into  ar_cost_sim_report(id,iyear,imonth,inv_code,iqty)
+    select  newid(), #{main.iyear,jdbcType=INTEGER}, #{main.imonth,jdbcType=INTEGER}, sos.cInvCode,sos.iquantity
+    from ${database}.dbo.SO_SOMain so inner join ${database}.dbo.SO_SODetails sos on so.ID=sos.ID
+    where 1=1   and so.iStatus =1
+    <if test="main.soCode != null   and  main.soCode!=''" >
+      and  so.cDefine1=#{main.soCode,jdbcType=VARCHAR}
+    </if>
+    <if test="main.invCode != null and  main.invCode!=''" >
+      and  sos.cInvCode=#{main.invCode,jdbcType=VARCHAR}
+    </if>
+    and sos.cInvCode not in (select inv_code from  ar_cost_sim_report)
+  </insert>
+
+  <insert id="insertRd" parameterType="com.web.ar.entity.CostSimReport">
+    insert into   ar_cost_sim_report(id,iyear,imonth,inv_code,iqty)
+    select  newid(),#{main.iyear,jdbcType=INTEGER}, #{main.imonth,jdbcType=INTEGER},rds.cInvCode,sum(rds.iQuantity) as iqty
+    from ${database}.dbo.rdrecord10 rd inner join ${database}.dbo.rdrecords10 rds  on rd.ID=rds.ID
+    where YEAR(rd.dDate )=#{main.iyear,jdbcType=INTEGER} and month(rd.dDate)=#{main.imonth,jdbcType=INTEGER}
+    <if test="main.soCode != null   and  main.soCode!=''" >
+      and  rd.cDefine1=#{main.soCode,jdbcType=VARCHAR}
+    </if>
+    <if test="main.invCode != null and  main.invCode!=''" >
+      and  rds.cInvCode=#{main.invCode,jdbcType=VARCHAR}
+    </if>
+    and rds.cInvCode not in (select inv_code from  ar_cost_sim_report)
+    group by rds.cInvCode
+
+
+  </insert>
+
+  <insert id="insertRd1" parameterType="com.web.ar.entity.CostSimReport">
+    insert into   ar_cost_sim_report(id,iyear,imonth,inv_code,iqty,cust_code,cust_name,order_no,inv_name,inv_std,inv_type,wh_name)
+    select  newid(),#{main.iyear,jdbcType=INTEGER}, #{main.imonth,jdbcType=INTEGER},rds.cInvCode,sum(rds.iQuantity) as iqty
+    ,cus.cCusCode,cus.cCusName,rd.cDefine1,inv.cInvName,inv.cInvStd,inv.cInvDefine3
+    ,wh.cWhName
+    from ${database}.dbo.rdrecord10 rd inner join ${database}.dbo.rdrecords10 rds  on rd.ID=rds.ID
+    left join ${database}.dbo.SO_SOMain so on rd.cDefine1=so.cDefine1 left join ${database}.dbo.Customer cus on so.cCusCode=cus.cCusCode
+    left join ${database}.dbo.inventory inv on rds.cInvCode=inv.cInvCode
+    left join ${database}.dbo.Warehouse wh on rd.cWhCode=wh.cWhCode
+    where ((YEAR(rd.dDate )=#{main.iyear,jdbcType=INTEGER} and month(rd.dDate)=#{main.imonth,jdbcType=INTEGER})  or   (rd.dDate >= #{main.dateStart,jdbcType=TIMESTAMP}   AND rd.dDate  &lt; #{main.dateEnd,jdbcType=TIMESTAMP}) )
+
+    and COALESCE(rd.cDefine1,'')!='' and COALESCE(so.ID,0)!=0
+    group by rds.cInvCode ,cus.cCusCode,cus.cCusName,rd.cDefine1,inv.cInvName,inv.cInvStd,inv.cInvDefine3
+    ,wh.cWhName
+  </insert>
+</mapper>

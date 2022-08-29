@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.basicinfo.mapper.VendorMapper">
+  <resultMap id="BaseResultMap" type="com.web.basicinfo.entity.Vendor">
+    <!--@mbg.generated-->
+    <!--@Table Vendor-->
+    <id column="cVenCode" jdbcType="VARCHAR" property="cvencode" />
+    <result column="cVenName" jdbcType="VARCHAR" property="cvenname" />
+    <result column="cVenAbbName" jdbcType="VARCHAR" property="cvenabbname" />
+    <result column="cVCCode" jdbcType="VARCHAR" property="cvccode" />
+    <result column="cDCCode" jdbcType="VARCHAR" property="cdccode" />
+    <result column="cTrade" jdbcType="VARCHAR" property="ctrade" />
+    <result column="cVenAddress" jdbcType="VARCHAR" property="cvenaddress" />
+    <result column="cVenPostCode" jdbcType="VARCHAR" property="cvenpostcode" />
+    <result column="cVenRegCode" jdbcType="VARCHAR" property="cvenregcode" />
+    <result column="cVenBank" jdbcType="VARCHAR" property="cvenbank" />
+    <result column="cVenAccount" jdbcType="VARCHAR" property="cvenaccount" />
+    <result column="dVenDevDate" jdbcType="TIMESTAMP" property="dvendevdate" />
+    <result column="cVenLPerson" jdbcType="VARCHAR" property="cvenlperson" />
+    <result column="cVenPhone" jdbcType="VARCHAR" property="cvenphone" />
+    <result column="cVenFax" jdbcType="VARCHAR" property="cvenfax" />
+    <result column="cVenEmail" jdbcType="VARCHAR" property="cvenemail" />
+    <result column="cVenPerson" jdbcType="VARCHAR" property="cvenperson" />
+    <result column="cVenBP" jdbcType="VARCHAR" property="cvenbp" />
+    <result column="cVenHand" jdbcType="VARCHAR" property="cvenhand" />
+    <result column="cVenPPerson" jdbcType="VARCHAR" property="cvenpperson" />
+    <result column="iVenDisRate" jdbcType="FLOAT" property="ivendisrate" />
+    <result column="iVenCreGrade" jdbcType="VARCHAR" property="ivencregrade" />
+    <result column="iVenCreLine" jdbcType="FLOAT" property="ivencreline" />
+    <result column="iVenCreDate" jdbcType="INTEGER" property="ivencredate" />
+    <result column="cVenPayCond" jdbcType="VARCHAR" property="cvenpaycond" />
+    <result column="cVenIAddress" jdbcType="VARCHAR" property="cveniaddress" />
+    <result column="cVenIType" jdbcType="VARCHAR" property="cvenitype" />
+    <result column="cVenHeadCode" jdbcType="VARCHAR" property="cvenheadcode" />
+    <result column="cVenWhCode" jdbcType="VARCHAR" property="cvenwhcode" />
+    <result column="cVenDepart" jdbcType="VARCHAR" property="cvendepart" />
+    <result column="iAPMoney" jdbcType="FLOAT" property="iapmoney" />
+    <result column="dLastDate" jdbcType="TIMESTAMP" property="dlastdate" />
+    <result column="iLastMoney" jdbcType="FLOAT" property="ilastmoney" />
+    <result column="dLRDate" jdbcType="TIMESTAMP" property="dlrdate" />
+    <result column="iLRMoney" jdbcType="FLOAT" property="ilrmoney" />
+    <result column="dEndDate" jdbcType="TIMESTAMP" property="denddate" />
+    <result column="iFrequency" jdbcType="INTEGER" property="ifrequency" />
+    <result column="bVenTax" jdbcType="BIT" property="bventax" />
+    <result column="cVenDefine1" jdbcType="VARCHAR" property="cvendefine1" />
+    <result column="cVenDefine2" jdbcType="VARCHAR" property="cvendefine2" />
+    <result column="cVenDefine3" jdbcType="VARCHAR" property="cvendefine3" />
+    <result column="cCreatePerson" jdbcType="VARCHAR" property="ccreateperson" />
+    <result column="cModifyPerson" jdbcType="VARCHAR" property="cmodifyperson" />
+    <result column="dModifyDate" jdbcType="TIMESTAMP" property="dmodifydate" />
+    <result column="cRelCustomer" jdbcType="VARCHAR" property="crelcustomer" />
+    <result column="iId" jdbcType="INTEGER" property="iid" />
+    <result column="cBarCode" jdbcType="VARCHAR" property="cbarcode" />
+    <result column="cVenDefine4" jdbcType="VARCHAR" property="cvendefine4" />
+    <result column="cVenDefine5" jdbcType="VARCHAR" property="cvendefine5" />
+    <result column="cVenDefine6" jdbcType="VARCHAR" property="cvendefine6" />
+    <result column="cVenDefine7" jdbcType="VARCHAR" property="cvendefine7" />
+    <result column="cVenDefine8" jdbcType="VARCHAR" property="cvendefine8" />
+    <result column="cVenDefine9" jdbcType="VARCHAR" property="cvendefine9" />
+    <result column="cVenDefine10" jdbcType="VARCHAR" property="cvendefine10" />
+    <result column="cVenDefine11" jdbcType="INTEGER" property="cvendefine11" />
+    <result column="cVenDefine12" jdbcType="INTEGER" property="cvendefine12" />
+    <result column="cVenDefine13" jdbcType="FLOAT" property="cvendefine13" />
+    <result column="cVenDefine14" jdbcType="FLOAT" property="cvendefine14" />
+    <result column="cVenDefine15" jdbcType="TIMESTAMP" property="cvendefine15" />
+    <result column="cVenDefine16" jdbcType="TIMESTAMP" property="cvendefine16" />
+    <result column="pubufts" jdbcType="TIMESTAMP" property="pubufts" />
+    <result column="fRegistFund" jdbcType="FLOAT" property="fregistfund" />
+    <result column="iEmployeeNum" jdbcType="INTEGER" property="iemployeenum" />
+    <result column="iGradeABC" jdbcType="SMALLINT" property="igradeabc" />
+    <result column="cMemo" jdbcType="VARCHAR" property="cmemo" />
+    <result column="bLicenceDate" jdbcType="BIT" property="blicencedate" />
+    <result column="dLicenceSDate" jdbcType="TIMESTAMP" property="dlicencesdate" />
+    <result column="dLicenceEDate" jdbcType="TIMESTAMP" property="dlicenceedate" />
+    <result column="iLicenceADays" jdbcType="INTEGER" property="ilicenceadays" />
+    <result column="bBusinessDate" jdbcType="BIT" property="bbusinessdate" />
+    <result column="dBusinessSDate" jdbcType="TIMESTAMP" property="dbusinesssdate" />
+    <result column="dBusinessEDate" jdbcType="TIMESTAMP" property="dbusinessedate" />
+    <result column="iBusinessADays" jdbcType="INTEGER" property="ibusinessadays" />
+    <result column="bProxyDate" jdbcType="BIT" property="bproxydate" />
+    <result column="dProxySDate" jdbcType="TIMESTAMP" property="dproxysdate" />
+    <result column="dProxyEDate" jdbcType="TIMESTAMP" property="dproxyedate" />
+    <result column="iProxyADays" jdbcType="INTEGER" property="iproxyadays" />
+    <result column="bPassGMP" jdbcType="BIT" property="bpassgmp" />
+    <result column="bVenCargo" jdbcType="BIT" property="bvencargo" />
+    <result column="bProxyForeign" jdbcType="BIT" property="bproxyforeign" />
+    <result column="bVenService" jdbcType="BIT" property="bvenservice" />
+    <result column="cVenTradeCCode" jdbcType="VARCHAR" property="cventradeccode" />
+    <result column="cVenBankCode" jdbcType="VARCHAR" property="cvenbankcode" />
+    <result column="cVenExch_name" jdbcType="VARCHAR" property="cvenexchName" />
+    <result column="iVenGSPType" jdbcType="SMALLINT" property="ivengsptype" />
+    <result column="iVenGSPAuth" jdbcType="SMALLINT" property="ivengspauth" />
+    <result column="cVenGSPAuthNo" jdbcType="VARCHAR" property="cvengspauthno" />
+    <result column="cVenBusinessNo" jdbcType="VARCHAR" property="cvenbusinessno" />
+    <result column="cVenLicenceNo" jdbcType="VARCHAR" property="cvenlicenceno" />
+    <result column="bVenOverseas" jdbcType="BIT" property="bvenoverseas" />
+    <result column="bVenAccPeriodMng" jdbcType="BIT" property="bvenaccperiodmng" />
+    <result column="cVenPUOMProtocol" jdbcType="VARCHAR" property="cvenpuomprotocol" />
+    <result column="cVenOtherProtocol" jdbcType="VARCHAR" property="cvenotherprotocol" />
+    <result column="cVenCountryCode" jdbcType="VARCHAR" property="cvencountrycode" />
+    <result column="cVenEnName" jdbcType="VARCHAR" property="cvenenname" />
+    <result column="cVenEnAddr1" jdbcType="VARCHAR" property="cvenenaddr1" />
+    <result column="cVenEnAddr2" jdbcType="VARCHAR" property="cvenenaddr2" />
+    <result column="cVenEnAddr3" jdbcType="VARCHAR" property="cvenenaddr3" />
+    <result column="cVenEnAddr4" jdbcType="VARCHAR" property="cvenenaddr4" />
+    <result column="cVenPortCode" jdbcType="VARCHAR" property="cvenportcode" />
+    <result column="cVenPrimaryVen" jdbcType="VARCHAR" property="cvenprimaryven" />
+    <result column="fVenCommisionRate" jdbcType="FLOAT" property="fvencommisionrate" />
+    <result column="fVenInsueRate" jdbcType="FLOAT" property="fveninsuerate" />
+    <result column="bVenHomeBranch" jdbcType="BIT" property="bvenhomebranch" />
+    <result column="cVenBranchAddr" jdbcType="VARCHAR" property="cvenbranchaddr" />
+    <result column="cVenBranchPhone" jdbcType="VARCHAR" property="cvenbranchphone" />
+    <result column="cVenBranchPerson" jdbcType="VARCHAR" property="cvenbranchperson" />
+    <result column="cVenSSCode" jdbcType="VARCHAR" property="cvensscode" />
+    <result column="cOMWhCode" jdbcType="VARCHAR" property="comwhcode" />
+    <result column="cVenCMProtocol" jdbcType="VARCHAR" property="cvencmprotocol" />
+    <result column="cVenIMProtocol" jdbcType="VARCHAR" property="cvenimprotocol" />
+    <result column="iVenTaxRate" jdbcType="FLOAT" property="iventaxrate" />
+    <result column="dVenCreateDatetime" jdbcType="TIMESTAMP" property="dvencreatedatetime" />
+    <result column="cVenMnemCode" jdbcType="VARCHAR" property="cvenmnemcode" />
+    <result column="cVenContactCode" jdbcType="OTHER" property="cvencontactcode" />
+    <result column="cvenbankall" jdbcType="VARCHAR" property="cvenbankall" />
+    <result column="bIsVenAttachFile" jdbcType="BIT" property="bisvenattachfile" />
+    <result column="cLicenceRange" jdbcType="VARCHAR" property="clicencerange" />
+    <result column="cBusinessRange" jdbcType="VARCHAR" property="cbusinessrange" />
+    <result column="cVenGSPRange" jdbcType="VARCHAR" property="cvengsprange" />
+    <result column="dVenGSPEDate" jdbcType="TIMESTAMP" property="dvengspedate" />
+    <result column="dVenGSPSDate" jdbcType="TIMESTAMP" property="dvengspsdate" />
+    <result column="iVenGSPADays" jdbcType="INTEGER" property="ivengspadays" />
+    <result column="bRetail" jdbcType="BIT" property="bretail" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    cVenCode, cVenName, cVenAbbName, cVCCode, cDCCode, cTrade, cVenAddress, cVenPostCode, 
+    cVenRegCode, cVenBank, cVenAccount, dVenDevDate, cVenLPerson, cVenPhone, cVenFax, 
+    cVenEmail, cVenPerson, cVenBP, cVenHand, cVenPPerson, iVenDisRate, iVenCreGrade, 
+    iVenCreLine, iVenCreDate, cVenPayCond, cVenIAddress, cVenIType, cVenHeadCode, cVenWhCode, 
+    cVenDepart, iAPMoney, dLastDate, iLastMoney, dLRDate, iLRMoney, dEndDate, iFrequency, 
+    bVenTax, cVenDefine1, cVenDefine2, cVenDefine3, cCreatePerson, cModifyPerson, dModifyDate, 
+    cRelCustomer, iId, cBarCode, cVenDefine4, cVenDefine5, cVenDefine6, cVenDefine7, 
+    cVenDefine8, cVenDefine9, cVenDefine10, cVenDefine11, cVenDefine12, cVenDefine13, 
+    cVenDefine14, cVenDefine15, cVenDefine16, pubufts, fRegistFund, iEmployeeNum, iGradeABC, 
+    cMemo, bLicenceDate, dLicenceSDate, dLicenceEDate, iLicenceADays, bBusinessDate, 
+    dBusinessSDate, dBusinessEDate, iBusinessADays, bProxyDate, dProxySDate, dProxyEDate, 
+    iProxyADays, bPassGMP, bVenCargo, bProxyForeign, bVenService, cVenTradeCCode, cVenBankCode, 
+    cVenExch_name, iVenGSPType, iVenGSPAuth, cVenGSPAuthNo, cVenBusinessNo, cVenLicenceNo, 
+    bVenOverseas, bVenAccPeriodMng, cVenPUOMProtocol, cVenOtherProtocol, cVenCountryCode, 
+    cVenEnName, cVenEnAddr1, cVenEnAddr2, cVenEnAddr3, cVenEnAddr4, cVenPortCode, cVenPrimaryVen, 
+    fVenCommisionRate, fVenInsueRate, bVenHomeBranch, cVenBranchAddr, cVenBranchPhone, 
+    cVenBranchPerson, cVenSSCode, cOMWhCode, cVenCMProtocol, cVenIMProtocol, iVenTaxRate, 
+    dVenCreateDatetime, cVenMnemCode, cVenContactCode, cvenbankall, bIsVenAttachFile, 
+    cLicenceRange, cBusinessRange, cVenGSPRange, dVenGSPEDate, dVenGSPSDate, iVenGSPADays, 
+    bRetail
+  </sql>
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.basicinfo.entity.Vendor">
+    <!--@mbg.generated-->
+    update Vendor
+    <set>
+      <if test="cvenname != null">
+        cVenName = #{cvenname,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenabbname != null">
+        cVenAbbName = #{cvenabbname,jdbcType=VARCHAR},
+      </if>
+      <if test="cvccode != null">
+        cVCCode = #{cvccode,jdbcType=VARCHAR},
+      </if>
+      <if test="cdccode != null">
+        cDCCode = #{cdccode,jdbcType=VARCHAR},
+      </if>
+      <if test="ctrade != null">
+        cTrade = #{ctrade,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenaddress != null">
+        cVenAddress = #{cvenaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenpostcode != null">
+        cVenPostCode = #{cvenpostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenregcode != null">
+        cVenRegCode = #{cvenregcode,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenbank != null">
+        cVenBank = #{cvenbank,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenaccount != null">
+        cVenAccount = #{cvenaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="dvendevdate != null">
+        dVenDevDate = #{dvendevdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cvenlperson != null">
+        cVenLPerson = #{cvenlperson,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenphone != null">
+        cVenPhone = #{cvenphone,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenfax != null">
+        cVenFax = #{cvenfax,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenemail != null">
+        cVenEmail = #{cvenemail,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenperson != null">
+        cVenPerson = #{cvenperson,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenbp != null">
+        cVenBP = #{cvenbp,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenhand != null">
+        cVenHand = #{cvenhand,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenpperson != null">
+        cVenPPerson = #{cvenpperson,jdbcType=VARCHAR},
+      </if>
+      <if test="ivendisrate != null">
+        iVenDisRate = #{ivendisrate,jdbcType=FLOAT},
+      </if>
+      <if test="ivencregrade != null">
+        iVenCreGrade = #{ivencregrade,jdbcType=VARCHAR},
+      </if>
+      <if test="ivencreline != null">
+        iVenCreLine = #{ivencreline,jdbcType=FLOAT},
+      </if>
+      <if test="ivencredate != null">
+        iVenCreDate = #{ivencredate,jdbcType=INTEGER},
+      </if>
+      <if test="cvenpaycond != null">
+        cVenPayCond = #{cvenpaycond,jdbcType=VARCHAR},
+      </if>
+      <if test="cveniaddress != null">
+        cVenIAddress = #{cveniaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenitype != null">
+        cVenIType = #{cvenitype,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenheadcode != null">
+        cVenHeadCode = #{cvenheadcode,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenwhcode != null">
+        cVenWhCode = #{cvenwhcode,jdbcType=VARCHAR},
+      </if>
+      <if test="cvendepart != null">
+        cVenDepart = #{cvendepart,jdbcType=VARCHAR},
+      </if>
+      <if test="iapmoney != null">
+        iAPMoney = #{iapmoney,jdbcType=FLOAT},
+      </if>
+      <if test="dlastdate != null">
+        dLastDate = #{dlastdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ilastmoney != null">
+        iLastMoney = #{ilastmoney,jdbcType=FLOAT},
+      </if>
+      <if test="dlrdate != null">
+        dLRDate = #{dlrdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ilrmoney != null">
+        iLRMoney = #{ilrmoney,jdbcType=FLOAT},
+      </if>
+      <if test="denddate != null">
+        dEndDate = #{denddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ifrequency != null">
+        iFrequency = #{ifrequency,jdbcType=INTEGER},
+      </if>
+      <if test="bventax != null">
+        bVenTax = #{bventax,jdbcType=BIT},
+      </if>
+      <if test="cvendefine1 != null">
+        cVenDefine1 = #{cvendefine1,jdbcType=VARCHAR},
+      </if>
+      <if test="cvendefine2 != null">
+        cVenDefine2 = #{cvendefine2,jdbcType=VARCHAR},
+      </if>
+      <if test="cvendefine3 != null">
+        cVenDefine3 = #{cvendefine3,jdbcType=VARCHAR},
+      </if>
+      <if test="ccreateperson != null">
+        cCreatePerson = #{ccreateperson,jdbcType=VARCHAR},
+      </if>
+      <if test="cmodifyperson != null">
+        cModifyPerson = #{cmodifyperson,jdbcType=VARCHAR},
+      </if>
+      <if test="dmodifydate != null">
+        dModifyDate = #{dmodifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crelcustomer != null">
+        cRelCustomer = #{crelcustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="iid != null">
+        iId = #{iid,jdbcType=INTEGER},
+      </if>
+      <if test="cbarcode != null">
+        cBarCode = #{cbarcode,jdbcType=VARCHAR},
+      </if>
+      <if test="cvendefine4 != null">
+        cVenDefine4 = #{cvendefine4,jdbcType=VARCHAR},
+      </if>
+      <if test="cvendefine5 != null">
+        cVenDefine5 = #{cvendefine5,jdbcType=VARCHAR},
+      </if>
+      <if test="cvendefine6 != null">
+        cVenDefine6 = #{cvendefine6,jdbcType=VARCHAR},
+      </if>
+      <if test="cvendefine7 != null">
+        cVenDefine7 = #{cvendefine7,jdbcType=VARCHAR},
+      </if>
+      <if test="cvendefine8 != null">
+        cVenDefine8 = #{cvendefine8,jdbcType=VARCHAR},
+      </if>
+      <if test="cvendefine9 != null">
+        cVenDefine9 = #{cvendefine9,jdbcType=VARCHAR},
+      </if>
+      <if test="cvendefine10 != null">
+        cVenDefine10 = #{cvendefine10,jdbcType=VARCHAR},
+      </if>
+      <if test="cvendefine11 != null">
+        cVenDefine11 = #{cvendefine11,jdbcType=INTEGER},
+      </if>
+      <if test="cvendefine12 != null">
+        cVenDefine12 = #{cvendefine12,jdbcType=INTEGER},
+      </if>
+      <if test="cvendefine13 != null">
+        cVenDefine13 = #{cvendefine13,jdbcType=FLOAT},
+      </if>
+      <if test="cvendefine14 != null">
+        cVenDefine14 = #{cvendefine14,jdbcType=FLOAT},
+      </if>
+      <if test="cvendefine15 != null">
+        cVenDefine15 = #{cvendefine15,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cvendefine16 != null">
+        cVenDefine16 = #{cvendefine16,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pubufts != null">
+        pubufts = #{pubufts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fregistfund != null">
+        fRegistFund = #{fregistfund,jdbcType=FLOAT},
+      </if>
+      <if test="iemployeenum != null">
+        iEmployeeNum = #{iemployeenum,jdbcType=INTEGER},
+      </if>
+      <if test="igradeabc != null">
+        iGradeABC = #{igradeabc,jdbcType=SMALLINT},
+      </if>
+      <if test="cmemo != null">
+        cMemo = #{cmemo,jdbcType=VARCHAR},
+      </if>
+      <if test="blicencedate != null">
+        bLicenceDate = #{blicencedate,jdbcType=BIT},
+      </if>
+      <if test="dlicencesdate != null">
+        dLicenceSDate = #{dlicencesdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dlicenceedate != null">
+        dLicenceEDate = #{dlicenceedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ilicenceadays != null">
+        iLicenceADays = #{ilicenceadays,jdbcType=INTEGER},
+      </if>
+      <if test="bbusinessdate != null">
+        bBusinessDate = #{bbusinessdate,jdbcType=BIT},
+      </if>
+      <if test="dbusinesssdate != null">
+        dBusinessSDate = #{dbusinesssdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dbusinessedate != null">
+        dBusinessEDate = #{dbusinessedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ibusinessadays != null">
+        iBusinessADays = #{ibusinessadays,jdbcType=INTEGER},
+      </if>
+      <if test="bproxydate != null">
+        bProxyDate = #{bproxydate,jdbcType=BIT},
+      </if>
+      <if test="dproxysdate != null">
+        dProxySDate = #{dproxysdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dproxyedate != null">
+        dProxyEDate = #{dproxyedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="iproxyadays != null">
+        iProxyADays = #{iproxyadays,jdbcType=INTEGER},
+      </if>
+      <if test="bpassgmp != null">
+        bPassGMP = #{bpassgmp,jdbcType=BIT},
+      </if>
+      <if test="bvencargo != null">
+        bVenCargo = #{bvencargo,jdbcType=BIT},
+      </if>
+      <if test="bproxyforeign != null">
+        bProxyForeign = #{bproxyforeign,jdbcType=BIT},
+      </if>
+      <if test="bvenservice != null">
+        bVenService = #{bvenservice,jdbcType=BIT},
+      </if>
+      <if test="cventradeccode != null">
+        cVenTradeCCode = #{cventradeccode,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenbankcode != null">
+        cVenBankCode = #{cvenbankcode,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenexchName != null">
+        cVenExch_name = #{cvenexchName,jdbcType=VARCHAR},
+      </if>
+      <if test="ivengsptype != null">
+        iVenGSPType = #{ivengsptype,jdbcType=SMALLINT},
+      </if>
+      <if test="ivengspauth != null">
+        iVenGSPAuth = #{ivengspauth,jdbcType=SMALLINT},
+      </if>
+      <if test="cvengspauthno != null">
+        cVenGSPAuthNo = #{cvengspauthno,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenbusinessno != null">
+        cVenBusinessNo = #{cvenbusinessno,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenlicenceno != null">
+        cVenLicenceNo = #{cvenlicenceno,jdbcType=VARCHAR},
+      </if>
+      <if test="bvenoverseas != null">
+        bVenOverseas = #{bvenoverseas,jdbcType=BIT},
+      </if>
+      <if test="bvenaccperiodmng != null">
+        bVenAccPeriodMng = #{bvenaccperiodmng,jdbcType=BIT},
+      </if>
+      <if test="cvenpuomprotocol != null">
+        cVenPUOMProtocol = #{cvenpuomprotocol,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenotherprotocol != null">
+        cVenOtherProtocol = #{cvenotherprotocol,jdbcType=VARCHAR},
+      </if>
+      <if test="cvencountrycode != null">
+        cVenCountryCode = #{cvencountrycode,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenenname != null">
+        cVenEnName = #{cvenenname,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenenaddr1 != null">
+        cVenEnAddr1 = #{cvenenaddr1,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenenaddr2 != null">
+        cVenEnAddr2 = #{cvenenaddr2,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenenaddr3 != null">
+        cVenEnAddr3 = #{cvenenaddr3,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenenaddr4 != null">
+        cVenEnAddr4 = #{cvenenaddr4,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenportcode != null">
+        cVenPortCode = #{cvenportcode,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenprimaryven != null">
+        cVenPrimaryVen = #{cvenprimaryven,jdbcType=VARCHAR},
+      </if>
+      <if test="fvencommisionrate != null">
+        fVenCommisionRate = #{fvencommisionrate,jdbcType=FLOAT},
+      </if>
+      <if test="fveninsuerate != null">
+        fVenInsueRate = #{fveninsuerate,jdbcType=FLOAT},
+      </if>
+      <if test="bvenhomebranch != null">
+        bVenHomeBranch = #{bvenhomebranch,jdbcType=BIT},
+      </if>
+      <if test="cvenbranchaddr != null">
+        cVenBranchAddr = #{cvenbranchaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenbranchphone != null">
+        cVenBranchPhone = #{cvenbranchphone,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenbranchperson != null">
+        cVenBranchPerson = #{cvenbranchperson,jdbcType=VARCHAR},
+      </if>
+      <if test="cvensscode != null">
+        cVenSSCode = #{cvensscode,jdbcType=VARCHAR},
+      </if>
+      <if test="comwhcode != null">
+        cOMWhCode = #{comwhcode,jdbcType=VARCHAR},
+      </if>
+      <if test="cvencmprotocol != null">
+        cVenCMProtocol = #{cvencmprotocol,jdbcType=VARCHAR},
+      </if>
+      <if test="cvenimprotocol != null">
+        cVenIMProtocol = #{cvenimprotocol,jdbcType=VARCHAR},
+      </if>
+      <if test="iventaxrate != null">
+        iVenTaxRate = #{iventaxrate,jdbcType=FLOAT},
+      </if>
+      <if test="dvencreatedatetime != null">
+        dVenCreateDatetime = #{dvencreatedatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cvenmnemcode != null">
+        cVenMnemCode = #{cvenmnemcode,jdbcType=VARCHAR},
+      </if>
+      <if test="cvencontactcode != null">
+        cVenContactCode = #{cvencontactcode,jdbcType=OTHER},
+      </if>
+      <if test="cvenbankall != null">
+        cvenbankall = #{cvenbankall,jdbcType=VARCHAR},
+      </if>
+      <if test="bisvenattachfile != null">
+        bIsVenAttachFile = #{bisvenattachfile,jdbcType=BIT},
+      </if>
+      <if test="clicencerange != null">
+        cLicenceRange = #{clicencerange,jdbcType=VARCHAR},
+      </if>
+      <if test="cbusinessrange != null">
+        cBusinessRange = #{cbusinessrange,jdbcType=VARCHAR},
+      </if>
+      <if test="cvengsprange != null">
+        cVenGSPRange = #{cvengsprange,jdbcType=VARCHAR},
+      </if>
+      <if test="dvengspedate != null">
+        dVenGSPEDate = #{dvengspedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dvengspsdate != null">
+        dVenGSPSDate = #{dvengspsdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ivengspadays != null">
+        iVenGSPADays = #{ivengspadays,jdbcType=INTEGER},
+      </if>
+      <if test="bretail != null">
+        bRetail = #{bretail,jdbcType=BIT},
+      </if>
+    </set>
+    where cVenCode = #{cvencode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.web.basicinfo.entity.Vendor">
+    <!--@mbg.generated-->
+    update Vendor
+    set cVenName = #{cvenname,jdbcType=VARCHAR},
+      cVenAbbName = #{cvenabbname,jdbcType=VARCHAR},
+      cVCCode = #{cvccode,jdbcType=VARCHAR},
+      cDCCode = #{cdccode,jdbcType=VARCHAR},
+      cTrade = #{ctrade,jdbcType=VARCHAR},
+      cVenAddress = #{cvenaddress,jdbcType=VARCHAR},
+      cVenPostCode = #{cvenpostcode,jdbcType=VARCHAR},
+      cVenRegCode = #{cvenregcode,jdbcType=VARCHAR},
+      cVenBank = #{cvenbank,jdbcType=VARCHAR},
+      cVenAccount = #{cvenaccount,jdbcType=VARCHAR},
+      dVenDevDate = #{dvendevdate,jdbcType=TIMESTAMP},
+      cVenLPerson = #{cvenlperson,jdbcType=VARCHAR},
+      cVenPhone = #{cvenphone,jdbcType=VARCHAR},
+      cVenFax = #{cvenfax,jdbcType=VARCHAR},
+      cVenEmail = #{cvenemail,jdbcType=VARCHAR},
+      cVenPerson = #{cvenperson,jdbcType=VARCHAR},
+      cVenBP = #{cvenbp,jdbcType=VARCHAR},
+      cVenHand = #{cvenhand,jdbcType=VARCHAR},
+      cVenPPerson = #{cvenpperson,jdbcType=VARCHAR},
+      iVenDisRate = #{ivendisrate,jdbcType=FLOAT},
+      iVenCreGrade = #{ivencregrade,jdbcType=VARCHAR},
+      iVenCreLine = #{ivencreline,jdbcType=FLOAT},
+      iVenCreDate = #{ivencredate,jdbcType=INTEGER},
+      cVenPayCond = #{cvenpaycond,jdbcType=VARCHAR},
+      cVenIAddress = #{cveniaddress,jdbcType=VARCHAR},
+      cVenIType = #{cvenitype,jdbcType=VARCHAR},
+      cVenHeadCode = #{cvenheadcode,jdbcType=VARCHAR},
+      cVenWhCode = #{cvenwhcode,jdbcType=VARCHAR},
+      cVenDepart = #{cvendepart,jdbcType=VARCHAR},
+      iAPMoney = #{iapmoney,jdbcType=FLOAT},
+      dLastDate = #{dlastdate,jdbcType=TIMESTAMP},
+      iLastMoney = #{ilastmoney,jdbcType=FLOAT},
+      dLRDate = #{dlrdate,jdbcType=TIMESTAMP},
+      iLRMoney = #{ilrmoney,jdbcType=FLOAT},
+      dEndDate = #{denddate,jdbcType=TIMESTAMP},
+      iFrequency = #{ifrequency,jdbcType=INTEGER},
+      bVenTax = #{bventax,jdbcType=BIT},
+      cVenDefine1 = #{cvendefine1,jdbcType=VARCHAR},
+      cVenDefine2 = #{cvendefine2,jdbcType=VARCHAR},
+      cVenDefine3 = #{cvendefine3,jdbcType=VARCHAR},
+      cCreatePerson = #{ccreateperson,jdbcType=VARCHAR},
+      cModifyPerson = #{cmodifyperson,jdbcType=VARCHAR},
+      dModifyDate = #{dmodifydate,jdbcType=TIMESTAMP},
+      cRelCustomer = #{crelcustomer,jdbcType=VARCHAR},
+      iId = #{iid,jdbcType=INTEGER},
+      cBarCode = #{cbarcode,jdbcType=VARCHAR},
+      cVenDefine4 = #{cvendefine4,jdbcType=VARCHAR},
+      cVenDefine5 = #{cvendefine5,jdbcType=VARCHAR},
+      cVenDefine6 = #{cvendefine6,jdbcType=VARCHAR},
+      cVenDefine7 = #{cvendefine7,jdbcType=VARCHAR},
+      cVenDefine8 = #{cvendefine8,jdbcType=VARCHAR},
+      cVenDefine9 = #{cvendefine9,jdbcType=VARCHAR},
+      cVenDefine10 = #{cvendefine10,jdbcType=VARCHAR},
+      cVenDefine11 = #{cvendefine11,jdbcType=INTEGER},
+      cVenDefine12 = #{cvendefine12,jdbcType=INTEGER},
+      cVenDefine13 = #{cvendefine13,jdbcType=FLOAT},
+      cVenDefine14 = #{cvendefine14,jdbcType=FLOAT},
+      cVenDefine15 = #{cvendefine15,jdbcType=TIMESTAMP},
+      cVenDefine16 = #{cvendefine16,jdbcType=TIMESTAMP},
+      pubufts = #{pubufts,jdbcType=TIMESTAMP},
+      fRegistFund = #{fregistfund,jdbcType=FLOAT},
+      iEmployeeNum = #{iemployeenum,jdbcType=INTEGER},
+      iGradeABC = #{igradeabc,jdbcType=SMALLINT},
+      cMemo = #{cmemo,jdbcType=VARCHAR},
+      bLicenceDate = #{blicencedate,jdbcType=BIT},
+      dLicenceSDate = #{dlicencesdate,jdbcType=TIMESTAMP},
+      dLicenceEDate = #{dlicenceedate,jdbcType=TIMESTAMP},
+      iLicenceADays = #{ilicenceadays,jdbcType=INTEGER},
+      bBusinessDate = #{bbusinessdate,jdbcType=BIT},
+      dBusinessSDate = #{dbusinesssdate,jdbcType=TIMESTAMP},
+      dBusinessEDate = #{dbusinessedate,jdbcType=TIMESTAMP},
+      iBusinessADays = #{ibusinessadays,jdbcType=INTEGER},
+      bProxyDate = #{bproxydate,jdbcType=BIT},
+      dProxySDate = #{dproxysdate,jdbcType=TIMESTAMP},
+      dProxyEDate = #{dproxyedate,jdbcType=TIMESTAMP},
+      iProxyADays = #{iproxyadays,jdbcType=INTEGER},
+      bPassGMP = #{bpassgmp,jdbcType=BIT},
+      bVenCargo = #{bvencargo,jdbcType=BIT},
+      bProxyForeign = #{bproxyforeign,jdbcType=BIT},
+      bVenService = #{bvenservice,jdbcType=BIT},
+      cVenTradeCCode = #{cventradeccode,jdbcType=VARCHAR},
+      cVenBankCode = #{cvenbankcode,jdbcType=VARCHAR},
+      cVenExch_name = #{cvenexchName,jdbcType=VARCHAR},
+      iVenGSPType = #{ivengsptype,jdbcType=SMALLINT},
+      iVenGSPAuth = #{ivengspauth,jdbcType=SMALLINT},
+      cVenGSPAuthNo = #{cvengspauthno,jdbcType=VARCHAR},
+      cVenBusinessNo = #{cvenbusinessno,jdbcType=VARCHAR},
+      cVenLicenceNo = #{cvenlicenceno,jdbcType=VARCHAR},
+      bVenOverseas = #{bvenoverseas,jdbcType=BIT},
+      bVenAccPeriodMng = #{bvenaccperiodmng,jdbcType=BIT},
+      cVenPUOMProtocol = #{cvenpuomprotocol,jdbcType=VARCHAR},
+      cVenOtherProtocol = #{cvenotherprotocol,jdbcType=VARCHAR},
+      cVenCountryCode = #{cvencountrycode,jdbcType=VARCHAR},
+      cVenEnName = #{cvenenname,jdbcType=VARCHAR},
+      cVenEnAddr1 = #{cvenenaddr1,jdbcType=VARCHAR},
+      cVenEnAddr2 = #{cvenenaddr2,jdbcType=VARCHAR},
+      cVenEnAddr3 = #{cvenenaddr3,jdbcType=VARCHAR},
+      cVenEnAddr4 = #{cvenenaddr4,jdbcType=VARCHAR},
+      cVenPortCode = #{cvenportcode,jdbcType=VARCHAR},
+      cVenPrimaryVen = #{cvenprimaryven,jdbcType=VARCHAR},
+      fVenCommisionRate = #{fvencommisionrate,jdbcType=FLOAT},
+      fVenInsueRate = #{fveninsuerate,jdbcType=FLOAT},
+      bVenHomeBranch = #{bvenhomebranch,jdbcType=BIT},
+      cVenBranchAddr = #{cvenbranchaddr,jdbcType=VARCHAR},
+      cVenBranchPhone = #{cvenbranchphone,jdbcType=VARCHAR},
+      cVenBranchPerson = #{cvenbranchperson,jdbcType=VARCHAR},
+      cVenSSCode = #{cvensscode,jdbcType=VARCHAR},
+      cOMWhCode = #{comwhcode,jdbcType=VARCHAR},
+      cVenCMProtocol = #{cvencmprotocol,jdbcType=VARCHAR},
+      cVenIMProtocol = #{cvenimprotocol,jdbcType=VARCHAR},
+      iVenTaxRate = #{iventaxrate,jdbcType=FLOAT},
+      dVenCreateDatetime = #{dvencreatedatetime,jdbcType=TIMESTAMP},
+      cVenMnemCode = #{cvenmnemcode,jdbcType=VARCHAR},
+      cVenContactCode = #{cvencontactcode,jdbcType=OTHER},
+      cvenbankall = #{cvenbankall,jdbcType=VARCHAR},
+      bIsVenAttachFile = #{bisvenattachfile,jdbcType=BIT},
+      cLicenceRange = #{clicencerange,jdbcType=VARCHAR},
+      cBusinessRange = #{cbusinessrange,jdbcType=VARCHAR},
+      cVenGSPRange = #{cvengsprange,jdbcType=VARCHAR},
+      dVenGSPEDate = #{dvengspedate,jdbcType=TIMESTAMP},
+      dVenGSPSDate = #{dvengspsdate,jdbcType=TIMESTAMP},
+      iVenGSPADays = #{ivengspadays,jdbcType=INTEGER},
+      bRetail = #{bretail,jdbcType=BIT}
+    where cVenCode = #{cvencode,jdbcType=VARCHAR}
+  </update>
+</mapper>

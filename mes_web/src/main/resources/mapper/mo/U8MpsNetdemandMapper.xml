@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.mo.mapper.U8MpsNetdemandMapper">
+  <resultMap id="BaseResultMap" type="com.web.mo.entity.U8MpsNetdemand">
+    <!--@mbg.generated-->
+    <!--@Table mps_netdemand-->
+    <id column="DemandId" jdbcType="INTEGER" property="demandid" />
+    <result column="PartId" jdbcType="INTEGER" property="partid" />
+    <result column="SoType" jdbcType="TINYINT" property="sotype" />
+    <result column="SoDId" jdbcType="VARCHAR" property="sodid" />
+    <result column="SoCode" jdbcType="VARCHAR" property="socode" />
+    <result column="SoSeq" jdbcType="INTEGER" property="soseq" />
+    <result column="PlanCode" jdbcType="VARCHAR" property="plancode" />
+    <result column="DueDate" jdbcType="TIMESTAMP" property="duedate" />
+    <result column="StartDate" jdbcType="TIMESTAMP" property="startdate" />
+    <result column="LUSD" jdbcType="TIMESTAMP" property="lusd" />
+    <result column="LUCD" jdbcType="TIMESTAMP" property="lucd" />
+    <result column="PlanQty" jdbcType="OTHER" property="planqty" />
+    <result column="CrdQty" jdbcType="OTHER" property="crdqty" />
+    <result column="SupplyType" jdbcType="TINYINT" property="supplytype" />
+    <result column="SchId" jdbcType="INTEGER" property="schid" />
+    <result column="ManualFlag" jdbcType="BIT" property="manualflag" />
+    <result column="DelFlag" jdbcType="BIT" property="delflag" />
+    <result column="ModifyFlag" jdbcType="BIT" property="modifyflag" />
+    <result column="Ufts" jdbcType="TIMESTAMP" property="ufts" />
+    <result column="ProjectId" jdbcType="INTEGER" property="projectid" />
+    <result column="Status" jdbcType="TINYINT" property="status" />
+    <result column="FirmDate" jdbcType="TIMESTAMP" property="firmdate" />
+    <result column="FirmUser" jdbcType="VARCHAR" property="firmuser" />
+    <result column="SrpSoType" jdbcType="TINYINT" property="srpsotype" />
+    <result column="SrpSoDId" jdbcType="INTEGER" property="srpsodid" />
+    <result column="SoId" jdbcType="INTEGER" property="soid" />
+    <result column="DemandCode" jdbcType="VARCHAR" property="demandcode" />
+    <result column="SupplyingRCode" jdbcType="VARCHAR" property="supplyingrcode" />
+    <result column="SupplyingPCode" jdbcType="VARCHAR" property="supplyingpcode" />
+    <result column="OrderType" jdbcType="TINYINT" property="ordertype" />
+    <result column="OrderDId" jdbcType="INTEGER" property="orderdid" />
+    <result column="Define22" jdbcType="VARCHAR" property="define22" />
+    <result column="Define23" jdbcType="VARCHAR" property="define23" />
+    <result column="Define24" jdbcType="VARCHAR" property="define24" />
+    <result column="Define25" jdbcType="VARCHAR" property="define25" />
+    <result column="Define26" jdbcType="FLOAT" property="define26" />
+    <result column="Define27" jdbcType="FLOAT" property="define27" />
+    <result column="Define28" jdbcType="VARCHAR" property="define28" />
+    <result column="Define29" jdbcType="VARCHAR" property="define29" />
+    <result column="Define30" jdbcType="VARCHAR" property="define30" />
+    <result column="Define31" jdbcType="VARCHAR" property="define31" />
+    <result column="Define32" jdbcType="VARCHAR" property="define32" />
+    <result column="Define33" jdbcType="VARCHAR" property="define33" />
+    <result column="Define34" jdbcType="INTEGER" property="define34" />
+    <result column="Define35" jdbcType="INTEGER" property="define35" />
+    <result column="Define36" jdbcType="TIMESTAMP" property="define36" />
+    <result column="Define37" jdbcType="TIMESTAMP" property="define37" />
+    <result column="ProcQty" jdbcType="OTHER" property="procqty" />
+    <result column="ProcedQty" jdbcType="OTHER" property="procedqty" />
+    <result column="CopyDemandId" jdbcType="INTEGER" property="copydemandid" />
+    <result column="OrgPlanQty" jdbcType="OTHER" property="orgplanqty" />
+    <result column="OrgDemQty" jdbcType="OTHER" property="orgdemqty" />
+    <result column="OrgStartDate" jdbcType="TIMESTAMP" property="orgstartdate" />
+    <result column="OrgDueDate" jdbcType="TIMESTAMP" property="orgduedate" />
+    <result column="OrgDemType" jdbcType="TINYINT" property="orgdemtype" />
+    <result column="OrgDemDId" jdbcType="INTEGER" property="orgdemdid" />
+    <result column="OrgDemCode" jdbcType="VARCHAR" property="orgdemcode" />
+    <result column="OrgDemSeq" jdbcType="INTEGER" property="orgdemseq" />
+    <result column="OrgDocDemQty" jdbcType="OTHER" property="orgdocdemqty" />
+    <result column="CloseDate" jdbcType="TIMESTAMP" property="closedate" />
+    <result column="CloseTime" jdbcType="TIMESTAMP" property="closetime" />
+    <result column="CloseUser" jdbcType="VARCHAR" property="closeuser" />
+    <result column="OrgStatus" jdbcType="TINYINT" property="orgstatus" />
+    <result column="FactoryCode" jdbcType="VARCHAR" property="factorycode" />
+    <result column="PurEmplCode" jdbcType="VARCHAR" property="puremplcode" />
+
+
+    <result column="cInvCode" jdbcType="VARCHAR" property="cinvcode" />
+    <result column="cInvName" jdbcType="VARCHAR" property="cinvname" />
+    <result column="cInvStd" jdbcType="VARCHAR" property="cinvstd" />
+    <result column="cComUnitName" jdbcType="VARCHAR" property="ccomunitname" />
+    <result column="cSOCode" jdbcType="VARCHAR" property="csocode" />
+    <result column="cMemo" jdbcType="VARCHAR" property="cmemo" />
+    <result column="cCusName" jdbcType="VARCHAR" property="ccusname" />
+    <result column="cCusAbbName" jdbcType="VARCHAR" property="ccusabbname" />
+    <result column="cdefine1" jdbcType="VARCHAR" property="cdefine1" />
+
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    DemandId, PartId, SoType, SoDId, SoCode, SoSeq, PlanCode, DueDate, StartDate, LUSD, 
+    LUCD, PlanQty, CrdQty, SupplyType, SchId, ManualFlag, DelFlag, ModifyFlag, Ufts, 
+    ProjectId, [Status], FirmDate, FirmUser, SrpSoType, SrpSoDId, SoId, DemandCode, SupplyingRCode, 
+    SupplyingPCode, OrderType, OrderDId, Define22, Define23, Define24, Define25, Define26, 
+    Define27, Define28, Define29, Define30, Define31, Define32, Define33, Define34, Define35, 
+    Define36, Define37, ProcQty, ProcedQty, CopyDemandId, OrgPlanQty, OrgDemQty, OrgStartDate, 
+    OrgDueDate, OrgDemType, OrgDemDId, OrgDemCode, OrgDemSeq, OrgDocDemQty, CloseDate, 
+    CloseTime, CloseUser, OrgStatus, FactoryCode, PurEmplCode
+  </sql>
+
+
+
+  <select id="getPrintProduct" parameterType="com.web.mo.entity.U8MpsNetdemand" resultMap="BaseResultMap">
+
+    select *from  (
+    select t.DemandId,t2.PlanCode,t.PlanQty,so.cSOCode,so.cDefine1,t.DueDate,inv.cInvCode,t2.CreateDate StartDate,cu.cCusAbbName,
+    inv.cInvName,inv.cInvStd,cp.cComUnitName,so.cCusName,t2.Description cMemo
+    FROM dbo.mps_plancode t2
+    left join mps_planproject t1 on t2.PlanCodeId=t1.PlanCodeId
+    left join mps_netdemand t on t1.ProjectId=t.ProjectId
+    left join bas_part part on t.PartId=part.PartId
+    left join Inventory inv on part.InvCode=inv.cInvCode
+    left join SO_SODetails sod on t.SoDId=sod.iSOsID
+    left join SO_SOMain so on sod.ID=so.ID
+    left join ComputationUnit cp on inv.ccomunitcode=cp.cComunitCode
+    left join customer cu on so.ccuscode=cu.ccuscode
+    where 1=1  and part.InvCode=sod.cInvCode and  t1.ActiveFlag=1
+    <if test="main.cinvcode != null   and main.cinvcode != '' ">
+      AND inv.cInvcode like '%' + #{main.cinvcode} + '%'
+    </if>
+    <if test="main.cinvname != null   and main.cinvname != '' ">
+      AND inv.cInvName like '%' + #{main.cinvname} + '%'
+    </if>
+    <if test="main.plancode != null   and main.plancode != '' ">
+      AND t2.PlanCode like '%' + #{main.plancode} + '%'
+    </if>
+    <if test="main.ccusname != null   and main.ccusname != '' ">
+      AND cu.cCusName like '%' + #{main.ccusname} + '%'
+    </if>
+    <if test="main.socode != null   and main.socode != '' ">
+      AND so.cSOCode like '%' + #{main.socode} + '%'
+    </if>
+    <if test="main.dateStart != null ">
+      AND t2.CreateDate  >= #{main.dateStart,jdbcType=TIMESTAMP}
+    </if>
+    <if test="main.dateEnd != null ">
+      AND t2.CreateDate  &lt; #{main.dateEnd,jdbcType=TIMESTAMP}
+    </if>
+
+    union all
+    select t.DemandId,t2.PlanCode,t.PlanQty,so.FoCode cSOCode ,so.Define1 cDefine1,t.DueDate,inv.cInvCode,t2.CreateDate StartDate,cu.cCusAbbName,
+    inv.cInvName,inv.cInvStd,cp.cComUnitName,cu.cCusName,t2.Description cMemo
+    FROM dbo.mps_plancode t2
+    left join mps_planproject t1 on t2.PlanCodeId=t1.PlanCodeId
+    left join mps_netdemand t on t1.ProjectId=t.ProjectId
+    left join bas_part part on t.PartId=part.PartId
+    left join Inventory inv on part.InvCode=inv.cInvCode
+    left join mps_forecastdetail sod on t.OrgDemDId=sod.ForecastDId
+    left join mps_forecast so on sod.ForecastId=so.ForecastId
+    left join ComputationUnit cp on inv.ccomunitcode=cp.cComunitCode
+    left join customer cu on so.CustCode=cu.ccuscode
+    where 1=1  and part.PartId=sod.PartId and  t1.ActiveFlag=1
+    <if test="main.cinvcode != null   and main.cinvcode != '' ">
+      AND inv.cInvcode like '%' + #{main.cinvcode} + '%'
+    </if>
+    <if test="main.cinvname != null   and main.cinvname != '' ">
+      AND inv.cInvName like '%' + #{main.cinvname} + '%'
+    </if>
+    <if test="main.plancode != null   and main.plancode != '' ">
+      AND t2.PlanCode like '%' + #{main.plancode} + '%'
+    </if>
+    <if test="main.ccusname != null   and main.ccusname != '' ">
+      AND cu.cCusName like '%' + #{main.ccusname} + '%'
+    </if>
+    <if test="main.socode != null   and main.socode != '' ">
+      AND so.FoCode like '%' + #{main.socode} + '%'
+    </if>
+    <if test="main.dateStart != null ">
+      AND t2.CreateDate  >= #{main.dateStart,jdbcType=TIMESTAMP}
+    </if>
+    <if test="main.dateEnd != null ">
+      AND t2.CreateDate  &lt; #{main.dateEnd,jdbcType=TIMESTAMP}
+    </if>
+    )t
+
+
+    order by startDate desc,PlanCode
+
+
+
+  </select>
+
+  <select id="getList" parameterType="com.web.mo.entity.U8MpsNetdemand" resultMap="BaseResultMap">
+    select * from  (
+    select t.DemandId,t2.PlanCode,t.PlanQty,so.cSOCode,so.cDefine1,t.DueDate,inv.cInvCode,t2.CreateDate StartDate,
+    inv.cInvName,inv.cInvStd,cp.cComUnitName,so.cCusName,t2.Description cMemo
+    FROM dbo.mps_plancode t2
+    left join mps_planproject t1 on t2.PlanCodeId=t1.PlanCodeId
+    left join mps_netdemand t on t1.ProjectId=t.ProjectId
+    left join bas_part part on t.PartId=part.PartId
+    left join Inventory inv on part.InvCode=inv.cInvCode
+    left join SO_SODetails sod on t.SoDId=sod.iSOsID
+    left join SO_SOMain so on sod.ID=so.ID
+    left join ComputationUnit cp on inv.ccomunitcode=cp.cComunitCode
+    where t1.ActiveFlag=1  and sod.cInvCode=inv.cInvCode
+    <if test="main.cinvcode != null   and main.cinvcode != '' ">
+      AND inv.cInvcode like '%' + #{main.cinvcode} + '%'
+    </if>
+    <if test="main.cinvname != null   and main.cinvname != '' ">
+      AND inv.cInvName like '%' + #{main.cinvname} + '%'
+    </if>
+    <if test="main.plancode != null   and main.plancode != '' ">
+      AND t2.PlanCode like '%' + #{main.plancode} + '%'
+    </if>
+    <if test="main.ccusname != null   and main.ccusname != '' ">
+      AND cu.cCusName like '%' + #{main.ccusname} + '%'
+    </if>
+    <if test="main.socode != null   and main.socode != '' ">
+      AND so.cSOCode like '%' + #{main.socode} + '%'
+    </if>
+    <if test="main.dateStart != null ">
+      AND t2.CreateDate >= #{main.dateStart,jdbcType=TIMESTAMP}
+    </if>
+    <if test="main.dateEnd != null ">
+      AND t2.CreateDate &lt; #{main.dateEnd,jdbcType=TIMESTAMP}
+    </if>
+    union all
+    select t.DemandId,t2.PlanCode,t.PlanQty,so.FoCode cSOCode ,so.Define1 cDefine1,t.DueDate,inv.cInvCode,t2.CreateDate StartDate,
+    inv.cInvName,inv.cInvStd,cp.cComUnitName,cu.cCusName,t2.Description cMemo
+    FROM dbo.mps_plancode t2
+    left join mps_planproject t1 on t2.PlanCodeId=t1.PlanCodeId
+    left join mps_netdemand t on t1.ProjectId=t.ProjectId
+    left join bas_part part on t.PartId=part.PartId
+    left join Inventory inv on part.InvCode=inv.cInvCode
+    left join mps_forecastdetail sod on t.OrgDemDId=sod.ForecastDId
+    left join mps_forecast so on sod.ForecastId=so.ForecastId
+    left join ComputationUnit cp on inv.ccomunitcode=cp.cComunitCode
+    left join customer cu on so.CustCode=cu.ccuscode
+    where 1=1  and part.PartId=sod.PartId and  t1.ActiveFlag=1
+    <if test="main.cinvcode != null   and main.cinvcode != '' ">
+      AND inv.cInvcode like '%' + #{main.cinvcode} + '%'
+    </if>
+    <if test="main.cinvname != null   and main.cinvname != '' ">
+      AND inv.cInvName like '%' + #{main.cinvname} + '%'
+    </if>
+    <if test="main.plancode != null   and main.plancode != '' ">
+      AND t2.PlanCode like '%' + #{main.plancode} + '%'
+    </if>
+    <if test="main.ccusname != null   and main.ccusname != '' ">
+      AND cu.cCusName like '%' + #{main.ccusname} + '%'
+    </if>
+    <if test="main.socode != null   and main.socode != '' ">
+      AND so.FoCode like '%' + #{main.socode} + '%'
+    </if>
+    <if test="main.dateStart != null ">
+      AND t2.CreateDate  >= #{main.dateStart,jdbcType=TIMESTAMP}
+    </if>
+    <if test="main.dateEnd != null ">
+      AND t2.CreateDate  &lt; #{main.dateEnd,jdbcType=TIMESTAMP}
+    </if>
+    )t
+
+
+    order by startDate desc,PlanCode
+  </select>
+  <select id="getListForPrint" parameterType="com.web.mo.entity.U8MpsNetdemand" resultMap="BaseResultMap">
+    select *from  (
+    select t.DemandId,t2.PlanCode,t.PlanQty,so.cSOCode,so.cDefine1,t.DueDate,inv.cInvCode,t2.CreateDate StartDate,
+    inv.cInvName,inv.cInvStd cInvStd,cp.cComUnitName,so.cCusName,t2.Description cMemo
+    FROM dbo.mps_plancode t2
+    left join mps_planproject t1 on t2.PlanCodeId=t1.PlanCodeId
+    left join mps_netdemand t on t1.ProjectId=t.ProjectId
+    left join bas_part part on t.PartId=part.PartId
+    left join Inventory inv on part.InvCode=inv.cInvCode
+    left join SO_SODetails sod on t.SoDId=sod.iSOsID
+    left join SO_SOMain so on sod.ID=so.ID
+    left join ComputationUnit cp on inv.ccomunitcode=cp.cComunitCode
+    where 1=1  and  t1.ActiveFlag=1   and sod.cInvCode=inv.cInvCode
+    and exists (select * from  ${database}.dbo.production_test_so_list solist where t2.PlanCode=solist.order_no)
+    <if test="main.cinvcode != null   and main.cinvcode != '' ">
+      AND inv.cInvcode like '%' + #{main.cinvcode} + '%'
+    </if>
+    <if test="main.cinvname != null   and main.cinvname != '' ">
+      AND inv.cInvName like '%' + #{main.cinvname} + '%'
+    </if>
+    <if test="main.plancode != null   and main.plancode != '' ">
+      AND t2.PlanCode like '%' + #{main.plancode} + '%'
+    </if>
+    <if test="main.ccusname != null   and main.ccusname != '' ">
+      AND cu.cCusName like '%' + #{main.ccusname} + '%'
+    </if>
+    <if test="main.socode != null   and main.socode != '' ">
+      AND so.cSOCode like '%' + #{main.socode} + '%'
+    </if>
+    <if test="main.dateStart != null ">
+      AND t2.CreateDate  >= #{main.dateStart,jdbcType=TIMESTAMP}
+    </if>
+    <if test="main.dateEnd != null ">
+      AND t2.CreateDate  &lt; #{main.dateEnd,jdbcType=TIMESTAMP}
+    </if>
+    union all
+    select t.DemandId,t2.PlanCode,t.PlanQty,so.FoCode cSOCode ,so.Define1 cDefine1,t.DueDate,inv.cInvCode,t2.CreateDate StartDate,
+    inv.cInvName,inv.cInvStd,cp.cComUnitName,cu.cCusName,t2.Description cMemo
+    FROM dbo.mps_plancode t2
+    left join mps_planproject t1 on t2.PlanCodeId=t1.PlanCodeId
+    left join mps_netdemand t on t1.ProjectId=t.ProjectId
+    left join bas_part part on t.PartId=part.PartId
+    left join Inventory inv on part.InvCode=inv.cInvCode
+    left join mps_forecastdetail sod on t.OrgDemDId=sod.ForecastDId
+    left join mps_forecast so on sod.ForecastId=so.ForecastId
+    left join ComputationUnit cp on inv.ccomunitcode=cp.cComunitCode
+    left join customer cu on so.CustCode=cu.ccuscode
+    where 1=1  and part.PartId=sod.PartId and  t1.ActiveFlag=1
+    and exists (select * from  ${database}.dbo.production_test_so_list solist where t2.PlanCode=solist.order_no)
+    <if test="main.cinvcode != null   and main.cinvcode != '' ">
+      AND inv.cInvcode like '%' + #{main.cinvcode} + '%'
+    </if>
+    <if test="main.cinvname != null   and main.cinvname != '' ">
+      AND inv.cInvName like '%' + #{main.cinvname} + '%'
+    </if>
+    <if test="main.plancode != null   and main.plancode != '' ">
+      AND t2.PlanCode like '%' + #{main.plancode} + '%'
+    </if>
+    <if test="main.ccusname != null   and main.ccusname != '' ">
+      AND cu.cCusName like '%' + #{main.ccusname} + '%'
+    </if>
+    <if test="main.socode != null   and main.socode != '' ">
+      AND so.FoCode like '%' + #{main.socode} + '%'
+    </if>
+    <if test="main.dateStart != null ">
+      AND t2.CreateDate  >= #{main.dateStart,jdbcType=TIMESTAMP}
+    </if>
+    <if test="main.dateEnd != null ">
+      AND t2.CreateDate  &lt; #{main.dateEnd,jdbcType=TIMESTAMP}
+    </if>
+    )t
+
+    order by startDate desc,PlanCode
+  </select>
+
+</mapper>

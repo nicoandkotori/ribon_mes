@@ -1,0 +1,5 @@
+/**  重写layui.css中的样式。  主要是颜色 改为蓝色  #71d0f1**/
+/**blockquote 标签 左侧 竖条背景色*/
+.layui-elem-quote{
+    border-left: 5px solid #71d0f1 !important;
+}

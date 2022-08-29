@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.basicinfo.mapper.BasPartMapper">
+  <resultMap id="BaseResultMap" type="com.web.basicinfo.entity.BasPart">
+    <!--@mbg.generated-->
+    <!--@Table bas_part-->
+    <id column="PartId" jdbcType="INTEGER" property="partid" />
+    <result column="InvCode" jdbcType="VARCHAR" property="invcode" />
+    <result column="Free1" jdbcType="VARCHAR" property="free1" />
+    <result column="Free2" jdbcType="VARCHAR" property="free2" />
+    <result column="Free3" jdbcType="VARCHAR" property="free3" />
+    <result column="Free4" jdbcType="VARCHAR" property="free4" />
+    <result column="Free5" jdbcType="VARCHAR" property="free5" />
+    <result column="Free6" jdbcType="VARCHAR" property="free6" />
+    <result column="Free7" jdbcType="VARCHAR" property="free7" />
+    <result column="Free8" jdbcType="VARCHAR" property="free8" />
+    <result column="Free9" jdbcType="VARCHAR" property="free9" />
+    <result column="Free10" jdbcType="VARCHAR" property="free10" />
+    <result column="SafeQty" jdbcType="DECIMAL" property="safeqty" />
+    <result column="MinQty" jdbcType="DECIMAL" property="minqty" />
+    <result column="MulQty" jdbcType="DECIMAL" property="mulqty" />
+    <result column="FixQty" jdbcType="DECIMAL" property="fixqty" />
+    <result column="bVirtual" jdbcType="BIT" property="bvirtual" />
+    <result column="DrawCode" jdbcType="VARCHAR" property="drawcode" />
+    <result column="Ufts" jdbcType="TIMESTAMP" property="ufts" />
+    <result column="LLC" jdbcType="INTEGER" property="llc" />
+    <result column="cBasEngineerFigNo" jdbcType="VARCHAR" property="cbasengineerfigno" />
+    <result column="fBasMaxSupply" jdbcType="FLOAT" property="fbasmaxsupply" />
+    <result column="iSurenessType" jdbcType="SMALLINT" property="isurenesstype" />
+    <result column="iDateType" jdbcType="SMALLINT" property="idatetype" />
+    <result column="iDateSum" jdbcType="INTEGER" property="idatesum" />
+    <result column="iDynamicSurenessType" jdbcType="SMALLINT" property="idynamicsurenesstype" />
+    <result column="iBestrowSum" jdbcType="FLOAT" property="ibestrowsum" />
+    <result column="iPercentumSum" jdbcType="FLOAT" property="ipercentumsum" />
+    <result column="RoundingFactor" jdbcType="OTHER" property="roundingfactor" />
+    <result column="FreeStockFlag" jdbcType="BIT" property="freestockflag" />
+    <result column="bFreeStop" jdbcType="BIT" property="bfreestop" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    PartId, InvCode, Free1, Free2, Free3, Free4, Free5, Free6, Free7, Free8, Free9, Free10, 
+    SafeQty, MinQty, MulQty, FixQty, bVirtual, DrawCode, Ufts, LLC, cBasEngineerFigNo, 
+    fBasMaxSupply, iSurenessType, iDateType, iDateSum, iDynamicSurenessType, iBestrowSum, 
+    iPercentumSum, RoundingFactor, FreeStockFlag, bFreeStop
+  </sql>
+</mapper>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.basicinfo.mapper.PersonMapper">
+  <resultMap id="BaseResultMap" type="com.web.basicinfo.entity.Person">
+    <!--@mbg.generated-->
+    <!--@Table Person-->
+    <id column="cPersonCode" jdbcType="VARCHAR" property="cpersoncode" />
+    <result column="cPersonName" jdbcType="VARCHAR" property="cpersonname" />
+    <result column="cDepCode" jdbcType="VARCHAR" property="cdepcode" />
+    <result column="cPersonProp" jdbcType="VARCHAR" property="cpersonprop" />
+    <result column="fCreditQuantity" jdbcType="FLOAT" property="fcreditquantity" />
+    <result column="iCreDate" jdbcType="INTEGER" property="icredate" />
+    <result column="cCreGrade" jdbcType="VARCHAR" property="ccregrade" />
+    <result column="iLowRate" jdbcType="FLOAT" property="ilowrate" />
+    <result column="cOfferGrade" jdbcType="VARCHAR" property="coffergrade" />
+    <result column="iOfferRate" jdbcType="FLOAT" property="iofferrate" />
+    <result column="pubufts" jdbcType="TIMESTAMP" property="pubufts" />
+    <result column="cPersonEmail" jdbcType="VARCHAR" property="cpersonemail" />
+    <result column="cPersonPhone" jdbcType="VARCHAR" property="cpersonphone" />
+    <result column="dPValidDate" jdbcType="TIMESTAMP" property="dpvaliddate" />
+    <result column="dPInValidDate" jdbcType="TIMESTAMP" property="dpinvaliddate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    cPersonCode, cPersonName, cDepCode, cPersonProp, fCreditQuantity, iCreDate, cCreGrade, 
+    iLowRate, cOfferGrade, iOfferRate, pubufts, cPersonEmail, cPersonPhone, dPValidDate, 
+    dPInValidDate
+  </sql>
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.basicinfo.entity.Person">
+    <!--@mbg.generated-->
+    update Person
+    <set>
+      <if test="cpersonname != null">
+        cPersonName = #{cpersonname,jdbcType=VARCHAR},
+      </if>
+      <if test="cdepcode != null">
+        cDepCode = #{cdepcode,jdbcType=VARCHAR},
+      </if>
+      <if test="cpersonprop != null">
+        cPersonProp = #{cpersonprop,jdbcType=VARCHAR},
+      </if>
+      <if test="fcreditquantity != null">
+        fCreditQuantity = #{fcreditquantity,jdbcType=FLOAT},
+      </if>
+      <if test="icredate != null">
+        iCreDate = #{icredate,jdbcType=INTEGER},
+      </if>
+      <if test="ccregrade != null">
+        cCreGrade = #{ccregrade,jdbcType=VARCHAR},
+      </if>
+      <if test="ilowrate != null">
+        iLowRate = #{ilowrate,jdbcType=FLOAT},
+      </if>
+      <if test="coffergrade != null">
+        cOfferGrade = #{coffergrade,jdbcType=VARCHAR},
+      </if>
+      <if test="iofferrate != null">
+        iOfferRate = #{iofferrate,jdbcType=FLOAT},
+      </if>
+      <if test="pubufts != null">
+        pubufts = #{pubufts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cpersonemail != null">
+        cPersonEmail = #{cpersonemail,jdbcType=VARCHAR},
+      </if>
+      <if test="cpersonphone != null">
+        cPersonPhone = #{cpersonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="dpvaliddate != null">
+        dPValidDate = #{dpvaliddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dpinvaliddate != null">
+        dPInValidDate = #{dpinvaliddate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cPersonCode = #{cpersoncode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.web.basicinfo.entity.Person">
+    <!--@mbg.generated-->
+    update Person
+    set cPersonName = #{cpersonname,jdbcType=VARCHAR},
+      cDepCode = #{cdepcode,jdbcType=VARCHAR},
+      cPersonProp = #{cpersonprop,jdbcType=VARCHAR},
+      fCreditQuantity = #{fcreditquantity,jdbcType=FLOAT},
+      iCreDate = #{icredate,jdbcType=INTEGER},
+      cCreGrade = #{ccregrade,jdbcType=VARCHAR},
+      iLowRate = #{ilowrate,jdbcType=FLOAT},
+      cOfferGrade = #{coffergrade,jdbcType=VARCHAR},
+      iOfferRate = #{iofferrate,jdbcType=FLOAT},
+      pubufts = #{pubufts,jdbcType=TIMESTAMP},
+      cPersonEmail = #{cpersonemail,jdbcType=VARCHAR},
+      cPersonPhone = #{cpersonphone,jdbcType=VARCHAR},
+      dPValidDate = #{dpvaliddate,jdbcType=TIMESTAMP},
+      dPInValidDate = #{dpinvaliddate,jdbcType=TIMESTAMP}
+    where cPersonCode = #{cpersoncode,jdbcType=VARCHAR}
+  </update>
+</mapper>

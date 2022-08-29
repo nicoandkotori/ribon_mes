@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.sa.mapper.SoMainMapper">
+  <resultMap id="BaseResultMap" type="com.web.sa.entity.SoMain">
+    <!--@mbg.generated-->
+    <!--@Table SO_SOMain-->
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="cSTCode" jdbcType="VARCHAR" property="cstcode" />
+    <result column="dDate" jdbcType="TIMESTAMP" property="ddate" />
+    <result column="cSOCode" jdbcType="VARCHAR" property="csocode" />
+    <result column="cCusCode" jdbcType="VARCHAR" property="ccuscode" />
+    <result column="cDepCode" jdbcType="VARCHAR" property="cdepcode" />
+    <result column="cPersonCode" jdbcType="VARCHAR" property="cpersoncode" />
+    <result column="cSCCode" jdbcType="VARCHAR" property="csccode" />
+    <result column="cCusOAddress" jdbcType="VARCHAR" property="ccusoaddress" />
+    <result column="cPayCode" jdbcType="VARCHAR" property="cpaycode" />
+    <result column="cexch_name" jdbcType="VARCHAR" property="cexchName" />
+    <result column="iExchRate" jdbcType="FLOAT" property="iexchrate" />
+    <result column="iTaxRate" jdbcType="FLOAT" property="itaxrate" />
+    <result column="iMoney" jdbcType="OTHER" property="imoney" />
+    <result column="cMemo" jdbcType="VARCHAR" property="cmemo" />
+    <result column="iStatus" jdbcType="TINYINT" property="istatus" />
+    <result column="cMaker" jdbcType="VARCHAR" property="cmaker" />
+    <result column="cVerifier" jdbcType="VARCHAR" property="cverifier" />
+    <result column="cCloser" jdbcType="VARCHAR" property="ccloser" />
+    <result column="bDisFlag" jdbcType="BIT" property="bdisflag" />
+    <result column="cDefine1" jdbcType="VARCHAR" property="cdefine1" />
+    <result column="cDefine2" jdbcType="VARCHAR" property="cdefine2" />
+    <result column="cDefine3" jdbcType="VARCHAR" property="cdefine3" />
+    <result column="cDefine4" jdbcType="TIMESTAMP" property="cdefine4" />
+    <result column="cDefine5" jdbcType="INTEGER" property="cdefine5" />
+    <result column="cDefine6" jdbcType="TIMESTAMP" property="cdefine6" />
+    <result column="cDefine7" jdbcType="FLOAT" property="cdefine7" />
+    <result column="cDefine8" jdbcType="VARCHAR" property="cdefine8" />
+    <result column="cDefine9" jdbcType="VARCHAR" property="cdefine9" />
+    <result column="cDefine10" jdbcType="VARCHAR" property="cdefine10" />
+    <result column="bReturnFlag" jdbcType="BIT" property="breturnflag" />
+    <result column="cCusName" jdbcType="VARCHAR" property="ccusname" />
+    <result column="bOrder" jdbcType="BIT" property="border" />
+    <result column="iVTid" jdbcType="INTEGER" property="ivtid" />
+    <result column="ufts" jdbcType="TIMESTAMP" property="ufts" />
+    <result column="cChanger" jdbcType="VARCHAR" property="cchanger" />
+    <result column="cBusType" jdbcType="VARCHAR" property="cbustype" />
+    <result column="cCreChpName" jdbcType="VARCHAR" property="ccrechpname" />
+    <result column="cDefine11" jdbcType="VARCHAR" property="cdefine11" />
+    <result column="cDefine12" jdbcType="VARCHAR" property="cdefine12" />
+    <result column="cDefine13" jdbcType="VARCHAR" property="cdefine13" />
+    <result column="cDefine14" jdbcType="VARCHAR" property="cdefine14" />
+    <result column="cDefine15" jdbcType="INTEGER" property="cdefine15" />
+    <result column="cDefine16" jdbcType="FLOAT" property="cdefine16" />
+    <result column="coppcode" jdbcType="VARCHAR" property="coppcode" />
+    <result column="cLocker" jdbcType="VARCHAR" property="clocker" />
+    <result column="dPreMoDateBT" jdbcType="TIMESTAMP" property="dpremodatebt" />
+    <result column="dPreDateBT" jdbcType="TIMESTAMP" property="dpredatebt" />
+    <result column="cgatheringplan" jdbcType="VARCHAR" property="cgatheringplan" />
+    <result column="caddcode" jdbcType="VARCHAR" property="caddcode" />
+    <result column="iverifystate" jdbcType="INTEGER" property="iverifystate" />
+    <result column="ireturncount" jdbcType="TINYINT" property="ireturncount" />
+    <result column="iswfcontrolled" jdbcType="TINYINT" property="iswfcontrolled" />
+    <result column="icreditstate" jdbcType="VARCHAR" property="icreditstate" />
+    <result column="cmodifier" jdbcType="VARCHAR" property="cmodifier" />
+    <result column="dmoddate" jdbcType="TIMESTAMP" property="dmoddate" />
+    <result column="dverifydate" jdbcType="TIMESTAMP" property="dverifydate" />
+    <result column="ccusperson" jdbcType="VARCHAR" property="ccusperson" />
+    <result column="dcreatesystime" jdbcType="TIMESTAMP" property="dcreatesystime" />
+    <result column="dverifysystime" jdbcType="TIMESTAMP" property="dverifysystime" />
+    <result column="dmodifysystime" jdbcType="TIMESTAMP" property="dmodifysystime" />
+    <result column="iflowid" jdbcType="INTEGER" property="iflowid" />
+    <result column="bcashsale" jdbcType="BIT" property="bcashsale" />
+    <result column="cgathingcode" jdbcType="VARCHAR" property="cgathingcode" />
+    <result column="cChangeVerifier" jdbcType="VARCHAR" property="cchangeverifier" />
+    <result column="dChangeVerifyDate" jdbcType="TIMESTAMP" property="dchangeverifydate" />
+    <result column="dChangeVerifyTime" jdbcType="TIMESTAMP" property="dchangeverifytime" />
+    <result column="outid" jdbcType="OTHER" property="outid" />
+    <result column="ccuspersoncode" jdbcType="VARCHAR" property="ccuspersoncode" />
+    <result column="dclosedate" jdbcType="TIMESTAMP" property="dclosedate" />
+    <result column="dclosesystime" jdbcType="TIMESTAMP" property="dclosesystime" />
+    <result column="iPrintCount" jdbcType="FLOAT" property="iprintcount" />
+    <result column="fbookratio" jdbcType="FLOAT" property="fbookratio" />
+    <result column="bmustbook" jdbcType="BIT" property="bmustbook" />
+    <result column="fbooksum" jdbcType="OTHER" property="fbooksum" />
+    <result column="fbooknatsum" jdbcType="OTHER" property="fbooknatsum" />
+    <result column="fgbooksum" jdbcType="OTHER" property="fgbooksum" />
+    <result column="fgbooknatsum" jdbcType="OTHER" property="fgbooknatsum" />
+    <result column="csvouchtype" jdbcType="VARCHAR" property="csvouchtype" />
+    <result column="cCrmPersonCode" jdbcType="VARCHAR" property="ccrmpersoncode" />
+    <result column="cCrmPersonName" jdbcType="VARCHAR" property="ccrmpersonname" />
+    <result column="cMainPersonCode" jdbcType="VARCHAR" property="cmainpersoncode" />
+    <result column="cSysBarCode" jdbcType="VARCHAR" property="csysbarcode" />
+    <result column="ioppid" jdbcType="INTEGER" property="ioppid" />
+    <result column="optnty_name" jdbcType="VARCHAR" property="optntyName" />
+    <result column="cCurrentAuditor" jdbcType="VARCHAR" property="ccurrentauditor" />
+    <result column="contract_status" jdbcType="SMALLINT" property="contractStatus" />
+    <result column="csscode" jdbcType="VARCHAR" property="csscode" />
+    <result column="cinvoicecompany" jdbcType="VARCHAR" property="cinvoicecompany" />
+    <result column="cAttachment" jdbcType="VARCHAR" property="cattachment" />
+    <result column="cEBTrnumber" jdbcType="VARCHAR" property="cebtrnumber" />
+    <result column="cEBBuyer" jdbcType="VARCHAR" property="cebbuyer" />
+    <result column="cEBBuyerNote" jdbcType="VARCHAR" property="cebbuyernote" />
+    <result column="ccontactname" jdbcType="VARCHAR" property="ccontactname" />
+    <result column="cEBprovince" jdbcType="VARCHAR" property="cebprovince" />
+    <result column="cEBcity" jdbcType="VARCHAR" property="cebcity" />
+    <result column="cEBdistrict" jdbcType="VARCHAR" property="cebdistrict" />
+    <result column="cmobilephone" jdbcType="VARCHAR" property="cmobilephone" />
+    <result column="cInvoiceCusName" jdbcType="VARCHAR" property="cinvoicecusname" />
+    <result column="cGCRouteCode" jdbcType="VARCHAR" property="cgcroutecode" />
+    <result column="cbcode" jdbcType="VARCHAR" property="cbcode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, cSTCode, dDate, cSOCode, cCusCode, cDepCode, cPersonCode, cSCCode, cCusOAddress, 
+    cPayCode, cexch_name, iExchRate, iTaxRate, iMoney, cMemo, iStatus, cMaker, cVerifier, 
+    cCloser, bDisFlag, cDefine1, cDefine2, cDefine3, cDefine4, cDefine5, cDefine6, cDefine7, 
+    cDefine8, cDefine9, cDefine10, bReturnFlag, cCusName, bOrder, iVTid, ufts, cChanger, 
+    cBusType, cCreChpName, cDefine11, cDefine12, cDefine13, cDefine14, cDefine15, cDefine16, 
+    coppcode, cLocker, dPreMoDateBT, dPreDateBT, cgatheringplan, caddcode, iverifystate, 
+    ireturncount, iswfcontrolled, icreditstate, cmodifier, dmoddate, dverifydate, ccusperson, 
+    dcreatesystime, dverifysystime, dmodifysystime, iflowid, bcashsale, cgathingcode, 
+    cChangeVerifier, dChangeVerifyDate, dChangeVerifyTime, outid, ccuspersoncode, dclosedate, 
+    dclosesystime, iPrintCount, fbookratio, bmustbook, fbooksum, fbooknatsum, fgbooksum, 
+    fgbooknatsum, csvouchtype, cCrmPersonCode, cCrmPersonName, cMainPersonCode, cSysBarCode, 
+    ioppid, optnty_name, cCurrentAuditor, contract_status, csscode, cinvoicecompany, 
+    cAttachment, cEBTrnumber, cEBBuyer, cEBBuyerNote, ccontactname, cEBprovince, cEBcity, 
+    cEBdistrict, cmobilephone, cInvoiceCusName, cGCRouteCode, cbcode
+  </sql>
+</mapper>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>管理员列表-WeAdmin Frame型后台管理系统-WeAdmin 1.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../static/css/font.css">
+    <link rel="stylesheet" href="../../../static/css/weadmin.css">
+    <!-- jqgrid -->
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/jquery-ui.theme.min.css'/>
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/ui.jqgrid.css'/>
+    <!--select2-->
+    <link rel="stylesheet" href='../../../static/Scripts/select2/css/select2.min.css'/>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="../../../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../../js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+    <!--jquery-->
+    <script src='../../../static/Scripts/jquery-1.10.2.min.js'></script>
+    <script src='../../../static/Scripts/jquery.json.js'></script>
+    <script src='../../../static/Scripts/Common.js'></script>
+    <!--jqgrid-->
+    <script src='../../../static/Scripts/jqgrid/js/i18n/grid.locale-cn.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery-ui.min.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery.jqGrid.js'></script>
+    <script src='../../../static/Scripts/Print.js'></script>
+    <script src='../../../static/Scripts/lodop/LodopFuncs.js'></script>
+</head>
+<style type="text/css">
+
+    .red-bg {
+        background-color: #e6afaf;
+    }
+
+</style>
+<body>
+<div class="weadmin-body">
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 we-search">
+            <div class="layui-row">
+
+                <div class="layui-inline">
+                    订单日期
+                    <input type="text" class="layui-input weadmin-input" style="width: 100px; display: inline;" name="dateStart" id="dateStart" autocomplete="off">
+                    —<input type="text" class="layui-input weadmin-input" style="width: 100px; display: inline;" name="dateEnd" id="dateEnd" autocomplete="off">
+                </div>
+                <div class="layui-inline">
+                    <span>委外合同</span>
+                </div>
+                <div class="layui-inline">
+                    <input type="text" class="layui-input weadmin-input" placeholder="委外合同" name="contractOm" id="contractOm" autocomplete="off">
+                </div>
+
+                <div class="layui-inline">
+                    <span>委外单号</span>
+                </div>
+                <div class="layui-inline">
+                    <input type="text" class="layui-input weadmin-input" placeholder="委外单号" name="vouchCode" id="vouchCode" autocomplete="off">
+                </div>
+                <div class="layui-inline">
+                    <span>备注</span>
+                </div>
+                <div class="layui-inline">
+                    <input type="text" class="layui-input weadmin-input" placeholder="备注" name="remark" id="remark" autocomplete="off">
+                </div>
+
+                <button type="button" class="layui-btn layui-btn-sm" lay-filter="select" lay-submit="" id="select"><i class="layui-icon">&#xe615;</i></button>
+
+            </div>
+            <div class="layui-row">
+
+
+                <div class="layui-inline">
+                    <span>销售合同</span>
+                </div>
+                <div class="layui-inline">
+                    <input type="text" class="layui-input weadmin-input"  name="contractSale" id="contractSale" autocomplete="off">
+                </div>
+
+                <div class="layui-inline"   >
+                    <button type="button"
+                            class="layui-btn layui-btn-danger layui-btn-sm removeclass"  onclick="FnClear()">X</button>
+                </div>
+                <div class="layui-inline">
+                    <span>委外商</span>
+                </div>
+                <div class="layui-inline">
+                    <input type="text" class="layui-input weadmin-input"  name="venName" id="venName" autocomplete="off">
+                </div>
+
+                <div class="layui-inline">
+                    <span>业务员</span>
+                </div>
+                <div class="layui-inline">
+                    <input type="text" class="layui-input weadmin-input"  name="personName" id="personName" autocomplete="off">
+                </div>
+
+                <div class="layui-inline">
+                    <span>存货编码</span>
+                </div>
+                <div class="layui-inline">
+                    <input type="text" class="layui-input weadmin-input"  name="productInvCode" id="productInvCode" autocomplete="off">
+                </div>
+
+                <div class="layui-inline"   >
+                    <button type="button"
+                            class="layui-btn layui-btn-danger layui-btn-sm removeclass"  onclick="FnClear1()">X</button>
+                </div>
+                <div class="layui-inline">
+                    <span>状态</span>
+                </div>
+
+                <div class="layui-inline">
+                    <select id="statusId" name="statusId"  placeholder="状态"  lay-filter="statusId" lay-search="">
+                        <option value=></option>
+                        <option value="未审核">未审核</option>
+                        <option value="已审核">已审核</option>
+                    </select>
+                </div>
+
+
+            </div>
+
+        </form>
+    </div>
+    <div class="weadmin-block">
+
+        <button type="button" class="layui-btn layui-btn-sm" onclick="add()">新增</button>
+        <button type="button" class="layui-btn layui-btn-sm" onclick="edit()">编辑</button>
+        <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="btnDelete()">作废</button>
+        <button type="button" class="layui-btn layui-btn-sm" onclick="FnPrint()" id="FnPrint" >打印</button>
+
+    </div>
+</div>
+<div class="weadmin-body-table">
+    <table id="jqGrid"></table>
+    <div id="jqGridPager"></div>
+    <table id="jqGrid1"></table>
+</div>
+</body>
+<script>
+    var baseUrl = " /om/order/";
+    var CurRow;
+    var CurCol;
+    var CurRow1;
+    var CurCol1;
+    var cht, cwd;
+    $(function () {
+        initJqgrid();
+    });
+
+    function initJqgrid() {
+        var qo = $("#formquery").serializeObject();
+        $("#jqGrid").jqGrid({
+            mtype: "GET",
+            url: "/om/order/getmainlistbypage",
+            datatype: "json",
+            postData: {
+                querystr: qo
+            },
+            colModel: [
+                {name: "id", key: true,  hidden:true },
+                {label: "订单编号", name: "vouchCode", width: 120, sortable: false, editable: false, align: "center"},
+                {label: "订单日期", name: "vouchDate", width: 100, sortable: false, editable: false, align: "center"},
+                {label: "销售合同", name: "contractSale", width: 100, sortable: false, editable: false, align: "center"},
+                {label: "委外合同", name: "contractOm", width:120, sortable: false, editable: false, align: "center"},
+                {label: "委外商", name: "venName", width: 180, sortable: false, editable: false, align: "center"},
+                {label: "部门", name: "depName", width: 120, sortable: false, editable: false, align: "center"},
+                {label: "业务员", name: "personName", width: 120, sortable: false, editable: false, align: "center"},
+                {label: "备注", name: "remark", width:230, sortable: false, editable: false, align: "center"},
+
+            ],
+            viewrecords: true,
+            multiselect: false,
+            autowidth: true,
+            shrinkToFit: false,
+            autoScroll: true,
+            scrollrows: true, // 是否显示行滚动条
+            rownumbers: true,
+            rowNum: 500,
+            rowList: [ 500,1000, 2000],
+            colMenu: false,
+            cellEdit: true,
+            footerrow: true,//分页上添加一行，用于显示统计信息
+            userDataOnFooter:true,
+            pager: "#jqGridPager",
+            beforeProcessing: function (data, st, xhr) {//登录失效时请求将被拦截，提示用户：未登录
+                if (data.success == false){
+                    layer.msg(data.msg);
+                }
+                return true;
+            },
+            loadBeforeSend:function (jqXHR) {
+                var token = sessionStorage.getItem("mestoken");
+                jqXHR.setRequestHeader('Authorization',  token);
+
+            },
+            beforeSelectRow: function (rowid, e) {
+
+            },
+            onCellSelect: function (rowid, iCol, cellcontent, e) { //单击选择行
+                if(rowid!=null&&rowid!=""&&rowid!=undefined)
+                {
+                    $.ajax({
+                        type: "post",
+                        url: "/om/metalworkcommittee/getdetaillist",
+                        data: {id:rowid},
+                        success: function (data) {
+
+                            $("#jqGrid1").jqGrid("clearGridData");
+                            if (data != null &&  data != "") {
+                                $("#jqGrid1").jqGrid("setGridParam", { datatype: 'local', data: data, rowNum:data.length }).trigger("reloadGrid");
+                            }
+                        },
+                        error: function ()
+                        { }
+                    });
+                }
+
+
+
+            },
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+                edit();
+            }
+        });
+
+        $("#jqGrid").setGridHeight($(window).outerHeight() - $(".weadmin-body").height() - 400);
+
+
+        $("#jqGrid1").jqGrid({
+            mtype: "GET",
+            datatype: "local",
+            colModel: [
+                { name: "id", key: true,  hidden:true },
+                { name: "detailId",   hidden:true },
+                { name: "mainId",   hidden:true },
+                {label: "产品编码", name: "productInvCode", width: 110, sortable: false, editable: false, align: "center"},
+                {label: "产品名称", name: "productInvName", width: 90, sortable: false, editable: false, align: "center"},
+                {label: "规格型号", name: "productInvStd", width: 80, sortable: false, editable: false, align: "center"},
+                {label: "单位", name: "productInvUnit", width: 40, sortable: false, editable: false, align: "center"},
+                {label: "数量", name: "productQty", width: 40, sortable: false, editable: false, align: "center"},
+                {label: "材料单价", name: "materialPrice", width: 60, sortable: false, editable: false, align: "center"},
+                {label: "单件材料费", name: "materialAmount", width: 70, sortable: false, editable: false, align: "center"},
+                {label: "单件加工费", name: "workPrice", width: 70, sortable: false, editable: false, align: "center"},
+                {label: "加工费合计", name: "totalWorkAmount", width: 70, sortable: false, editable: false, align: "center"},
+                {label: "单件价格", name: "price", width: 60, sortable: false, editable: false, align: "center"},
+                {label: "合计", name: "amount", width: 70, sortable: false, editable: false, align: "center"},
+                {label: "计划开工日期", name: "planStartDate", width: 80, sortable: false, editable: false, align: "center"},
+                {label: "计划完工日期", name: "planEndDate", width: 80, sortable: false, editable: false, align: "center"},
+                {label: "材料编码", name: "invCode", width: 90, sortable: false, editable: false, align: "center"},
+                {label: "材料名称", name: "invName", width: 120, sortable: false, editable: false, align: "center"},
+                {label: "材料规格", name: "invStd", width: 80, sortable: false, editable: false, align: "center"},
+
+                {label: "厚度", name: "invLand", width: 40, sortable: false, editable: false, align: "center"},
+                {label: "长", name: "invLen", width: 45, sortable: false, editable: false, align: "center"},
+                {label: "宽", name: "invWidth", width: 40, sortable: false, editable: false, align: "center"},
+                {label: "外径", name: "invExternalDiameter", width: 40, sortable: false, editable: false, align: "center"},
+                {label: "内径", name: "invInternalDiameter", width: 40, sortable: false, editable: false, align: "center"},
+                {label: "密度", name: "invDensity", width: 40, sortable: false, editable: false, align: "center"},
+                {label: "下料尺寸", name: "invSize", width: 80, sortable: false, editable: false, align: "center"},
+                {label: "单耗", name: "iqty", width: 45, sortable: false, editable: false, align: "center"},
+                {label: "总量", name: "tqty", width: 45, sortable: false, editable: false, align: "center"},
+
+            ],
+            viewrecords: true,
+            multiselect: false,
+            autowidth: true,
+            shrinkToFit: false,
+            autoScroll: true,
+            scrollrows: true, // 是否显示行滚动条
+            rownumbers: true,
+            rowNum: 1000000,
+            colMenu: false,
+            cellEdit: false,
+            beforeProcessing: function (data, st, xhr) {//登录失效时请求将被拦截，提示用户：未登录
+                if (data.success == false){
+                    layer.msg(data.msg);
+                }
+                return true;
+            },
+            loadBeforeSend:function (jqXHR) {
+                var token = sessionStorage.getItem("mestoken");
+                jqXHR.setRequestHeader('Authorization',  token);
+
+            },
+            beforeEditCell: function (rowid, cellname, value, iRow, iCol) {
+
+
+
+            },
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+
+            },
+
+        });
+        $("#jqGrid1").setGridHeight(250);
+
+    }
+
+    layui.use(['form', 'admin', 'jquery', 'miniTab', 'table', 'laydate', 'layer', 'tableSelect'], function() {
+        var form = layui.form,
+            admin = layui.admin,
+            $ = layui.jquery,
+            table = layui.table,
+            laydate = layui.laydate,
+            miniTab = layui.miniTab,
+            layer = layui.layer,
+            tableSelect = layui.tableSelect;
+        miniTab.listen();
+        form.render('select');
+        //日期
+        laydate.render({
+            elem: '#dateStart'
+            // ,value: new Date()
+            ,theme: 'molv'
+        });
+        laydate.render({
+            elem: '#dateEnd'
+            // ,value: new Date()
+            ,theme: 'molv'
+        });
+
+
+        //查询
+        form.on('submit(select)', function (data) {
+
+            $("#jqGrid").jqGrid('setGridParam', {
+                datatype:'json',
+                postData: {querystr: JSON.stringify(data.field)},
+            }).trigger('reloadGrid');
+        });
+    });
+
+
+    function add() {
+        // 打开新的窗口
+        layui.miniTab.openNewTabByIframe({
+            href: "page/om/order/add.html",
+            title: "新增金工委外订单",
+        });
+    }
+
+    function edit() {
+        var rowid = $("#jqGrid").getGridParam("selrow");
+        if (rowid != null && rowid != '') {
+            layui.miniTab.openNewTabByIframe({
+                href: "page/om/order/edit.html?id=" + rowid,
+                title: "编辑金工委外订单",
+            });
+
+        } else {
+            layer.alert("请先选择行再操作！");
+        }
+    }
+
+    function btnDelete() {
+        var rowid = $("#jqGrid").getGridParam("selrow");
+        if (rowid != null && rowid != undefined && rowid != "") {
+            var rowData = $("#jqGrid").jqGrid('getRowData', rowid);
+            layer.confirm('确定作废数据？', function(index) {
+
+                sendPostReq('/om/order/delete', {id: rowData.id}, function (data) {
+                    $("#jqGrid").trigger("reloadGrid");
+                    layer.alert("作废成功！");
+                });
+
+            });
+        } else {
+            layer.alert("请先选择行再操作！");
+        }
+    }
+    function FnPrint() {
+        var rowid = $("#jqGrid").getGridParam("selrow");
+        if (rowid != null && rowid != undefined && rowid != "") {
+            var rowData = $("#jqGrid").jqGrid('getRowData', rowid);
+            $.get('/om/order/getbyid', {id: rowData.id}, function (data) {
+                if (data != null){
+                    $.ajax({
+                        type: "post",
+                        url: "/om/order/getdetaillist",
+                        data: {id: rowData.id},
+                        success: function (data1) {
+                            // if(data.cmaker=="gzl") {
+                            //     data.cmaker = "高正林";
+                            // }
+                            PrPrintOmList(data,data1 );
+
+                        },
+                        error: function ()
+                        { }
+                    });
+
+                }
+            });
+
+        } else {
+            layer.alert("请先选择行再操作！");
+        }
+
+
+
+
+    }
+    function FnClear() {
+        $("#contractSale").val("");
+    }
+    function FnClear1() {
+        $("#productInvCode").val("");
+    }
+</script>
+
+</html>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.basicinfo.mapper.OaInventoryApplyMapper">
+  <resultMap id="BaseResultMap" type="com.web.basicinfo.entity.OaInventoryApply">
+    <!--@mbg.generated-->
+    <!--@Table formmain_0096-->
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="start_member_id" jdbcType="VARCHAR" property="startMemberId" />
+    <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="approve_member_id" jdbcType="VARCHAR" property="approveMemberId" />
+    <result column="approve_date" jdbcType="TIMESTAMP" property="approveDate" />
+    <result column="finishedflag" jdbcType="INTEGER" property="finishedflag" />
+    <result column="ratifyflag" jdbcType="INTEGER" property="ratifyflag" />
+    <result column="ratify_member_id" jdbcType="VARCHAR" property="ratifyMemberId" />
+    <result column="ratify_date" jdbcType="TIMESTAMP" property="ratifyDate" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="modify_member_id" jdbcType="VARCHAR" property="modifyMemberId" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="field0001" jdbcType="NUMERIC" property="field0001" />
+    <result column="field0002" jdbcType="VARCHAR" property="field0002" />
+    <result column="field0003" jdbcType="VARCHAR" property="field0003" />
+    <result column="field0004" jdbcType="TIMESTAMP" property="field0004" />
+    <result column="field0018" jdbcType="VARCHAR" property="field0018" />
+    <result column="field0019" jdbcType="TIMESTAMP" property="field0019" />
+    <result column="field0020" jdbcType="VARCHAR" property="field0020" />
+    <result column="field0021" jdbcType="TIMESTAMP" property="field0021" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, [state], start_member_id, start_date, approve_member_id, approve_date, finishedflag, 
+    ratifyflag, ratify_member_id, ratify_date, sort, modify_member_id, modify_date, field0001, 
+    field0002, field0003, field0004, field0018, field0019, field0020, field0021
+  </sql>
+</mapper>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>物料清单编辑</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../static/css/font.css">
+    <link rel="stylesheet" href="../../../static/css/weadmin.css">
+    <!-- jqgrid -->
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/jquery-ui.theme.min.css'/>
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/ui.jqgrid.css'/>
+
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="../../../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+    <!--jquery-->
+    <script src='../../../static/Scripts/jquery-1.10.2.min.js'></script>
+    <script src='../../../static/Scripts/jquery.json.js'></script>
+    <script src='../../../static/Scripts/Common.js'></script>
+    <!--jqgrid-->
+    <script src='../../../static/Scripts/jqgrid/js/i18n/grid.locale-cn.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery-ui.min.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery.jqGrid.js'></script>
+    <script src='../../../static/Scripts/Print.js'></script>
+    <script src='../../../static/Scripts/lodop/LodopFuncs.js'></script>
+</head>
+<style type="text/css">
+
+</style>
+<body>
+
+<div style="width: 35%;  height:100%; float:left; ">
+    <div class="weadmin-body">
+        <div class="layui-row">
+            <form id="formquery" class="layui-form layui-col-md12 we-search">
+                <div class="layui-row">
+                    <div class="layui-inline" style="width: 70px" >
+                        <span>母件编码</span>
+                    </div>
+                    <div class="layui-inline" style="width: 200px">
+                        <input type="text" class="layui-input weadmin-input" placeholder="母件编码" name="invCode" id="invCode" autocomplete="off">
+                    </div>
+
+                    <button type="button" class="layui-btn layui-btn-sm" lay-filter="select" lay-submit="" id="select"><i class="layui-icon">&#xe615;</i></button>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-inline" style="width: 70px" >
+                        <span>母件名称</span>
+                    </div>
+                    <div class="layui-inline" style="width: 200px">
+                        <input type="text" class="layui-input weadmin-input" placeholder="母件名称" name="invName" id="invName" autocomplete="off">
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+        <div class="weadmin-block">
+            <button type="button" class="layui-btn layui-btn-sm" onclick="edit()">编辑</button>
+            <button type="button" class="layui-btn layui-btn-sm" lay-filter="exportBtn" lay-submit="" id="exportBtn" >导出一级</button>
+
+        </div>
+    </div>
+    <div class="weadmin-body-table">
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+
+
+</div>
+<div style="width:64.5%; height:100%; float:right; ">
+    <table id="jqGrid1"></table>
+</div>
+
+</body>
+<script>
+    var baseUrl = "/mo/bom/";
+    var CurRow;
+    var CurCol;
+    var CurRow1;
+    var CurCol1;
+
+    $(function () {
+        initJqgrid();
+        // initBtn(".weadmin-block button", "/biz/moplanmain");
+    });
+
+    function initJqgrid() {
+        $("#jqGrid").jqGrid({
+            mtype: "GET",
+            url:baseUrl+ "getlistbypage",
+            datatype: "json",
+            colModel: [
+                {name: "bomid", name: 'bomid', hidden: true},
+                {label: "母件编码", name: "invCode",key:true, width: 180},
+                {label: "母件名称", name: "invName", width: 180},
+            ],
+            viewrecords: true,
+            multiselect: false,
+            autowidth: true,
+            shrinkToFit: false,
+            autoScroll: true,
+            scrollrows: true, // 是否显示行滚动条
+            rownumbers: true,
+            footerrow:false,
+            rowNum: 50,
+            rowList: [50, 100, 150],
+            colMenu: false,
+            cellEdit: false,
+            cmTemplate:{sortable: false, align: "center"},
+            pager: "#jqGridPager",
+            beforeProcessing: function (data, st, xhr) {//登录失效时请求将被拦截，提示用户：未登录
+                if (data.success == false){
+                    layer.msg(data.msg);
+                }
+                return true;
+            },
+            loadBeforeSend:function (jqXHR) {
+                var token = sessionStorage.getItem("mestoken");
+                jqXHR.setRequestHeader('Authorization',  token);
+
+            },
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+
+            },
+
+            loadComplete: function () {
+
+
+            },
+            afterSaveCell : function(rowid,name,val,iRow,iCol) {
+
+
+
+            },
+            onCellSelect: function (rowid, iCol, cellcontent, e) { //单击选择行
+                loadGrid1(rowid);
+            },
+            beforeEditCell :function(rowid, cellname, value, iRow, iCol ){
+                CurRow=iRow;
+                CurCol=iCol;
+
+
+            },
+            gridComplete: function () {
+
+            }
+        });
+
+        $("#jqGrid").setGridHeight(($(window).outerHeight() - $(".weadmin-body").height() - 105));
+
+
+
+        $("#jqGrid1").jqGrid({
+            mtype: 'GET',
+            datatype: 'json',
+            treeGrid: true,
+            treeGridModel: "adjacency",
+            ExpandColumn: "invCode",
+//                ExpandColClick: true,
+            colNames: [ "id","isleaf",  "parentId", "父项编码", "父项名称",  "define35","存货编码", "存货名称","仓库", "下料尺寸","件数", "分子用量", "分母用量"],
+            colModel: [
+                {name: "id", index: 'id',key:true, hidden: true},
+                {name: "isleaf", index: 'isleaf', hidden: true},
+                {name: "parentId", index: 'parentId',hidden: true},
+                {name: "parentInvCode", index: 'parentInvCode',hidden: true},
+                {name: "parentInvName", index: 'parentInvName',hidden: true},
+                {name: "define35", index: 'define35', hidden: true},
+                {name: "invCode", index: 'invCode',  width: 200},
+                {name: "invName", index: 'invName', width: 200},
+                {name: "cwhname", index: 'cwhname', width: 80},
+                {name: "define22", index: 'define22', width: 120},
+                {name: "define23", index: 'define23', width: 80},
+                {name: "baseQtyN", index: 'baseQtyN', width: 80},
+                {name: "baseQtyD", index: 'baseQtyD', width: 80},
+            ],
+            treeReader: {
+                level_field: "menulevel",
+                parent_id_field: "parentId",
+                leaf_field: "isleaf",
+                expanded_field: "expanded"
+            },
+            cmTemplate: {sortable: false, align: "center"},
+            viewrecords: true,
+            multiselect: false,
+            autowidth: true,
+            shrinkToFit: false,
+            autoScroll: true,
+            scrollrows: true, // 是否显示行滚动条
+            rowNum: -1,
+            colMenu: false,
+            cellEdit: false,
+            cellsubmit: 'clientArray',
+            pager: "false",
+            footerrow: false,//分页上添加一行，用于显示统计信息
+            beforeProcessing: function (data, st, xhr) {//登录失效时请求将被拦截，提示用户：未登录
+                if (data.success == false){
+                    layer.msg(data.msg);
+                }
+                return true;
+            },
+            loadBeforeSend:function (jqXHR) {
+                var token = sessionStorage.getItem("mestoken");
+                jqXHR.setRequestHeader('Authorization',  token);
+
+            },
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+
+            },
+
+            loadComplete: function () {
+
+
+            },
+            afterSaveCell : function(rowid,name,val,iRow,iCol) {
+
+
+
+            },
+            onCellSelect: function (rowid, iCol, cellcontent, e) { //单击选择行
+
+            },
+            beforeEditCell :function(rowid, cellname, value, iRow, iCol ){
+                CurRow1=iRow;
+                CurCol1=iCol;
+
+
+            },
+            gridComplete: function () {
+                var ids = $("#jqGrid1").getDataIDs();
+                for (var i = 0; i < ids.length; i++) {
+                    var rowData = $("#jqGrid1").getRowData(ids[i]);
+                    if (rowData.define35 == "1"||rowData.define35 == 1) {//新增用绿色
+                        $('#' + ids[i]).find("td").addClass("green-bg");
+                        continue;
+                    }
+
+                    if (rowData.define35 == "2"||rowData.define35 == 2) {//更新用量用红色
+                        $('#' + ids[i]).find("td").addClass("red-bg");
+                        continue;
+                    }
+
+                }
+            }
+        });
+
+        $("#jqGrid1").setGridHeight(($(window).outerHeight() - 75));
+
+
+    }
+
+
+    layui.use(['form', 'admin', 'jquery', 'table', 'layer', 'tableSelect'], function() {
+        var form = layui.form,
+            admin = layui.admin,
+            $ = layui.jquery,
+            table = layui.table,
+            layer = layui.layer,
+            tableSelect = layui.tableSelect,
+            laydate = layui.laydate;
+
+        form.render('checkbox');
+
+        //查询
+        form.on('submit(select)', function (data) {
+            $("#jqGrid").jqGrid('setGridParam', {
+                postData: {querystr: JSON.stringify(data.field)},
+            }).trigger('reloadGrid');
+
+
+
+        });
+
+        //导出
+        form.on('submit(exportBtn)', function (data) {
+            var rowid = $("#jqGrid").getGridParam("selrow");
+            if (rowid != null && rowid != '') {
+                var rowData = $("#jqGrid").getRowData(rowid);
+                window.location.href = encodeURI(baseUrl + 'export?invCode=' + rowData.invCode,
+                    +'&userName=' + sessionStorage.getItem("userName"));
+            }
+        });
+    });
+
+
+    //加载菜单列表
+    function loadGrid1(rowid) {
+        if (rowid != null && rowid != '') {
+            var rowData = $("#jqGrid").getRowData(rowid);
+            $("#jqGrid1").jqGrid("setGridParam", {
+                url: baseUrl+"getu8bomlist",
+                postData: {productInvCode:rowData.invCode}
+            }).trigger('reloadGrid');
+        }
+
+    }
+
+
+    function edit() {
+        var rowid = $("#jqGrid").getGridParam("selrow");
+        if (rowid != null && rowid != '') {
+            var rowData = $("#jqGrid").getRowData(rowid);
+
+            WeAdminShow('编辑物料清单','./edit.html?invCode='+ rowData.invCode);
+
+        } else {
+            layer.alert("请先选择行再操作！");
+        }
+    }
+</script>
+
+</html>

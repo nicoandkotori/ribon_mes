@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.system.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.web.system.entity.User">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+
+        <result column="userCode" jdbcType="VARCHAR" property="userCode"/>
+        <result column="userName" jdbcType="VARCHAR" property="userName"/>
+        <result column="pwd" jdbcType="VARCHAR" property="pwd"/>
+
+        <result column="groupId" jdbcType="BOOLEAN" property="groupId"/>
+        <result column="depId" jdbcType="VARCHAR" property="depId"/>
+        <result column="lastLoginIp" jdbcType="VARCHAR" property="lastLoginIp"/>
+        <result column="lastLoginDate" jdbcType="TIMESTAMP" property="lastLoginDate"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+      id, userCode, userName, pwd, depId,groupId,lastLoginIp,lastLoginDate
+    </sql>
+
+
+    <select id="findList" parameterType="com.web.system.dto.UserDTO" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_loginuser
+        <where>
+            sys_loginuser.isEnable = 1
+            <if test="userId != null and userId != ''">
+                and sys_loginuser.id = #{id, jdbcType=BIGINT}
+            </if>
+            <if test="userCode != null and userCode != ''">
+                and userCode = #{userCode, jdbcType=VARCHAR}
+            </if>
+            <if test="userName != null and userName != ''">
+                and userName like '' + #{userName, jdbcType=VARCHAR} + '%'
+            </if>
+
+        </where>
+    </select>
+
+    <select id="selectUserNotInUserrole" parameterType="com.web.system.entity.User" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_loginuser
+        where sys_loginuser.id not in(
+        select UserID from sys_role_user
+        )
+        and sys_loginuser.isEnable=1
+        <if test="user.userCode != null and user.userCode != '' ">
+            and sys_loginuser.userCode like '%' + #{user.userCode, jdbcType=VARCHAR} + '%'
+        </if>
+        <if test="user.userName != null and user.userName != '' ">
+            and sys_loginuser.userName like '%' + #{user.userName, jdbcType=VARCHAR} + '%'
+        </if>
+    </select>
+    <select id="selectUserByUsercode" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_loginuser
+        where isEnable=1 AND userCode = #{userCode, jdbcType=VARCHAR}
+    </select>
+    
+    <select id="getUserByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_loginuser
+        where  isEnable=1 AND id = #{id, jdbcType=BIGINT}
+    </select>
+
+    <update id="updatePasswordByUserId" parameterType="com.web.system.dto.UserDTO">
+        update sys_loginuser set pwd = #{password, jdbcType=VARCHAR} where id = #{id, jdbcType=BIGINT}
+    </update>
+
+    <select id="getUserRole" resultType="java.lang.String">
+    SELECT r.role_name,u.* FROM dbo.sys_loginuser u
+    LEFT JOIN dbo.sys_role_user t ON t.user_id = u.id
+    LEFT JOIN dbo.sys_role r ON r.id = t.role_id
+    WHERE  u.isEnable = 1
+    and  u.id =#{userId,jdbcType=VARCHAR}
+    </select>
+</mapper>

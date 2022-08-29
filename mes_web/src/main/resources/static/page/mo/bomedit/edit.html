@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>物料清单编辑</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../static/css/font.css">
+    <link rel="stylesheet" href="../../../static/css/weadmin.css">
+    <!-- jqgrid -->
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/jquery-ui.theme.min.css'/>
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/ui.jqgrid.css'/>
+
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="../../../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+    <!--jquery-->
+    <script src='../../../static/Scripts/jquery-1.10.2.min.js'></script>
+    <script src='../../../static/Scripts/jquery.json.js'></script>
+    <script src='../../../static/Scripts/Common.js'></script>
+    <!--jqgrid-->
+    <script src='../../../static/Scripts/jqgrid/js/i18n/grid.locale-cn.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery-ui.min.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery.jqGrid.js'></script>
+    <script src='../../../static/Scripts/Print.js'></script>
+    <script src='../../../static/Scripts/lodop/LodopFuncs.js'></script>
+
+
+
+    <!--select2-->
+    <link rel="stylesheet" href='../../../static/Scripts/select2/css/select2.css'></link>
+    <!-- select2 -->
+    <script src='../../../static/Scripts/select2/js/select2.min.js'></script>
+    <script src='../../../static/Scripts/select2/js/i18n/zh-CN.js'></script>
+    <script src='../../../static/Scripts/select2/js/MySelect.js'></script>
+</head>
+<style type="text/css">
+
+</style>
+<body>
+
+<div style="width: 27%;  height:100%; float:left; ">
+    <div class="weadmin-body">
+        <div class="layui-row">
+            <div class="layui-row">
+                <div class="layui-inline" style="width: 70px" >
+                    <span>母件编码</span>
+                </div>
+                <div class="layui-inline" style="width: 200px">
+                    <input type="text" class="layui-input weadmin-input" placeholder="母件编码" name="queryInvCode" id="queryInvCode" autocomplete="off">
+                </div>
+
+                <button type="button" class="layui-btn layui-btn-sm" lay-filter="select" lay-submit="" id="select"><i class="layui-icon">&#xe615;</i></button>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="weadmin-body-table">
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+
+
+</div>
+<div style="width:72.5%; height:100%; float:right; ">
+
+    <div class="weadmin-block">
+
+        <form class="layui-form">
+            <input id="bomId" name="bomId" type="hidden">
+            <!--type="hidden"-->
+            <div class="layui-form-item weadmin-item">
+                <label for="invCode" class="weadmin-lable-sm layui-col-md1">
+                    <span class="we-red">*</span>母件编码
+                </label>
+                <div class="layui-col-md2">
+                    <input type="text" id="invCode" name="invCode" lay-verify="required" readonly class="layui-input weadmin-input-sm">
+                </div>
+                <label for="invName" class="weadmin-lable-sm layui-col-md1">
+                    <span class="we-red">*</span>母件名称
+                </label>
+                <div class="layui-col-md2">
+                    <input type="text" id="invName" name="invName"  readonly class="layui-input weadmin-input-sm">
+                </div>
+
+                <label for="invStd" class="weadmin-lable-sm layui-col-md1">
+                    规格型号
+                </label>
+                <div class="layui-col-md2">
+                    <input type="text" id="invStd" name="invStd"  readonly class="layui-input weadmin-input-sm">
+                </div>
+
+
+
+            </div>
+            <div class="layui-form-item weadmin-item">
+                <label for="invStd" class="weadmin-lable-sm layui-col-md1">
+                    总用量
+                </label>
+                <div class="layui-col-md2">
+                    <input type="text" id="totalQty" name="totalQty" value="" readonly class="layui-input weadmin-input-sm">
+                </div>
+                <label for="cinvdefine3" class="weadmin-lable-sm layui-col-md1">
+                    加工类型
+                </label>
+                <div class="layui-col-md2">
+                    <input type="text" id="cinvdefine3" name="cinvdefine3" lay-verify="" readonly class="layui-input weadmin-input-sm">
+                </div>
+
+            </div>
+
+            <div class="weadmin-block">
+                <button type="button" class="layui-btn layui-btn-sm" onclick="FnAdd()"  id="btnAddRow">增行</button>
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="FnDelete()"  id="btnDelRow">删行</button>
+
+                <button type="button" class="layui-btn layui-btn-sm" lay-filter="save"   id="btnSave" lay-submit="">保存</button>
+            </div>
+        </form>
+    </div>
+
+
+    <table id="jqGrid1"></table>
+
+
+
+</div>
+
+</body>
+<script>
+    var baseUrl = "/mo/bom/";
+    var CurRow;
+    var CurCol;
+    var CurRow1;
+    var CurCol1;
+
+    $(function () {
+        initJqgrid();
+        // initBtn(".weadmin-block button", "/biz/moplanmain");
+    });
+
+    function initJqgrid() {
+
+        var queryInvCode = GetQueryString("invCode");
+        $('#queryInvCode').val(queryInvCode);
+
+        $("#jqGrid").jqGrid({
+            mtype: 'GET',
+            datatype: 'json',
+            url: baseUrl+"getu8bomlist",
+            postData: {
+                productInvCode: $("#queryInvCode").val()
+            },
+            treeGrid: true,
+            treeGridModel: "adjacency",
+            ExpandColumn: "invCode",
+//                ExpandColClick: true,
+//                Expanded:false,
+            colNames: [ "id","isleaf",  "opcomponentid",  "parentId", "父项编码", "父项名称",  "存货编码", "存货名称" , "规格型号",  "加工类型"],
+            colModel: [
+                {name: "id", index: 'id',key:true, hidden: true},
+                {name: "isleaf", index: 'isleaf', hidden: true},
+                {name: "opcomponentid", index: 'opcomponentid',hidden: true},
+                {name: "parentId", index: 'parentId',hidden: true},
+                {name: "parentInvCode", index: 'parentInvCode',hidden: true},
+                {name: "parentInvName", index: 'parentInvName',hidden: true},
+                {name: "invCode", index: 'invCode',  width: 200},
+                {name: "invName", index: 'invName', width: 200},
+                {name: "invStd", index: 'invStd', hidden: true},
+
+                {name: "cinvdefine3", index: 'cinvdefine3', hidden: true},
+            ],
+            treeReader: {
+                level_field: "menulevel",
+                parent_id_field: "parentId",
+                leaf_field: "isleaf",
+                expanded_field: "false",
+
+            },
+            cmTemplate: {sortable: false, align: "center"},
+            viewrecords: true,
+            multiselect: false,
+            autowidth: true,
+            shrinkToFit: false,
+            autoScroll: true,
+            scrollrows: true, // 是否显示行滚动条
+            rowNum: -1,
+            colMenu: false,
+            cellEdit: false,
+            cellsubmit: 'clientArray',
+            footerrow: false,//分页上添加一行，用于显示统计信息
+            beforeProcessing: function (data, st, xhr) {//登录失效时请求将被拦截，提示用户：未登录
+                if (data.success == false){
+                    layer.msg(data.msg);
+                }
+                return true;
+            },
+            loadBeforeSend:function (jqXHR) {
+                var token = sessionStorage.getItem("mestoken");
+                jqXHR.setRequestHeader('Authorization',  token);
+
+            },
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+
+            },
+
+            loadComplete: function () {
+
+
+            },
+            afterSaveCell : function(rowid,name,val,iRow,iCol) {
+
+
+
+            },
+            onCellSelect: function (rowid, iCol, cellcontent, e) { //单击选择行
+                loadGrid1(rowid);
+            },
+            beforeEditCell :function(rowid, cellname, value, iRow, iCol ){
+                CurRow=iRow;
+                CurCol=iCol;
+
+
+            },
+            gridComplete: function () {
+
+            }
+        });
+
+        $("#jqGrid").setGridHeight(($(window).outerHeight() - $(".weadmin-body").height() - 55));
+
+
+
+        $("#jqGrid1").jqGrid({
+            mtype: "GET",
+            datatype: "local",
+            colModel: [
+                {name: "opComponentId",key:true, hidden: true},
+                {name: "define35", hidden: true},
+                {name: "define33", hidden: true},
+                {name: "cwhcode", hidden: true},
+                {name: "changerate", hidden: true},
+                {label: "子件编码", name: "invCode",sortable: false, editable: true, width: 120},
+                {label: "子件名称", name: "invName",sortable: false, width: 160},
+                {label: "规格型号", name: "invStd",sortable: false, width: 120},
+                {label: "单位", name: "ccomunitname",sortable: false, width: 40},
+                {label: "分子用量", name: "baseQtyN", width: 60,sortable: false, editable: true},
+                {label: "分母用量", name: "baseQtyD", width: 60,sortable: false, editable: true},
+                {label: "加工类型", name: "cinvdefine3",width:90, editable: true,edittype:'select', editoptions: {
+                        dataInit: function (element) {
+                            $(element).select2({
+                                width: "100%"
+                            })
+                        },
+                        dataEvents:
+                            [//给当前控件追加事件处理
+                                {
+                                    type: 'change',                 //下拉选择的时候
+                                    fn: function (e) {              //触发方法
+
+
+                                    }
+                                }
+                            ]
+                    }
+                },
+
+
+                {label: "类别", name: "cinvdefine1", width: 40, editable:true , sortable: false},
+                {label: "厚度", name: "define28", width: 50, editable: true, sortable: false},
+                {label: "长", name: "define29", width: 50, editable: true, sortable: false},
+                {label: "宽", name: "define30", width: 50, editable: true, sortable: false},
+                {label: "外径", name: "define31", width: 50, editable: true, sortable: false},
+                {label: "内径", name: "define32", width: 50, editable: true, sortable: false},
+                {label: "密度", name: "cinvdefine2",width: 50, editable: false, sortable: false},
+                {label: "件数", name: "define23", width: 50, editable: true, sortable: false},
+                {label: "仓库", name: "cwhname", width: 80, editable: true, editrules:true,edittype:'select', editoptions: {
+                        dataInit: function (element) {
+                            $(element).select2({
+                                width: "100%"
+                            })
+                        },
+                        dataEvents:
+                            [//给当前控件追加事件处理
+                                {
+                                    type: 'change',                 //下拉选择的时候
+                                    fn: function (e) {              //触发方法
+                                        var id = this.value;
+                                        var rowId = $('#jqGrid1').jqGrid('getGridParam', 'selrow');
+                                        if (rowId != "" && rowId != undefined) {
+                                            if (id != "" && id != undefined) {
+                                                $('#jqGrid1').setRowData(rowId, {cwhcode: id});
+                                            }
+                                            else
+                                            {
+                                                $('#jqGrid1').setRowData(rowId, {cwhcode: ""});
+                                            }
+
+                                        }
+
+                                    }
+                                }
+                            ]
+                    }} ,
+                {label: "备注", name: "define25", width: 100, editable: true, sortable: false},
+            ],
+            hidegrid: false,
+            viewrecords: true,
+            multiselect: false,
+            autowidth: true,
+            shrinkToFit: false,
+            autoScroll: true,
+            scrollrows: true, // 是否显示行滚动条
+            rownumbers: true,
+            rowNum: 999999999,
+            colMenu: false,
+            cellEdit: true,
+            cellsubmit: 'clientArray',
+            footerrow: false,//分页上添加一行，用于显示统计信息
+            beforeProcessing: function (data, st, xhr) {//登录失效时请求将被拦截，提示用户：未登录
+                if (data.success == false){
+                    layer.msg(data.msg);
+                }
+                return true;
+            },
+            loadBeforeSend:function (jqXHR) {
+                var token = sessionStorage.getItem("mestoken");
+                jqXHR.setRequestHeader('Authorization',  token);
+
+            },
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+                if(iCol == 9||iCol==8||iCol==7){
+                    choice(rowid);
+                    SetQty(rowid);
+                }
+            },
+
+            loadComplete: function () {
+                getWarehouserList();
+                getWkTypeList();
+            },
+            afterSaveCell : function(rowid,name,val,iRow,iCol) {
+                if(name == 'invCode') {
+                    SetInventory(rowid);
+                    SetQty(rowid);
+                }
+                else if(name=="define28"||name=="define29"||name=="define30"||name=="define31"||name=="define32"||name=="cinvdefine1")
+                {
+                    SetQty(rowid);
+                }
+
+            },
+            onCellSelect: function (rowid, iCol, cellcontent, e) { //单击选择行
+
+
+            },
+            beforeEditCell :function(rowid, cellname, value, iRow, iCol ){
+                CurRow1=iRow;
+                CurCol1=iCol;
+            },
+            gridComplete: function () {
+
+                var ids = $("#jqGrid1").getDataIDs();
+                for (var i = 0; i < ids.length; i++) {
+                    var rowData = $("#jqGrid1").getRowData(ids[i]);
+                    if (rowData.define35 == "1"||rowData.define35 == 1) {//新增用绿色
+                        $('#' + ids[i]).find("td").addClass("green-bg");
+                        continue;
+                    }
+
+                    if (rowData.define35 == "2"||rowData.define35 == 2) {//更新用量用红色
+                        $('#' + ids[i]).find("td").addClass("red-bg");
+                        continue;
+                    }
+
+                }
+            }
+
+        });
+
+        $("#jqGrid1").setGridHeight(($(window).outerHeight()- $(".weadmin-block").height() - 85));
+
+
+    }
+
+
+    layui.use(['form', 'admin', 'jquery', 'table', 'layer', 'tableSelect'], function() {
+        var form = layui.form,
+            admin = layui.admin,
+            $ = layui.jquery,
+            table = layui.table,
+            layer = layui.layer,
+            tableSelect = layui.tableSelect,
+            laydate = layui.laydate;
+
+
+
+        //加工类型tableSelect
+        var tableSelect = layui.tableSelect;
+        tableSelect.render({
+            elem: '#cinvdefine3',
+            checkedKey: 'cinvdefine3',
+            searchKey: 'keyword',
+            table: {
+                url: baseUrl+"getwktypelistbykey",
+                height: 300,
+                limit: 50,
+                cols: [
+                    [
+                        {field: 'cinvdefine3', title: '加工类型', width: 150},
+                    ]
+                ]
+            },
+            done: function (elem, data) {
+                //选择完后的回调，包含2个返回值 elem:返回之前input对象；data:表格返回的选中的数据 []
+                var datas = data.data;
+                if (datas.length == 0) {
+                    return;
+                }
+                $("#cinvdefine3").val(datas[0].cinvdefine3);
+
+            }
+        });
+
+        //查询
+        form.on('submit(select)', function (data) {
+            initClearForm();
+            $("#jqGrid1").jqGrid("clearGridData");
+            $("#jqGrid").jqGrid('setGridParam', {
+                url: baseUrl+"getu8bomlist",
+                postData: {productInvCode: $('#queryInvCode').val()},
+            }).trigger('reloadGrid');
+
+
+
+        });
+
+        //监听提交
+        form.on('submit(save)', function (data) {
+            if (CurRow1 != "" || CurRow1 != undefined) {
+                $("#jqGrid1").saveCell(CurRow1,CurCol1);
+            }
+
+            var cinvdefine3= $("#cinvdefine3").val();
+            var gridData = $("#jqGrid1").jqGrid("getRowData");
+            var gridDataStr = JSON.stringify(gridData);
+            for (var i=0;i<gridData.length;i++){
+                if (gridData[i].invCode == null || gridData[i].invCode ==''){
+                    layer.alert("子件编码不能为空！");
+                    IsAble = true;
+                    return;
+                }
+                if (gridData[i].baseQtyD == null || gridData[i].baseQtyD ==''){
+                    layer.alert("分母用量不能为空！");
+                    IsAble = true;
+                    return;
+                }
+                if (gridData[i].baseQtyN == null || gridData[i].baseQtyN ==''){
+                    layer.alert("分母用子不能为空！");
+                    IsAble = true;
+                    return;
+                }
+                if (gridData[i].cwhcode == null || gridData[i].cwhcode ==''){
+                    layer.alert("仓库不能为空！");
+                    IsAble = true;
+                    return;
+                }
+            }
+            var flag= true;
+            if(flag){
+                $.ajax({
+                    type: "post",
+                    async: false,
+                    dataType: "json",
+                    url: baseUrl+"save",
+                    data: {mData: JSON.stringify(data.field),mDatas:gridDataStr},
+                    success: function (data) {
+                        if (data.success == true || data.success == "true") {
+                            layer.alert("保存成功!");
+                            var rowid = $("#jqGrid").getGridParam("selrow");
+
+                            $('#jqGrid').jqGrid('setRowData', rowid, { cinvdefine3:cinvdefine3 });
+                            loadGrid1(rowid);
+
+                        } else {
+                            layer.alert("保存失败！  " + data.msg);
+                        }
+                    },
+                    error: function () {
+                        layer.alert("保存失败！");
+                    }
+                });
+
+            }
+
+
+
+
+        });
+
+
+        //
+        // //导出
+        // form.on('submit(exportBtn)', function (data) {
+        //     var qo = $("#formquery").serializeObject();
+        //     window.location.href = encodeURI(baseUrl+'export?queryStr='+qo
+        //         +'&userName='+sessionStorage.getItem("userName"));
+        //
+        // });
+    });
+
+
+    //计算母件用量
+    function  SetQty(rowid) {
+        var rowData = $("#jqGrid1").jqGrid('getRowData', rowid);
+        var cinvdefine1 =rowData.cinvdefine1;//类别
+        var iprodchangrate = parseFloat(rowData.changerate-0);
+        if(cinvdefine1=="F"||cinvdefine1=="f"||cinvdefine1=="G"||cinvdefine1=="g")
+        {
+            $.ajax({
+                type: "get",
+                async:false,
+                url: "/basicinfo/inventory/getbyid",
+                data:{cinvcode:rowData.invCode},
+                success: function (data) {
+                    if(data.ichangrate!=null&&data.ichangrate!=""&&data.ichangrate!=undefined)
+                    {
+                        var ichangrate = data.ichangrate-0;
+                        if(ichangrate!=0)
+                        {
+                            iprodchangrate=ichangrate;
+                        }
+
+
+                    }
+
+                },
+            });
+        }
+
+
+        if(iprodchangrate==0)
+        {
+            iprodchangrate=1;
+        }
+
+        //厚度
+        var cdefine28 = parseFloat(rowData.define28 - 0);
+        //长
+        var cdefine29 =parseFloat(rowData.define29 - 0);
+        //宽
+        var cdefine30 = parseFloat(rowData.define30 - 0);
+        //外径
+        var cdefine31 = parseFloat(rowData.define31 - 0);
+        //内径
+        var cdefine32 = parseFloat(rowData.define32 - 0);
+        //密度
+        var cinvdefine2 = parseFloat(rowData.cinvdefine2 - 0);
+        //件数
+        var cdefine23 = parseFloat(rowData.define23 - 0);
+
+        var qty=0;
+        if(cinvdefine1=="A"||cinvdefine1=="a")
+        {
+            qty=parseFloat((cdefine28*cdefine29*cdefine30*cinvdefine2/1000000).toFixed(3));
+        }
+        else  if(cinvdefine1=="B"||cinvdefine1=="b")
+        {
+            qty=parseFloat((cdefine29*cinvdefine2*(cdefine31*cdefine31-cdefine32*cdefine32)*3.1415926/4/1000000).toFixed(3));
+
+        }
+        else  if(cinvdefine1=="C"||cinvdefine1=="c")
+        {
+            qty=parseFloat((cdefine29/1000).toFixed(3));
+        }
+        else  if(cinvdefine1=="D"||cinvdefine1=="d")
+        {
+            qty=parseFloat((cdefine29*cdefine30/1000000).toFixed(3));
+        }
+        else  if(cinvdefine1=="E"||cinvdefine1=="e")
+        {
+            qty=parseFloat((cdefine29/1000).toFixed(3));
+        }
+        else  if(cinvdefine1=="F"||cinvdefine1=="f")
+        {
+            qty=parseFloat((cdefine28/1000*cdefine29/1000*cdefine30/1000*iprodchangrate).toFixed(3));
+        }
+        else  if(cinvdefine1=="G"||cinvdefine1=="g")
+        {
+            qty=parseFloat((cdefine29/1000*iprodchangrate).toFixed(3));
+        }
+        if(qty=="0"||qty==0)
+        {
+            qty=1;
+        }
+
+        $('#jqGrid1').jqGrid('setRowData', rowid, {baseQtyN:qty });
+
+
+    }
+
+    //加载加工类型
+    function getWkTypeList() {
+        var wkTypeData = [{id: "", text: ""},{ id:"金工" , text: "金工" }, { id:"外协", text: "外协" }, { id:"钣金委外", text: "钣金委外" }, { id:"剪料转委外", text: "剪料转委外" }, { id:"冲件转委外", text: "冲件转委外" }, { id:"外购", text: "外购" }, { id:"剪料", text: "剪料" }, { id:"锯料", text: "锯料" }, { id:"冲件", text: "冲件" }, { id:"自制激光", text: "自制激光" }, { id:"半成品", text: "半成品" }, { id:"原材料", text: "原材料" }];
+        var item = ":;";
+        //将数据里面的schoolName逐个取出，并且以”xxxx:xxxx“设置为select的option值，连接成String对象
+        for (var i = 0; i < wkTypeData.length; i++) {
+            if (i != wkTypeData.length - 1) {
+                item += wkTypeData[i].id + ":" + wkTypeData[i].text + ";";
+
+            } else {
+                item += wkTypeData[i].id + ":" + wkTypeData[i].text;
+
+            }
+        }
+        $('#jqGrid1').setColProp('cinvdefine3', {editoptions: {value: item}});
+
+    }
+    function getWarehouserList() {
+        $.ajax({
+            type: "post",
+            url: "/basicinfo/warehouse/getlist",
+            async: false,
+            success: function (data) {
+                if (data != null) {
+                    if (data.length > 0) {
+                        var item = ":;";
+                        //将数据里面的schoolName逐个取出，并且以”xxxx:xxxx“设置为select的option值，连接成String对象
+                        for (var i = 0; i < data.length; i++) {
+                            if (i != data.length - 1) {
+                                item += data[i].cwhcode + ":" + data[i].cwhname + ";";
+
+                            } else {
+                                item += data[i].cwhcode + ":" + data[i].cwhname;
+
+                            }
+                        }
+                        $('#jqGrid1').setColProp('cwhname', {editoptions: {value: item}});
+
+                    }
+                    else
+                    {
+                        var item = ":";
+                        $('#jqGrid1').setColProp('cwhname', {editoptions: {value: item}});
+
+                    }
+
+                }
+                else
+                {
+                    var item = ":";
+                    $('#jqGrid1').setColProp('cwhname', {editoptions: {value: item}});
+
+                }
+
+            },
+            error: function ()
+            {
+                var item = ":";
+                $('#jqGrid1').setColProp('cwhname', {editoptions: {value: item}});
+            }
+        });
+    }
+
+
+
+
+    //加载菜单列表
+    function loadGrid1(rowid) {
+        if (rowid != null && rowid != '') {
+            var rowData = $("#jqGrid").getRowData(rowid);
+            initClearForm();
+            $("form").setForm(rowData);
+            $("#totalQty").val("1");
+
+
+            //查列表数据
+            $.ajax({
+                type: "get",
+                async:false,
+                url: baseUrl+"getu8childbomlist",
+                data:{parentInvCode:rowData.invCode},
+                success: function (data) {
+                    $("#jqGrid1").jqGrid("clearGridData")
+                    if(data!=null&&data!="")
+                    {
+                        $("#jqGrid1").jqGrid("setGridParam", {datatype: 'local', data: data, rowNum:data.length }).trigger("reloadGrid");
+                    }
+
+                },
+            });
+        }
+
+    }
+
+    function initClearForm() {
+        $("#invCode").val("");
+        $("#invName").val("");
+        $("#invStd").val("");
+        $("#totalQty").val("");
+        $("#cinvdefine3").val("");
+        // $("#cinvdefine4").val(null).change();
+    }
+
+
+    // //产品编码
+    // function choice(rowid) {
+    //     if (rowid != null && rowid !='') {
+    //         layer.open({
+    //             type: 2,
+    //             title: "选择产品",
+    //             resize: true,
+    //             content: '<%=path %>/technical/tempbominput/choiceInventory.action',
+    //             area: [cwd*0.95 + 'px', cht *0.95 + 'px'],
+    //         });
+    //     }else {
+    //         layer.alert("请先选择行再操作！");
+    //     }
+    // }
+    //设置存货信息
+    function  SetInventory(rowid) {
+
+        var rowData = $("#jqGrid1").jqGrid('getRowData', rowid);
+        var invCode =rowData.invCode;
+        $.ajax({
+            type: "get",
+            async:false,
+            url: "/basicinfo/inventory/getbyid",
+            data:{cinvcode:invCode},
+            success: function (data) {
+                if(data!=null&&data!="")
+                {
+                    $('#jqGrid1').jqGrid('setRowData', rowid, {changerate:data.ichangrate,invCode:data.cinvcode, invName:data.cinvname,invStd:data.cinvstd,ccomunitname:data.ccomunitname,cinvdefine2:data.cinvdefine2,cinvdefine1:data.cinvdefine1,cinvdefine3:data.cinvdefine3});
+                }
+                else
+                {
+                    $('#jqGrid1').jqGrid('setRowData', rowid, {changerate:"",invCode:"", invName:"",invStd:"",ccomunitname:""});
+                }
+            },
+        });
+    }
+
+    var irowid=9999999;
+    function FnAdd()
+    {
+        var rowData = {
+            baseQtyD:1,
+            cwhcode:"01",
+            cwhname:"原材料仓",
+            baseQtyN:1
+        };
+        irowid=irowid+1;
+        $("#jqGrid1").jqGrid("addRowData", irowid, rowData);
+
+    }
+    function FnDelete() {
+        if (CurRow1 != "" || CurRow1 != undefined) {
+            $("#jqGrid1").jqGrid('saveCell', CurRow1, CurCol1);
+        }
+        var rowId = $('#jqGrid1').jqGrid('getGridParam', 'selrow');
+        if (rowId != "" && rowId != undefined) {
+            var rowData = $("#jqGrid1").jqGrid('getRowData', rowId);
+            if (rowData.opComponentId == ""||rowData.opComponentId ==null)
+            {
+                $("#jqGrid1").jqGrid("delRowData", rowId);
+            }
+            else
+            {
+
+                layer.confirm('已存在的数据删除，删除后不可恢复，是否确认删除?？', function(index) {
+                    $.ajax({
+                        type: "post",
+                        url: baseUrl+"delete",
+                        data: { opComponentId: rowData.opComponentId},
+                        success: function (text) {
+                            var data = text;
+                            if (data.success == true || data.success == "true") {
+                                $("#jqGrid1").jqGrid("delRowData", rowId);
+                                layer.alert("删除成功!");
+                            }
+                            else {
+                                layer.alert(data.msg);
+                            }
+
+                        },
+                        error: function ()
+                        { }
+                    });
+
+                });
+
+            }
+
+
+
+        }
+
+    }
+
+    //产品编码
+    function choice(rowid) {
+        if (rowid != null && rowid !='') {
+
+            WeAdminShow('选择产品','./choiceinventory.html');
+
+        }else {
+            bootbox.alert("请先选择行再操作！");
+        }
+    }
+
+</script>
+
+</html>

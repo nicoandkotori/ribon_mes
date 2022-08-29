@@ -1,0 +1,64 @@
+/* 表格左上角  不要圆角弧度*/
+.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl {
+    border-top-left-radius: 0px !important;
+}
+
+/* 表格右上角  不要圆角弧度*/
+.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr {
+    border-top-right-radius: 0px important;
+}
+
+/* 设置表格标题行  背景色 background-color: #fafafa !important;*/
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active{
+    background-color: #fafafa !important;
+}
+
+ 
+
+/* 表头高度 */
+.ui-jqgrid .ui-jqgrid-htable th {
+    height: 35px;
+    padding: 0 2px 0 2px;
+}
+
+/* 表格外边框 颜色*/
+.ui-widget.ui-widget-content {
+     border: 1px solid #eaeaea; 
+}
+
+.ui-th-column .ui-th-ltr .ui-state-default{
+    border-top: 0 none !important;
+    border-bottom: 0 none !important;
+}
+
+.ui-th-ltr, .ui-jqgrid .ui-jqgrid-htable th.ui-th-ltr {
+    border-left: 0 none;
+}
+
+
+/* 表格内容的高度  */
+.ui-jqgrid tr.jqgrow td{
+    height: 32px !important;
+}
+
+/* 表格 单元格 边框颜色*/
+.ui-widget-content{
+    border: 1px solid #f5f5f5;
+     
+}
+
+/*  选 中状态下， 单 元格边框不变*/
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight{
+    border: 1px solid #eaeaea !important;
+}
+
+/* 鼠标移到上面后  单元格边框颜色   背景颜色*/
+.ui-state-hover, .ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus, .ui-content .ui-state-focus,
+.ui-widget-header .ui-state-focus,
+.ui-button:hover, .ui-button:focus{
+    border: 1px solid #eaeaea !important;
+    background-color: #ededed !important;
+
+}

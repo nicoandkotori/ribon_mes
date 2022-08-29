@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.basicinfo.mapper.OaEnumItemMapper">
+  <resultMap id="BaseResultMap" type="com.web.basicinfo.entity.OaEnumItem">
+    <!--@mbg.generated-->
+    <!--@Table CTP_ENUM_ITEM-->
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="REF_ENUMID" jdbcType="BIGINT" property="refEnumid" />
+    <result column="SHOWVALUE" jdbcType="VARCHAR" property="showvalue" />
+    <result column="ENUMVALUE" jdbcType="VARCHAR" property="enumvalue" />
+    <result column="SORTNUMBER" jdbcType="INTEGER" property="sortnumber" />
+    <result column="STATE" jdbcType="SMALLINT" property="state" />
+    <result column="OUTPUT_SWITCH" jdbcType="SMALLINT" property="outputSwitch" />
+    <result column="ORG_ACCOUNT_ID" jdbcType="BIGINT" property="orgAccountId" />
+    <result column="PARENT_ID" jdbcType="BIGINT" property="parentId" />
+    <result column="ROOT_ID" jdbcType="BIGINT" property="rootId" />
+    <result column="LEVEL_NUM" jdbcType="SMALLINT" property="levelNum" />
+    <result column="DESCRIPTION" jdbcType="LONGVARCHAR" property="description" />
+    <result column="IFUSE" jdbcType="VARCHAR" property="ifuse" />
+    <result column="I18N" jdbcType="SMALLINT" property="i18n" />
+    <result column="EXT1" jdbcType="BIGINT" property="ext1" />
+    <result column="CODE" jdbcType="VARCHAR" property="code" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, REF_ENUMID, SHOWVALUE, ENUMVALUE, SORTNUMBER, [STATE], OUTPUT_SWITCH, ORG_ACCOUNT_ID, 
+    PARENT_ID, ROOT_ID, LEVEL_NUM, DESCRIPTION, IFUSE, I18N, EXT1, CODE
+  </sql>
+</mapper>

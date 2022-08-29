@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.mo.mapper.BomParentMapper">
+  <resultMap id="BaseResultMap" type="com.web.mo.entity.BomParent">
+    <!--@mbg.generated-->
+    <!--@Table bom_parent-->
+    <id column="AutoId" jdbcType="OTHER" property="autoid" />
+    <result column="BomId" jdbcType="INTEGER" property="bomid" />
+    <result column="ParentId" jdbcType="INTEGER" property="parentid" />
+    <result column="ParentScrap" jdbcType="OTHER" property="parentscrap" />
+    <result column="SharingPartId" jdbcType="INTEGER" property="sharingpartid" />
+    <result column="Ufts" jdbcType="TIMESTAMP" property="ufts" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    AutoId, BomId, ParentId, ParentScrap, SharingPartId, Ufts
+  </sql>
+</mapper>

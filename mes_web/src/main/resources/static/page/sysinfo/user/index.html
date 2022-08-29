@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>用户列表</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../static/css/font.css">
+    <link rel="stylesheet" href="../../../static/css/weadmin.css">
+    <!-- jqgrid -->
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/jquery-ui.theme.min.css'/>
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/ui.jqgrid.css'/>
+
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="../../../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+    <!--jquery-->
+    <script src='../../../static/Scripts/jquery-1.10.2.min.js'></script>
+    <script src='../../../static/Scripts/jquery.json.js'></script>
+    <script src='../../../static/Scripts/Common.js'></script>
+    <!--jqgrid-->
+    <script src='../../../static/Scripts/jqgrid/js/i18n/grid.locale-cn.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery-ui.min.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery.jqGrid.js'></script>
+
+</head>
+
+<body>
+<div class="weadmin-body">
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 we-search">
+            <div class="layui-inline">
+                <input type="text" class="layui-input weadmin-input" placeholder="账号" name="userName" id="userName" autocomplete="off">
+            </div>
+            <button type="button" class="layui-btn layui-btn-sm" lay-filter="select" lay-submit="" id="select"><i class="layui-icon">&#xe615;</i></button>
+        </form>
+    </div>
+    <div class="weadmin-block">
+        <button type="button" class="layui-btn layui-btn-sm" onclick="WeAdminShow('添加账号','./add.html',false,800, 540)"><i class="layui-icon">&#xe61f;</i>添加</button>
+        <button type="button" class="layui-btn layui-btn-sm" onclick="fnEdit()"><i class="layui-icon"></i>编辑</button>
+        <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="fnDel()"><i class="layui-icon"></i>删除</button>
+    </div>
+</div>
+<div class="weadmin-body-table">
+    <table id="jqGrid"></table>
+    <div id="jqGridPager"></div>
+</div>
+</body>
+<script>
+    $(function () {
+        initJqgrid();
+    });
+
+    function initJqgrid() {
+        $("#jqGrid").jqGrid({
+            mtype: "GET",
+            url: "/sysinfo/user/findpage",
+            datatype: "json",
+            colModel: [
+                {name: "id", key: true, hidden: true},
+                {name: "depId", hidden: true},
+                {label: "账号", name: "userCode", width: 100},
+                {label: "姓名", name: "userName", width: 100},
+
+            ],
+            viewrecords: true,
+            multiselect: false,
+            autowidth: true,
+            shrinkToFit: false,
+            autoScroll: true,
+            scrollrows: true, // 是否显示行滚动条
+            rownumbers: true,
+            rowNum: 20,
+            rowList: [20, 50, 100],
+            colMenu: false,
+            cellEdit: false,
+            pager: "#jqGridPager",
+            cmTemplate:{sortable: false, align: "center"},
+            beforeProcessing: function (data, st, xhr) {//登录失效时请求将被拦截，提示用户：未登录
+                if (data.success == false){
+                    layer.msg(data.errormsg);
+                }
+                return true;
+            },
+            loadBeforeSend:function (jqXHR) {
+                var token = sessionStorage.getItem("mestoken");
+                jqXHR.setRequestHeader('Authorization',  token);
+
+            },
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+                fnEdit();
+            }
+        });
+
+        $("#jqGrid").setGridHeight($(window).outerHeight() - $(".weadmin-body").height() - 115);
+    }
+
+    layui.use(['form', 'admin', 'jquery', 'table', 'layer'], function() {
+        var form = layui.form,
+            admin = layui.admin,
+            $ = layui.jquery,
+            table = layui.table,
+            layer = layui.layer;
+
+        //查询
+        form.on('submit(select)', function (data) {
+            $("#jqGrid").jqGrid('setGridParam', {
+                postData: {querystr: JSON.stringify(data.field)},
+                page: 1
+            }).trigger('reloadGrid');
+        });
+    });
+
+    function fnEdit() {
+        var rowid = $("#jqGrid").getGridParam("selrow");
+        if(rowid == null || rowid == ''){
+            layer.msg("请先选择行！");
+            return;
+        }
+        WeAdminShow('编辑用户','./edit.html?id='+rowid,false,800, 540);
+    }
+
+    function fnDel() {
+        var rowid = $("#jqGrid").getGridParam("selrow");
+        if(rowid == null || rowid == ''){
+            layer.msg("请先选择行！");
+            return;
+        }
+        layer.confirm('确认要删除吗？', function(index) {
+            sendPostReq("/sysinfo/user/softdelete", {id: rowid}, function (result) {
+                layer.msg(result.msg, {icon: 6});
+                $('#select').click();
+            });
+        });
+    }
+</script>
+
+</html>

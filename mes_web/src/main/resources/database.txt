@@ -1,0 +1,2 @@
+--2022-7-8 li
+insert into sys_menu values('101005', 101005, 1010, 'BOM导入', 101005, 'page/mo/bomimport/index.html',NULL,'PC');

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.basicinfo.mapper.CustomerMapper">
+  <resultMap id="BaseResultMap" type="com.web.basicinfo.entity.Customer">
+    <!--@mbg.generated-->
+    <!--@Table Customer-->
+    <id column="cCusCode" jdbcType="VARCHAR" property="ccuscode" />
+    <result column="cCusName" jdbcType="VARCHAR" property="ccusname" />
+    <result column="cCusAbbName" jdbcType="VARCHAR" property="ccusabbname" />
+    <result column="cCCCode" jdbcType="VARCHAR" property="ccccode" />
+    <result column="cDCCode" jdbcType="VARCHAR" property="cdccode" />
+    <result column="cTrade" jdbcType="VARCHAR" property="ctrade" />
+    <result column="cCusAddress" jdbcType="VARCHAR" property="ccusaddress" />
+    <result column="cCusPostCode" jdbcType="VARCHAR" property="ccuspostcode" />
+    <result column="cCusRegCode" jdbcType="VARCHAR" property="ccusregcode" />
+    <result column="cCusBank" jdbcType="VARCHAR" property="ccusbank" />
+    <result column="cCusAccount" jdbcType="VARCHAR" property="ccusaccount" />
+    <result column="dCusDevDate" jdbcType="TIMESTAMP" property="dcusdevdate" />
+    <result column="cCusLPerson" jdbcType="VARCHAR" property="ccuslperson" />
+    <result column="cCusEmail" jdbcType="VARCHAR" property="ccusemail" />
+    <result column="cCusPerson" jdbcType="VARCHAR" property="ccusperson" />
+    <result column="cCusPhone" jdbcType="VARCHAR" property="ccusphone" />
+    <result column="cCusFax" jdbcType="VARCHAR" property="ccusfax" />
+    <result column="cCusBP" jdbcType="VARCHAR" property="ccusbp" />
+    <result column="cCusHand" jdbcType="VARCHAR" property="ccushand" />
+    <result column="cCusPPerson" jdbcType="VARCHAR" property="ccuspperson" />
+    <result column="iCusDisRate" jdbcType="FLOAT" property="icusdisrate" />
+    <result column="cCusCreGrade" jdbcType="VARCHAR" property="ccuscregrade" />
+    <result column="iCusCreLine" jdbcType="FLOAT" property="icuscreline" />
+    <result column="iCusCreDate" jdbcType="INTEGER" property="icuscredate" />
+    <result column="cCusPayCond" jdbcType="VARCHAR" property="ccuspaycond" />
+    <result column="cCusOAddress" jdbcType="VARCHAR" property="ccusoaddress" />
+    <result column="cCusOType" jdbcType="VARCHAR" property="ccusotype" />
+    <result column="cCusHeadCode" jdbcType="VARCHAR" property="ccusheadcode" />
+    <result column="cCusWhCode" jdbcType="VARCHAR" property="ccuswhcode" />
+    <result column="cCusDepart" jdbcType="VARCHAR" property="ccusdepart" />
+    <result column="iARMoney" jdbcType="FLOAT" property="iarmoney" />
+    <result column="dLastDate" jdbcType="TIMESTAMP" property="dlastdate" />
+    <result column="iLastMoney" jdbcType="FLOAT" property="ilastmoney" />
+    <result column="dLRDate" jdbcType="TIMESTAMP" property="dlrdate" />
+    <result column="iLRMoney" jdbcType="FLOAT" property="ilrmoney" />
+    <result column="dEndDate" jdbcType="TIMESTAMP" property="denddate" />
+    <result column="iFrequency" jdbcType="INTEGER" property="ifrequency" />
+    <result column="cCusDefine1" jdbcType="VARCHAR" property="ccusdefine1" />
+    <result column="cCusDefine2" jdbcType="VARCHAR" property="ccusdefine2" />
+    <result column="cCusDefine3" jdbcType="VARCHAR" property="ccusdefine3" />
+    <result column="iCostGrade" jdbcType="SMALLINT" property="icostgrade" />
+    <result column="cCreatePerson" jdbcType="VARCHAR" property="ccreateperson" />
+    <result column="cModifyPerson" jdbcType="VARCHAR" property="cmodifyperson" />
+    <result column="dModifyDate" jdbcType="TIMESTAMP" property="dmodifydate" />
+    <result column="cRelVendor" jdbcType="VARCHAR" property="crelvendor" />
+    <result column="iId" jdbcType="VARCHAR" property="iid" />
+    <result column="cPriceGroup" jdbcType="VARCHAR" property="cpricegroup" />
+    <result column="cOfferGrade" jdbcType="VARCHAR" property="coffergrade" />
+    <result column="iOfferRate" jdbcType="FLOAT" property="iofferrate" />
+    <result column="cCusDefine4" jdbcType="VARCHAR" property="ccusdefine4" />
+    <result column="cCusDefine5" jdbcType="VARCHAR" property="ccusdefine5" />
+    <result column="cCusDefine6" jdbcType="VARCHAR" property="ccusdefine6" />
+    <result column="cCusDefine7" jdbcType="VARCHAR" property="ccusdefine7" />
+    <result column="cCusDefine8" jdbcType="VARCHAR" property="ccusdefine8" />
+    <result column="cCusDefine9" jdbcType="VARCHAR" property="ccusdefine9" />
+    <result column="cCusDefine10" jdbcType="VARCHAR" property="ccusdefine10" />
+    <result column="cCusDefine11" jdbcType="INTEGER" property="ccusdefine11" />
+    <result column="cCusDefine12" jdbcType="INTEGER" property="ccusdefine12" />
+    <result column="cCusDefine13" jdbcType="FLOAT" property="ccusdefine13" />
+    <result column="cCusDefine14" jdbcType="FLOAT" property="ccusdefine14" />
+    <result column="cCusDefine15" jdbcType="TIMESTAMP" property="ccusdefine15" />
+    <result column="cCusDefine16" jdbcType="TIMESTAMP" property="ccusdefine16" />
+    <result column="pubufts" jdbcType="TIMESTAMP" property="pubufts" />
+    <result column="cInvoiceCompany" jdbcType="VARCHAR" property="cinvoicecompany" />
+    <result column="bCredit" jdbcType="BIT" property="bcredit" />
+    <result column="bCreditDate" jdbcType="BIT" property="bcreditdate" />
+    <result column="bCreditByHead" jdbcType="BIT" property="bcreditbyhead" />
+    <result column="bLicenceDate" jdbcType="BIT" property="blicencedate" />
+    <result column="dLicenceSDate" jdbcType="TIMESTAMP" property="dlicencesdate" />
+    <result column="dLicenceEDate" jdbcType="TIMESTAMP" property="dlicenceedate" />
+    <result column="iLicenceADays" jdbcType="INTEGER" property="ilicenceadays" />
+    <result column="bBusinessDate" jdbcType="BIT" property="bbusinessdate" />
+    <result column="dBusinessSDate" jdbcType="TIMESTAMP" property="dbusinesssdate" />
+    <result column="dBusinessEDate" jdbcType="TIMESTAMP" property="dbusinessedate" />
+    <result column="iBusinessADays" jdbcType="INTEGER" property="ibusinessadays" />
+    <result column="bProxy" jdbcType="BIT" property="bproxy" />
+    <result column="dProxySDate" jdbcType="TIMESTAMP" property="dproxysdate" />
+    <result column="dProxyEDate" jdbcType="TIMESTAMP" property="dproxyedate" />
+    <result column="iProxyADays" jdbcType="INTEGER" property="iproxyadays" />
+    <result column="cMemo" jdbcType="VARCHAR" property="cmemo" />
+    <result column="bLimitSale" jdbcType="BIT" property="blimitsale" />
+    <result column="cCusContactCode" jdbcType="OTHER" property="ccuscontactcode" />
+    <result column="cCusCountryCode" jdbcType="VARCHAR" property="ccuscountrycode" />
+    <result column="cCusEnName" jdbcType="VARCHAR" property="ccusenname" />
+    <result column="cCusEnAddr1" jdbcType="VARCHAR" property="ccusenaddr1" />
+    <result column="cCusEnAddr2" jdbcType="VARCHAR" property="ccusenaddr2" />
+    <result column="cCusEnAddr3" jdbcType="VARCHAR" property="ccusenaddr3" />
+    <result column="cCusEnAddr4" jdbcType="VARCHAR" property="ccusenaddr4" />
+    <result column="cCusPortCode" jdbcType="VARCHAR" property="ccusportcode" />
+    <result column="cPrimaryVen" jdbcType="VARCHAR" property="cprimaryven" />
+    <result column="fCommisionRate" jdbcType="FLOAT" property="fcommisionrate" />
+    <result column="fInsueRate" jdbcType="FLOAT" property="finsuerate" />
+    <result column="bHomeBranch" jdbcType="BIT" property="bhomebranch" />
+    <result column="cBranchAddr" jdbcType="VARCHAR" property="cbranchaddr" />
+    <result column="cBranchPhone" jdbcType="VARCHAR" property="cbranchphone" />
+    <result column="cBranchPerson" jdbcType="VARCHAR" property="cbranchperson" />
+    <result column="cCusTradeCCode" jdbcType="VARCHAR" property="ccustradeccode" />
+    <result column="CustomerKCode" jdbcType="VARCHAR" property="customerkcode" />
+    <result column="bCusState" jdbcType="BIT" property="bcusstate" />
+    <result column="bShop" jdbcType="SMALLINT" property="bshop" />
+    <result column="cCusBankCode" jdbcType="VARCHAR" property="ccusbankcode" />
+    <result column="cCusExch_name" jdbcType="VARCHAR" property="ccusexchName" />
+    <result column="iCusGSPType" jdbcType="SMALLINT" property="icusgsptype" />
+    <result column="iCusGSPAuth" jdbcType="SMALLINT" property="icusgspauth" />
+    <result column="cCusGSPAuthNo" jdbcType="VARCHAR" property="ccusgspauthno" />
+    <result column="cCusBusinessNo" jdbcType="VARCHAR" property="ccusbusinessno" />
+    <result column="cCusLicenceNo" jdbcType="VARCHAR" property="ccuslicenceno" />
+    <result column="bCusDomestic" jdbcType="BIT" property="bcusdomestic" />
+    <result column="bCusOverseas" jdbcType="BIT" property="bcusoverseas" />
+    <result column="cCusCreditCompany" jdbcType="VARCHAR" property="ccuscreditcompany" />
+    <result column="cCusSAProtocol" jdbcType="VARCHAR" property="ccussaprotocol" />
+    <result column="cCusExProtocol" jdbcType="VARCHAR" property="ccusexprotocol" />
+    <result column="cCusOtherProtocol" jdbcType="VARCHAR" property="ccusotherprotocol" />
+    <result column="fCusDiscountRate" jdbcType="FLOAT" property="fcusdiscountrate" />
+    <result column="cCusSSCode" jdbcType="VARCHAR" property="ccussscode" />
+    <result column="cCusCMProtocol" jdbcType="VARCHAR" property="ccuscmprotocol" />
+    <result column="dCusCreateDatetime" jdbcType="TIMESTAMP" property="dcuscreatedatetime" />
+    <result column="cCusAppDocNo" jdbcType="VARCHAR" property="ccusappdocno" />
+    <result column="cCusMnemCode" jdbcType="VARCHAR" property="ccusmnemcode" />
+    <result column="fAdvancePaymentRatio" jdbcType="FLOAT" property="fadvancepaymentratio" />
+    <result column="bServiceAttribute" jdbcType="BIT" property="bserviceattribute" />
+    <result column="bRequestSign" jdbcType="BIT" property="brequestsign" />
+    <result column="bOnGPinStore" jdbcType="BIT" property="bongpinstore" />
+    <result column="cCusMngTypeCode" jdbcType="VARCHAR" property="ccusmngtypecode" />
+    <result column="account_type" jdbcType="NUMERIC" property="accountType" />
+    <result column="cCusImAgentProtocol" jdbcType="VARCHAR" property="ccusimagentprotocol" />
+    <result column="iSourceType" jdbcType="SMALLINT" property="isourcetype" />
+    <result column="iSourceId" jdbcType="VARCHAR" property="isourceid" />
+    <result column="fExpense" jdbcType="FLOAT" property="fexpense" />
+    <result column="fApprovedExpense" jdbcType="FLOAT" property="fapprovedexpense" />
+    <result column="dTouchedTime" jdbcType="TIMESTAMP" property="dtouchedtime" />
+    <result column="dRecentlyInvoiceTime" jdbcType="TIMESTAMP" property="drecentlyinvoicetime" />
+    <result column="dRecentlyQuoteTime" jdbcType="TIMESTAMP" property="drecentlyquotetime" />
+    <result column="dRecentlyActivityTime" jdbcType="TIMESTAMP" property="drecentlyactivitytime" />
+    <result column="dRecentlyChanceTime" jdbcType="TIMESTAMP" property="drecentlychancetime" />
+    <result column="dRecentlyContractTime" jdbcType="TIMESTAMP" property="drecentlycontracttime" />
+    <result column="cLtcCustomerCode" jdbcType="VARCHAR" property="cltccustomercode" />
+    <result column="bTransFlag" jdbcType="BIT" property="btransflag" />
+    <result column="cLtcPerson" jdbcType="VARCHAR" property="cltcperson" />
+    <result column="dLtcDate" jdbcType="TIMESTAMP" property="dltcdate" />
+    <result column="cLocationSite" jdbcType="VARCHAR" property="clocationsite" />
+    <result column="iCusTaxRate" jdbcType="FLOAT" property="icustaxrate" />
+    <result column="alloct_dept_time" jdbcType="TIMESTAMP" property="alloctDeptTime" />
+    <result column="allot_user_time" jdbcType="TIMESTAMP" property="allotUserTime" />
+    <result column="recyle_dept_time" jdbcType="TIMESTAMP" property="recyleDeptTime" />
+    <result column="recyle_pub_time" jdbcType="TIMESTAMP" property="recylePubTime" />
+    <result column="cLicenceNo" jdbcType="VARCHAR" property="clicenceno" />
+    <result column="cLicenceRange" jdbcType="VARCHAR" property="clicencerange" />
+    <result column="cCusBusinessRange" jdbcType="VARCHAR" property="ccusbusinessrange" />
+    <result column="cCusGSPAuthRange" jdbcType="VARCHAR" property="ccusgspauthrange" />
+    <result column="dCusGSPEDate" jdbcType="TIMESTAMP" property="dcusgspedate" />
+    <result column="dCusGSPSDate" jdbcType="TIMESTAMP" property="dcusgspsdate" />
+    <result column="iCusGSPADays" jdbcType="INTEGER" property="icusgspadays" />
+    <result column="bIsCusAttachFile" jdbcType="BIT" property="biscusattachfile" />
+    <result column="dRecentContractDate" jdbcType="TIMESTAMP" property="drecentcontractdate" />
+    <result column="dRecentDeliveryDate" jdbcType="TIMESTAMP" property="drecentdeliverydate" />
+    <result column="dRecentOutboundDate" jdbcType="TIMESTAMP" property="drecentoutbounddate" />
+    <result column="cProvince" jdbcType="VARCHAR" property="cprovince" />
+    <result column="cCity" jdbcType="VARCHAR" property="ccity" />
+    <result column="cCounty" jdbcType="VARCHAR" property="ccounty" />
+    <result column="cCusAddressGUID" jdbcType="OTHER" property="ccusaddressguid" />
+    <result column="cAddCode" jdbcType="VARCHAR" property="caddcode" />
+    <result column="cCreditAddCode" jdbcType="VARCHAR" property="ccreditaddcode" />
+    <result column="cRegCash" jdbcType="VARCHAR" property="cregcash" />
+    <result column="dDepBeginDate" jdbcType="TIMESTAMP" property="ddepbegindate" />
+    <result column="iEmployeeNum" jdbcType="INTEGER" property="iemployeenum" />
+    <result column="cURL" jdbcType="VARCHAR" property="curl" />
+    <result column="PictureGUID" jdbcType="OTHER" property="pictureguid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    cCusCode, cCusName, cCusAbbName, cCCCode, cDCCode, cTrade, cCusAddress, cCusPostCode, 
+    cCusRegCode, cCusBank, cCusAccount, dCusDevDate, cCusLPerson, cCusEmail, cCusPerson, 
+    cCusPhone, cCusFax, cCusBP, cCusHand, cCusPPerson, iCusDisRate, cCusCreGrade, iCusCreLine, 
+    iCusCreDate, cCusPayCond, cCusOAddress, cCusOType, cCusHeadCode, cCusWhCode, cCusDepart, 
+    iARMoney, dLastDate, iLastMoney, dLRDate, iLRMoney, dEndDate, iFrequency, cCusDefine1, 
+    cCusDefine2, cCusDefine3, iCostGrade, cCreatePerson, cModifyPerson, dModifyDate, 
+    cRelVendor, iId, cPriceGroup, cOfferGrade, iOfferRate, cCusDefine4, cCusDefine5, 
+    cCusDefine6, cCusDefine7, cCusDefine8, cCusDefine9, cCusDefine10, cCusDefine11, cCusDefine12, 
+    cCusDefine13, cCusDefine14, cCusDefine15, cCusDefine16, pubufts, cInvoiceCompany, 
+    bCredit, bCreditDate, bCreditByHead, bLicenceDate, dLicenceSDate, dLicenceEDate, 
+    iLicenceADays, bBusinessDate, dBusinessSDate, dBusinessEDate, iBusinessADays, bProxy, 
+    dProxySDate, dProxyEDate, iProxyADays, cMemo, bLimitSale, cCusContactCode, cCusCountryCode, 
+    cCusEnName, cCusEnAddr1, cCusEnAddr2, cCusEnAddr3, cCusEnAddr4, cCusPortCode, cPrimaryVen, 
+    fCommisionRate, fInsueRate, bHomeBranch, cBranchAddr, cBranchPhone, cBranchPerson, 
+    cCusTradeCCode, CustomerKCode, bCusState, bShop, cCusBankCode, cCusExch_name, iCusGSPType, 
+    iCusGSPAuth, cCusGSPAuthNo, cCusBusinessNo, cCusLicenceNo, bCusDomestic, bCusOverseas, 
+    cCusCreditCompany, cCusSAProtocol, cCusExProtocol, cCusOtherProtocol, fCusDiscountRate, 
+    cCusSSCode, cCusCMProtocol, dCusCreateDatetime, cCusAppDocNo, cCusMnemCode, fAdvancePaymentRatio, 
+    bServiceAttribute, bRequestSign, bOnGPinStore, cCusMngTypeCode, account_type, cCusImAgentProtocol, 
+    iSourceType, iSourceId, fExpense, fApprovedExpense, dTouchedTime, dRecentlyInvoiceTime, 
+    dRecentlyQuoteTime, dRecentlyActivityTime, dRecentlyChanceTime, dRecentlyContractTime, 
+    cLtcCustomerCode, bTransFlag, cLtcPerson, dLtcDate, cLocationSite, iCusTaxRate, alloct_dept_time, 
+    allot_user_time, recyle_dept_time, recyle_pub_time, cLicenceNo, cLicenceRange, cCusBusinessRange, 
+    cCusGSPAuthRange, dCusGSPEDate, dCusGSPSDate, iCusGSPADays, bIsCusAttachFile, dRecentContractDate, 
+    dRecentDeliveryDate, dRecentOutboundDate, cProvince, cCity, cCounty, cCusAddressGUID, 
+    cAddCode, cCreditAddCode, cRegCash, dDepBeginDate, iEmployeeNum, cURL, PictureGUID
+  </sql>
+</mapper>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>查询明细</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../static/css/font.css">
+    <link rel="stylesheet" href="../../../static/css/weadmin.css">
+    <!-- jqgrid -->
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/jquery-ui.theme.min.css'/>
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/ui.jqgrid.css'/>
+
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="../../../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+    <!--jquery-->
+    <script src='../../../static/Scripts/jquery-1.10.2.min.js'></script>
+    <script src='../../../static/Scripts/jquery.json.js'></script>
+    <script src='../../../static/Scripts/Common.js'></script>
+    <!--jqgrid-->
+    <script src='../../../static/Scripts/jqgrid/js/i18n/grid.locale-cn.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery-ui.min.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery.jqGrid.js'></script>
+    <script src='../../../static/Scripts/Print.js'></script>
+    <script src='../../../static/Scripts/lodop/LodopFuncs.js'></script>
+</head>
+<style type="text/css">
+
+</style>
+<body>
+<div class="weadmin-body">
+    <div class="layui-row">
+        <form id="formquery" class="layui-form layui-col-md12 we-search">
+            <div class="layui-row">
+                <input  hidden="true" id="invCode"
+                        name="invCode" autocomplete="off"/>
+                <button type="button" class="layui-btn layui-btn-sm" lay-filter="select" lay-submit="" id="select"><i class="layui-icon">&#xe615;</i></button>
+            </div>
+
+        </form>
+    </div>
+    <div class="weadmin-block">
+
+        <button type="button" class="layui-btn layui-btn-sm" lay-filter="exportBtn" lay-submit="" id="exportBtn" >导出</button>
+        <button type="button" class="layui-btn layui-btn-sm" lay-filter="exportBtn1" lay-submit="" id="exportBtn1" >导出0单价</button>
+
+
+    </div>
+</div>
+<div class="weadmin-body-table">
+    <table id="jqGrid"></table>
+
+</div>
+</body>
+<script>
+    var baseUrl = "/ar/costsimreport/";
+    $(function () {
+        initJqgrid();
+        // initBtn(".weadmin-block button", "/biz/moplanmain");
+    });
+
+    function initJqgrid() {
+        var invCode = GetQueryString("invCode");
+        $("#invCode").val(invCode);
+        var qo = $("#formquery").serializeObject();
+        $("#jqGrid").jqGrid({
+            mtype: 'GET',
+            datatype: 'json',
+            url: baseUrl+"getdetaillist",
+            postData: {
+                querystr: qo
+            },
+            colModel: [
+                {name: "id", hidden: true},
+                {label: "母件编码", name: "invCode", width: 150},
+                {label: "母件名称", name: "invName", width: 200},
+                {label: "标识", name: "statusId", width: 40},
+                {label: "编码", name: "invCodes", width: 150},
+                {label: "名称", name: "invNames", width: 200},
+                {label: "规格", name: "invStds", width: 140},
+                {label: "单位", name: "unit", width: 60},
+                {label: "类型", name: "cinvdefine3", width: 60},
+                {label: "单耗", name: "qty", width: 100},
+                {label: "理论用量", name: "qtys", width: 100},
+                {label: "加工单价", name: "cprice", width: 100},
+                {label: "加工金额", name: "cmonery", width: 100},
+                {label: "材料单价", name: "iprice", width: 100},
+                {label: "材料金额", name: "imonery", width: 100},
+            ],
+            iewrecords: true,
+            multiselect: false,
+            multiboxonly:false,
+            autowidth: true,
+            shrinkToFit: false,
+            autoScroll: true,
+            scrollrows: true, // 是否显示行滚动条
+            rownumbers: true,
+            rowNum: 999999,
+
+            colMenu: false,
+            cellEdit: false,
+
+            footerrow: true,//分页上添加一行，用于显示统计信息
+            userDataOnFooter:true,
+            cmTemplate:{sortable: false, align: "center"},
+            beforeProcessing: function (data, st, xhr) {//登录失效时请求将被拦截，提示用户：未登录
+                if (data.success == false){
+                    layer.msg(data.msg);
+                }
+                return true;
+            },
+            loadBeforeSend:function (jqXHR) {
+                var token = sessionStorage.getItem("mestoken");
+                jqXHR.setRequestHeader('Authorization',  token);
+
+            },
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+
+            },
+
+            loadComplete: function () {
+
+
+            },
+            afterSaveCell : function(rowid,name,val,iRow,iCol) {
+
+
+
+            },
+            onCellSelect: function (rowid, iCol, cellcontent, e) { //单击选择行
+
+            },
+            beforeEditCell :function(rowid, cellname, value, iRow, iCol ){
+                CurRow1=iRow;
+                CurCol1=iCol;
+
+
+            },
+            gridComplete: function () {
+                var rows = $("#jqGrid").jqGrid("getRowData");
+                var imonery = 0;
+                var cmonery = 0;
+                for(var i = 0, l = rows.length; i<l; i++) {
+                    imonery += (rows[i].imonery - 0);
+                    cmonery+=(rows[i].cmonery - 0);
+                };
+
+                $("#jqGrid").jqGrid("footerData", "set", {invCode:"合计",imonery:imonery.toFixed(3),cmonery:cmonery.toFixed(3)})
+
+            }
+        });
+
+        $("#jqGrid").setGridHeight($(window).outerHeight() - $(".weadmin-body").height() - 95);
+
+    }
+
+
+    layui.use(['form', 'admin', 'jquery', 'table', 'layer', 'tableSelect'], function() {
+        var form = layui.form,
+            admin = layui.admin,
+            $ = layui.jquery,
+            table = layui.table,
+            layer = layui.layer,
+            tableSelect = layui.tableSelect,
+            laydate = layui.laydate;
+
+
+
+
+        //查询
+        form.on('submit(select)', function (data) {
+            $("#jqGrid").jqGrid('setGridParam', {
+
+                postData: {querystr: JSON.stringify(data.field)},
+            }).trigger('reloadGrid');
+
+
+        });
+
+        //导出
+        form.on('submit(exportBtn)', function (data) {
+            var qo = $("#formquery").serializeObject();
+
+            window.location.href = encodeURI(baseUrl+'exportdetail1?queryStr='+qo
+                +'&userName='+sessionStorage.getItem("userName"));
+
+        });
+
+        //导出
+        form.on('submit(exportBtn1)', function (data) {
+            var qo = $("#formquery").serializeObject();
+
+            window.location.href = encodeURI(baseUrl+'exportdetailzero1?queryStr='+qo
+                +'&userName='+sessionStorage.getItem("userName"));
+
+        });
+
+
+    });
+
+
+</script>
+
+</html>

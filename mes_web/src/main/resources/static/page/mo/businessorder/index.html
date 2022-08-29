@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>商务订单下料单</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../static/css/font.css">
+    <link rel="stylesheet" href="../../../static/css/weadmin.css">
+    <!-- jqgrid -->
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/jquery-ui.theme.min.css'/>
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/ui.jqgrid.css'/>
+
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="../../../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+    <!--jquery-->
+    <script src='../../../static/Scripts/jquery-1.10.2.min.js'></script>
+    <script src='../../../static/Scripts/jquery.json.js'></script>
+    <script src='../../../static/Scripts/Common.js'></script>
+    <!--jqgrid-->
+    <script src='../../../static/Scripts/jqgrid/js/i18n/grid.locale-cn.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery-ui.min.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery.jqGrid.js'></script>
+    <script src='../../../static/Scripts/Print.js'></script>
+    <script src='../../../static/Scripts/lodop/LodopFuncs.js'></script>
+</head>
+<style type="text/css">
+
+</style>
+<body>
+<div class="weadmin-body">
+    <div class="layui-row">
+        <form id="formquery" class="layui-form layui-col-md12 we-search">
+            <div class="layui-row">
+                <div class="layui-inline" style="width: 70px" >
+                    <span>图号</span>
+                </div>
+                <div class="layui-inline" style="width: 200px">
+                    <input type="text" class="layui-input weadmin-input" placeholder="图号" name="productInvCode" id="productInvCode" autocomplete="off">
+                </div>
+
+                <div class="layui-inline" style="width: 70px" >
+                    <span>加工类型</span>
+                </div>
+                <div class="layui-inline" style="width: 120px" >
+                    <input type="checkbox" name="proType1"  name="proType1" lay-skin="primary" class="class_one" lay-filter="" title="锯料" value="true" >
+                </div>
+                <div class="layui-inline"  style="width: 120px">
+
+                    <input type="checkbox" name="proType2"  name="proType2" lay-skin="primary" class="class_one" lay-filter="" title="自制激光" value="true" >
+
+                </div>
+                <div class="layui-inline"  style="width: 300px" >
+
+
+                </div>
+                <button type="button" class="layui-btn layui-btn-sm" lay-filter="select" lay-submit="" id="select"><i class="layui-icon">&#xe615;</i></button>
+            </div>
+            <div class="layui-row">
+                <div class="layui-inline" style="width: 70px" >
+                    <span>订单号</span>
+                </div>
+                <div class="layui-inline" style="width: 200px">
+                    <input type="text" class="layui-input weadmin-input" placeholder="订单号" name="orderNo" id="orderNo" autocomplete="off">
+                </div>
+                <div class="layui-inline" style="width: 70px" >
+
+                </div>
+
+                <div class="layui-inline"  style="width: 120px">
+                    <input type="checkbox" name="proType3"  name="proType3" lay-skin="primary" class="class_one"  lay-filter="" title="剪料" value="true" >
+
+                </div>
+                <div class="layui-inline"  style="width: 120px">
+                    <input type="checkbox" name="proType4"  name="proType4" lay-skin="primary" class="class_one"lay-filter="" title="冲件" value="true" >
+
+                </div>
+                <div class="layui-inline"  style="width: 120px">
+                <input type="checkbox" name="proType5"  name="proType5" lay-skin="primary" class="class_one"lay-filter="" title="安装" value="true" >
+
+            </div>
+            </div>
+        </form>
+    </div>
+    <div class="weadmin-block">
+        <button type="button" class="layui-btn layui-btn-sm" onclick="addRowData()">參照</button>
+        <button type="button" class="layui-btn layui-btn-sm" lay-filter="exportBtn" lay-submit="" id="exportBtn" >导出</button>
+        <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="FnDelete()">删除</button>
+
+        <button type="button" class="layui-btn layui-btn-sm" onclick="FnPrintDevice()" id="FnPrintDevice" >打印设备总清单</button>
+        <button type="button" class="layui-btn layui-btn-sm" lay-filter="FnPrintDeviceOrder" lay-submit="" id="FnPrintDeviceOrder" >打印设备下料单</button>
+<!--        <button type="button" class="layui-btn layui-btn-sm" onclick="FnPrintDeviceOrder()" id="FnPrintDeviceOrder" >打印设备下料单</button>-->
+        <button type="button" class="layui-btn layui-btn-sm" onclick="FnPrintPruduct()" id="FnPrintPruduct" >打印生产任务单</button>
+        <button type="button" class="layui-btn layui-btn-sm" onclick="FnPrintPruductBatch()" id="FnPrintPruductBatch" >打印生产任务单(批量)</button>
+        <button type="button" class="layui-btn layui-btn-sm" onclick="FnProductDeduction()" id="FnProductDeduction" >半成品抵扣</button>
+
+    </div>
+</div>
+<div class="weadmin-body-table">
+    <table id="jqGrid1"></table>
+
+</div>
+</body>
+<script>
+    var baseUrl = "/mo/businessorder/";
+    $(function () {
+        initJqgrid();
+        // initBtn(".weadmin-block button", "/biz/moplanmain");
+    });
+
+    function initJqgrid() {
+        $("#jqGrid1").jqGrid({
+            mtype: 'GET',
+            datatype: 'json',
+            colModel: [
+                {name: "id", name: 'id',key:true, hidden: true},
+                {label: "子件编码", name: "psCode", width: 140},
+                {label: "子件代码", name: "invAddCode", width: 120},
+                {label: "子件名称", name: "invName", width: 120},
+                {label: "规格型号", name: "invStd", width: 120},
+                {label: "单位", name: "invUnit", width: 60},
+                {label: "单耗", name: "qty", width: 60},
+                {label: "理论用量", name: "qtys", width: 60},
+                {label: "库存量", name: "curQty", width: 70},
+                {label: "在途量", name: "poQty", width: 70},
+                {label: "可用量", name: "kyQty", width: 70},
+                {label: "加工类型", name: "proType", width: 70},
+                {label: "下料尺寸", name: "matSize", width: 100},
+                {label: "材料名称", name: "minvName", width: 120},
+                {label: "材料规格", name: "minvStd", width: 120},
+                {label: "部件名称", name: "partName", width: 120},
+                {label: "生产备注", name: "memo", width: 120},
+                {label: "图号", name: "productInvCode",hidden: true},
+                {label: "订单号", name: "orderNo",hidden: true},
+                {label: "状态", name: "statusId",hidden: true},
+            ],
+            cmTemplate: {sortable: false, align: "center"},
+            rownumbers: true,
+            viewrecords: true,
+            multiselect: false,
+            autowidth: true,
+            shrinkToFit: false,
+            autoScroll: true,
+            scrollrows: true, // 是否显示行滚动条
+            rowNum: -1,
+            colMenu: false,
+            cellEdit: false,
+            cellsubmit: 'clientArray',
+            pager: "false",
+            footerrow: false,//分页上添加一行，用于显示统计信息
+            beforeProcessing: function (data, st, xhr) {//登录失效时请求将被拦截，提示用户：未登录
+                if (data.success == false){
+                    layer.msg(data.msg);
+                }
+                return true;
+            },
+            loadBeforeSend:function (jqXHR) {
+                var token = sessionStorage.getItem("mestoken");
+                jqXHR.setRequestHeader('Authorization',  token);
+
+            },
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+
+            },
+
+            loadComplete: function () {
+
+
+            },
+            afterSaveCell : function(rowid,name,val,iRow,iCol) {
+
+
+
+            },
+            onCellSelect: function (rowid, iCol, cellcontent, e) { //单击选择行
+
+            },
+            beforeEditCell :function(rowid, cellname, value, iRow, iCol ){
+                CurRow1=iRow;
+                CurCol1=iCol;
+
+
+            },
+            gridComplete: function () {
+                var ids = $("#jqGrid1").getDataIDs();
+                var contractCode="";
+                var colorState=1;
+                for (var i = 0; i < ids.length; i++) {
+                    var rowData = $("#jqGrid1").getRowData(ids[i]);
+                    if (rowData.statusId == "已审核") {//绿色红色
+                        $('#' + ids[i]).find("td").addClass("green-bg");
+                    }
+
+
+                }
+            }
+        });
+
+        $("#jqGrid1").setGridHeight($(window).outerHeight() - $(".weadmin-body").height() - 75);
+
+    }
+
+
+    layui.use(['form', 'admin', 'jquery', 'table', 'layer', 'tableSelect'], function() {
+        var form = layui.form,
+            admin = layui.admin,
+            $ = layui.jquery,
+            table = layui.table,
+            layer = layui.layer,
+            tableSelect = layui.tableSelect,
+            laydate = layui.laydate;
+
+        form.render('checkbox');
+
+        //查询
+        form.on('submit(select)', function (data) {
+
+            var qo = {};
+            qo.productInvCode = $("#productInvCode").val();
+            qo.orderNo = $("#orderNo").val();
+            if((qo.productInvCode !=null&&qo.productInvCode !="")||(qo.orderNo !=null&&qo.orderNo !=""))
+            {
+                $("#jqGrid1").jqGrid('setGridParam', {
+                    url: baseUrl+"getdetaillist",
+                    postData: {querystr: JSON.stringify(data.field)},
+                }).trigger('reloadGrid');
+            }
+            else
+            {
+                layer.msg("请输入图号或者订单号！");
+
+            }
+
+
+        });
+
+        //导出
+        form.on('submit(exportBtn)', function (data) {
+            var qo = $("#formquery").serializeObject();
+            window.location.href = encodeURI(baseUrl+'export?queryStr='+qo
+                +'&userName='+sessionStorage.getItem("userName"));
+
+        });
+        //导出
+        form.on('submit(FnPrintDeviceOrder)', function (data) {
+            var qo = {};
+            qo.productInvCode = $("#productInvCode").val();
+            qo.orderNo = $("#orderNo").val();
+            if((qo.productInvCode !=null&&qo.productInvCode !="")||(qo.orderNo !=null&&qo.orderNo !=""))
+            {
+                var qo = $("#formquery").serializeObject();
+                PrPrintDevice(baseUrl+"getprintlistbydeviceorder", qo,"设备下料单");
+
+            } else {
+                layer.alert("请输入图号或者订单号！");
+            }
+
+        });
+
+
+    });
+
+
+    function addRowData() {
+
+        WeAdminShow('參照','./choiceorder.html');
+    }
+
+    function FnDelete() {
+        var qo = {};
+        qo.productInvCode = $("#productInvCode").val();
+        qo.orderNo = $("#orderNo").val();
+        if((qo.productInvCode !=null&&qo.productInvCode !="")||(qo.orderNo !=null&&qo.orderNo !="")) {
+            layer.confirm('是否删除？', function(index) {
+                sendPostReq(baseUrl+'delete', {mData:JSON.stringify(qo)}, function (data) {
+                    $('#select').click();
+                    layer.alert("删除成功！");
+                });
+
+            });
+        }
+        else{
+            layer.alert("请输入图号或者订单号！");
+        }
+
+
+    }
+
+
+    var listdevice;
+    function FnPrintDevice() {
+        var qo = {};
+        qo.productInvCode = $("#productInvCode").val();
+        qo.orderNo = $("#orderNo").val();
+        if((qo.productInvCode !=null&&qo.productInvCode !="")||(qo.orderNo !=null&&qo.orderNo !=""))
+        {
+            $.ajax({
+                type: "post",
+                url: "/mo/businessorder/getdevicecountlist",
+                data: {querystr: JSON.stringify(qo)},
+                success: function (data) {
+
+                    if(data!=null&&data.length>1)
+                    {
+                        listdevice=data;
+                        WeAdminShow('选择','./choiceprintdevice.html');
+                    }
+                    else {
+
+                        PrPrintDevice(baseUrl+"getprintlistbydevice", JSON.stringify(qo),"设备总清单");
+                    }
+                },
+                error: function ()
+                { }
+            });
+
+
+
+        } else {
+            layer.alert("请输入图号或者订单号！");
+        }
+
+
+
+    }
+    function FnPrintDeviceOrder() {
+        var qo = {};
+        qo.productInvCode = $("#productInvCode").val();
+        qo.orderNo = $("#orderNo").val();
+        if((qo.productInvCode !=null&&qo.productInvCode !="")||(qo.orderNo !=null&&qo.orderNo !=""))
+        {
+
+            PrPrintDevice(baseUrl+"getprintlistbydeviceorder", JSON.stringify(qo),"设备下料单");
+
+        } else {
+            layer.alert("请输入图号或者订单号！");
+        }
+
+
+
+    }
+    function FnPrintPruduct() {
+        var qo = {};
+        qo.orderNo = $("#orderNo").val();
+        if(qo.orderNo !=null&&qo.orderNo !="")
+        {
+            $.ajax({
+                type: "post",
+                url: baseUrl+"getprintproduct",
+                data: {orderNo: qo.orderNo},
+                success: function (data) {
+
+                    PrPrintProduct(data);
+
+                },
+                error: function ()
+                { }
+            });
+
+
+        } else {
+            layer.alert("请输入订单号！");
+        }
+
+
+
+    }
+
+    function FnPrintPruductBatch() {
+
+        WeAdminShow('选择打印','./choiceprint.html');
+
+
+
+    }
+
+    //参照
+    function FnProductDeduction() {
+        var qo = {};
+        qo.productInvCode = $("#productInvCode").val();
+        qo.orderNo = $("#orderNo").val();
+        if((qo.productInvCode !=null&&qo.productInvCode !="")||(qo.orderNo !=null&&qo.orderNo !="")) {
+            WeAdminShow('半成品抵扣','./indexproductdeduction.html');
+
+        }
+        else{
+            layer.alert("请输入图号或者订单号！");
+        }
+
+    }
+
+</script>
+
+</html>

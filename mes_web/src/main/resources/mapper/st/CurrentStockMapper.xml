@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.st.mapper.CurrentStockMapper">
+  <resultMap id="BaseResultMap" type="com.web.st.entity.CurrentStock">
+    <!--@mbg.generated-->
+    <!--@Table CurrentStock-->
+    <result column="AutoID" jdbcType="INTEGER" property="autoid" />
+    <result column="cWhCode" jdbcType="VARCHAR" property="cwhcode" />
+    <result column="cInvCode" jdbcType="VARCHAR" property="cinvcode" />
+    <result column="ItemId" jdbcType="INTEGER" property="itemid" />
+    <result column="cBatch" jdbcType="VARCHAR" property="cbatch" />
+    <result column="cVMIVenCode" jdbcType="VARCHAR" property="cvmivencode" />
+    <result column="iSoType" jdbcType="INTEGER" property="isotype" />
+    <result column="iSodid" jdbcType="VARCHAR" property="isodid" />
+    <result column="iQuantity" jdbcType="OTHER" property="iquantity" />
+    <result column="iNum" jdbcType="OTHER" property="inum" />
+    <result column="cFree1" jdbcType="VARCHAR" property="cfree1" />
+    <result column="cFree2" jdbcType="VARCHAR" property="cfree2" />
+    <result column="fOutQuantity" jdbcType="OTHER" property="foutquantity" />
+    <result column="fOutNum" jdbcType="OTHER" property="foutnum" />
+    <result column="fInQuantity" jdbcType="OTHER" property="finquantity" />
+    <result column="fInNum" jdbcType="OTHER" property="finnum" />
+    <result column="cFree3" jdbcType="VARCHAR" property="cfree3" />
+    <result column="cFree4" jdbcType="VARCHAR" property="cfree4" />
+    <result column="cFree5" jdbcType="VARCHAR" property="cfree5" />
+    <result column="cFree6" jdbcType="VARCHAR" property="cfree6" />
+    <result column="cFree7" jdbcType="VARCHAR" property="cfree7" />
+    <result column="cFree8" jdbcType="VARCHAR" property="cfree8" />
+    <result column="cFree9" jdbcType="VARCHAR" property="cfree9" />
+    <result column="cFree10" jdbcType="VARCHAR" property="cfree10" />
+    <result column="dVDate" jdbcType="TIMESTAMP" property="dvdate" />
+    <result column="bStopFlag" jdbcType="BIT" property="bstopflag" />
+    <result column="fTransInQuantity" jdbcType="OTHER" property="ftransinquantity" />
+    <result column="dMdate" jdbcType="TIMESTAMP" property="dmdate" />
+    <result column="fTransInNum" jdbcType="OTHER" property="ftransinnum" />
+    <result column="fTransOutQuantity" jdbcType="OTHER" property="ftransoutquantity" />
+    <result column="fTransOutNum" jdbcType="OTHER" property="ftransoutnum" />
+    <result column="fPlanQuantity" jdbcType="OTHER" property="fplanquantity" />
+    <result column="fPlanNum" jdbcType="OTHER" property="fplannum" />
+    <result column="fDisableQuantity" jdbcType="OTHER" property="fdisablequantity" />
+    <result column="fDisableNum" jdbcType="OTHER" property="fdisablenum" />
+    <result column="fAvaQuantity" jdbcType="OTHER" property="favaquantity" />
+    <result column="fAvaNum" jdbcType="OTHER" property="favanum" />
+    <result column="ufts" jdbcType="TIMESTAMP" property="ufts" />
+    <result column="iMassDate" jdbcType="INTEGER" property="imassdate" />
+    <result column="BGSPSTOP" jdbcType="BIT" property="bgspstop" />
+    <result column="cMassUnit" jdbcType="SMALLINT" property="cmassunit" />
+    <result column="fStopQuantity" jdbcType="OTHER" property="fstopquantity" />
+    <result column="fStopNum" jdbcType="OTHER" property="fstopnum" />
+    <result column="dLastCheckDate" jdbcType="TIMESTAMP" property="dlastcheckdate" />
+    <result column="cCheckState" jdbcType="VARCHAR" property="ccheckstate" />
+    <result column="dLastYearCheckDate" jdbcType="TIMESTAMP" property="dlastyearcheckdate" />
+    <result column="iExpiratDateCalcu" jdbcType="SMALLINT" property="iexpiratdatecalcu" />
+    <result column="cExpirationdate" jdbcType="VARCHAR" property="cexpirationdate" />
+    <result column="dExpirationdate" jdbcType="TIMESTAMP" property="dexpirationdate" />
+    <result column="ipeqty" jdbcType="DECIMAL" property="ipeqty" />
+    <result column="ipenum" jdbcType="DECIMAL" property="ipenum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    AutoID, cWhCode, cInvCode, ItemId, cBatch, cVMIVenCode, iSoType, iSodid, iQuantity, 
+    iNum, cFree1, cFree2, fOutQuantity, fOutNum, fInQuantity, fInNum, cFree3, cFree4, 
+    cFree5, cFree6, cFree7, cFree8, cFree9, cFree10, dVDate, bStopFlag, fTransInQuantity, 
+    dMdate, fTransInNum, fTransOutQuantity, fTransOutNum, fPlanQuantity, fPlanNum, fDisableQuantity, 
+    fDisableNum, fAvaQuantity, fAvaNum, ufts, iMassDate, BGSPSTOP, cMassUnit, fStopQuantity, 
+    fStopNum, dLastCheckDate, cCheckState, dLastYearCheckDate, iExpiratDateCalcu, cExpirationdate, 
+    dExpirationdate, ipeqty, ipenum
+  </sql>
+
+  <select id="getSumQtyByInvCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select COALESCE(sum(iQuantity),0) iQuantity
+    from ${database}.dbo.CurrentStock
+    where cInvCode = #{invCode,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

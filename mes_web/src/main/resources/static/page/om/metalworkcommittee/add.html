@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>新增</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../static/css/font.css">
+    <link rel="stylesheet" href="../../../static/css/weadmin.css">
+    <!-- jqgrid -->
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/jquery-ui.theme.min.css'/>
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/ui.jqgrid.css'/>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="../../../static/css/bootstrap.min.css">
+    <!-- datepicker -->
+    <link rel="stylesheet" href='../../../static/Scripts/datepicker/bootstrap-datetimepicker.css'/>
+    <link rel="stylesheet" href='../../../static/Scripts/datepicker/bootstrap-datepicker.min.css'/>
+    <!--easyui-->
+    <link rel="stylesheet" href="../../../static/Scripts/easyui-1.7.0/themes/default/easyui.css">
+    <link rel="stylesheet" href="../../../static/Scripts/easyui-1.7.0/themes/icon.css">
+
+    <!--jquery-->
+    <script src='../../../static/Scripts/jquery-1.10.2.min.js'></script>
+    <script src='../../../static/Scripts/jquery.json.js'></script>
+    <script src='../../../static/Scripts/Common.js'></script>
+    <script src='../../../static/Scripts/Print.js'></script>
+    <script src='../../../static/Scripts/lodop/LodopFuncs.js'></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="../../../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+    <!--jqgrid-->
+    <script src='../../../static/Scripts/jqgrid/js/i18n/grid.locale-cn.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery-ui.min.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery.jqGrid.js'></script>
+    <!-- datepicker -->
+    <script src='../../../static/Scripts/datepicker/bootstrap-datepicker.js'></script>
+    <script src='../../../static/Scripts/datepicker/bootstrap-datepicker.zh-CN.js'></script>
+    <script src='../../../static/Scripts/datepicker/bootstrap-datetimepicker.js'></script>
+    <script src='../../../static/Scripts/datepicker/bootstrap-datetimepicker.zh-CN.js'></script>
+    <!--easyui-->
+    <script src="../../../static/Scripts/easyui-1.7.0/jquery.easyui.min.js"></script>
+    <script src="../../../static/Scripts/easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
+    <style>
+        .layui-select, .layui-input {
+            height: 24px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="weadmin-body">
+    <form class="layui-form">
+        <div class="weadmin-block">
+            <button type="button" class="layui-btn layui-btn-sm" onclick="continueAdd()">新增</button>
+            <button type="button" class="layui-btn layui-btn-sm" lay-filter="save" lay-submit="">保存</button>
+            <button type="button" class="layui-btn layui-btn-sm" onclick="FnCheck()">审核</button>
+            <button type="button" class="layui-btn layui-btn-sm" onclick="FnUnCheck()">弃审</button>
+            <button type="button" class="layui-btn layui-btn-sm" onclick="FnPrint()">打印</button>
+
+        </div>
+
+
+        <div class="layui-form-item weadmin-item">
+            <input type="hidden" id="moid" name="moid">
+
+            <label for="ccode" class="weadmin-lable-sm layui-col-md1">
+                <span class="we-red">*</span>订单编号
+            </label>
+            <div class="layui-col-md2">
+                <input type="text" id="ccode" name="ccode" readonly class="layui-input weadmin-input-sm">
+            </div>
+            <label for="ddate" class="weadmin-lable-sm layui-col-md1">
+                <span class="we-red">*</span>日期
+            </label>
+            <div class="layui-col-md2">
+                <input type="text" id="ddate" name="ddate"  readonly lay-verify="required"
+                       class="layui-input weadmin-input-sm">
+            </div>
+            <label for="cdefine2" class="weadmin-lable-sm layui-col-md1">
+                委外合同
+            </label>
+            <div class="layui-col-md2">
+                <input type="text" id="cdefine2" name="cdefine2"  class="layui-input weadmin-input-sm">
+            </div>
+        </div>
+        <div class="layui-form-item weadmin-item">
+
+            <label for="cvencode" class="weadmin-lable-sm layui-col-md1">
+                <span class="we-red">*</span>供应商
+            </label>
+            <div class="layui-col-md5">
+                <select id="cvencode" name="cvencode" autocomplete="off" lay-verify="required" lay-filter="cvencode" lay-search="">
+                </select>
+
+            </div>
+            <label for="cdefine1" class="weadmin-lable-sm layui-col-md1">
+                销售合同
+            </label>
+            <div class="layui-col-md2">
+                <input type="text" id="cdefine1" name="cdefine1"  class="layui-input weadmin-input-sm">
+            </div>
+
+        </div>
+
+        <div class="layui-form-item weadmin-item">
+
+            <label for="cvencode" class="weadmin-lable-sm layui-col-md1">
+                <span class="we-red">*</span>部门
+            </label>
+            <div class="layui-col-md2">
+                <select id="cdepcode" name="cdepcode" autocomplete="off" lay-verify="required" lay-filter="cdepcode" lay-search="">
+                </select>
+
+            </div>
+            <label for="cpersoncode" class="weadmin-lable-sm layui-col-md1">
+                <span class="we-red">*</span>业务员
+            </label>
+            <div class="layui-col-md2">
+                <select id="cpersoncode" name="cpersoncode" autocomplete="off" lay-verify="" lay-filter="cpersoncode" lay-search="">
+                </select>
+
+            </div>
+            <label for="cdefine14" class="weadmin-lable-sm layui-col-md1">
+                运输方式
+            </label>
+            <div class="layui-col-md2">
+
+                <div class="layui-inline">
+                    <select id="cdefine14" name="cdefine14"  placeholder=""  lay-filter="cdefine14" lay-search="">
+                        <option value=></option>
+                        <option value="自提">自提</option>
+                        <option value="送货">送货</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="layui-form-item weadmin-item">
+
+            <label for="cmemo" class="weadmin-lable-sm layui-col-md1">
+                备注
+            </label>
+            <div class="layui-col-md8">
+                <input type="text" id="cmemo" name="cmemo" autocomplete="off"
+                       class="layui-input weadmin-input-sm">
+            </div>
+        </div>
+    </form>
+</div>
+<div class="weadmin-body-table">
+    <button type="button" class="layui-btn layui-btn-sm" onclick="FnAdd()">增行</button>
+    <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="FnDelete()">删行</button>
+    <button type="button" class="layui-btn layui-btn-sm" onclick="addPart()">添加部件</button>
+    <table id="jqGrid"></table>
+    <button type="button" class="layui-btn layui-btn-sm" onclick="FnAdd1()">增行</button>
+    <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="FnDelete1()">删行</button>
+    <table id="jqGridDetail"></table>
+
+</div>
+
+</body>
+<script>
+    var prevEditRow, prevEditCol;
+    var baseUrl = "/om/metalworkcommittee/";
+    var CurRow;
+    var CurCol;
+    var CurRow1;
+    var CurCol1;
+    var rowNum = 1;
+    $(function () {
+
+        initJqgrid();
+        // initBtn(".weadmin-block button", "/biz/moplanmain");
+    });
+
+    layui.use(['form', 'admin', 'jquery', 'table', 'layer', 'laydate', 'treeSelect', "upload",'tableSelect'], function () {
+        var form = layui.form,
+            admin = layui.admin,
+            $ = layui.jquery,
+            table = layui.table,
+            layer = layui.layer,
+            laydate = layui.laydate,
+            treeSelect = layui.treeSelect,
+            upload = layui.upload,
+            tableSelect = layui.tableSelect;
+
+        //部门
+        laySelect('cdepcode', '/basicinfo/department/getlist', {}, {id: "cdepcode", text: "cdepname"},false,form);
+        form.on('select(cdepcode)', function (data) {
+
+        });
+        //业务员
+        laySelect('cpersoncode', '/basicinfo/person/getlist', {}, {id: "cpersoncode", text: "cpersonname"},false,form);
+        form.on('select(cpersoncode)', function (data) {
+
+        });
+
+        //供应商
+        laySelect('cvencode', '/basicinfo/vendor/getlist', {}, {id: "cvencode", text: "cvenname"},false,form);
+        form.on('select(cvencode)', function (data) {
+
+        });
+
+
+        initData();
+
+
+        form.render();
+        laydate.render({
+            elem: '#ddate'
+            ,value: new Date()
+            ,theme: 'molv'
+        });
+
+
+
+        //监听提交
+        form.on('submit(save)', function (data) {
+
+            if (CurRow != "" || CurRow != undefined) {
+                $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
+            }
+            if (CurRow1 != "" || CurRow1 != undefined) {
+                $("#jqGridDetail").jqGrid('saveCell', CurRow1, CurCol1);
+            }
+
+            var gridData = $("#jqGrid").jqGrid("getRowData");
+            var gridDataStr = JSON.stringify(gridData);
+            var gridDataDetail = $("#jqGridDetail").jqGrid("getRowData");
+            var gridDataDetailStr = JSON.stringify(gridDataDetail);
+
+            var flag= true;
+            if(flag){
+                sendPostReq("/om/metalworkcommittee/save1", {mData: JSON.stringify(data.field),mDatas:gridDataStr,mDataDetail:gridDataDetailStr}, function (data) {
+                    if (data.success == true || data.success == "true") {
+                        layer.msg("保存成功", {icon: 6});
+                        $("#moid").val(data.result);
+                        $("#ccode").val(data.result1);
+                        $.ajax({
+                            type: "post",
+                            url: "/om/metalworkcommittee/getdetaillist1",
+                            data: {id: data.result},
+                            success: function (data) {
+
+                                $("#jqGrid").jqGrid("clearGridData");
+                                $("#jqGridDetail").jqGrid("clearGridData");
+
+                                if(data["mData"]!=null&&data["mData"]!="")
+                                {
+                                    $("#jqGrid").jqGrid("setGridParam", { datatype: 'local', data: data["mData"], rowNum:data["mData"].length }).trigger("reloadGrid");
+
+                                }
+                                if(data["mDatas"]!=null&&data["mDatas"]!="")
+                                {
+                                    $("#jqGridDetail").jqGrid("setGridParam", { datatype: 'local', data: data["mDatas"], rowNum:data["mDatas"].length }).trigger("reloadGrid");
+                                }
+
+
+                            },
+                            error: function ()
+                            { }
+                        });
+
+                    }
+                    else {
+                        layer.msg("保存失败!"+data.msg, {icon: 6});
+                    }
+
+
+                });
+            }
+
+
+        });
+    });
+
+
+    function  initData() {
+        $.get("/om/metalworkcommittee/getmaxcode", {}, function (text) {
+            $("#ccode").val(text.result);
+        });
+
+        $("#cdepcode").val("109");
+
+        sendPostReq("/basicinfo/person/getdefuser", {}, function (data) {
+            if (data.result!=null) {
+
+                $("#cpersoncode").val(data.result.cpersoncode);
+            }
+            else {
+                $("#cpersoncode").val("200402009");
+            }
+
+        },false);
+
+
+    }
+
+    //
+    // //刷新表格
+    // function reloadJq(){
+    //     $.get(baseUrl+"getbyid", {id: $('#id').val()}, function (data) {
+    //         if (data != null) {
+    //             $("form").setForm(data.result);
+    //             $("#jqGrid").jqGrid("setGridParam", {
+    //                 url: baseUrl+"finddetailpage",
+    //                 postData: {mainId:$('#id').val()},
+    //                 datatype: "json",
+    //             }).trigger("reloadGrid");
+    //         }
+    //     });
+    // }
+    //继续新增
+    function continueAdd() {
+        if ($('#id').val() == null || $('#id').val() == '') {
+            layer.confirm('当前单据未保存, 是否清空当前数据？', function (index) {
+                window.location.reload(true);
+                layer.close(index);
+            });
+        } else {
+            window.location.reload(true);
+        }
+    }
+
+
+
+
+
+
+
+    function initJqgrid() {
+        $("#jqGrid").jqGrid({
+            mtype: "GET",
+            datatype: "local",
+            colModel: [
+                { name: "momaterialsid", hidden:true },
+                { name: "modetailsid",   key: true,  hidden:true },
+                { name: "moid",   hidden:true },
+                { name: "recordId" ,   hidden:true },
+                {label: "产品编码", name: "cinvcode", width: 110, sortable: false, editable: true, align: "center"},
+                {label: "产品名称", name: "cinvname", width: 90, sortable: false, editable: false, align: "center"},
+                {label: "规格型号", name: "cinvstd", width: 80, sortable: false, editable: false, align: "center"},
+                {label: "单位", name: "ccomunitname", width: 40, sortable: false, editable: false, align: "center"},
+                {label: "数量", name: "iquantity", width: 40, sortable: false, editable: true, align: "center"},
+                {label: "材料单价", name: "cdefine26", width: 60, sortable: false, editable: false, align: "center"},
+                {label: "单件材料费", name: "cdefine27", width: 70, sortable: false, editable: false, align: "center"},
+                {label: "单件加工费", name: "itaxprice", width: 70, sortable: false, editable: true, align: "center"},
+                {label: "加工费合计", name: "inatsum", width: 70, sortable: false, editable: false, align: "center"},
+                {label: "单件价格", name: "tolpic", width: 60, sortable: false, editable: false, align: "center"},
+                {label: "合计", name: "tolnum", width: 70, sortable: false, editable: false, align: "center"},
+                { label: "计划开工日期", name: "dstartdate", width: 80 ,editable : true,sortable:false, align: "center",datefmt: 'yyyy-mm-dd',
+                    editoptions:{
+                        dataInit:function(e){
+                            $(e).datepicker({
+                                todayHighlight:true,
+                                language:"zh-CN",//语言
+                                autoclose: true,//自动关闭
+                                todayBtn: "linked",//
+                                format: "yyyy-mm-dd"//时间显示格式
+                            });
+                            $(this).click(function(e){//选中时间后隐藏
+                                $(e).parent().datepicker('hide');
+                            });
+                        }
+                    }
+                },
+                { label: "计划完工日期", name: "darrivedate", width: 80 ,editable : true,sortable:false, align: "center",datefmt: 'yyyy-mm-dd',
+                    editoptions:{
+                        dataInit:function(e){
+                            $(e).datepicker({
+                                todayHighlight:true,
+                                language:"zh-CN",//语言
+                                autoclose: true,//自动关闭
+                                todayBtn: "linked",//
+                                format: "yyyy-mm-dd"//时间显示格式
+                            });
+                            $(this).click(function(e){//选中时间后隐藏
+                                $(e).parent().datepicker('hide');
+                            });
+                        }
+                    }
+                },
+
+            ],
+            viewrecords: true,
+            multiselect: false,
+            autowidth: true,
+            shrinkToFit: false,
+            autoScroll: true,
+            scrollrows: true, // 是否显示行滚动条
+            rownumbers: true,
+            rowNum: 999999999,
+            colMenu: false,
+            cellEdit: true,
+            cellsubmit: 'clientArray',
+            footerrow: false,//分页上添加一行，用于显示统计信息
+            beforeProcessing: function (data, st, xhr) {//登录失效时请求将被拦截，提示用户：未登录
+                if (data.success == false){
+                    layer.msg(data.msg);
+                }
+                return true;
+            },
+            loadBeforeSend:function (jqXHR) {
+                var token = sessionStorage.getItem("mestoken");
+                jqXHR.setRequestHeader('Authorization',  token);
+
+            },
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+                //iCol==6||
+                if(iCol == 5||iCol==6||iCol==7){
+                    //选择母件
+                    choice(rowid,"1");
+                }
+
+            },
+
+            loadComplete: function () {
+
+
+            },
+            afterSaveCell : function(rowid,name,val,iRow,iCol) {
+
+                if(name == 'dstartdate' ) {
+                    var ids = $("#jqGrid").jqGrid('getDataIDs');
+                    for(var i=0; i<ids.length; i++) {
+
+                        $('#jqGrid').jqGrid('setRowData', ids[i], {dstartdate:val });
+
+                    }
+
+                }
+                if( name=='darrivedate') {
+                    var ids = $("#jqGrid").jqGrid('getDataIDs');
+                    for(var i=0; i<ids.length; i++) {
+
+                        $('#jqGrid').jqGrid('setRowData', ids[i], {darrivedate:val });
+
+                    }
+
+                }
+                if(name == 'cinvcode') {
+                    SetInventory(rowid,"1");
+                }
+
+                else if(name=="iquantity")
+                {
+                    SetQty(rowid);
+                }
+                else if(name=="itaxprice"||name=="cdefine27")
+                {
+                    SetTaxMakePrice(rowid);
+                }
+
+            },
+            onCellSelect: function (rowid, iCol, cellcontent, e) { //单击选择行
+
+
+            },
+            beforeEditCell :function(rowid, cellname, value, iRow, iCol ){
+                CurRow=iRow;
+                CurCol=iCol;
+
+
+            },
+            gridComplete: function () {
+
+            }
+        });
+
+
+        $("#jqGrid").setGridHeight((150));
+
+
+        $("#jqGridDetail").jqGrid({
+            mtype: "GET",
+            datatype: "local",
+            colModel: [
+                { name: "momaterialsid", key: true,  hidden:true },
+                { name: "modetailsid",   hidden:true },
+                { name: "moid",   hidden:true },
+                { name: "recordId" ,   hidden:true },
+                {label: "产品编码", name: "cinvcode", width: 110, sortable: false, editable: false, align: "center"},
+                {label: "产品名称", name: "cinvname", width: 90, sortable: false, editable: false, align: "center"},
+                {label: "规格型号", name: "cinvstd", width: 80, sortable: false, editable: false, align: "center"},
+                {label: "单位", name: "ccomunitname", width: 40, sortable: false, editable: false, align: "center"},
+                {label: "数量", name: "iquantity", width: 40, sortable: false, editable: false, align: "center"},
+                {label: "材料单价", name: "cdefine26", width: 60, sortable: false, editable: true, align: "center"},
+                {label: "单件材料费", name: "cdefine27", width: 70, sortable: false, editable: true, align: "center"},
+                {label: "材料编码", name: "cinvcodes", width: 90, sortable: false, editable: true, align: "center"},
+
+                {label: "材料名称", name: "cinvnames", width: 120, sortable: false, editable: false, align: "center"},
+                {label: "材料规格", name: "cinvstds", width: 80, sortable: false, editable: false, align: "center"},
+
+                {label: "厚度", name: "cdefine28", width: 40, sortable: false, editable: true, align: "center"},
+                {label: "长", name: "cdefine29", width: 45, sortable: false, editable: true, align: "center"},
+                {label: "宽", name: "cdefine30", width: 40, sortable: false, editable: true, align: "center"},
+                {label: "外径", name: "cdefine31", width: 40, sortable: false, editable: true, align: "center"},
+                {label: "内径", name: "cdefine32", width: 40, sortable: false, editable: true, align: "center"},
+                {label: "密度", name: "cinvdefine2", width: 40, sortable: false, editable: true, align: "center"},
+                {label: "下料尺寸", name: "cdefine22", width: 110, sortable: false, editable: true, align: "center"},
+                {label: "单耗", name: "fbaseqtyn", width: 45, sortable: false, editable: true, align: "center"},
+                {label: "总量", name: "fqtys", width: 45, sortable: false, editable: false, align: "center"},
+
+            ],
+            viewrecords: true,
+            multiselect: false,
+            autowidth: true,
+            shrinkToFit: false,
+            autoScroll: true,
+            scrollrows: true, // 是否显示行滚动条
+            rownumbers: true,
+            rowNum: 999999999,
+            colMenu: false,
+            cellEdit: true,
+            cellsubmit: 'clientArray',
+            footerrow: false,//分页上添加一行，用于显示统计信息
+            beforeProcessing: function (data, st, xhr) {//登录失效时请求将被拦截，提示用户：未登录
+                if (data.success == false){
+                    layer.msg(data.msg);
+                }
+                return true;
+            },
+            loadBeforeSend:function (jqXHR) {
+                var token = sessionStorage.getItem("mestoken");
+                jqXHR.setRequestHeader('Authorization',  token);
+
+            },
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+                //iCol==6||
+
+                if(iCol == 14||iCol==13){
+                    //选择自建
+                    choice(rowid,"2");
+                }
+            },
+
+            loadComplete: function () {
+
+
+            },
+            afterSaveCell : function(rowid,name,val,iRow,iCol) {
+//                    if (CurRow != "" || CurRow != undefined) {
+//                        $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
+//                    }
+                if(name == 'cinvcodes')
+                {
+                    SetInventory(rowid,"2");
+                }
+                else if(name=="cdefine26"||name=="cdefine28"||name=="cdefine29"||name=="cdefine30"||name=="cdefine31"||name=="cdefine32"||name=="cinvdefine2")
+                {
+                    SetSize(rowid);
+                }
+
+                else if(name=="fbaseqtyn")
+                {
+                    SetIpsQuantity(rowid);
+                }
+
+            },
+            onCellSelect: function (rowid, iCol, cellcontent, e) { //单击选择行
+
+
+            },
+            beforeEditCell :function(rowid, cellname, value, iRow, iCol ){
+                CurRow1=iRow;
+                CurCol1=iCol;
+
+
+            },
+            gridComplete: function () {
+
+            }
+        });
+
+        $("#jqGridDetail").setGridHeight(($(window).outerHeight() - $(".weadmin-body").height() - 300));
+    }
+    //修改数量
+    function  SetQty(rowid) {
+        var rowData = $("#jqGrid").jqGrid('getRowData', rowid);
+        //数量
+        var fquantity =0;
+        if(rowData.iquantity!=""&&rowData.iquantity!=null) {
+            fquantity=parseFloat(rowData.iquantity - 0).toFixed(2);
+        }
+        //单件加工费
+        var taxmakeprice =0;
+        if(rowData.itaxprice!=""&&rowData.itaxprice!=null) {
+            taxmakeprice=parseFloat(rowData.itaxprice - 0).toFixed(2);
+        }
+
+        //单件材料费
+        var cdefine27 =0;
+        if(rowData.cdefine27!=""&&rowData.cdefine27!=null) {
+            cdefine27=parseFloat(rowData.cdefine27 - 0).toFixed(2)-0;
+        }
+        //单件价格
+        var tolpic =parseFloat((cdefine27-0)+(taxmakeprice-0))-0;
+        if(rowData.tolpic!=""&&rowData.tolpic!=null) {
+            tolpic=parseFloat(rowData.tolpic - 0).toFixed(2);
+        }
+        //单耗
+        var ipsquantity =0;
+        if(rowData.fbaseqtyn!=""&&rowData.fbaseqtyn!=null) {
+            ipsquantity=parseFloat(rowData.fbaseqtyn - 0).toFixed(2);
+        }
+        $('#jqGrid').jqGrid('setRowData', rowid, {inatsum:(fquantity*taxmakeprice).toFixed(2), tolnum:(fquantity*tolpic).toFixed(2), fqtys:(fquantity*ipsquantity).toFixed(2),tolpic: tolpic});
+
+
+        //循环子表更新数量
+        var ids = $("#jqGridDetail").getDataIDs();
+        for (var i = 0; i < ids.length; i++) {
+            var rowDataDetail = $("#jqGridDetail").getRowData(ids[i]);
+            if (rowDataDetail.recordId ==rowData.recordId) {
+                //数量
+                var fquantity =0;
+                if(rowData.iquantity!=""&&rowData.iquantity!=null) {
+                    fquantity=parseFloat(rowData.iquantity - 0).toFixed(2);
+                }
+
+
+                //单耗
+                var ipsquantity =0;
+                if(rowDataDetail.fbaseqtyn!=""&&rowDataDetail.fbaseqtyn!=null) {
+                    ipsquantity=parseFloat(rowDataDetail.fbaseqtyn - 0).toFixed(2);
+                }
+                $('#jqGridDetail').jqGrid('setRowData', ids[i], {  iquantity:fquantity, fqtys:(fquantity*ipsquantity).toFixed(2)});
+
+            }
+
+
+        }
+    }
+    //修改单价
+    function  SetTaxMakePrice(rowid) {
+        var rowData = $("#jqGrid").jqGrid('getRowData', rowid);
+        //数量
+        var fquantity =0;
+        if(rowData.iquantity!=""&&rowData.iquantity!=null) {
+            fquantity=parseFloat(rowData.iquantity - 0).toFixed(2)-0;
+        }
+        //单件加工费
+        var taxmakeprice =0;
+        if(rowData.itaxprice!=""&&rowData.itaxprice!=null) {
+            taxmakeprice=parseFloat(rowData.itaxprice - 0).toFixed(2)-0;
+        }
+        //单件材料费
+        var cdefine27 =0;
+        if(rowData.cdefine27!=""&&rowData.cdefine27!=null) {
+            cdefine27=parseFloat(rowData.cdefine27 - 0).toFixed(2)-0;
+        }
+
+
+
+        $('#jqGrid').jqGrid('setRowData', rowid, {inatsum:(fquantity*taxmakeprice).toFixed(2), tolnum:(fquantity*( taxmakeprice+cdefine27)).toFixed(2),tolpic: (taxmakeprice+cdefine27).toFixed(2)});
+    }
+
+    //修改单耗
+    function  SetIpsQuantity(rowid) {
+        var rowData = $("#jqGridDetail").jqGrid('getRowData', rowid);
+        //数量
+        var fquantity =0;
+        if(rowData.iquantity!=""&&rowData.iquantity!=null) {
+            fquantity=parseFloat(rowData.iquantity - 0).toFixed(2);
+        }
+
+
+        //单耗
+        var ipsquantity =0;
+        if(rowData.fbaseqtyn!=""&&rowData.fbaseqtyn!=null) {
+            ipsquantity=parseFloat(rowData.fbaseqtyn - 0).toFixed(2);
+        }
+        $('#jqGridDetail').jqGrid('setRowData', rowid, {  fqtys:(fquantity*ipsquantity).toFixed(2)});
+
+    }
+    //设置下料尺寸
+    function  SetSize(rowid) {
+        var rowData = $("#jqGridDetail").jqGrid('getRowData', rowid);
+        //数量
+        var fquantity =0;
+        if(rowData.iquantity!=""&&rowData.iquantity!=null) {
+            fquantity=parseFloat(rowData.iquantity - 0).toFixed(2);
+        }
+
+
+        var strSize="";
+        //厚度
+        var cdefine28 = 0;
+        if(rowData.cdefine28!=""&&rowData.cdefine28!=null) {
+            cdefine28=parseFloat(rowData.cdefine28 - 0).toFixed(2);
+            strSize="δ"+ rowData.cdefine28;
+
+        }
+        //长
+        var cdefine29 =0;
+        if(rowData.cdefine29!=""&&rowData.cdefine29!=null) {
+            cdefine29=parseFloat(rowData.cdefine29 - 0).toFixed(2);
+            if(strSize!="") {
+                strSize=strSize+",";
+            }
+            strSize=strSize+"L"+ rowData.cdefine29;
+
+        }
+        //宽
+        var cdefine30 =0;
+        if(rowData.cdefine30!=""&&rowData.cdefine30!=null) {
+            cdefine30=parseFloat(rowData.cdefine30 - 0).toFixed(2);
+            if(strSize!="") {
+                strSize=strSize+",";
+            }
+            strSize=strSize+"W"+ rowData.cdefine30;
+        }
+        //外径
+        var cdefine31 = 0;
+        if(rowData.cdefine31!=""&&rowData.cdefine31!=null) {
+            cdefine31=parseFloat(rowData.cdefine31 - 0).toFixed(2);
+            if(strSize!="") {
+                strSize=strSize+",";
+            }
+            strSize=strSize+"外φ"+ rowData.cdefine31;
+        }
+        //内径
+        var cdefine32 = 0;
+        if(rowData.cdefine32!=""&&rowData.cdefine32!=null) {
+            cdefine32=parseFloat(rowData.cdefine32 - 0).toFixed(2);
+            if(strSize!="") {
+                strSize=strSize+",";
+            }
+            strSize=strSize+"内φ"+ rowData.cdefine32;
+        }
+        //密度
+        var cinvdefine3 = 0;
+        if(rowData.cinvdefine2!=""&&rowData.cinvdefine2!=null) {
+            cinvdefine3=parseFloat(rowData.cinvdefine2 - 0).toFixed(2);
+
+        }
+        var ipsquantity=((cdefine29* cdefine30+3.1415926 / 4 *(cdefine31*cdefine31-cdefine32*cdefine32))*cdefine28/ 1000000*cinvdefine3).toFixed(2)-0;
+
+        $.ajax({
+            type: "get",
+            async:false,
+            url: "/basicinfo/inventory/getbyid",
+            data:{cinvcode:rowData.cinvcodes},
+            success: function (data) {
+                if(data!=null&&data!="")
+                {
+
+                    if((ipsquantity==null||ipsquantity==0||ipsquantity=="0"))
+                    {
+                        if(data.cinvdefine1=="A"||data.cinvdefine1=="a")
+                        {
+                            ipsquantity=parseFloat((cdefine28*cdefine29*cdefine30*cinvdefine3/1000000).toFixed(3));
+                        }
+                        else  if(data.cinvdefine1=="B"||data.cinvdefine1=="b")
+                        {
+                            ipsquantity=parseFloat((cdefine29*cinvdefine3*(cdefine31*cdefine31-cdefine32*cdefine32)*3.1415926/4/1000000).toFixed(3));
+
+                        }
+                        else  if(data.cinvdefine1=="C"||data.cinvdefine1=="c")
+                        {
+                            ipsquantity=parseFloat((cdefine29/1000).toFixed(3));
+                        }
+                        else  if(data.cinvdefine1=="D"||data.cinvdefine1=="d")
+                        {
+                            ipsquantity=parseFloat((cdefine29*cdefine30/1000000).toFixed(3));
+                        }
+                        else  if(data.cinvdefine1=="E"||data.cinvdefine1=="e")
+                        {
+                            ipsquantity=parseFloat((cdefine29/1000).toFixed(3));
+                        }
+                        else  if(data.cinvdefine1=="F"||data.cinvdefine1=="f")
+                        {
+                            ipsquantity=parseFloat((cdefine28/1000*cdefine29/1000*cdefine30/1000*1).toFixed(3));
+                        }
+                        else  if(data.cinvdefine1=="G"||data.cinvdefine1=="g")
+                        {
+                            ipsquantity=parseFloat((cdefine29/1000*1).toFixed(3));
+                        }
+
+
+                    }
+
+                }
+
+
+            },
+        });
+
+
+        //材料单价
+        var cdefine26 =0;
+        if(rowData.cdefine26!=""&&rowData.cdefine26!=null) {
+            cdefine26=parseFloat(rowData.cdefine26 - 0).toFixed(2);
+        }
+
+        var cdefine27=((ipsquantity-0)*(cdefine26-0)).toFixed(2);
+
+        $('#jqGridDetail').jqGrid('setRowData', rowid, {cdefine22:strSize,cdefine27:cdefine27 ,fbaseqtyn:(ipsquantity-0),fqtys:(ipsquantity*fquantity).toFixed(2)});
+
+
+
+
+        //循环子表合计材料单价和单件材料费
+        var totalcdefine26=0,totalcdefine27=0;
+        var ids = $("#jqGridDetail").getDataIDs();
+        for (var i = 0; i < ids.length; i++) {
+            var rowDataDetail = $("#jqGridDetail").getRowData(ids[i]);
+            if (rowDataDetail.recordId ==rowData.recordId) {
+                totalcdefine26=totalcdefine26+parseFloat(rowDataDetail.cdefine26 - 0);
+                totalcdefine27=totalcdefine27+parseFloat(rowDataDetail.cdefine27 - 0);
+            }
+        }
+
+        //查询对应主表id
+        var idsMain = $("#jqGrid").getDataIDs();
+        var rowMainId="";
+        var rowMain=null;
+        for (var i = 0; i < idsMain.length; i++) {
+            var rowData1 = $("#jqGrid").getRowData(idsMain[i]);
+            if (rowData1.recordId ==rowData.recordId) {
+                rowMainId=idsMain[i];
+                rowMain=rowData1;
+                break;
+            }
+        }
+        if(rowMain!=null)
+        {
+            //单件加工费
+            var taxmakeprice =0;
+            if(rowMain.itaxprice!=""&&rowMain.itaxprice!=null) {
+                taxmakeprice=parseFloat(rowMain.itaxprice - 0).toFixed(2);
+            }
+            var tolpic =((totalcdefine27-0)+(taxmakeprice-0))-0;
+            $('#jqGrid').jqGrid('setRowData', rowMainId, {cdefine26:totalcdefine26.toFixed(2),cdefine27:totalcdefine27.toFixed(2),tolpic:tolpic,tolnum:(tolpic*fquantity).toFixed(2)});
+
+            //需要计算主表合计
+            SetTaxMakePrice(rowMainId);
+        }
+
+
+
+    }
+
+    //设置存货信息
+    function  SetInventory(rowid,itype) {
+
+
+        if(itype=="1")
+        {
+            var rowData = $("#jqGrid").jqGrid('getRowData', rowid);
+            var cinvcode =rowData.cinvcode;
+            $.ajax({
+                type: "get",
+                async:false,
+                url: "/om/metalworkcommittee/gethistorybycinvcode1",
+                data:{cinvcode:cinvcode},
+                success: function (data) {
+                    if(data["mData"]!=null&&data["mData"]!="")
+                    {
+                        data["mData"].recordId=rowData.recordId;
+                        $('#jqGrid').jqGrid('setRowData', rowid, data["mData"]);
+                        var ids = $("#jqGridDetail").getDataIDs();
+                        var izExist=false;
+                        for (var i = 0; i < ids.length; i++) {
+                            var rowDataDetail = $("#jqGridDetail").getRowData(ids[i]);
+                            if (rowDataDetail.recordId ==rowData.recordId) {
+                                izExist=true;
+//                                    $("#jqGridDetail").jqGrid("delRowData", ids[i]);
+                                $('#jqGridDetail').jqGrid('setRowData', ids[i], { cinvcode: data["mData"].cinvcode, cinvname: data["mData"].cinvname, cinvstd: data["mData"].cinvstd, ccomunitname: data["mData"].ccomunitname,});
+                            }
+                        }
+                        if(izExist==false)
+                        {
+                            if(data["mDatas"]!=null&&data["mDatas"]!="")
+                            {
+                                var gridData = $("#jqGridDetail").jqGrid("getRowData");
+                                for(var i=0; i<data["mDatas"].length; i++) {
+                                    data["mDatas"][i].recordId=rowData.recordId;
+                                    irowid=irowid+1;
+                                    $("#jqGridDetail").jqGrid("addRowData",  irowid, data["mDatas"][i]);
+
+
+                                }
+                            }
+
+
+                        }
+
+
+                    }
+
+
+                },
+            });
+        }
+        else{
+            var rowData = $("#jqGridDetail").jqGrid('getRowData', rowid);
+            var cinvcodes =rowData.cinvcodes;
+            $.ajax({
+                type: "get",
+                async:false,
+                url: "/basicinfo/inventory/getbyid",
+                data:{cinvcode:cinvcodes},
+                success: function (data) {
+                    if(data!=null&&data!="")
+                    {
+
+                        $('#jqGridDetail').jqGrid('setRowData', rowid, {cinvcodes:data.cinvcode, cinvnames:data.cinvname,cinvstds:data.cinvstd,cdefine26:parseFloat(data.iinvncost- 0).toFixed(2),cinvdefine2:data.cinvdefine2});
+                    }
+                    else
+                    {
+                        $('#jqGridDetail').jqGrid('setRowData', rowid, {cinvcodes:"", cinvnames:"",cinvstds:"",cdefine26:"",cinvdefine2:""});
+                    }
+
+                },
+            });
+            SetSize(rowid);
+        }
+
+
+
+    }
+
+    //产品编码
+    function choice(rowid,itype) {
+        if (rowid != null && rowid !='') {
+
+            WeAdminShow('选择产品','./choiceinventory.html?itype='+itype);
+
+        }else {
+            layer.alert("请先选择行再操作！");
+        }
+    }
+
+
+
+
+    var irowid=0;
+    function FnAdd()
+    {
+        irowid=irowid+1;
+        var rowData = {
+            recordId:"r"+irowid
+        };
+        if (CurRow != "" || CurRow != undefined) {
+            $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
+        }
+        $("#jqGrid").jqGrid("addRowData", irowid, rowData);
+
+    }
+
+    function addPart(){
+        var selectedRowId = $("#jqGrid").getGridParam("selrow");
+        if (selectedRowId != null && selectedRowId != '') {
+            let rowData = $("#jqGrid").getRowData(selectedRowId);
+            let recordId =
+        } else {
+            layer.alert("请选中行后再操作");
+        }
+
+
+    }
+
+    function FnAdd1()
+    {
+        irowid=irowid+1;
+        if (CurRow != "" || CurRow != undefined) {
+            $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
+        }
+        var rowid = $("#jqGrid").getGridParam("selrow");
+        if (rowid != null && rowid != '') {
+            var rowData = $("#jqGrid").getRowData(rowid);
+
+            var o={
+
+                mainid:rowData.mainid,
+                id:rowData.id,
+                recordId:rowData.recordId,
+                cinvcode:rowData.cinvcode,
+                cinvname:rowData.cinvname,
+                cinvstd:rowData.cinvstd,
+                ccomunitname:rowData.ccomunitname,
+                iquantity:rowData.iquantity,
+
+            };
+
+            $("#jqGridDetail").addRowData(irowid, o);
+
+
+        } else {
+            layer.alert("请先选择行再操作！");
+        }
+
+
+
+    }
+    //
+    // function FnDelete() {
+    //     if (CurRow != "" || CurRow != undefined) {
+    //         $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
+    //     }
+    //     var rowId = $('#jqGrid').jqGrid('getGridParam', 'selrow');
+    //     if (rowId != "" && rowId != undefined) {
+    //         var rowData = $("#jqGrid").jqGrid('getRowData', rowId);
+    //
+    //         var ids = $("#jqGridDetail").getDataIDs();
+    //         for (var i = 0; i < ids.length; i++) {
+    //             var rowDataDetail = $("#jqGridDetail").getRowData(ids[i]);
+    //             if (rowDataDetail.recordId ==rowData.recordId) {
+    //                 layer.alert("请先删除明细表数据！");
+    //                 return;
+    //             }
+    //         }
+    //
+    //         if (rowData.modetailsid == ""||rowData.modetailsid ==null)
+    //         {
+    //
+    //             $("#jqGrid").jqGrid("delRowData", rowId);
+    //
+    //         }
+    //         else
+    //         {
+    //             layer.confirm('已存在的数据删除，删除后不可恢复，是否确认删除?？', function(index) {
+    //                     $.ajax({
+    //                         type: "post",
+    //                         url: "/om/metalworkcommittee/deletebydetailmainid",
+    //                         data: { modetailsid: rowData.modetailsid,moid:rowData.moid,momaterialsid:rowData.momaterialsid},
+    //                         success: function (text) {
+    //                             var data = text;
+    //                             if (data.success == true || data.success == "true") {
+    //                                 $("#jqGrid").jqGrid("delRowData", rowId);
+    //
+    //                                 layer.alert("删除成功!");
+    //                             }
+    //                             else {
+    //                                 layer.alert(data.errormsg);
+    //                             }
+    //
+    //                         },
+    //                         error: function ()
+    //                         { }
+    //                     });
+    //
+    //
+    //             });
+    //         }
+    //
+    //
+    //     }
+    //
+    // }
+
+    // function FnDelete1() {
+    //     if (CurRow1 != "" || CurRow1 != undefined) {
+    //         $("#jqGridDetail").jqGrid('saveCell', CurRow1, CurCol1);
+    //     }
+    //     var rowId = $('#jqGridDetail').jqGrid('getGridParam', 'selrow');
+    //     if (rowId != "" && rowId != undefined) {
+    //         var rowData = $("#jqGridDetail").jqGrid('getRowData', rowId);
+    //         if (rowData.momaterialsid == ""||rowData.momaterialsid ==null)
+    //         {
+    //             $("#jqGridDetail").jqGrid("delRowData", rowId);
+    //
+    //             //循环子表合计材料单价和单件材料费
+    //             var totalcdefine26=0,totalcdefine27=0;
+    //             var ids = $("#jqGridDetail").getDataIDs();
+    //             for (var i = 0; i < ids.length; i++) {
+    //                 var rowDataDetail = $("#jqGridDetail").getRowData(ids[i]);
+    //                 if (rowDataDetail.recordId ==rowData.recordId) {
+    //                     totalcdefine26=totalcdefine26+parseFloat(rowDataDetail.cdefine26 - 0);
+    //                     totalcdefine27=totalcdefine27+parseFloat(rowDataDetail.cdefine27 - 0);
+    //                 }
+    //             }
+    //
+    //             //查询对应主表id
+    //             var idsMain = $("#jqGrid").getDataIDs();
+    //             var rowMainId="";
+    //             var rowMain=null;
+    //             for (var i = 0; i < idsMain.length; i++) {
+    //                 var rowData1 = $("#jqGrid").getRowData(idsMain[i]);
+    //                 if (rowData1.recordId ==rowData.recordId) {
+    //                     rowMainId=idsMain[i];
+    //                     rowMain=rowData1;
+    //                     break;
+    //                 }
+    //             }
+    //             if(rowMain!=null)
+    //             {
+    //                 //单件加工费
+    //                 var taxmakeprice =0;
+    //                 if(rowMain.itaxprice!=""&&rowMain.itaxprice!=null) {
+    //                     taxmakeprice=parseFloat(rowMain.itaxprice - 0).toFixed(2);
+    //                 }
+    //                 //数量
+    //                 var fquantity =0;
+    //                 if(rowData.iquantity!=""&&rowData.iquantity!=null) {
+    //                     fquantity=parseFloat(rowData.iquantity - 0).toFixed(2);
+    //                 }
+    //                 var tolpic =((totalcdefine27-0)+(taxmakeprice-0))-0;
+    //                 $('#jqGrid').jqGrid('setRowData', rowMainId, {cdefine26:totalcdefine26.toFixed(2),cdefine27:totalcdefine27.toFixed(2),tolpic:tolpic,tolnum:(tolpic*fquantity).toFixed(2)});
+    //
+    //                 //需要计算主表合计
+    //                 SetTaxMakePrice(rowMainId);
+    //             }
+    //         }
+    //         else
+    //         {
+    //             layer.confirm('已存在的数据删除，删除后不可恢复，是否确认删除?？', function(index) {
+    //                     $.ajax({
+    //                         type: "post",
+    //                         url: "/om/metalworkcommittee/deletebydetailsubid",
+    //                         data: { moid: rowData.moid,modetailsid:rowData.modetailsid,momaterialsid:rowData.momaterialsid},
+    //                         success: function (text) {
+    //                             var data = text;
+    //                             if (data.success == true || data.success == "true") {
+    //                                 $("#jqGridDetail").jqGrid("delRowData", rowId);
+    //
+    //                                 //循环子表合计材料单价和单件材料费
+    //                                 var totalcdefine26=0,totalcdefine27=0;
+    //                                 var ids = $("#jqGridDetail").getDataIDs();
+    //                                 for (var i = 0; i < ids.length; i++) {
+    //                                     var rowDataDetail = $("#jqGridDetail").getRowData(ids[i]);
+    //                                     if (rowDataDetail.recordId ==rowData.recordId) {
+    //                                         totalcdefine26=totalcdefine26+parseFloat(rowDataDetail.cdefine26 - 0);
+    //                                         totalcdefine27=totalcdefine27+parseFloat(rowDataDetail.cdefine27 - 0);
+    //                                     }
+    //                                 }
+    //
+    //                                 //查询对应主表id
+    //                                 var idsMain = $("#jqGrid").getDataIDs();
+    //                                 var rowMainId="";
+    //                                 var rowMain=null;
+    //                                 for (var i = 0; i < idsMain.length; i++) {
+    //                                     var rowData1 = $("#jqGrid").getRowData(idsMain[i]);
+    //                                     if (rowData1.recordId ==rowData.recordId) {
+    //                                         rowMainId=idsMain[i];
+    //                                         rowMain=rowData1;
+    //                                         break;
+    //                                     }
+    //                                 }
+    //                                 if(rowMain!=null)
+    //                                 {
+    //                                     //单件加工费
+    //                                     var taxmakeprice =0;
+    //                                     if(rowMain.itaxprice!=""&&rowMain.itaxprice!=null) {
+    //                                         taxmakeprice=parseFloat(rowMain.itaxprice - 0).toFixed(2);
+    //                                     }
+    //                                     //数量
+    //                                     var fquantity =0;
+    //                                     if(rowData.iquantity!=""&&rowData.iquantity!=null) {
+    //                                         fquantity=parseFloat(rowData.iquantity - 0).toFixed(2);
+    //                                     }
+    //                                     var tolpic =((totalcdefine27-0)+(taxmakeprice-0))-0;
+    //                                     $('#jqGrid').jqGrid('setRowData', rowMainId, {cdefine26:totalcdefine26.toFixed(2),cdefine27:totalcdefine27.toFixed(2),tolpic:tolpic,tolnum:(tolpic*fquantity).toFixed(2)});
+    //
+    //                                     //需要计算主表合计
+    //                                     SetTaxMakePrice(rowMainId);
+    //                                 }
+    //                                 layer.alert("删除成功!");
+    //                             }
+    //                             else {
+    //                                 layer.alert(data.errormsg);
+    //                             }
+    //
+    //                         },
+    //                         error: function ()
+    //                         { }
+    //                     });
+    //
+    //
+    //             });
+    //         }
+    //
+    //
+    //     }
+    //
+    // }
+
+    function FnDelete() {
+        if (CurRow != "" || CurRow != undefined) {
+            $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
+        }
+        var rowId = $('#jqGrid').jqGrid('getGridParam', 'selrow');
+        if (rowId != "" && rowId != undefined) {
+            var rowData = $("#jqGrid").jqGrid('getRowData', rowId);
+
+            var ids = $("#jqGridDetail").getDataIDs();
+            for (var i = 0; i < ids.length; i++) {
+                var rowDataDetail = $("#jqGridDetail").getRowData(ids[i]);
+                if (rowDataDetail.recordId ==rowData.recordId) {
+                    layer.alert("请先删除明细表数据！");
+                    return;
+                }
+            }
+
+
+            $("#jqGrid").jqGrid("delRowData", rowId);
+
+
+
+        }
+
+    }
+
+    function FnDelete1() {
+        if (CurRow1 != "" || CurRow1 != undefined) {
+            $("#jqGridDetail").jqGrid('saveCell', CurRow1, CurCol1);
+        }
+        var rowId = $('#jqGridDetail').jqGrid('getGridParam', 'selrow');
+        if (rowId != "" && rowId != undefined) {
+            var rowData = $("#jqGridDetail").jqGrid('getRowData', rowId);
+
+            $("#jqGridDetail").jqGrid("delRowData", rowId);
+
+            //循环子表合计材料单价和单件材料费
+            var totalcdefine26 = 0, totalcdefine27 = 0;
+            var ids = $("#jqGridDetail").getDataIDs();
+            for (var i = 0; i < ids.length; i++) {
+                var rowDataDetail = $("#jqGridDetail").getRowData(ids[i]);
+                if (rowDataDetail.recordId == rowData.recordId) {
+                    totalcdefine26 = totalcdefine26 + parseFloat(rowDataDetail.cdefine26 - 0);
+                    totalcdefine27 = totalcdefine27 + parseFloat(rowDataDetail.cdefine27 - 0);
+                }
+            }
+
+            //查询对应主表id
+            var idsMain = $("#jqGrid").getDataIDs();
+            var rowMainId = "";
+            var rowMain = null;
+            for (var i = 0; i < idsMain.length; i++) {
+                var rowData1 = $("#jqGrid").getRowData(idsMain[i]);
+                if (rowData1.recordId == rowData.recordId) {
+                    rowMainId = idsMain[i];
+                    rowMain = rowData1;
+                    break;
+                }
+            }
+            if (rowMain != null) {
+                //单件加工费
+                var taxmakeprice = 0;
+                if (rowMain.itaxprice != "" && rowMain.itaxprice != null) {
+                    taxmakeprice = parseFloat(rowMain.itaxprice - 0).toFixed(2);
+                }
+                //数量
+                var fquantity = 0;
+                if (rowData.iquantity != "" && rowData.iquantity != null) {
+                    fquantity = parseFloat(rowData.iquantity - 0).toFixed(2);
+                }
+                var tolpic = ((totalcdefine27 - 0) + (taxmakeprice - 0)) - 0;
+                $('#jqGrid').jqGrid('setRowData', rowMainId, {
+                    cdefine26: totalcdefine26.toFixed(2),
+                    cdefine27: totalcdefine27.toFixed(2),
+                    tolpic: tolpic,
+                    tolnum: (tolpic * fquantity).toFixed(2)
+                });
+
+                //需要计算主表合计
+                SetTaxMakePrice(rowMainId);
+            }
+
+        }
+
+    }
+
+    function FnCheck() {
+        var id=$("#moid").val();
+        if(id!=""&&id!=null)
+        {
+            $.ajax({
+                type: "post",
+                url: "/om/metalworkcommittee/check",
+                data: { id: id},
+                success: function (text) {
+                    var data = text;
+                    if (data.success == true || data.success == "true") {
+
+                        layer.alert("审核成功!");
+                    }
+                    else {
+                        layer.alert(data.msg);
+                    }
+
+                },
+                error: function ()
+                { }
+            });
+        }
+        else
+        {
+            layer.alert("请先保存!");
+        }
+
+    }
+    function FnUnCheck() {
+        var id=$("#moid").val();
+        if(id!=""&&id!=null)
+        {
+            $.ajax({
+                type: "post",
+                url: "/om/metalworkcommittee/uncheck",
+                data: { id: id},
+                success: function (text) {
+                    var data = text;
+                    if (data.success == true || data.success == "true") {
+
+
+                        layer.alert("弃审成功!");
+                    }
+                    else {
+                        layer.alert(data.msg);
+                    }
+
+                },
+                error: function ()
+                { }
+            });
+        }
+        else
+        {
+            layer.alert("请先保存!");
+        }
+
+    }
+
+
+    //过滤非数字
+    function onInput(event){
+        var value = event.target.value;
+        var len = value.length;
+        var reg = /^-?[0-9]+([0-9]+)?$/;
+        if(!reg.test(value)){
+            var d = value.charAt(len-1);
+
+            for(var i=len-1; i>=0; i--){
+                if((value[i] < '0' || value[i] > '9') ){
+                    event.target.value = value.substring(0, i);
+                }
+            }
+        }
+    }
+
+
+    function FnPrint() {
+
+        var id = $("#moid").val();
+        if (id != null && id != "") {
+            $.get('/om/metalworkcommittee/getbyid', {id: id}, function (data) {
+                if (data != null) {
+                    $.ajax({
+                        type: "post",
+                        url: "/om/metalworkcommittee/getdetaillist",
+                        data: {id: id},
+                        success: function (data1) {
+                            if(data1!=null&&data1.length>0)
+                            {
+                                data.darrivedate=data1[0].darrivedate;
+                            }
+
+
+                            PrPrintOmDetail(data, data1);
+
+                        },
+                        error: function () {
+                        }
+                    });
+
+                }
+            });
+
+        } else {
+            layer.alert("请先保存！");
+        }
+
+    }
+
+</script>
+</html>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.web.system.mapper.RolePermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.web.system.entity.RolePermission" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="permission_id" property="permissionId" jdbcType="VARCHAR" />
+    <result column="role_id" property="roleId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, permission_id, role_id
+  </sql>
+  <select id="selectNotInPermissionid" parameterType="Map" resultMap="BaseResultMap">
+      select 
+    <include refid="Base_Column_List" />
+    from sys_role_permission
+    <where>
+      role_id = #{roleId}
+      <foreach collection="permissionidArr" item="permissionId" open="and permission_id not in(" close=")" separator=",">
+         #{permissionId}
+      </foreach>
+    </where>
+  </select>
+</mapper>

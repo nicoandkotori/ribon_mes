@@ -1,0 +1,154 @@
+{
+  "homeInfo": {
+    "title": "首页",
+    "href": "page/welcome-1.html?t=1"
+  },
+  "logoInfo": {
+    "title": "瑞邦",
+    "image": "images/logo.png",
+    "href": ""
+  },
+  "menuInfo": [
+    {
+      "title": "常规管理",
+      "icon": "fa fa-address-book",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "基础档案",
+          "href": "",
+          "icon": "fa fa-cog",
+          "target": "_self",
+          "child": [
+
+
+            {
+              "title": "生产",
+              "href": "",
+              "icon": "",
+              "target": "_self",
+              "child": [
+
+                {
+                  "title": "设备档案",
+                  "href": "page/basicinfo/resource/index.html",
+                  "icon": "",
+                  "target": "_self"
+                },
+                {
+                  "title": "车间档案",
+                  "href": "page/basicinfo/workshop/index.html",
+                  "icon": "",
+                  "target": "_self"
+                },
+                {
+                  "title": "职员档案",
+                  "href": "page/basicinfo/staff/index.html",
+                  "icon": "",
+                  "target": "_self"
+                },
+                {
+                  "title": "辅料需求表",
+                  "href": "page/basicinfo/productAccessories/index.html",
+                  "icon": "",
+                  "target": "_self"
+                },
+                {
+                  "title": "半成品分切方案表",
+                  "href": "page/basicinfo/productMaterialPlan/index.html",
+                  "icon": "",
+                  "target": "_self"
+                }
+
+              ]
+            }
+          ]
+        },
+        {
+          "title": "生产管理",
+          "href": "",
+          "icon": "fa fa-cog",
+          "target": "_self",
+          "child": [
+            {
+              "title": "计划排单",
+              "href": "page/mo/plan/index.html",
+              "icon": "",
+              "target": "_self"
+            },
+            {
+              "title": "领料申请单",
+              "href": "page/mo/applyout/index.html",
+              "icon": "",
+              "target": "_self"
+            },
+            {
+              "title": "倒卷处理",
+              "href": "page/mo/pend/index.html",
+              "icon": "",
+              "target": "_self"
+            },
+            {
+              "title": "成品条码列表",
+              "href": "page/st/barcodeproduct/index.html",
+              "icon": "",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "库存管理",
+          "href": "",
+          "icon": "fa fa-cog",
+          "target": "_self",
+          "child": [
+            {
+              "title": "半成品条码生成",
+              "href": "page/st/barcode/index.html",
+              "icon": "",
+              "target": "_self"
+            },
+            {
+              "title": "材料领用单",
+              "href": "page/st/materialoutput/index.html",
+              "icon": "",
+              "target": "_self"
+            },
+            {
+              "title": "材料退库单",
+              "href": "page/st/materialreturn/index.html",
+              "icon": "",
+              "target": "_self"
+            },
+            {
+              "title": "材料调拨单",
+              "href": "page/st/materialallot/index.html",
+              "icon": "",
+              "target": "_self"
+            },
+            {
+              "title": "半成品入库单",
+              "href": "page/st/semiproductin/index.html",
+              "icon": "",
+              "target": "_self"
+            },
+            {
+              "title": "成品入库单",
+              "href": "page/st/productin/index.html",
+              "icon": "",
+              "target": "_self"
+            },
+            {
+              "title": "装箱单",
+              "href": "page/st/boxmain/index.html",
+              "icon": "",
+              "target": "_self"
+            }
+          ]
+        }
+
+      ]
+    }
+  ]
+}

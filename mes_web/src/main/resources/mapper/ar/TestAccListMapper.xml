@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.web.ar.mapper.TestAccListMapper" >
+  <resultMap id="BaseResultMap" type="com.web.ar.entity.TestAccList" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="iyear" property="iyear" jdbcType="INTEGER" />
+    <result column="imonth" property="imonth" jdbcType="INTEGER" />
+    <result column="csid" property="csid" jdbcType="VARCHAR" />
+    <result column="psp_code" property="pspCode" jdbcType="VARCHAR" />
+    <result column="ps_code" property="psCode" jdbcType="VARCHAR" />
+    <result column="lj" property="lj" jdbcType="VARCHAR" />
+    <result column="qty" property="qty" jdbcType="DECIMAL" />
+    <result column="qtys" property="qtys" jdbcType="DECIMAL" />
+    <result column="bpu" property="bpu" jdbcType="BIT" />
+    <result column="bpro" property="bpro" jdbcType="BIT" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="iprice" property="iprice" jdbcType="DECIMAL" />
+    <result column="imonery" property="imonery" jdbcType="DECIMAL" />
+    <result column="status_id" property="statusId" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="iz_delete" property="izDelete" jdbcType="BIT" />
+    <result column="delete_user" property="deleteUser" jdbcType="VARCHAR" />
+    <result column="delete_date" property="deleteDate" jdbcType="TIMESTAMP" />
+    <result column="check_user" property="checkUser" jdbcType="VARCHAR" />
+    <result column="check_date" property="checkDate" jdbcType="TIMESTAMP" />
+
+
+    <result column="cprice" property="cprice" jdbcType="DECIMAL" />
+    <result column="cmonery" property="cmonery" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, iyear, imonth, csid, psp_code, ps_code, lj, qty, qtys, bpu, bpro, unit, iprice, 
+    imonery, status_id, create_user, create_date, update_user, update_date, iz_delete, 
+    delete_user, delete_date, check_user, check_date,cprice,cmonery
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ar_test_acc_list
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteall" >
+    delete from ar_test_acc_list where 1=1
+
+  </delete>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ar_test_acc_list
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.web.ar.entity.TestAccList" >
+    insert into ar_test_acc_list (id, iyear, imonth, 
+      csid, psp_code, ps_code, 
+      lj, qty, qtys, bpu, 
+      bpro, unit, iprice, imonery, 
+      status_id, create_user, create_date, 
+      update_user, update_date, iz_delete, 
+      delete_user, delete_date, check_user, 
+      check_date,cprice,cmonery)
+    values (#{id,jdbcType=VARCHAR}, #{iyear,jdbcType=INTEGER}, #{imonth,jdbcType=INTEGER}, 
+      #{csid,jdbcType=VARCHAR}, #{pspCode,jdbcType=VARCHAR}, #{psCode,jdbcType=VARCHAR},
+      #{lj,jdbcType=VARCHAR}, #{qty,jdbcType=DECIMAL}, #{qtys,jdbcType=DECIMAL}, #{bpu,jdbcType=BIT}, 
+      #{bpro,jdbcType=BIT}, #{unit,jdbcType=VARCHAR}, #{iprice,jdbcType=DECIMAL}, #{imonery,jdbcType=DECIMAL}, 
+      #{statusId,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{izDelete,jdbcType=BIT}, 
+      #{deleteUser,jdbcType=VARCHAR}, #{deleteDate,jdbcType=TIMESTAMP}, #{checkUser,jdbcType=VARCHAR}, 
+      #{checkDate,jdbcType=TIMESTAMP}, #{cprice,jdbcType=DECIMAL}, #{cmonery,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.web.ar.entity.TestAccList" >
+    insert into ar_test_acc_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="iyear != null" >
+        iyear,
+      </if>
+      <if test="imonth != null" >
+        imonth,
+      </if>
+      <if test="csid != null" >
+        csid,
+      </if>
+      <if test="pspCode != null" >
+        psp_code,
+      </if>
+      <if test="psCode != null" >
+        ps_code,
+      </if>
+      <if test="lj != null" >
+        lj,
+      </if>
+      <if test="qty != null" >
+        qty,
+      </if>
+      <if test="qtys != null" >
+        qtys,
+      </if>
+      <if test="bpu != null" >
+        bpu,
+      </if>
+      <if test="bpro != null" >
+        bpro,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="iprice != null" >
+        iprice,
+      </if>
+      <if test="imonery != null" >
+        imonery,
+      </if>
+      <if test="statusId != null" >
+        status_id,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="izDelete != null" >
+        iz_delete,
+      </if>
+      <if test="deleteUser != null" >
+        delete_user,
+      </if>
+      <if test="deleteDate != null" >
+        delete_date,
+      </if>
+      <if test="checkUser != null" >
+        check_user,
+      </if>
+      <if test="checkDate != null" >
+        check_date,
+      </if>
+      <if test="cprice != null" >
+        cprice
+      </if>
+      <if test="cmonery != null" >
+        cmonery
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="iyear != null" >
+        #{iyear,jdbcType=INTEGER},
+      </if>
+      <if test="imonth != null" >
+        #{imonth,jdbcType=INTEGER},
+      </if>
+      <if test="csid != null" >
+        #{csid,jdbcType=VARCHAR},
+      </if>
+      <if test="pspCode != null" >
+        #{pspCode,jdbcType=VARCHAR},
+      </if>
+      <if test="psCode != null" >
+        #{psCode,jdbcType=VARCHAR},
+      </if>
+      <if test="lj != null" >
+        #{lj,jdbcType=VARCHAR},
+      </if>
+      <if test="qty != null" >
+        #{qty,jdbcType=DECIMAL},
+      </if>
+      <if test="qtys != null" >
+        #{qtys,jdbcType=DECIMAL},
+      </if>
+      <if test="bpu != null" >
+        #{bpu,jdbcType=BIT},
+      </if>
+      <if test="bpro != null" >
+        #{bpro,jdbcType=BIT},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="iprice != null" >
+        #{iprice,jdbcType=DECIMAL},
+      </if>
+      <if test="imonery != null" >
+        #{imonery,jdbcType=DECIMAL},
+      </if>
+      <if test="statusId != null" >
+        #{statusId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="izDelete != null" >
+        #{izDelete,jdbcType=BIT},
+      </if>
+      <if test="deleteUser != null" >
+        #{deleteUser,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteDate != null" >
+        #{deleteDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkUser != null" >
+        #{checkUser,jdbcType=VARCHAR},
+      </if>
+      <if test="checkDate != null" >
+        #{checkDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cprice != null" >
+        #{cprice,jdbcType=DECIMAL},
+      </if>
+      <if test="cmonery != null" >
+        #{cmonery,jdbcType=DECIMAL},
+      </if>
+
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.ar.entity.TestAccList" >
+    update ar_test_acc_list
+    <set >
+      <if test="iyear != null" >
+        iyear = #{iyear,jdbcType=INTEGER},
+      </if>
+      <if test="imonth != null" >
+        imonth = #{imonth,jdbcType=INTEGER},
+      </if>
+      <if test="csid != null" >
+        csid = #{csid,jdbcType=VARCHAR},
+      </if>
+      <if test="pspCode != null" >
+        psp_code = #{pspCode,jdbcType=VARCHAR},
+      </if>
+      <if test="psCode != null" >
+        ps_code = #{psCode,jdbcType=VARCHAR},
+      </if>
+      <if test="lj != null" >
+        lj = #{lj,jdbcType=VARCHAR},
+      </if>
+      <if test="qty != null" >
+        qty = #{qty,jdbcType=DECIMAL},
+      </if>
+      <if test="qtys != null" >
+        qtys = #{qtys,jdbcType=DECIMAL},
+      </if>
+      <if test="bpu != null" >
+        bpu = #{bpu,jdbcType=BIT},
+      </if>
+      <if test="bpro != null" >
+        bpro = #{bpro,jdbcType=BIT},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="iprice != null" >
+        iprice = #{iprice,jdbcType=DECIMAL},
+      </if>
+      <if test="imonery != null" >
+        imonery = #{imonery,jdbcType=DECIMAL},
+      </if>
+      <if test="statusId != null" >
+        status_id = #{statusId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="izDelete != null" >
+        iz_delete = #{izDelete,jdbcType=BIT},
+      </if>
+      <if test="deleteUser != null" >
+        delete_user = #{deleteUser,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteDate != null" >
+        delete_date = #{deleteDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkUser != null" >
+        check_user = #{checkUser,jdbcType=VARCHAR},
+      </if>
+      <if test="checkDate != null" >
+        check_date = #{checkDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cprice != null" >
+        cprice= #{cprice,jdbcType=DECIMAL},
+      </if>
+      <if test="cmonery != null" >
+        cmonery= #{cmonery,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.web.ar.entity.TestAccList" >
+    update ar_test_acc_list
+    set iyear = #{iyear,jdbcType=INTEGER},
+      imonth = #{imonth,jdbcType=INTEGER},
+      csid = #{csid,jdbcType=VARCHAR},
+      psp_code = #{pspCode,jdbcType=VARCHAR},
+      ps_code = #{psCode,jdbcType=VARCHAR},
+      lj = #{lj,jdbcType=VARCHAR},
+      qty = #{qty,jdbcType=DECIMAL},
+      qtys = #{qtys,jdbcType=DECIMAL},
+      bpu = #{bpu,jdbcType=BIT},
+      bpro = #{bpro,jdbcType=BIT},
+      unit = #{unit,jdbcType=VARCHAR},
+      iprice = #{iprice,jdbcType=DECIMAL},
+      imonery = #{imonery,jdbcType=DECIMAL},
+      status_id = #{statusId,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      iz_delete = #{izDelete,jdbcType=BIT},
+      delete_user = #{deleteUser,jdbcType=VARCHAR},
+      delete_date = #{deleteDate,jdbcType=TIMESTAMP},
+      check_user = #{checkUser,jdbcType=VARCHAR},
+      check_date = #{checkDate,jdbcType=TIMESTAMP},
+             cprice= #{cprice,jdbcType=DECIMAL},
+
+    cmonery= #{cmonery,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <insert id="insertTestAccList"  parameterType="com.web.ar.entity.CostSimReport">
+    insert into ar_test_acc_list(id,csid,iyear,imonth,psp_code,ps_code,lj,qty,qtys,bpu,bpro,unit,iprice,imonery,cprice,cmonery,status_id)
+     select newid(),csid, #{iyear}, #{imonth},psp_code,ps_code,lj,qty,qtys,bpu,bpro,unit,iprice,imonery,cprice,cmonery,status_id from ar_test_acc
+  </insert>
+
+</mapper>

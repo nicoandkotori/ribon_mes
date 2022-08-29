@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.basicinfo.mapper.ComputationUnitMapper">
+  <resultMap id="BaseResultMap" type="com.web.basicinfo.entity.ComputationUnit">
+    <!--@mbg.generated-->
+    <!--@Table ComputationUnit-->
+    <id column="cComunitCode" jdbcType="VARCHAR" property="ccomunitcode" />
+    <result column="cComUnitName" jdbcType="VARCHAR" property="ccomunitname" />
+    <result column="cGroupCode" jdbcType="VARCHAR" property="cgroupcode" />
+    <result column="cBarCode" jdbcType="VARCHAR" property="cbarcode" />
+    <result column="bMainUnit" jdbcType="BIT" property="bmainunit" />
+    <result column="iChangRate" jdbcType="DECIMAL" property="ichangrate" />
+    <result column="iProportion" jdbcType="FLOAT" property="iproportion" />
+    <result column="iNumber" jdbcType="SMALLINT" property="inumber" />
+    <result column="pubufts" jdbcType="TIMESTAMP" property="pubufts" />
+    <result column="cEnSingular" jdbcType="VARCHAR" property="censingular" />
+    <result column="cEnPlural" jdbcType="VARCHAR" property="cenplural" />
+    <result column="cUnitRefInvCode" jdbcType="VARCHAR" property="cunitrefinvcode" />
+  </resultMap>
+
+</mapper>

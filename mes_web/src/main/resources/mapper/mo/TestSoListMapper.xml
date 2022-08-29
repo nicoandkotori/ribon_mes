@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.web.mo.mapper.TestSoListMapper" >
+  <resultMap id="BaseResultMap" type="com.web.mo.entity.TestSoList" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="psp_code" property="pspCode" jdbcType="VARCHAR" />
+    <result column="ps_code" property="psCode" jdbcType="VARCHAR" />
+    <result column="develop" property="develop" jdbcType="VARCHAR" />
+    <result column="qty" property="qty" jdbcType="DECIMAL" />
+    <result column="qtys" property="qtys" jdbcType="DECIMAL" />
+    <result column="cur_qty" property="curQty" jdbcType="DECIMAL" />
+    <result column="po_qty" property="poQty" jdbcType="DECIMAL" />
+    <result column="ky_qty" property="kyQty" jdbcType="DECIMAL" />
+    <result column="ad_qty" property="adQty" jdbcType="DECIMAL" />
+    <result column="pro_type" property="proType" jdbcType="VARCHAR" />
+    <result column="m_inv_code" property="mInvCode" jdbcType="VARCHAR" />
+    <result column="m_inv_name" property="mInvName" jdbcType="VARCHAR" />
+    <result column="m_inv_std" property="mInvStd" jdbcType="VARCHAR" />
+    <result column="mat_size" property="matSize" jdbcType="VARCHAR" />
+    <result column="product_inv_code" property="productInvCode" jdbcType="VARCHAR" />
+    <result column="product_inv_name" property="productInvName" jdbcType="VARCHAR" />
+    <result column="part_name" property="partName" jdbcType="VARCHAR" />
+    <result column="con_no" property="conNo" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="from_no" property="fromNo" jdbcType="VARCHAR" />
+    <result column="cust_name" property="custName" jdbcType="VARCHAR" />
+    <result column="so_qty" property="soQty" jdbcType="DECIMAL" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="status_id" property="statusId" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="iz_delete" property="izDelete" jdbcType="BIT" />
+    <result column="delete_user" property="deleteUser" jdbcType="VARCHAR" />
+    <result column="delete_date" property="deleteDate" jdbcType="TIMESTAMP" />
+    <result column="invCode" property="invCode" jdbcType="VARCHAR" />
+    <result column="invAddCode" property="invAddCode" jdbcType="VARCHAR" />
+    <result column="invName" property="invName" jdbcType="VARCHAR" />
+    <result column="invStd" property="invStd" jdbcType="VARCHAR" />
+    <result column="invUnit" property="invUnit" jdbcType="VARCHAR" />
+    <result column="invStd" property="invStd" jdbcType="VARCHAR" />
+    <result column="check_user" property="checkUser" jdbcType="VARCHAR" />
+    <result column="check_date" property="checkDate" jdbcType="TIMESTAMP" />
+    <result column="yqty" property="yqty" jdbcType="DECIMAL" />
+    <result column="iQuantity" property="iquantity" jdbcType="DECIMAL" />
+    <result column="ddate" property="ddate" jdbcType="TIMESTAMP" />
+
+    <result column="hisAddQty" property="hisAddQty" jdbcType="DECIMAL" />
+  </resultMap>
+  <select id="getInfoById" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select *
+    from ${database}.dbo.production_test_so_list
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getSumQtyByInvCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select COALESCE(sum(ad_qty-COALESCE(yqty,0)),0) yqty
+    from production_test_so_list
+    where ps_code = #{invCode,jdbcType=VARCHAR}
+    and  (ad_qty-COALESCE(yqty,0))>0 and  (COALESCE(iz_delete,0)=0)
+    and  create_date>'2020-04-21' and  create_date>dateadd(dd,-360,getdate())
+  </select>
+
+  <select id="getInfoByCode" parameterType="com.web.mo.entity.TestSoList" resultMap="BaseResultMap">
+    select top 1 * from production_test_so_list
+    where  COALESCE(iz_delete,0)=0
+    <if test="productInvCode != null   and productInvCode != '' ">
+      AND product_inv_code  = #{productInvCode,jdbcType=VARCHAR}
+    </if>
+    <if test="orderNo != null   and orderNo != '' ">
+      AND order_no  = #{orderNo,jdbcType=VARCHAR}
+    </if>
+    order by yqty desc
+  </select>
+  <select id="getListByCode" parameterType="com.web.mo.entity.TestSoList" resultMap="BaseResultMap">
+    select distinct product_inv_code,order_no from production_test_so_list
+    where  COALESCE(iz_delete,0)=0
+    <if test="productInvCode != null   and productInvCode != '' ">
+      AND product_inv_code  = #{productInvCode,jdbcType=VARCHAR}
+    </if>
+    <if test="orderNo != null   and orderNo != '' ">
+      AND order_no  = #{orderNo,jdbcType=VARCHAR}
+    </if>
+
+  </select>
+
+
+  <select id="getPrintListDevice" parameterType="com.web.mo.entity.TestSoList" resultMap="BaseResultMap">
+    select t1.*,inv.cInvCode invCode,inv.cInvAddCode invAddCode,inv.cInvName invName,inv.cInvStd invStd,cu.cComUnitName invUnit
+    from production_test_so_list t1 left join ${u8DB}.dbo.Inventory inv on t1.ps_code=inv.cInvCode
+    left join ${u8DB}.dbo.ComputationUnit cu on inv.cComUnitCode=cu.cComunitCode
+    where 1=1 and COALESCE(iz_delete,0)=0
+
+    <if test="productInvCode != null   and productInvCode != '' ">
+      AND product_inv_code  = #{productInvCode,jdbcType=VARCHAR}
+    </if>
+    <if test="orderNo != null   and orderNo != '' ">
+      AND order_no  = #{orderNo,jdbcType=VARCHAR}
+    </if>
+
+    <if test="proType != null   and proType != '' ">
+      AND replace( COALESCE(pro_type,''),char(13),'')   = #{proType,jdbcType=VARCHAR}
+    </if>
+
+    <if test="listProType != null and listProType.size > 0 ">
+      and replace( COALESCE(pro_type,''),char(13),'')  in
+      <foreach collection="listProType" item="proTypes" separator="," open="(" close=")">
+        #{proTypes}
+      </foreach>
+    </if>
+    order by   t1.pro_type, t1.m_inv_name, t1.m_inv_std, t1.mat_size,t1.ps_code
+  </select>
+  <select id="getDetailList" parameterType="com.web.mo.entity.TestSoList" resultMap="BaseResultMap">
+    select t1.*,inv.cInvCode invCode,inv.cInvAddCode invAddCode,inv.cInvName invName,inv.cInvStd invStd,cu.cComUnitName invUnit
+    from production_test_so_list t1 left join ${main.u8DB}.dbo.Inventory inv on t1.ps_code=inv.cInvCode
+    left join ${main.u8DB}.dbo.ComputationUnit cu on inv.cComUnitCode=cu.cComunitCode
+    where 1=1 and COALESCE(iz_delete,0)=0 and replace( COALESCE(pro_type,''),char(13),'')!='原材料'
+
+    <if test="main.productInvCode != null   and main.productInvCode != '' ">
+      AND product_inv_code  = #{main.productInvCode,jdbcType=VARCHAR}
+    </if>
+    <if test="main.orderNo != null   and main.orderNo != '' ">
+      AND order_no  = #{main.orderNo,jdbcType=VARCHAR}
+    </if>
+    <if test="main.proType != null   and main.proType != '' ">
+      AND replace(pro_type,char(13),'')   = #{main.proType,jdbcType=VARCHAR}
+    </if>
+
+    <if test="main.listProType != null and main.listProType.size > 0 ">
+      and replace( COALESCE(pro_type,''),char(13),'')  in
+      <foreach collection="main.listProType" item="proTypes" separator="," open="(" close=")">
+        #{proTypes}
+      </foreach>
+    </if>
+    order by  t1.develop
+  </select>
+
+  <select id="getDetailListByWhCode" parameterType="com.web.mo.entity.TestSoList" resultMap="BaseResultMap">
+    select t1.*,inv.cInvCode invCode,inv.cInvAddCode invAddCode,inv.cInvName invName,inv.cInvStd invStd,cu.cComUnitName invUnit,st.iQuantity,t2.hisAdQty
+    from production_test_so_list t1 left join ${u8DB}.dbo.Inventory inv on t1.ps_code=inv.cInvCode
+    left join (  select ps_code,COALESCE(sum(ad_qty-COALESCE(yqty,0)),0) hisAdQty
+    from production_test_so_list
+    where 1=1
+    and  (ad_qty-COALESCE(yqty,0))>0 and  (COALESCE(iz_delete,0)=0)
+    and  create_date>'2020-04-21' and  create_date>dateadd(dd,-360,getdate())
+    <if test="proType != null   and proType != '' ">
+      AND replace( COALESCE(pro_type,''),char(13),'')   = #{proType,jdbcType=VARCHAR}
+    </if>
+    group by ps_code)  t2 on t1.ps_code=t2.ps_code
+    left join ${u8DB}.dbo.ComputationUnit cu on inv.cComUnitCode=cu.cComunitCode left join (select * from  ${u8DB}.dbo.CurrentStock  where cWhCode= #{whCode,jdbcType=VARCHAR}) st on t1.ps_code=st.cInvCode
+    where 1=1 and COALESCE(iz_delete,0)=0
+    <if test="productInvCode != null   and productInvCode != '' ">
+      AND product_inv_code  = #{productInvCode,jdbcType=VARCHAR}
+    </if>
+    <if test="orderNo != null   and orderNo != '' ">
+      AND order_no  = #{orderNo,jdbcType=VARCHAR}
+    </if>
+    <if test="proType != null   and proType != '' ">
+      AND replace( COALESCE(pro_type,''),char(13),'')   = #{proType,jdbcType=VARCHAR}
+    </if>
+
+    order by  t1.pro_type, t1.m_inv_name, t1.m_inv_std, t1.mat_size,t1.ps_code
+  </select>
+
+
+  <update id="updateByCode" parameterType="com.web.mo.entity.TestSoList" >
+    update  production_test_so_list
+    set iz_delete=1
+    where  product_inv_code = #{productInvCode,jdbcType=VARCHAR}
+    AND order_no  = #{orderNo,jdbcType=VARCHAR}
+
+  </update>
+  <delete id="deleteByCode"  parameterType="com.web.mo.entity.TestSoList" >
+    delete  production_test_so_list
+
+    where  product_inv_code = #{productInvCode,jdbcType=VARCHAR}
+    AND order_no  = #{orderNo,jdbcType=VARCHAR}
+
+  </delete>
+
+  <update id="updateByCheck" parameterType="com.web.mo.entity.TestSoList" >
+    update  production_test_so_list
+    set
+    status_id = #{statusId, jdbcType=VARCHAR},
+    check_user = #{checkUser, jdbcType=VARCHAR},
+    check_date = #{checkDate, jdbcType=TIMESTAMP}
+    where  product_inv_code = #{productInvCode,jdbcType=VARCHAR}
+    AND order_no  = #{orderNo,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateyQty1" parameterType="com.web.mo.entity.TestSoList" >
+    update  ${database}.dbo.production_test_so_list
+    set
+    yqty=COALESCE(yqty,0)+COALESCE(#{main.adQty,jdbcType=DECIMAL},0)
+    where  id  = #{main.id,jdbcType=VARCHAR}
+  </update>
+</mapper>

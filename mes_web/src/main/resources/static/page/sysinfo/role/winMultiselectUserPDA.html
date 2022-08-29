@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>选择用户</title>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href='../../../static/css/bootstrap.min.css'/>
+    <link rel="stylesheet" href='../../../static/css/MyBootstrap.css'/>
+    <!-- jqgrid -->
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/jquery-ui.theme.min.css'/>
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/ui.jqgrid.css'/>
+    <!--layui-->
+    <link rel="stylesheet" href="../../../lib/layui/css/layui.css">
+
+</head>
+<body>
+<div class="container-fluid top-content-2">
+    <div class="row crow">
+        <form role="form" id="formquery">
+            <div class="col-sm-12">
+                <span class=" lbl-input wd80">用户姓名:</span>
+                <input type="text" class="txt-input wd120" id="userName" name="userName"/>
+                <span class=" lbl-input wd80">用户编号:</span>
+                <input type="text" class="txt-input wd120" id="userCode" name="userCode"/>
+                <button type="button" class="btn btn-primary btn-sm cbtn" onclick="FnSearch()">刷新</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="box" style="width: 100%;  height:100%; overflow-x:auto">
+    <table id="jquser"></table>
+    <table id="jquserPager"></table>
+</div>
+</body>
+<script src='../../../static/Scripts/jquery-1.10.2.min.js'></script>
+<script src='../../../static/Scripts/jquery.json.js'></script>
+
+<!-- jqgrid -->
+<script src='../../../static/Scripts/jqgrid/js/i18n/grid.locale-cn.js'></script>
+<script src='../../../static/Scripts/jqgrid/js/jquery-ui.min.js'></script>
+<script src='../../../static/Scripts/jqgrid/js/jquery.jqGrid.js'></script>
+<!--layui-->
+<script src="../../../lib/layui/layui.js"></script>
+<script>
+    var cht, cwd;
+    $(function () {
+        cht = document.body.offsetHeight;
+        cwd = document.body.offsetWidth;
+        initJqgrid();
+        var conHt = jQuery(".container-fluid").height();
+        $("#jquser").setGridHeight(($(window).outerHeight() - conHt - 75));
+    });
+
+    function initJqgrid() {
+        $("#jquser").jqGrid({
+            url: '/sysinfo/user/findUserNotInUserrole1',
+            mtype: "GET",
+            datatype: "json",
+            colNames: ["id", "用户姓名", "用户编号", "部门名称"],
+            colModel: [{
+                name: "id",
+                key: true,
+                hidden: true
+            },
+                {
+                    name: "userName"
+                },
+                {
+                    name: "userCode"
+                },
+                {
+                    name: "depName"
+                }
+            ],
+            rownumbers: true,
+            viewrecords: true,
+            // height:'auto',
+            ////autowidth如果设为true，则Grid的宽度会根据父容器的宽度自动重算。重算仅发生在Grid初始化的阶段；如果当父容器尺寸变化了，同时也需要变化Grid的尺寸的话，则需要在自己的代码中调用setGridWidth方法来完成。
+            autowidth: true,
+            //shrinkToFit用于根据width计算每列宽度的算法。默认值为true。如果shrinkToFit为true且设置了width值，则每列宽度会根据width成比例缩放；
+            //如果shrinkToFit为false且设置了width值，则每列的宽度不会成比例缩放，而是保持原有设置，而Grid将会有水平滚动条。
+            shrinkToFit: false,
+            rowNum: 100,
+            rowList: [ 100,200],
+            autoScroll: true,
+            scrollrows: true,// 是否显示行滚动条
+            multiselect: true,
+            pager: "#jquserPager",
+            cmTemplate: {sortable: false, align: "center"},
+            beforeProcessing: function (data, st, xhr) {//登录失效时请求将被拦截，提示用户：未登录
+                if (data.success == false) {
+                    layer.msg(data.errormsg);
+                }
+                return true;
+            },
+            loadBeforeSend:function (jqXHR) {
+                var token = sessionStorage.getItem("mestoken");
+                jqXHR.setRequestHeader('Authorization',  token);
+
+            }
+        });
+    }
+
+    function FnSearch() {
+        var qo = $("form").serializeObject();
+        $("#jquser").jqGrid("setGridParam", {
+            postData: {querystr: qo}
+        }).trigger("reloadGrid");
+    }
+
+    function FnOk() {
+        var rowArr = new Array();
+        var rowIdArr = $("#jquser").jqGrid("getGridParam", "selarrrow");
+        $.each(rowIdArr, function (i, rowid) {
+            var row = $("#jquser").getRowData(rowid);
+            rowArr.push(row);
+        });
+        if (rowArr.length >= 1) {
+            return rowArr;
+        } else {
+            layer.msg("请选择至少一个用户!");
+            return null;
+        }
+    }
+</script>
+</html>

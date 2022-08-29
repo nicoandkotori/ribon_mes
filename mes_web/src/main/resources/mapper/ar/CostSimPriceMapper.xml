@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.web.ar.mapper.CostSimPriceMapper" >
+  <resultMap id="BaseResultMap" type="com.web.ar.entity.CostSimPrice" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="iyear" property="iyear" jdbcType="INTEGER" />
+    <result column="imonth" property="imonth" jdbcType="INTEGER" />
+    <result column="cust_code" property="custCode" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="inv_code" property="invCode" jdbcType="VARCHAR" />
+    <result column="wh_name" property="whName" jdbcType="VARCHAR" />
+    <result column="sale_amount" property="saleAmount" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, iyear, imonth, cust_code, order_no, inv_code, wh_name, sale_amount
+  </sql>
+
+  <select id="getInfo" resultMap="BaseResultMap" parameterType="com.web.ar.entity.CostSimReport" >
+    select
+    <include refid="Base_Column_List" />
+    from ar_cost_sim_price
+    where iyear = #{iyear,jdbcType=INTEGER} and  imonth = #{imonth,jdbcType=INTEGER}
+    and  cust_code = #{custCode,jdbcType=VARCHAR}  and  order_no = #{orderNo,jdbcType=VARCHAR}
+    and  cust_code = #{custCode,jdbcType=VARCHAR}  and  order_no = #{orderNo,jdbcType=VARCHAR}
+    and  inv_code = #{invCode,jdbcType=VARCHAR}  and  wh_name = #{whName,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ar_cost_sim_price
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ar_cost_sim_price
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.web.ar.entity.CostSimPrice" >
+    insert into ar_cost_sim_price (id, iyear, imonth, 
+      cust_code, order_no, inv_code, 
+      wh_name, sale_amount)
+    values (#{id,jdbcType=VARCHAR}, #{iyear,jdbcType=INTEGER}, #{imonth,jdbcType=INTEGER}, 
+      #{custCode,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{invCode,jdbcType=VARCHAR}, 
+      #{whName,jdbcType=VARCHAR}, #{saleAmount,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.web.ar.entity.CostSimPrice" >
+    insert into ar_cost_sim_price
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="iyear != null" >
+        iyear,
+      </if>
+      <if test="imonth != null" >
+        imonth,
+      </if>
+      <if test="custCode != null" >
+        cust_code,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="invCode != null" >
+        inv_code,
+      </if>
+      <if test="whName != null" >
+        wh_name,
+      </if>
+      <if test="saleAmount != null" >
+        sale_amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="iyear != null" >
+        #{iyear,jdbcType=INTEGER},
+      </if>
+      <if test="imonth != null" >
+        #{imonth,jdbcType=INTEGER},
+      </if>
+      <if test="custCode != null" >
+        #{custCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="invCode != null" >
+        #{invCode,jdbcType=VARCHAR},
+      </if>
+      <if test="whName != null" >
+        #{whName,jdbcType=VARCHAR},
+      </if>
+      <if test="saleAmount != null" >
+        #{saleAmount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.ar.entity.CostSimPrice" >
+    update ar_cost_sim_price
+    <set >
+      <if test="iyear != null" >
+        iyear = #{iyear,jdbcType=INTEGER},
+      </if>
+      <if test="imonth != null" >
+        imonth = #{imonth,jdbcType=INTEGER},
+      </if>
+      <if test="custCode != null" >
+        cust_code = #{custCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="invCode != null" >
+        inv_code = #{invCode,jdbcType=VARCHAR},
+      </if>
+      <if test="whName != null" >
+        wh_name = #{whName,jdbcType=VARCHAR},
+      </if>
+      <if test="saleAmount != null" >
+        sale_amount = #{saleAmount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.web.ar.entity.CostSimPrice" >
+    update ar_cost_sim_price
+    set
+      sale_amount = #{saleAmount,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

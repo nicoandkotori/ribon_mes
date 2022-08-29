@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.om.mapper.OmMoDetailsMapper">
+  <resultMap id="BaseResultMap" type="com.web.om.entity.OmMoDetails">
+    <!--@mbg.generated-->
+    <!--@Table OM_MODetails-->
+    <id column="MODetailsID" jdbcType="INTEGER" property="modetailsid" />
+    <result column="MOID" jdbcType="INTEGER" property="moid" />
+    <result column="cInvCode" jdbcType="VARCHAR" property="cinvcode" />
+    <result column="iQuantity" jdbcType="DECIMAL" property="iquantity" />
+    <result column="iNum" jdbcType="DECIMAL" property="inum" />
+    <result column="iQuotedPrice" jdbcType="DECIMAL" property="iquotedprice" />
+    <result column="iUnitPrice" jdbcType="DECIMAL" property="iunitprice" />
+    <result column="iMoney" jdbcType="OTHER" property="imoney" />
+    <result column="iTax" jdbcType="OTHER" property="itax" />
+    <result column="iSum" jdbcType="OTHER" property="isum" />
+    <result column="iDisCount" jdbcType="OTHER" property="idiscount" />
+    <result column="iNatUnitPrice" jdbcType="DECIMAL" property="inatunitprice" />
+    <result column="iNatMoney" jdbcType="OTHER" property="inatmoney" />
+    <result column="iNatTax" jdbcType="OTHER" property="inattax" />
+    <result column="iNatSum" jdbcType="OTHER" property="inatsum" />
+    <result column="iNatDisCount" jdbcType="OTHER" property="inatdiscount" />
+    <result column="dStartDate" jdbcType="TIMESTAMP" property="dstartdate" />
+    <result column="dArriveDate" jdbcType="TIMESTAMP" property="darrivedate" />
+    <result column="iReceivedQTY" jdbcType="DECIMAL" property="ireceivedqty" />
+    <result column="iReceivedNum" jdbcType="DECIMAL" property="ireceivednum" />
+    <result column="iReceivedMoney" jdbcType="OTHER" property="ireceivedmoney" />
+    <result column="iInvQTY" jdbcType="DECIMAL" property="iinvqty" />
+    <result column="iInvNum" jdbcType="DECIMAL" property="iinvnum" />
+    <result column="iInvMoney" jdbcType="OTHER" property="iinvmoney" />
+    <result column="cFree1" jdbcType="VARCHAR" property="cfree1" />
+    <result column="cFree2" jdbcType="VARCHAR" property="cfree2" />
+    <result column="iNatInvMoney" jdbcType="OTHER" property="inatinvmoney" />
+    <result column="iOriTotal" jdbcType="OTHER" property="ioritotal" />
+    <result column="iTotal" jdbcType="OTHER" property="itotal" />
+    <result column="iPerTaxRate" jdbcType="DECIMAL" property="ipertaxrate" />
+    <result column="cDefine22" jdbcType="VARCHAR" property="cdefine22" />
+    <result column="cDefine23" jdbcType="VARCHAR" property="cdefine23" />
+    <result column="cDefine24" jdbcType="VARCHAR" property="cdefine24" />
+    <result column="cDefine25" jdbcType="VARCHAR" property="cdefine25" />
+    <result column="cDefine26" jdbcType="FLOAT" property="cdefine26" />
+    <result column="cDefine27" jdbcType="FLOAT" property="cdefine27" />
+    <result column="iflag" jdbcType="TINYINT" property="iflag" />
+    <result column="cItemCode" jdbcType="VARCHAR" property="citemcode" />
+    <result column="cItem_class" jdbcType="VARCHAR" property="citemClass" />
+    <result column="cItemName" jdbcType="VARCHAR" property="citemname" />
+    <result column="cFree3" jdbcType="VARCHAR" property="cfree3" />
+    <result column="cFree4" jdbcType="VARCHAR" property="cfree4" />
+    <result column="cFree5" jdbcType="VARCHAR" property="cfree5" />
+    <result column="cFree6" jdbcType="VARCHAR" property="cfree6" />
+    <result column="cFree7" jdbcType="VARCHAR" property="cfree7" />
+    <result column="cFree8" jdbcType="VARCHAR" property="cfree8" />
+    <result column="cFree9" jdbcType="VARCHAR" property="cfree9" />
+    <result column="cFree10" jdbcType="VARCHAR" property="cfree10" />
+    <result column="bGsp" jdbcType="TINYINT" property="bgsp" />
+    <result column="cUnitID" jdbcType="VARCHAR" property="cunitid" />
+    <result column="iTaxPrice" jdbcType="DECIMAL" property="itaxprice" />
+    <result column="iArrQTY" jdbcType="DECIMAL" property="iarrqty" />
+    <result column="iArrNum" jdbcType="DECIMAL" property="iarrnum" />
+    <result column="iArrMoney" jdbcType="OTHER" property="iarrmoney" />
+    <result column="iNatArrMoney" jdbcType="OTHER" property="inatarrmoney" />
+    <result column="cDefine28" jdbcType="VARCHAR" property="cdefine28" />
+    <result column="cDefine29" jdbcType="VARCHAR" property="cdefine29" />
+    <result column="cDefine30" jdbcType="VARCHAR" property="cdefine30" />
+    <result column="cDefine31" jdbcType="VARCHAR" property="cdefine31" />
+    <result column="cDefine32" jdbcType="VARCHAR" property="cdefine32" />
+    <result column="cDefine33" jdbcType="VARCHAR" property="cdefine33" />
+    <result column="cDefine34" jdbcType="INTEGER" property="cdefine34" />
+    <result column="cDefine35" jdbcType="INTEGER" property="cdefine35" />
+    <result column="cDefine36" jdbcType="TIMESTAMP" property="cdefine36" />
+    <result column="cDefine37" jdbcType="TIMESTAMP" property="cdefine37" />
+    <result column="bTaxCost" jdbcType="BIT" property="btaxcost" />
+    <result column="cSource" jdbcType="VARCHAR" property="csource" />
+    <result column="cbCloser" jdbcType="VARCHAR" property="cbcloser" />
+    <result column="SOType" jdbcType="TINYINT" property="sotype" />
+    <result column="SODID" jdbcType="VARCHAR" property="sodid" />
+    <result column="BomID" jdbcType="INTEGER" property="bomid" />
+    <result column="mrpdetailsID" jdbcType="INTEGER" property="mrpdetailsid" />
+    <result column="fParentScrp" jdbcType="DECIMAL" property="fparentscrp" />
+    <result column="iMaterialSendQty" jdbcType="DECIMAL" property="imaterialsendqty" />
+    <result column="Tbaseqtyd" jdbcType="DECIMAL" property="tbaseqtyd" />
+
+    <result column="iVTids" jdbcType="INTEGER" property="ivtids" />
+    <result column="cupsocode" jdbcType="VARCHAR" property="cupsocode" />
+    <result column="cupsoids" jdbcType="INTEGER" property="cupsoids" />
+    <result column="isosid" jdbcType="INTEGER" property="isosid" />
+    <result column="cdemandcode" jdbcType="VARCHAR" property="cdemandcode" />
+    <result column="cdetailsdemandmemo" jdbcType="VARCHAR" property="cdetailsdemandmemo" />
+    <result column="dbCloseDate" jdbcType="TIMESTAMP" property="dbclosedate" />
+    <result column="dbCloseTime" jdbcType="TIMESTAMP" property="dbclosetime" />
+    <result column="iVouchRowNo" jdbcType="INTEGER" property="ivouchrowno" />
+    <result column="freceivedqty" jdbcType="DECIMAL" property="freceivedqty" />
+    <result column="freceivednum" jdbcType="DECIMAL" property="freceivednum" />
+    <result column="cbMemo" jdbcType="VARCHAR" property="cbmemo" />
+    <result column="iCusBomID" jdbcType="INTEGER" property="icusbomid" />
+    <result column="cbsysbarcode" jdbcType="VARCHAR" property="cbsysbarcode" />
+    <result column="csocode" jdbcType="VARCHAR" property="csocode" />
+    <result column="irowno" jdbcType="INTEGER" property="irowno" />
+    <result column="BomType" jdbcType="TINYINT" property="bomtype" />
+    <result column="iSourceMOCode" jdbcType="VARCHAR" property="isourcemocode" />
+    <result column="iSourceMODetailsID" jdbcType="INTEGER" property="isourcemodetailsid" />
+    <result column="imrpqty" jdbcType="DECIMAL" property="imrpqty" />
+    <result column="freworkquantity" jdbcType="DECIMAL" property="freworkquantity" />
+    <result column="freworknum" jdbcType="DECIMAL" property="freworknum" />
+    <result column="iProductType" jdbcType="TINYINT" property="iproducttype" />
+    <result column="iMainMoDetailsID" jdbcType="INTEGER" property="imainmodetailsid" />
+    <result column="iMainMoMaterialsID" jdbcType="INTEGER" property="imainmomaterialsid" />
+    <result column="cMainInvCode" jdbcType="VARCHAR" property="cmaininvcode" />
+    <result column="isoordertype" jdbcType="TINYINT" property="isoordertype" />
+    <result column="iorderdid" jdbcType="INTEGER" property="iorderdid" />
+    <result column="csoordercode" jdbcType="VARCHAR" property="csoordercode" />
+    <result column="iorderseq" jdbcType="INTEGER" property="iorderseq" />
+    <result column="cPlanLotNumber" jdbcType="VARCHAR" property="cplanlotnumber" />
+    <result column="cFactoryCode" jdbcType="VARCHAR" property="cfactorycode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    MODetailsID, MOID, cInvCode, iQuantity, iNum, iQuotedPrice, iUnitPrice, iMoney, iTax, 
+    iSum, iDisCount, iNatUnitPrice, iNatMoney, iNatTax, iNatSum, iNatDisCount, dStartDate, 
+    dArriveDate, iReceivedQTY, iReceivedNum, iReceivedMoney, iInvQTY, iInvNum, iInvMoney, 
+    cFree1, cFree2, iNatInvMoney, iOriTotal, iTotal, iPerTaxRate, cDefine22, cDefine23, 
+    cDefine24, cDefine25, cDefine26, cDefine27, iflag, cItemCode, cItem_class, cItemName, 
+    cFree3, cFree4, cFree5, cFree6, cFree7, cFree8, cFree9, cFree10, bGsp, cUnitID, iTaxPrice, 
+    iArrQTY, iArrNum, iArrMoney, iNatArrMoney, cDefine28, cDefine29, cDefine30, cDefine31, 
+    cDefine32, cDefine33, cDefine34, cDefine35, cDefine36, cDefine37, bTaxCost, cSource, 
+    cbCloser, SOType, SODID, BomID, mrpdetailsID, fParentScrp, iMaterialSendQty, Tbaseqtyd, 
+    dUfts, iVTids, cupsocode, cupsoids, isosid, cdemandcode, cdetailsdemandmemo, dbCloseDate, 
+    dbCloseTime, iVouchRowNo, freceivedqty, freceivednum, cbMemo, iCusBomID, cbsysbarcode, 
+    csocode, irowno, BomType, iSourceMOCode, iSourceMODetailsID, imrpqty, freworkquantity, 
+    freworknum, iProductType, iMainMoDetailsID, iMainMoMaterialsID, cMainInvCode, isoordertype, 
+    iorderdid, csoordercode, iorderseq, cPlanLotNumber, cFactoryCode
+  </sql>
+
+
+  <select id="getPrice" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select top 1 case when  iTaxPrice is null then 0 else  iTaxPrice end iTaxPrice,case when  cDefine27 is null then 0 else  cDefine27 end  cDefine27
+    from   ${database}.dbo.OM_MODetails
+    where cinvcode= #{cinvcode,jdbcType=VARCHAR}
+    order by dstartdate desc
+
+  </select>
+
+
+  <select id="getPriceOld1" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select top 1  case when  TaxMakePrice is null then 0 else  TaxMakePrice end iTaxPrice,case when  cDefine27 is null then 0 else  cDefine27 end  cDefine27 from  OM_pomain_2022
+    where cinvcode= #{cinvcode,jdbcType=VARCHAR}
+    order by dstartdate desc
+
+  </select>
+  <select id="getPriceOld2" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select top 1 case when  TaxMakePrice is null then 0 else  TaxMakePrice end iTaxPrice,case when  cDefine27 is null then 0 else  cDefine27 end  cDefine27 from  OM_pomain_2021
+    where cinvcode= #{cinvcode,jdbcType=VARCHAR}
+    order by dstartdate desc
+
+  </select>
+</mapper>

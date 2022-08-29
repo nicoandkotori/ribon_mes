@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.mo.mapper.BomMapper">
+
+  <resultMap id="BaseResultMap" type="com.web.mo.dto.BomDTO">
+    <result column="bomId" jdbcType="INTEGER" property="bomId" />
+    <result column="parentBomId" jdbcType="INTEGER" property="parentBomId" />
+    <result column="parentInvCode" jdbcType="VARCHAR" property="parentInvCode" />
+    <result column="parentInvName" jdbcType="VARCHAR" property="parentInvName" />
+    <result column="parentInvStd" jdbcType="VARCHAR" property="parentInvStd" />
+    <result column="childInvCode" jdbcType="VARCHAR" property="childInvCode" />
+    <result column="invCode" jdbcType="VARCHAR" property="invCode" />
+    <result column="invName" jdbcType="VARCHAR" property="invName" />
+    <result column="invStd" jdbcType="VARCHAR" property="invStd" />
+    <result column="invAddCode" jdbcType="VARCHAR" property="invAddCode" />
+    <result column="baseQtyN" jdbcType="DECIMAL" property="baseQtyN" />
+    <result column="baseQtyD" jdbcType="DECIMAL" property="baseQtyD" />
+    <result column="sodId" jdbcType="INTEGER" property="sodId" />
+    <result column="rowno" jdbcType="INTEGER" property="rowno" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="versiondesc" jdbcType="VARCHAR" property="versiondesc" />
+    <result column="soCode" jdbcType="VARCHAR" property="soCode" />
+    <result column="opComponentId" jdbcType="INTEGER" property="opComponentId" />
+    <result column="componentId" jdbcType="INTEGER" property="componentId" />
+
+    <result column="wipType" jdbcType="INTEGER" property="wipType" />
+    <result column="compScrap" jdbcType="DECIMAL" property="compScrap" />
+    <result column="wipTypeName" jdbcType="VARCHAR" property="wipTypeName" />
+    <result column="status_id" jdbcType="VARCHAR" property="statusId" />
+
+    <result column="custCode" jdbcType="VARCHAR" property="custCode" />
+    <result column="custName" jdbcType="VARCHAR" property="custName" />
+
+    <result column="bomtype" jdbcType="INTEGER" property="bomtype" />
+    <result column="pmc" jdbcType="VARCHAR" property="pmc" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="invMemo" jdbcType="VARCHAR" property="invMemo" />
+    <result column="invType" jdbcType="VARCHAR" property="invType" />
+    <result column="tagCode" jdbcType="VARCHAR" property="tagCode" />
+
+    <result column="cInvDefine1" jdbcType="VARCHAR" property="cinvdefine1" />
+    <result column="cInvDefine2" jdbcType="VARCHAR" property="cinvdefine2" />
+    <result column="cInvDefine3" jdbcType="VARCHAR" property="cinvdefine3" />
+<!--    &lt;result column="cInvDefine4" jdbcType="VARCHAR" property="cinvdefine4" /&gt;-->
+<!--    &lt;result column="cInvDefine5" jdbcType="VARCHAR" property="cinvdefine5" /&gt;-->
+<!--    &lt;result column="cInvDefine6" jdbcType="VARCHAR" property="cinvdefine6" /&gt;-->
+    <result column="cComunitName" jdbcType="VARCHAR" property="ccomunitname" />
+
+    <result column="ChangeRate" jdbcType="VARCHAR" property="changerate" />
+
+<!--    &lt;result column="AuxBaseQtyN" jdbcType="DECIMAL" property="auxbaseqtyn" /&gt;-->
+
+<!--    &lt;result column="personName" jdbcType="VARCHAR" property="personName" /&gt;-->
+    <result column="qty" jdbcType="DECIMAL" property="qty" />
+
+    <result column="cwhcode" jdbcType="VARCHAR" property="cwhcode" />
+
+    <result column="Define22" jdbcType="VARCHAR" property="define22" />
+    <result column="Define23" jdbcType="VARCHAR" property="define23" />
+    <result column="Define24" jdbcType="VARCHAR" property="define24" />
+    <result column="Define25" jdbcType="VARCHAR" property="define25" />
+    <result column="Define26" jdbcType="VARCHAR" property="define26" />
+    <result column="Define28" jdbcType="VARCHAR" property="define28" />
+    <result column="Define29" jdbcType="VARCHAR" property="define29" />
+    <result column="Define30" jdbcType="VARCHAR" property="define30" />
+    <result column="Define31" jdbcType="VARCHAR" property="define31" />
+    <result column="Define32" jdbcType="VARCHAR" property="define32" />
+    <result column="Define33" jdbcType="VARCHAR" property="define33" />
+    <result column="Define35" jdbcType="VARCHAR" property="define35" />
+    <result column="cwhname" jdbcType="VARCHAR" property="cwhname" />
+
+
+  </resultMap>
+
+  <select id="getList" parameterType="com.web.mo.dto.BomDTO" resultMap="BaseResultMap">
+    select  bom.bomId,bas.InvCode invCode,inv.cInvName invName,inv.cInvAddCode invAddCode,inv.cInvStd invStd,inv.cInvDefine3,inv.cInvDefine2,inv.cInvDefine1,
+    unit.cComunitName
+    from   dbo.bom_bom bom
+    left join dbo.bom_parent bp ON bp.BomId=bom.BomId
+    left join dbo.bas_part bas  on bp.ParentId=bas.PartId
+    left join dbo.Inventory inv on bas.InvCode=inv.cInvCode
+    left join dbo.ComputationUnit unit  on inv.cComUnitCode=unit.cComunitCode
+    where 1=1
+    <if test="main.invCode != null   and main.invCode != '' ">
+      AND inv.cInvCode like '%' + #{main.invCode} + '%'
+    </if>
+    <if test="main.invName != null   and main.invName != '' ">
+      AND inv.cInvName like '%' + #{main.invName} + '%'
+    </if>
+
+  </select>
+  <select id="selectParentMenuListByInv" parameterType="com.web.mo.dto.BomDTO" resultMap="BaseResultMap">
+    select  bom.bomId,bas.InvCode invCode,inv.cInvName invName,inv.cInvAddCode invAddCode,inv.cInvStd invStd,inv.cInvDefine3,inv.cInvDefine2,inv.cInvDefine1,
+    unit.cComunitName
+    from  ${database}.dbo.bom_bom bom
+    left join ${database}.dbo.bom_parent bp ON bp.BomId=bom.BomId
+    left join ${database}.dbo.bas_part bas  on bp.ParentId=bas.PartId
+    left join ${database}.dbo.Inventory inv on bas.InvCode=inv.cInvCode
+     left join ${database}.dbo.ComputationUnit unit  on inv.cComUnitCode=unit.cComunitCode
+
+    where bas.invCode=  #{invCode,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByMenu1" parameterType="com.web.mo.dto.BomDTO" resultMap="BaseResultMap">
+    select bp.bomId  ,bas.InvCode parentInvCode,bas2.InvCode invCode,inv2.cInvName invName,inv2.cInvAddCode invAddCode ,inv2.cInvStd invStd,inv2.cInvDefine3,inv2.cInvDefine2,inv2.cInvDefine1,
+    bop.OpComponentId opComponentId, bop.BaseQtyN baseQtyN,bop.BaseQtyD  baseQtyD ,bop.SortSeq  sortseq,bop.Define22,bop.Define23,bop.Define24,bop.Define25,bop.Define26,bop.Define29,bop.Define28,
+    bop.Define30,bop.Define31,bop.Define32,bop.Define33,bop.Define35,wh.cWhCode cwhcode,wh.cWhName cwhname,
+    bop.compScrap,(bop.BaseQtyN/BaseQtyD) as qty,unit.cComunitName,bop.ChangeRate
+    from  ${database}.dbo.bas_part bas
+    LEFT JOIN ${database}.dbo.bom_parent bp ON bp.ParentId=bas.PartId
+    LEFT JOIN ${database}.dbo.bom_opcomponent bop ON bop.BomID=bp.BomId
+    LEFT JOIN ${database}.dbo.bom_opcomponentopt opt ON bop.OptionsId=opt.OptionsId
+    left join ${database}.dbo.warehouse wh on opt.whCode=wh.cwhcode
+    LEFT JOIN ${database}.dbo.Bas_Part bas2 ON bas2.PartId=bop.ComponentId
+    LEFT JOIN ${database}.dbo.Inventory inv2 ON inv2.cInvCode=bas2.InvCode
+    left join ${database}.dbo.bom_bom bom on bp.bomid=bom.bomid
+    left join ${database}.dbo.ComputationUnit unit  on inv2.cComUnitCode=unit.cComunitCode
+    where   bas.invCode=  #{invCode,jdbcType=VARCHAR} and  bas2.InvCode is not null
+
+    order by bas2.InvCode
+  </select>
+
+  <select id="getBomCountByParentInvCode" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select top 1 bp.bomid
+    from bom_parent bp
+    JOIN bas_part bas ON bp.ParentId=bas.PartId
+    join bom_bom bb on bp.bomid=bb.bomid
+    where bas.invCode = #{invCode,jdbcType=VARCHAR}
+    and bb.bomtype='1'
+  </select>
+
+  <select id="getBomChildCountByInvCode" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select top 1 bop.OpComponentId
+    from bas_part bas
+    JOIN bom_parent bp ON bp.ParentId=bas.PartId
+    JOIN bom_opcomponent bop ON bop.BomID=bp.BomId
+    JOIN Bas_Part bas2 ON bas2.PartId=bop.ComponentId
+    join bom_bom bb on bp.bomid=bb.bomid
+    where bas.invCode=  #{parentInvCode,jdbcType=VARCHAR}
+    and bas2.InvCode = #{invCode,jdbcType=VARCHAR}
+    and bb.bomtype='1'
+  </select>
+</mapper>

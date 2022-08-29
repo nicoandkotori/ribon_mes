@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.om.mapper.OmOrderPartMapper">
+  <resultMap id="BaseResultMap" type="com.web.om.entity.OmOrderPart">
+    <!--@mbg.generated-->
+    <!--@Table om_order_part-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="main_id" jdbcType="VARCHAR" property="mainId" />
+    <result column="detail_id" jdbcType="VARCHAR" property="detailId" />
+    <result column="part_inv_code" jdbcType="VARCHAR" property="partInvCode" />
+    <result column="part_inv_name" jdbcType="VARCHAR" property="partInvName" />
+    <result column="part_inv_std" jdbcType="VARCHAR" property="partInvStd" />
+    <result column="part_inv_unit" jdbcType="VARCHAR" property="partInvUnit" />
+    <result column="part_qty" jdbcType="DECIMAL" property="partQty" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="iz_delete" jdbcType="INTEGER" property="izDelete" />
+    <result column="delete_user" jdbcType="VARCHAR" property="deleteUser" />
+    <result column="delete_date" jdbcType="TIMESTAMP" property="deleteDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, main_id, detail_id, part_inv_code, part_inv_name, part_inv_std, part_inv_unit, 
+    part_qty, create_user, create_date, update_user, update_date, iz_delete, delete_user, 
+    delete_date
+  </sql>
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.sa.mapper.OaSaleContractDetailMapper">
+  <resultMap id="BaseResultMap" type="com.web.sa.entity.OaSaleContractDetail">
+    <!--@mbg.generated-->
+    <!--@Table formson_0064-->
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="formmain_id" jdbcType="BIGINT" property="formmainId" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="field0007" jdbcType="NUMERIC" property="field0007" />
+    <result column="field0010" jdbcType="NUMERIC" property="field0010" />
+    <result column="field0011" jdbcType="NUMERIC" property="field0011" />
+    <result column="field0012" jdbcType="NUMERIC" property="field0012" />
+    <result column="field0008" jdbcType="VARCHAR" property="field0008" />
+    <result column="field0009" jdbcType="VARCHAR" property="field0009" />
+    <result column="field0013" jdbcType="VARCHAR" property="field0013" />
+  </resultMap>
+
+</mapper>

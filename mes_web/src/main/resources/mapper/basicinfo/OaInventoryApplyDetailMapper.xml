@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.basicinfo.mapper.OaInventoryApplyDetailMapper">
+  <resultMap id="BaseResultMap" type="com.web.basicinfo.entity.OaInventoryApplyDetail">
+    <!--@mbg.generated-->
+    <!--@Table formson_0097-->
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="formmain_id" jdbcType="BIGINT" property="formmainId" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="field0005" jdbcType="NUMERIC" property="field0005" />
+    <result column="field0006" jdbcType="VARCHAR" property="field0006" />
+    <result column="field0007" jdbcType="VARCHAR" property="field0007" />
+    <result column="field0008" jdbcType="VARCHAR" property="field0008" />
+    <result column="field0009" jdbcType="VARCHAR" property="field0009" />
+    <result column="field0010" jdbcType="VARCHAR" property="field0010" />
+    <result column="field0011" jdbcType="VARCHAR" property="field0011" />
+    <result column="field0012" jdbcType="VARCHAR" property="field0012" />
+    <result column="field0013" jdbcType="VARCHAR" property="field0013" />
+    <result column="field0014" jdbcType="NUMERIC" property="field0014" />
+    <result column="field0015" jdbcType="VARCHAR" property="field0015" />
+    <result column="field0016" jdbcType="VARCHAR" property="field0016" />
+    <result column="field0017" jdbcType="VARCHAR" property="field0017" />
+    <result column="field0022" jdbcType="VARCHAR" property="field0022" />
+
+
+    <result column="surface_method" jdbcType="VARCHAR" property="surfaceMethod" />
+    <result column="mclass" jdbcType="VARCHAR" property="mclass" />
+
+
+    <result column="izSelf" jdbcType="VARCHAR" property="izSelf" />
+    <result column="izPo" jdbcType="VARCHAR" property="izPo" />
+    <result column="izForeign" jdbcType="VARCHAR" property="izForeign" />
+    <result column="izSale" jdbcType="VARCHAR" property="izSale" />
+  </resultMap>
+
+<!--  1、判断财务审核人不为空或者审核日期不为空的，可以同步-->
+<!--  2、需要判断是否已经同步-->
+  <select id="getListBySync" parameterType="com.web.basicinfo.entity.OaInventoryApplyDetail" resultMap="BaseResultMap">
+    select   t.*,biaomian.SHOWVALUE surface_method,typeclass.SHOWVALUE mclass,
+    izzz.SHOWVALUE izSelf ,izwg.SHOWVALUE izPo ,izww.SHOWVALUE izForeign ,izss.SHOWVALUE izSale
+    from   ${database}.dbo.formson_0097 t
+    left join  ${database}.dbo.formmain_0096 t1 on t.formmain_id=t1.id
+    left join  ${database}.dbo.CTP_ENUM_ITEM biaomian  on biaomian.id=t.field0026
+    left join  ${database}.dbo.CTP_ENUM_ITEM typeclass  on typeclass.id=t1.field0001
+    left join  ${database}.dbo.CTP_ENUM_ITEM izzz  on izzz.id=t1.field0029
+    left join  ${database}.dbo.CTP_ENUM_ITEM izwg on izwg.id=t1.field0030
+    left join  ${database}.dbo.CTP_ENUM_ITEM izww on izww.id=t1.field0031
+    left join  ${database}.dbo.CTP_ENUM_ITEM izss on izss.id=t1.field0032
+    where (t1.field0020!='' or t1.field0021 is  not null)  and COALESCE(t.field0015,'')=''
+    and COALESCE(t.field0006,'')!=''
+  </select>
+
+
+  <update id="updateInvCode" parameterType="com.web.basicinfo.entity.OaInventoryApplyDetail">
+    Update ${database}.dbo.formson_0097 Set field0015= #{main.field0015,jdbcType=VARCHAR}  where ID=#{main.id,jdbcType=BIGINT}
+
+  </update>
+
+</mapper>

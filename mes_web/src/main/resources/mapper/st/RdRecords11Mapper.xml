@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.st.mapper.RdRecords11Mapper">
+  <resultMap id="BaseResultMap" type="com.web.st.entity.RdRecords11">
+    <!--@mbg.generated-->
+    <!--@Table rdrecords11-->
+    <id column="AutoID" jdbcType="BIGINT" property="autoid" />
+    <result column="ID" jdbcType="BIGINT" property="id" />
+    <result column="cInvCode" jdbcType="VARCHAR" property="cinvcode" />
+    <result column="iNum" jdbcType="DECIMAL" property="inum" />
+    <result column="iQuantity" jdbcType="DECIMAL" property="iquantity" />
+    <result column="iUnitCost" jdbcType="DECIMAL" property="iunitcost" />
+    <result column="iPrice" jdbcType="OTHER" property="iprice" />
+    <result column="iAPrice" jdbcType="OTHER" property="iaprice" />
+    <result column="iPUnitCost" jdbcType="DECIMAL" property="ipunitcost" />
+    <result column="iPPrice" jdbcType="OTHER" property="ipprice" />
+    <result column="cBatch" jdbcType="VARCHAR" property="cbatch" />
+    <result column="cObjCode" jdbcType="VARCHAR" property="cobjcode" />
+    <result column="cVouchCode" jdbcType="BIGINT" property="cvouchcode" />
+    <result column="cInVouchCode" jdbcType="VARCHAR" property="cinvouchcode" />
+    <result column="cinvouchtype" jdbcType="VARCHAR" property="cinvouchtype" />
+    <result column="iSOutQuantity" jdbcType="DECIMAL" property="isoutquantity" />
+    <result column="iSOutNum" jdbcType="DECIMAL" property="isoutnum" />
+    <result column="coutvouchid" jdbcType="BIGINT" property="coutvouchid" />
+    <result column="coutvouchtype" jdbcType="VARCHAR" property="coutvouchtype" />
+    <result column="iSRedOutQuantity" jdbcType="DECIMAL" property="isredoutquantity" />
+    <result column="iSRedOutNum" jdbcType="DECIMAL" property="isredoutnum" />
+    <result column="cFree1" jdbcType="VARCHAR" property="cfree1" />
+    <result column="cFree2" jdbcType="VARCHAR" property="cfree2" />
+    <result column="iFlag" jdbcType="TINYINT" property="iflag" />
+    <result column="iSQuantity" jdbcType="DECIMAL" property="isquantity" />
+    <result column="iSNum" jdbcType="DECIMAL" property="isnum" />
+    <result column="iFNum" jdbcType="DECIMAL" property="ifnum" />
+    <result column="iFQuantity" jdbcType="DECIMAL" property="ifquantity" />
+    <result column="dVDate" jdbcType="TIMESTAMP" property="dvdate" />
+    <result column="iTrIds" jdbcType="BIGINT" property="itrids" />
+    <result column="cPosition" jdbcType="VARCHAR" property="cposition" />
+    <result column="cDefine22" jdbcType="VARCHAR" property="cdefine22" />
+    <result column="cDefine23" jdbcType="VARCHAR" property="cdefine23" />
+    <result column="cDefine24" jdbcType="VARCHAR" property="cdefine24" />
+    <result column="cDefine25" jdbcType="VARCHAR" property="cdefine25" />
+    <result column="cDefine26" jdbcType="FLOAT" property="cdefine26" />
+    <result column="cDefine27" jdbcType="FLOAT" property="cdefine27" />
+    <result column="cItem_class" jdbcType="VARCHAR" property="citemClass" />
+    <result column="cItemCode" jdbcType="VARCHAR" property="citemcode" />
+    <result column="cName" jdbcType="VARCHAR" property="cname" />
+    <result column="cItemCName" jdbcType="VARCHAR" property="citemcname" />
+    <result column="cFree3" jdbcType="VARCHAR" property="cfree3" />
+    <result column="cFree4" jdbcType="VARCHAR" property="cfree4" />
+    <result column="cFree5" jdbcType="VARCHAR" property="cfree5" />
+    <result column="cFree6" jdbcType="VARCHAR" property="cfree6" />
+    <result column="cFree7" jdbcType="VARCHAR" property="cfree7" />
+    <result column="cFree8" jdbcType="VARCHAR" property="cfree8" />
+    <result column="cFree9" jdbcType="VARCHAR" property="cfree9" />
+    <result column="cFree10" jdbcType="VARCHAR" property="cfree10" />
+    <result column="cBarCode" jdbcType="VARCHAR" property="cbarcode" />
+    <result column="iNQuantity" jdbcType="DECIMAL" property="inquantity" />
+    <result column="iNNum" jdbcType="DECIMAL" property="innum" />
+    <result column="cAssUnit" jdbcType="VARCHAR" property="cassunit" />
+    <result column="dMadeDate" jdbcType="TIMESTAMP" property="dmadedate" />
+    <result column="iMassDate" jdbcType="INTEGER" property="imassdate" />
+    <result column="cDefine28" jdbcType="VARCHAR" property="cdefine28" />
+    <result column="cDefine29" jdbcType="VARCHAR" property="cdefine29" />
+    <result column="cDefine30" jdbcType="VARCHAR" property="cdefine30" />
+    <result column="cDefine31" jdbcType="VARCHAR" property="cdefine31" />
+    <result column="cDefine32" jdbcType="VARCHAR" property="cdefine32" />
+    <result column="cDefine33" jdbcType="VARCHAR" property="cdefine33" />
+    <result column="cDefine34" jdbcType="INTEGER" property="cdefine34" />
+    <result column="cDefine35" jdbcType="INTEGER" property="cdefine35" />
+    <result column="cDefine36" jdbcType="TIMESTAMP" property="cdefine36" />
+    <result column="cDefine37" jdbcType="TIMESTAMP" property="cdefine37" />
+    <result column="iMPoIds" jdbcType="BIGINT" property="impoids" />
+    <result column="iCheckIds" jdbcType="BIGINT" property="icheckids" />
+    <result column="cBVencode" jdbcType="VARCHAR" property="cbvencode" />
+    <result column="bGsp" jdbcType="BIT" property="bgsp" />
+    <result column="cGspState" jdbcType="VARCHAR" property="cgspstate" />
+    <result column="cCheckCode" jdbcType="VARCHAR" property="ccheckcode" />
+    <result column="iCheckIdBaks" jdbcType="BIGINT" property="icheckidbaks" />
+    <result column="cRejectCode" jdbcType="VARCHAR" property="crejectcode" />
+    <result column="iRejectIds" jdbcType="BIGINT" property="irejectids" />
+    <result column="cCheckPersonCode" jdbcType="VARCHAR" property="ccheckpersoncode" />
+    <result column="dCheckDate" jdbcType="TIMESTAMP" property="dcheckdate" />
+    <result column="cMassUnit" jdbcType="SMALLINT" property="cmassunit" />
+    <result column="cMoLotCode" jdbcType="VARCHAR" property="cmolotcode" />
+    <result column="iMaterialFee" jdbcType="OTHER" property="imaterialfee" />
+    <result column="iProcessCost" jdbcType="DECIMAL" property="iprocesscost" />
+    <result column="iProcessFee" jdbcType="OTHER" property="iprocessfee" />
+    <result column="dMSDate" jdbcType="TIMESTAMP" property="dmsdate" />
+    <result column="iSMaterialFee" jdbcType="OTHER" property="ismaterialfee" />
+    <result column="iSProcessFee" jdbcType="OTHER" property="isprocessfee" />
+    <result column="iOMoDID" jdbcType="INTEGER" property="iomodid" />
+    <result column="bFilled" jdbcType="BIGINT" property="bfilled" />
+    <result column="bChecked" jdbcType="BIT" property="bchecked" />
+    <result column="iOMoMID" jdbcType="BIGINT" property="iomomid" />
+    <result column="cmworkcentercode" jdbcType="VARCHAR" property="cmworkcentercode" />
+    <result column="bLPUseFree" jdbcType="BIT" property="blpusefree" />
+    <result column="iRSRowNO" jdbcType="INTEGER" property="irsrowno" />
+    <result column="iOriTrackID" jdbcType="BIGINT" property="ioritrackid" />
+    <result column="coritracktype" jdbcType="VARCHAR" property="coritracktype" />
+    <result column="cbaccounter" jdbcType="VARCHAR" property="cbaccounter" />
+    <result column="dbKeepDate" jdbcType="TIMESTAMP" property="dbkeepdate" />
+    <result column="bCosting" jdbcType="BIT" property="bcosting" />
+    <result column="bVMIUsed" jdbcType="BIT" property="bvmiused" />
+    <result column="iVMISettleQuantity" jdbcType="DECIMAL" property="ivmisettlequantity" />
+    <result column="iVMISettleNum" jdbcType="DECIMAL" property="ivmisettlenum" />
+    <result column="cvmivencode" jdbcType="VARCHAR" property="cvmivencode" />
+    <result column="iInvSNCount" jdbcType="INTEGER" property="iinvsncount" />
+    <result column="cwhpersoncode" jdbcType="VARCHAR" property="cwhpersoncode" />
+    <result column="cwhpersonname" jdbcType="VARCHAR" property="cwhpersonname" />
+    <result column="iMaIDs" jdbcType="BIGINT" property="imaids" />
+    <result column="cserviceoid" jdbcType="VARCHAR" property="cserviceoid" />
+    <result column="cbserviceoid" jdbcType="VARCHAR" property="cbserviceoid" />
+    <result column="iinvexchrate" jdbcType="DECIMAL" property="iinvexchrate" />
+    <result column="corufts" jdbcType="VARCHAR" property="corufts" />
+    <result column="comcode" jdbcType="VARCHAR" property="comcode" />
+    <result column="cmocode" jdbcType="VARCHAR" property="cmocode" />
+    <result column="invcode" jdbcType="VARCHAR" property="invcode" />
+    <result column="imoseq" jdbcType="INTEGER" property="imoseq" />
+    <result column="iopseq" jdbcType="VARCHAR" property="iopseq" />
+    <result column="copdesc" jdbcType="VARCHAR" property="copdesc" />
+    <result column="strContractGUID" jdbcType="OTHER" property="strcontractguid" />
+    <result column="iExpiratDateCalcu" jdbcType="SMALLINT" property="iexpiratdatecalcu" />
+    <result column="cExpirationdate" jdbcType="VARCHAR" property="cexpirationdate" />
+    <result column="dExpirationdate" jdbcType="TIMESTAMP" property="dexpirationdate" />
+    <result column="cciqbookcode" jdbcType="VARCHAR" property="cciqbookcode" />
+    <result column="iBondedSumQty" jdbcType="DECIMAL" property="ibondedsumqty" />
+    <result column="productinids" jdbcType="INTEGER" property="productinids" />
+    <result column="iorderdid" jdbcType="INTEGER" property="iorderdid" />
+    <result column="iordertype" jdbcType="TINYINT" property="iordertype" />
+    <result column="iordercode" jdbcType="VARCHAR" property="iordercode" />
+    <result column="iorderseq" jdbcType="INTEGER" property="iorderseq" />
+    <result column="isodid" jdbcType="VARCHAR" property="isodid" />
+    <result column="isotype" jdbcType="TINYINT" property="isotype" />
+    <result column="csocode" jdbcType="VARCHAR" property="csocode" />
+    <result column="isoseq" jdbcType="INTEGER" property="isoseq" />
+    <result column="ipesodid" jdbcType="VARCHAR" property="ipesodid" />
+    <result column="ipesotype" jdbcType="TINYINT" property="ipesotype" />
+    <result column="cpesocode" jdbcType="VARCHAR" property="cpesocode" />
+    <result column="ipesoseq" jdbcType="INTEGER" property="ipesoseq" />
+    <result column="cBatchProperty1" jdbcType="DECIMAL" property="cbatchproperty1" />
+    <result column="cBatchProperty2" jdbcType="DECIMAL" property="cbatchproperty2" />
+    <result column="cBatchProperty3" jdbcType="DECIMAL" property="cbatchproperty3" />
+    <result column="cBatchProperty4" jdbcType="DECIMAL" property="cbatchproperty4" />
+    <result column="cBatchProperty5" jdbcType="DECIMAL" property="cbatchproperty5" />
+    <result column="cBatchProperty6" jdbcType="VARCHAR" property="cbatchproperty6" />
+    <result column="cBatchProperty7" jdbcType="VARCHAR" property="cbatchproperty7" />
+    <result column="cBatchProperty8" jdbcType="VARCHAR" property="cbatchproperty8" />
+    <result column="cBatchProperty9" jdbcType="VARCHAR" property="cbatchproperty9" />
+    <result column="cBatchProperty10" jdbcType="TIMESTAMP" property="cbatchproperty10" />
+    <result column="cbMemo" jdbcType="VARCHAR" property="cbmemo" />
+    <result column="applydid" jdbcType="INTEGER" property="applydid" />
+    <result column="applycode" jdbcType="VARCHAR" property="applycode" />
+    <result column="irowno" jdbcType="INTEGER" property="irowno" />
+    <result column="strowguid" jdbcType="OTHER" property="strowguid" />
+    <result column="cservicecode" jdbcType="VARCHAR" property="cservicecode" />
+    <result column="rowufts" jdbcType="TIMESTAMP" property="rowufts" />
+    <result column="ipreuseqty" jdbcType="DECIMAL" property="ipreuseqty" />
+    <result column="ipreuseinum" jdbcType="DECIMAL" property="ipreuseinum" />
+    <result column="bsupersede" jdbcType="INTEGER" property="bsupersede" />
+    <result column="isupersedeqty" jdbcType="DECIMAL" property="isupersedeqty" />
+    <result column="isupersedempoids" jdbcType="INTEGER" property="isupersedempoids" />
+    <result column="imoallocatesubid" jdbcType="OTHER" property="imoallocatesubid" />
+    <result column="cInVoucherLineID" jdbcType="INTEGER" property="cinvoucherlineid" />
+    <result column="cInVoucherCode" jdbcType="VARCHAR" property="cinvouchercode" />
+    <result column="cInVoucherType" jdbcType="VARCHAR" property="cinvouchertype" />
+    <result column="cbsysbarcode" jdbcType="VARCHAR" property="cbsysbarcode" />
+    <result column="cSourceMOCode" jdbcType="VARCHAR" property="csourcemocode" />
+    <result column="iSourceMODetailsid" jdbcType="INTEGER" property="isourcemodetailsid" />
+    <result column="cplanlotcode" jdbcType="VARCHAR" property="cplanlotcode" />
+    <result column="bcanreplace" jdbcType="INTEGER" property="bcanreplace" />
+    <result column="iposflag" jdbcType="SMALLINT" property="iposflag" />
+    <result column="bOutMaterials" jdbcType="SMALLINT" property="boutmaterials" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    AutoID, ID, cInvCode, iNum, iQuantity, iUnitCost, iPrice, iAPrice, iPUnitCost, iPPrice, 
+    cBatch, cObjCode, cVouchCode, cInVouchCode, cinvouchtype, iSOutQuantity, iSOutNum, 
+    coutvouchid, coutvouchtype, iSRedOutQuantity, iSRedOutNum, cFree1, cFree2, iFlag, 
+    iSQuantity, iSNum, iFNum, iFQuantity, dVDate, iTrIds, cPosition, cDefine22, cDefine23, 
+    cDefine24, cDefine25, cDefine26, cDefine27, cItem_class, cItemCode, cName, cItemCName, 
+    cFree3, cFree4, cFree5, cFree6, cFree7, cFree8, cFree9, cFree10, cBarCode, iNQuantity, 
+    iNNum, cAssUnit, dMadeDate, iMassDate, cDefine28, cDefine29, cDefine30, cDefine31, 
+    cDefine32, cDefine33, cDefine34, cDefine35, cDefine36, cDefine37, iMPoIds, iCheckIds, 
+    cBVencode, bGsp, cGspState, cCheckCode, iCheckIdBaks, cRejectCode, iRejectIds, cCheckPersonCode, 
+    dCheckDate, cMassUnit, cMoLotCode, iMaterialFee, iProcessCost, iProcessFee, dMSDate, 
+    iSMaterialFee, iSProcessFee, iOMoDID, bFilled, bChecked, iOMoMID, cmworkcentercode, 
+    bLPUseFree, iRSRowNO, iOriTrackID, coritracktype, cbaccounter, dbKeepDate, bCosting, 
+    bVMIUsed, iVMISettleQuantity, iVMISettleNum, cvmivencode, iInvSNCount, cwhpersoncode, 
+    cwhpersonname, iMaIDs, cserviceoid, cbserviceoid, iinvexchrate, corufts, comcode, 
+    cmocode, invcode, imoseq, iopseq, copdesc, strContractGUID, iExpiratDateCalcu, cExpirationdate, 
+    dExpirationdate, cciqbookcode, iBondedSumQty, productinids, iorderdid, iordertype, 
+    iordercode, iorderseq, isodid, isotype, csocode, isoseq, ipesodid, ipesotype, cpesocode, 
+    ipesoseq, cBatchProperty1, cBatchProperty2, cBatchProperty3, cBatchProperty4, cBatchProperty5, 
+    cBatchProperty6, cBatchProperty7, cBatchProperty8, cBatchProperty9, cBatchProperty10, 
+    cbMemo, applydid, applycode, irowno, strowguid, cservicecode, rowufts, ipreuseqty, 
+    ipreuseinum, bsupersede, isupersedeqty, isupersedempoids, imoallocatesubid, cInVoucherLineID, 
+    cInVoucherCode, cInVoucherType, cbsysbarcode, cSourceMOCode, iSourceMODetailsid, 
+    cplanlotcode, bcanreplace, iposflag, bOutMaterials
+  </sql>
+</mapper>

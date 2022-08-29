@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.system.mapper.PermissionMapper">
+    <resultMap id="BaseResultMap" type="com.web.system.entity.Permission">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="permission_name" jdbcType="VARCHAR" property="permissionName"/>
+        <result column="menu_id" jdbcType="VARCHAR" property="menuId"/>
+        <result column="btn_id" jdbcType="VARCHAR" property="btnId"/>
+        <result column="btn_sort" jdbcType="INTEGER" property="btnSort"/>
+        <result column="permission_url" jdbcType="VARCHAR" property="permissionUrl"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, permission_name, menu_id, permission_url,btn_id,btn_sort
+    </sql>
+    <!--select-->
+    <select id="listByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        *
+        from sys_permission
+        WHERE exists(
+            SELECT 1 FROM sys_role_permission
+            WHERE sys_role_permission.permission_id = sys_permission.id
+            AND role_id IN (
+                SELECT role_id FROM sys_role_user
+                <where>
+                    <if test="userId != null">
+                        user_id = #{userId}
+                    </if>
+                </where>
+           )
+        )
+    </select>
+</mapper>

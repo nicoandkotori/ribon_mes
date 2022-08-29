@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.om.mapper.OmOrderMainMapper">
+  <resultMap id="BaseResultMap" type="com.web.om.entity.OmOrderMain">
+    <!--@mbg.generated-->
+    <!--@Table om_order_main-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="vouch_code" jdbcType="VARCHAR" property="vouchCode" />
+    <result column="vouch_date" jdbcType="TIMESTAMP" property="vouchDate" />
+    <result column="contract_om" jdbcType="VARCHAR" property="contractOm" />
+    <result column="contract_sale" jdbcType="VARCHAR" property="contractSale" />
+    <result column="ven_code" jdbcType="VARCHAR" property="venCode" />
+    <result column="ven_name" jdbcType="VARCHAR" property="venName" />
+    <result column="dep_code" jdbcType="VARCHAR" property="depCode" />
+    <result column="dep_name" jdbcType="VARCHAR" property="depName" />
+    <result column="person_code" jdbcType="VARCHAR" property="personCode" />
+    <result column="person_name" jdbcType="VARCHAR" property="personName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="transport_way" jdbcType="VARCHAR" property="transportWay" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="iz_delete" jdbcType="INTEGER" property="izDelete" />
+    <result column="delete_user" jdbcType="VARCHAR" property="deleteUser" />
+    <result column="delete_date" jdbcType="TIMESTAMP" property="deleteDate" />
+    <result column="check_user" jdbcType="VARCHAR" property="checkUser" />
+    <result column="check_date" jdbcType="TIMESTAMP" property="checkDate" />
+    <result column="u8_id" jdbcType="INTEGER" property="u8Id" />
+  </resultMap>
+
+
+
+  <select id="getMainList" resultType="com.web.om.dto.OmOrderMainDTO"  >
+    select *
+    from om_order_main op
+    where 1=1 and iz_delete=0
+    <if test="main.remark != null   and main.remark != '' ">
+      AND   op.remark   like '%' + #{main.remark} + '%'
+    </if>
+    <if test="main.personName != null   and main.personName != '' ">
+      AND   op.person_name   like '%' + #{main.personName} + '%'
+    </if>
+    <if test="main.depName != null   and main.depName != '' ">
+      AND   op.dep_name   like '%' + #{main.depName} + '%'
+    </if>
+    <if test="main.venName != null   and main.venName != '' ">
+      AND   op.ven_name   like '%' + #{main.venName} + '%'
+    </if>
+    <if test="main.vouchCode != null   and main.vouchCode != '' ">
+      AND op.vouch_code   like '%' + #{main.vouchCode} + '%'
+    </if>
+    <if test="main.contractOm != null   and main.contractOm != '' ">
+      AND op.contract_om   like '%' + #{main.contractOm} + '%'
+    </if>
+    <if test="main.contractSale != null   and main.contractSale != '' ">
+      AND op.contract_sale   like '%' + #{main.contractSale} + '%'
+    </if>
+    <if test="main.statusId != null   and main.statusId !='' ">
+      AND op.status_id = #{main.statusId}
+    </if>
+    <if test="main.productInvCode != null   and main.productInvCode != '' ">
+      AND  op.id in (select main_id  from  om_order_detail where  product_inv_code like '%' + #{main.productInvCode} + '%')
+    </if>
+    <if test="main.dateStart != null ">
+      AND  op.vouch_date >= #{main.dateStart,jdbcType=TIMESTAMP}
+    </if>
+    <if test="main.dateEnd != null ">
+      AND  op.vouch_date &lt; #{main.dateEnd,jdbcType=TIMESTAMP}
+    </if>
+    order by vouch_code desc
+
+  </select>
+
+  <select id="getDetailList" resultType="com.web.om.dto.OmOrderMainDTO"  >
+    select t1.main_id, t1.product_inv_code, t1.product_inv_name, t1.product_inv_std, t1.product_inv_unit,
+    t1.product_qty, t1.material_price, t1.material_amount, t1.work_price, t1.total_work_amount, t1.price,
+    t1.amount, t1.plan_start_date, t1.plan_end_date,t1.u8_mo_detail_id,
+    t2.id, t2.detail_id, t2.part_id,t2.inv_code, t2.inv_name, t2.inv_std, t2.inv_unit, t2.qty, t2.unit_material_price,
+    t2.unit_material_amount, t2.inv_land, t2.inv_width, t2.inv_len, t2.inv_external_diameter, t2.inv_internal_diameter,
+    t2.inv_density, t2.inv_size, t2.iqty, t2.tqty
+    om_order_main t
+    left join om_order_detail t1 on t.id=t1.main_id and t1.iz_delete=0
+    left join om_order_material t2 on t1.id=t2.detail_id and t2.iz_delete=0
+    where  t.id = #{main.id,jdbcType=VARCHAR}
+    order by t1.row_no,t2.row_no
+  </select>
+</mapper>

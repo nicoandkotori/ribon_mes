@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.mo.mapper.BomOpcomponentoptMapper">
+  <resultMap id="BaseResultMap" type="com.web.mo.entity.BomOpcomponentopt">
+    <!--@mbg.generated-->
+    <!--@Table bom_opcomponentopt-->
+    <id column="OptionsId" jdbcType="INTEGER" property="optionsid" />
+    <result column="Offset" jdbcType="SMALLINT" property="offset" />
+    <result column="WIPType" jdbcType="TINYINT" property="wiptype" />
+    <result column="AccuCostFlag" jdbcType="BIT" property="accucostflag" />
+    <result column="DrawDeptCode" jdbcType="VARCHAR" property="drawdeptcode" />
+    <result column="Whcode" jdbcType="VARCHAR" property="whcode" />
+    <result column="OptionalFlag" jdbcType="BIT" property="optionalflag" />
+    <result column="MutexRule" jdbcType="TINYINT" property="mutexrule" />
+    <result column="PlanFactor" jdbcType="OTHER" property="planfactor" />
+    <result column="Ufts" jdbcType="TIMESTAMP" property="ufts" />
+    <result column="CostWIPRel" jdbcType="BIT" property="costwiprel" />
+    <result column="FeatureRel" jdbcType="BIT" property="featurerel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    OptionsId, [Offset], WIPType, AccuCostFlag, DrawDeptCode, Whcode, OptionalFlag, MutexRule, 
+    PlanFactor, Ufts, CostWIPRel, FeatureRel
+  </sql>
+</mapper>

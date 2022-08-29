@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.sa.mapper.OaSaleContractMapper">
+  <resultMap id="BaseResultMap" type="com.web.sa.entity.OaSaleContract">
+    <!--@mbg.generated-->
+    <!--@Table formmain_0063-->
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="start_member_id" jdbcType="VARCHAR" property="startMemberId" />
+    <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="approve_member_id" jdbcType="VARCHAR" property="approveMemberId" />
+    <result column="approve_date" jdbcType="TIMESTAMP" property="approveDate" />
+    <result column="finishedflag" jdbcType="INTEGER" property="finishedflag" />
+    <result column="ratifyflag" jdbcType="INTEGER" property="ratifyflag" />
+    <result column="ratify_member_id" jdbcType="VARCHAR" property="ratifyMemberId" />
+    <result column="ratify_date" jdbcType="TIMESTAMP" property="ratifyDate" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="modify_member_id" jdbcType="VARCHAR" property="modifyMemberId" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="field0002" jdbcType="VARCHAR" property="field0002" />
+    <result column="field0003" jdbcType="VARCHAR" property="field0003" />
+    <result column="field0004" jdbcType="VARCHAR" property="field0004" />
+    <result column="field0005" jdbcType="VARCHAR" property="field0005" />
+    <result column="field0006" jdbcType="VARCHAR" property="field0006" />
+    <result column="field0014" jdbcType="NUMERIC" property="field0014" />
+    <result column="field0015" jdbcType="VARCHAR" property="field0015" />
+    <result column="field0016" jdbcType="VARCHAR" property="field0016" />
+    <result column="field0017" jdbcType="VARCHAR" property="field0017" />
+    <result column="field0019" jdbcType="VARCHAR" property="field0019" />
+    <result column="field0020" jdbcType="VARCHAR" property="field0020" />
+    <result column="field0021" jdbcType="VARCHAR" property="field0021" />
+    <result column="field0022" jdbcType="VARCHAR" property="field0022" />
+    <result column="field0018" jdbcType="VARCHAR" property="field0018" />
+    <result column="field0023" jdbcType="VARCHAR" property="field0023" />
+
+
+    <result column="field0007" jdbcType="NUMERIC" property="field0007" />
+    <result column="field0010" jdbcType="NUMERIC" property="field0010" />
+    <result column="field0011" jdbcType="NUMERIC" property="field0011" />
+    <result column="field0012" jdbcType="NUMERIC" property="field0012" />
+    <result column="field0008" jdbcType="VARCHAR" property="field0008" />
+    <result column="field0009" jdbcType="VARCHAR" property="field0009" />
+    <result column="field0013" jdbcType="VARCHAR" property="field0013" />
+    <result column="field0123" jdbcType="VARCHAR" property="field0123" />
+      <result column="field0103" jdbcType="VARCHAR" property="field0103" />
+    <result column="contrastId" jdbcType="BIGINT" property="contrastId" />
+      <result column="contrastMainId" jdbcType="BIGINT" property="contrastMainId" />
+
+    <result column="formmain_id" jdbcType="BIGINT" property="formmainId" />
+
+      <result column="deviceClass" jdbcType="VARCHAR" property="deviceClass" />
+      <result column="deviceType" jdbcType="VARCHAR" property="deviceType" />
+
+      <result column="stCode" jdbcType="VARCHAR" property="stCode" />
+      <result column="field0056" jdbcType="TIMESTAMP" property="field0056" />
+      <result column="field0057" jdbcType="TIMESTAMP" property="field0057" />
+      <result column="personCode" jdbcType="VARCHAR" property="personCode" />
+
+      <result column="deviceName" jdbcType="VARCHAR" property="deviceName" />
+      <result column="deviceStd" jdbcType="VARCHAR" property="deviceStd" />
+      <result column="remark" jdbcType="VARCHAR" property="remark" />
+      <result column="design_user" jdbcType="VARCHAR" property="designUser" />
+
+  </resultMap>
+
+<!--    left join (select cDefine1 from so_somain where cDefine2  like '%期初导入%') so on t.field0006=so.cDefine1 collate Chinese_PRC_90_CI_AI-->
+
+<!--    and so.cDefine1 is null-->
+<!--    and (f102.field0031!='' or f102.field0032 is  not null)-->
+    <select id="getListByMainSync" parameterType="com.web.sa.entity.OaSaleContract" resultMap="BaseResultMap">
+        select
+        t.*,
+        f102.id contrastId,devicetype.SHOWVALUE deviceType,
+        deviceclass.SHOWVALUE deviceClass,
+        CASE WHEN COALESCE(i.SHOWVALUE,'')='赠送合同' THEN '06'
+        WHEN COALESCE(i.SHOWVALUE,'')='备货合同' THEN '07'
+        WHEN COALESCE(i.SHOWVALUE,'')='试用合同' THEN '04'
+        WHEN COALESCE(i.SHOWVALUE,'')='退货合同' THEN '04'
+        ELSE '01'
+        END stCode,f102.field0056,f102.field0057,per.name createUser,
+        f102.field0013 deviceName,f102.field0014 deviceStd,f102.field0058 remark
+        from
+        (
+        select  t.field0108 start_date,t.ID,t.field0160 personName,t.field0003,t.field0006,t.field0018,t.field0019,t.field0020,t.field0021,t.field0022,t.field0023,
+        t1.field0007,t1.field0008,t1.field0009,t1.field0010,t1.field0011,t1.field0012,t1.field0013,t1.formmain_id,t1.field0123,t1.field0103
+        from  ${database}.dbo.formmain_0130 t
+        left join ${database}.dbo.formson_0131 t1 on t.id=t1.formmain_id
+        )t
+
+        left join ${database}.dbo.formmain_0110 f102 on f102.field0001=t.field0006 and f102.field0002=t.field0007
+
+        left join ${database}.dbo.CTP_ENUM_ITEM httype on f102.field0006=httype.id
+        left join ${database}.dbo.CTP_ENUM_ITEM deviceclass  on deviceclass.id=f102.field0048
+        left join ${database}.dbo.CTP_ENUM_ITEM devicetype  on devicetype.id=f102.field0049
+        LEFT JOIN ${database}.dbo.CTP_ENUM_ITEM i ON i.id = f102.field0054
+
+        left join ${database}.dbo.ORG_MEMBER per on f102.field0059=per.id
+        where COALESCE(f102.field0033,'')=''
+        and httype.SHOWVALUE='商务合同' and f102.field0001 not in (select field0001 from   ${database}.dbo.view_u8so_begin)
+
+    </select>
+<!--    and (f102.field0031!='' or f102.field0032 is  not null)-->
+    <select id="getListBySync" parameterType="com.web.sa.entity.OaSaleContract" resultMap="BaseResultMap">
+        select
+        t.*,
+        f111.id contrastId,f102.id contrastMainId,f111.field0063 design_user,
+        devicetype.SHOWVALUE deviceType,deviceclass.SHOWVALUE deviceClass,
+        CASE WHEN COALESCE(i.SHOWVALUE,'')='赠送合同' THEN '06'
+        WHEN COALESCE(i.SHOWVALUE,'')='备货合同' THEN '07'
+        WHEN COALESCE(i.SHOWVALUE,'')='试用合同' THEN '04'
+        WHEN COALESCE(i.SHOWVALUE,'')='退货合同' THEN '04'
+        ELSE '01'
+        END stCode,f102.field0056,f102.field0057,per.name createUser,
+        f102.field0013 deviceName,f102.field0014 deviceStd,f102.field0058 remark
+        from
+        (
+            select  t.field0108 start_date,t.ID,t.field0160 personName,t.field0003,t.field0006,t.field0018,t.field0019,t.field0020,t.field0021,t.field0022,t.field0023,
+            t1.field0007,t1.field0008,t1.field0009,t1.field0010,t1.field0011,t1.field0012,t1.field0013,t1.formmain_id,t1.field0123,t1.field0103
+            from  ${database}.dbo.formmain_0130 t
+            left join ${database}.dbo.formson_0131 t1 on t.id=t1.formmain_id
+        )t
+
+        left join ${database}.dbo.formmain_0110 f102 on f102.field0001=t.field0006 and f102.field0002=t.field0007
+        left join ${database}.dbo.formson_0111 f111 on f102.id=f111.formmain_id
+        left join ${database}.dbo.CTP_ENUM_ITEM httype on f102.field0006=httype.id
+        left join ${database}.dbo.CTP_ENUM_ITEM deviceclass  on deviceclass.id=f102.field0048
+        left join ${database}.dbo.CTP_ENUM_ITEM devicetype  on devicetype.id=f102.field0049
+        LEFT JOIN ${database}.dbo.CTP_ENUM_ITEM i ON i.id = f102.field0054
+        left join ${database}.dbo.ORG_MEMBER per on f102.field0059=per.id
+        where COALESCE(f111.field0046,'')='' and  COALESCE(f111.field0018,'')!='' and COALESCE(f111.field0021,0)!=0
+        and httype.SHOWVALUE='商务合同' and f102.field0001 not in (select field0001 from   ${database}.dbo.view_u8so_begin)
+
+
+    </select>
+
+
+
+    <select id="getListBySyncEdit" parameterType="com.web.sa.entity.OaSaleContract" resultMap="BaseResultMap">
+        select
+        t.*,
+        f111.id contrastId,f102.id contrastMainId,f111.field0063 design_user,
+        devicetype.SHOWVALUE deviceType,deviceclass.SHOWVALUE deviceClass,
+        CASE WHEN COALESCE(i.SHOWVALUE,'')='赠送合同' THEN '06'
+        WHEN COALESCE(i.SHOWVALUE,'')='备货合同' THEN '07'
+        WHEN COALESCE(i.SHOWVALUE,'')='试用合同' THEN '04'
+        WHEN COALESCE(i.SHOWVALUE,'')='退货合同' THEN '04'
+        ELSE '01'
+        END stCode,f102.field0056,f102.field0057,per.name createUser,
+        f102.field0013 deviceName,f102.field0014 deviceStd,f102.field0058 remark
+        from
+        (
+        select  t.field0108 start_date,t.ID,t.field0160 personName,t.field0003,t.field0006,t.field0018,t.field0019,t.field0020,t.field0021,t.field0022,t.field0023,
+        t1.field0007,t1.field0008,t1.field0009,t1.field0010,t1.field0011,t1.field0012,t1.field0013,t1.formmain_id,t1.field0123,t1.field0103
+        from  ${database}.dbo.formmain_0130 t
+        left join ${database}.dbo.formson_0131 t1 on t.id=t1.formmain_id
+        )t
+
+        left join ${database}.dbo.formmain_0110 f102 on f102.field0001=t.field0006 and f102.field0002=t.field0007
+        left join ${database}.dbo.formson_0111 f111 on f102.id=f111.formmain_id
+        left join ${database}.dbo.CTP_ENUM_ITEM httype on f102.field0006=httype.id
+        left join ${database}.dbo.CTP_ENUM_ITEM deviceclass  on deviceclass.id=f102.field0048
+        left join ${database}.dbo.CTP_ENUM_ITEM devicetype  on devicetype.id=f102.field0049
+        LEFT JOIN ${database}.dbo.CTP_ENUM_ITEM i ON i.id = f102.field0054
+        left join ${database}.dbo.ORG_MEMBER per on f102.field0059=per.id
+        where COALESCE(f111.field0046,'')!='' and  COALESCE(f111.field0018,'')!='' and COALESCE(f111.field0021,0)!=0
+        and httype.SHOWVALUE='商务合同'
+        and f111.id in (select COALESCE(id,'')  from  ${database}.dbo.view_so_edit)
+
+    </select>
+
+</mapper>

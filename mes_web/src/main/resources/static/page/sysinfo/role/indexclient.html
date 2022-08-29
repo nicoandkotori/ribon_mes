@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>角色权限管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../static/css/font.css">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href='../../../static/css/bootstrap.min.css'/>
+    <link rel="stylesheet" href='../../../static/css/MyBootstrap.css'/>
+    <!-- jqgrid -->
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/jquery-ui.theme.min.css'/>
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/ui.jqgrid.css'/>
+    <!-- tab-->
+    <link rel="stylesheet" type="text/css" href="../../../static/Scripts/tabs/css/normalize.css"/>
+    <!-- layui -->
+
+    <link rel="stylesheet" href="../../../lib/layui/css/layui.css">
+    <style type="text/css">
+        .clearfix:after,
+        .tab-nav:after {
+            content: ".";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+
+        /* ==========
+       Setup Page */
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        /* ===========
+       Tab Styling */
+
+        .tab-group {
+            position: relative;
+            border: 1px solid #c5d0dc;
+            margin-top: 2.5em;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .tab-group section {
+            opacity: 0;
+            height: 0;
+            padding: 0 1em;
+            overflow: hidden;
+            transition: opacity 0.4s ease, height 0.4s ease;
+        }
+
+        .tab-group section.active {
+            opacity: 1;
+            height: auto;
+            overflow: visible;
+        }
+
+        .tab-nav {
+            list-style: none;
+            margin: -2.7em -1px 0 0;
+            padding: 0;
+            height: 2.5em;
+            overflow: hidden;
+        }
+
+        .tab-nav li {
+            display: inline;
+        }
+
+        .tab-nav li a {
+            top: 1px;
+            position: relative;
+            display: block;
+            float: left;
+            /* 				border-radius: 10px 10px 0 0; */
+            background: #eee;
+            line-height: 2em;
+            padding: 0 1em;
+            text-decoration: none;
+            color: grey;
+            margin-top: .5em;
+            margin-right: 1px;
+            transition: background .2s ease, line-height .2s ease, margin .2s ease;
+        }
+
+        .tab-nav li.active a {
+            background: white;
+            color: #454545;
+            line-height: 2.5em;
+            margin-top: 0;
+            border-top: 2px solid #4c8fbd;
+        }
+
+        .btnrow {
+            background-color: #f3f3f6;
+        }
+    </style>
+
+</head>
+<body>
+    <div style="width: 30%;  height:100%; float:left; ">
+        <div class="container-fluid " id="roletool">
+            <div class="row btnrow">
+                <div class="col-md-12 " style="border-bottom:1px solid #c5d0dc;padding:3px 16px;">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="addRoleRow()"><i
+                            class="glyphicon glyphicon-plus-sign"></i> 新增角色
+                    </button>
+                    <button type="button" class="btn btn-success btn-sm" onclick="saveRoles()"><i
+                            class="glyphicon glyphicon-ok"></i>保存
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%; height: 100% ;overflow-x: auto;" class="box">
+            <table id="jqrole"></table>
+        </div>
+    </div>
+    <div style="width:69.5%; height:100%; float:right; ">
+        <div class="tab-group" style="width:100%;height:100%;">
+            <section id="tab1" title="用户">
+                <div class="container-fluid ">
+                    <div class="row btnrow">
+                        <div class="col-md-12 " style="padding:6px 16px;">
+                            <button type="button" class="btn btn-primary btn-sm" onclick="addRoleUser()"><i
+                                    class="glyphicon glyphicon-plus"></i>添加用户
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="deleteRoleUser()"><i
+                                    class="glyphicon glyphicon-remove"></i>删除用户
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="box" style="width: 100%; height: 100% ;">
+                    <table id="jquser"></table>
+                </div>
+            </section>
+            <section id="tab2" title="菜单权限">
+                <div class="container-fluid ">
+                    <div class="row btnrow">
+                        <div class="col-md-12 " style="padding:6px 16px; border-bottom:1px solid #f1efef;">
+                            <button type="button" class="btn btn-success btn-sm" onclick="addRoleMenu()"><i
+                                    class="glyphicon glyphicon-ok"></i>保存
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="box" style="width: 100%; height: 100% ;">
+                    <table id="jqmenu"></table>
+                </div>
+            </section>
+
+        </div>
+    </div>
+    <div class="contextMenu" id="menu">
+        <ul>
+            <li id="delete">删除行</li>
+        </ul>
+    </div>
+    </body>
+    <!--jquery-->
+    <script src='../../../static/Scripts/jquery-1.10.2.min.js'></script>
+<!--    <script src='../../../static/Scripts/jquery-ui.min.js'></script>-->
+    <script src='../../../static/Scripts/Common.js'></script>
+    <!-- bootstrap -->
+    <!--<script src='../../../static/Scripts/bootstrap.min.js'></script>-->
+    <!-- jqgrid -->
+    <script src='../../../static/Scripts/jqgrid/js/i18n/grid.locale-cn.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery.jqGrid.js'></script>
+    <!-- tabs -->
+    <script type="text/javascript" src="../../../static/Scripts/tabs/js/jquery-tab.js"></script>
+
+    <!-- layui -->
+    <script src="../../../lib/layui/layui.js" charset="utf-8"></script>
+    <!-- contextMenu -->
+    <script src='../../../static/Scripts/jqgrid/plugins/jquery.contextmenu.js'></script>
+    <script type="text/javascript">
+        var prevEditRow = null;//前编辑行
+        var cht, cwd;
+        var selArrRow = new Array();
+        var permissionIdArr = new Array();
+        $(function () {
+            cht = document.body.offsetHeight;
+            cwd = document.body.offsetWidth;
+            $('.tab-group').tabify();
+            initJqrole();
+            initJquser();
+            initJqmenu();
+
+            var conHt = $(".container-fluid").height();
+            $(".box").css("padding-bottom", conHt);
+            $("#jqrole").setGridHeight(($(window).height() - conHt - 40));
+            $("#jquser").setGridHeight(($(window).height() - conHt - 75));
+            $("#jqmenu").setGridHeight(($(window).height() - conHt - 80));
+
+        })
+
+
+
+
+        layui.use("layer",function () {
+            var layer = layui.layer;
+        });
+        function initJqmenu() {
+            $("#jqmenu").jqGrid({
+                url: "",
+                mtype: 'GET',
+                datatype: 'json',
+                treeGrid: true,
+                treeGridModel: "adjacency",
+                ExpandColumn: "menuName",
+                ExpandColClick: true,
+                colNames: ["", "isleaf", "id", "menuCode", "parentMenuCode", "菜单名称", "菜单顺序", "菜单地址"],
+                colModel: [
+                    {name: 'enbl', index: 'enbl', width: 60, formatter: chxFormat},
+                    {name: "isleaf", index: 'isleaf', hidden: true},
+                    {name: "id", index: 'id', hidden: true},
+                    {name: "menuCode", index: "menuCode", key: true, hidden: true},
+                    {name: "parentMenuCode", index: 'parentMenuCode', hidden: true},
+                    {name: "menuName", index: 'menuName', width: 150},
+                    {name: "menuOrder", index: 'menuOrder', width: 150},
+                    {name: "menuUrl", index: 'menuUrl', width: 450}
+                ],
+                treeReader: {
+                    level_field: "menulevel",
+                    parent_id_field: "parentMenuCode",
+                    leaf_field: "isleaf",
+                    expanded_field: "expanded"
+                },
+                cmTemplate: {sortable: false, align: "center"},
+                beforeProcessing: function (data, st, xhr) {//登录失效时请求将被拦截，提示用户：未登录
+                    if (data.success == false) {
+                        layer.msg(data.errormsg);
+                    }
+                    return true;
+                },
+                loadBeforeSend:function (jqXHR) {
+                    var token = sessionStorage.getItem("mestoken");
+                    jqXHR.setRequestHeader('Authorization',  token);
+
+                },
+                loadComplete: function (rowid, iRow, iCol, e) {
+                    var roleid = $("#jqrole").getGridParam("selrow");
+                    findMenusByRoleid(roleid);
+                }
+            });
+        }
+
+        function findMenusByRoleid(roleid) {
+            if (roleid == undefined || roleid == null) {
+                layer.msg("请选择一个角色！");
+                return;
+            }
+            selArrRow = [];
+            sendPostReq("/sysinfo/roleclient/findRoleMenuByRoleid", {roleId: roleid},
+                function (data) {
+                    if (data.result != null) {
+                        for (var i = 0; i < data.result.length; i++) {
+                            var rolemenu = data.result[i];
+                            var menuid = rolemenu.menuId;
+                            selArrRow.push(menuid);
+                            $("#chx_jqmenu_" + menuid).prop("checked", true);
+                        }
+                    }
+                });
+        }
+
+        function chxFormat(value, options, rowObject) {
+            var menuCode = rowObject.menuCode;
+            var id = rowObject.id;
+            var tabid = options.gid;
+            return '<input type="checkbox" offval="no" id="chx_' + tabid + '_' + id
+                + '" onclick="chxChange(\'' + tabid + '\',\'' + menuCode +  '\',\'' + id
+                + '\', this);" value="\'' + id + '\'" />';
+        }
+
+        function chxChange(tabid, rowid,menuId, e) {
+            var idx = selArrRow.indexOf(menuId);
+            if ($(e).is(":checked")) {
+                if (idx == -1) {
+                    selArrRow.push(menuId);
+                }
+            } else {
+                if (idx != -1) {
+                    selArrRow.splice(idx, 1);
+                }
+            }
+            checkChildren(tabid, rowid, e);
+            checkParent(tabid, rowid, e);
+        }
+
+        //递归选中子节点
+        function checkChildren(tabid, rowid, e) {
+            var record = $("#" + tabid).getLocalRow(rowid);
+            var childrenNodes = $("#" + tabid).getNodeChildren(record);
+            if (childrenNodes.length > 0) {//存在子节点
+                for (var i = 0; i < childrenNodes.length; i++) {
+                    var childrenNode = childrenNodes[i];
+                    var childrenRowid = childrenNode.menuCode;
+                    var childrenMenuid = childrenNode.id;
+                    var chx = $("#chx_" + tabid + "_" + childrenMenuid);
+                    var idx = selArrRow.indexOf(childrenMenuid);
+                    chx.prop("checked", $(e).is(":checked"));
+                    if ($(e).is(":checked")) {//选中
+                        if (idx == -1) {
+                            selArrRow.push(childrenMenuid);
+                        }
+                    } else {
+                        if (idx != -1) {
+                            selArrRow.splice(idx, 1);
+                        }
+                    }
+                    checkChildren(tabid, childrenRowid, chx);
+                }
+            }
+        }
+
+        //递归选中父节点
+        function checkParent(tabid, rowid, e) {
+            var chxCheckedNum = 0;
+            var record = $("#" + tabid).getLocalRow(rowid);
+            var parentNode = $("#" + tabid).getNodeParent(record);
+            if (parentNode) {
+                var parentRowid = parentNode.menuCode;
+                var parentMenuid = parentNode.id;
+                var chx = $("#chx_" + tabid + "_" + parentMenuid);
+                var record = $("#" + tabid).getLocalRow(parentRowid);
+                var childrenNodes = $("#" + tabid).getNodeChildren(record);
+                if (childrenNodes.length > 0) {
+                    for (var i = 0; i < childrenNodes.length; i++) {
+                        var childrenNode = childrenNodes[i];
+                        var childrenMenuid = childrenNode.id;
+                        var chxChecked = $("#chx_" + tabid + "_" + childrenMenuid).prop("checked");
+                        if (chxChecked) {
+                            chxCheckedNum++;
+                        }
+                    }
+                }
+                var idx = selArrRow.indexOf(parentMenuid);
+                if (chxCheckedNum > 0) {
+                    chx.prop("checked", true);
+                    if (idx == -1) {
+                        selArrRow.push(parentMenuid);
+                    }
+                } else {
+                    chx.prop("checked", $(e).is(":checked"));
+                    if (idx != -1) {
+                        selArrRow.splice(idx, 1);
+                    }
+                }
+                checkParent(tabid, parentRowid, chx);
+            }
+        }
+
+        function initJqrole() {
+            $("#jqrole").jqGrid({
+                url: '/sysinfo/roleclient/getlist',
+                mtype: "GET",
+                datatype: "json",
+                colNames: ["id", "roleType","角色名称"],
+                colModel: [{
+                    name: "id",
+                    key: true,
+                    hidden: true
+                }, {
+                    name: "roleType",
+                    hidden: true
+                },
+                    {
+                        name: "roleName",
+                        align: "center",
+                        editable: true
+                    }
+                ],
+                rownumbers: true,
+                rowNum: 500,
+                viewrecords: true,
+                // height:'auto',
+                ////autowidth如果设为true，则Grid的宽度会根据父容器的宽度自动重算。重算仅发生在Grid初始化的阶段；如果当父容器尺寸变化了，同时也需要变化Grid的尺寸的话，则需要在自己的代码中调用setGridWidth方法来完成。
+                autowidth: true,
+                //shrinkToFit用于根据width计算每列宽度的算法。默认值为true。如果shrinkToFit为true且设置了width值，则每列宽度会根据width成比例缩放；
+                //如果shrinkToFit为false且设置了width值，则每列的宽度不会成比例缩放，而是保持原有设置，而Grid将会有水平滚动条。
+                shrinkToFit: false,
+                autoScroll: true,
+                scrollrows: true, // 是否显示行滚动条
+                colMenu: false,
+                cellsubmit: 'clientArray',
+                loadBeforeSend:function (jqXHR) {
+                    var token = sessionStorage.getItem("mestoken");
+                    jqXHR.setRequestHeader('Authorization',  token);
+
+                },
+                onSelectRow: function (rowid, status) {
+                    $("#jqrole").saveRow(prevEditRow, false, 'clientArray');
+                    loadJquser(rowid);
+                    window.setTimeout(function(){
+                        loadJqmenu(rowid);
+
+                    },200);
+                },
+                ondblClickRow: function (rowid, iRow, iCol, e) {
+                    if (rowid != prevEditRow) {
+                        $("#jqrole").saveRow(prevEditRow, false, 'clientArray');
+                    }
+                    $("#jqrole").jqGrid("editRow", rowid);
+                    prevEditRow = rowid;
+                },
+                gridComplete: function () {
+                    contextmenu(this, "jqrole");
+                },
+                cmTemplate: {sortable: false, align: "center"},
+                beforeProcessing: function (data, st, xhr) {//登录失效时请求将被拦截，提示用户：未登录
+                    if (data.success == false) {
+                        layer.msg(data.errormsg);
+                    }
+                    return true;
+                }
+            });
+        }
+
+        function del(id) {
+            if (id.indexOf("tmp_") != -1) {//未保存的数据可以直接删除
+                $("#jqrole").delRowData(id);
+            } else {
+                layer.msg("确认删除吗？",{icon:2}, {
+                    btn: ['确定', '取消']
+                    ,yes: function(index, layero){
+                        sendPostReq('/sysinfo/rolepda/deletebyid', {id: id},
+                            function (data) {
+                                layer.msg(data.msg, {icon: 6});
+                                $("#jqrole").trigger("reloadGrid");
+                                $("#jquser").trigger("reloadGrid");
+                            });
+                    }
+                    ,btn2: function(index, layero){
+                        //按钮【按钮二】的回调
+                        //layer.msg("按钮2回调,参数是:"+index)
+                        return false //开启该代码可禁止点击该按钮关闭
+                    }
+                });
+
+            }
+        }
+
+        //右键菜单
+        function contextmenu(obj, jqid) {
+            $("tr.jqgrow", obj).contextMenu('menu', {
+                bindings: { //右键菜单绑定的事件
+                    "delete": function (trigger) {
+                        //点击del时触发事件，需要处理的需求
+                        if (prevEditRow != null) {
+                            $("#" + jqid).saveRow(prevEditRow);
+                        }
+                        var rowid = trigger.id;
+                        del(rowid);
+                    }
+                },
+                //重写onContextMenu和onShowMenu事件
+                onContextMenu: function (e) { //显示菜单
+                    var rowId = $(e.target).closest("tr.jqgrow").attr("id"); //获得RowID
+
+                    if ($(e.target).attr("id") == "dontShow") return false;
+                    else return true;
+                },
+                onShowMenu: function (e, menu) { //显示菜单
+                    return menu;
+                },
+                menuStyle: { //菜单样式
+                    backgroundColor: '#fcfdfd',
+                    border: '1px solid #a6c9e2',
+                    maxWidth: '600px', // to be sure
+                    width: '100%' // to have good width of the menu
+                },
+                itemHoverStyle: { //点击菜单上面的样式
+                    border: '1px solid #79b7e7',
+                    color: '#1d5987',
+                    backgroundColor: '#d0e5f5'
+                }
+            });
+        }
+
+
+        //加载菜单列表
+        function loadJqmenu() {
+            $("#jqmenu").jqGrid("setGridParam", {
+                url: "/sysinfo/menuclient/getallmenu",
+                postData: {}
+            }).trigger('reloadGrid');
+        }
+
+        //加载user信息
+        function loadJquser(rowid) {
+            $("#jquser").jqGrid('setGridParam', {
+                url: '/sysinfo/roleclient/findUserListByRoleid',
+                postData: {"roleId": rowid}
+            }).trigger('reloadGrid');
+        }
+
+        function initJquser() {
+            $("#jquser").jqGrid({
+                url: '',
+                mtype: "GET",
+                datatype: "json",
+                colNames: ["id", "用户姓名", "登录编号(员工编号)", "所属部门"],
+                colModel: [{
+                    name: "id",
+                    key: true,
+                    hidden: true
+                },
+                    {
+                        name: "userName"
+                    },
+                    {
+                        name: "userCode"
+                    },
+                    {
+                        name: "depName"
+                    }
+                ],
+                rownumbers: true,
+                rowNum: 500,
+                viewrecords: true,
+                // height:'auto',
+                ////autowidth如果设为true，则Grid的宽度会根据父容器的宽度自动重算。重算仅发生在Grid初始化的阶段；如果当父容器尺寸变化了，同时也需要变化Grid的尺寸的话，则需要在自己的代码中调用setGridWidth方法来完成。
+                autowidth: true,
+                //shrinkToFit用于根据width计算每列宽度的算法。默认值为true。如果shrinkToFit为true且设置了width值，则每列宽度会根据width成比例缩放；
+                //如果shrinkToFit为false且设置了width值，则每列的宽度不会成比例缩放，而是保持原有设置，而Grid将会有水平滚动条。
+                shrinkToFit: false,
+                autoScroll: true,
+                cmTemplate: {sortable: false, align: "center"},
+                beforeProcessing: function (data, st, xhr) {//登录失效时请求将被拦截，提示用户：未登录
+                    if (data.success == false) {
+                        layer.msg(data.errormsg);
+                    }
+                    return true;
+                },
+                loadBeforeSend:function (jqXHR) {
+                    var token = sessionStorage.getItem("mestoken");
+                    jqXHR.setRequestHeader('Authorization',  token);
+
+                },
+                scrollrows: true // 是否显示行滚动条
+            });
+        }
+
+        //保存角色
+        function saveRoles() {
+            $("#jqrole").saveRow(prevEditRow,false,"clientArray");
+            var roleDatas = $("#jqrole").getRowData();
+            var datarole = JSON.stringify(roleDatas);
+            sendPostReq('/sysinfo/roleclient/save', {mdatas: datarole},
+                function (data) {
+                    layer.msg(data.msg, {icon: 6});
+                    $("#jqrole").trigger("reloadGrid");
+                    prevEditRow = null;
+                });
+        }
+
+        //新增行
+        function addRoleRow() {
+            var id = 'tmp_' + new Date().getTime();
+            $("#jqrole").addRowData(id, {id: id}, {});
+        }
+
+        function saveRoleUsers(rows, roleid) {
+            var datas = JSON.stringify(rows);
+            sendPostReq('/sysinfo/roleclient/saveRoleUsers', {
+                mdatas: datas,
+                roleId: roleid
+            }, function (data) {
+                layer.msg(data.msg, {icon: 6});
+                $("#jquser").trigger("reloadGrid");
+            });
+        }
+
+        //删除roleuser
+        function deleteRoleUser() {
+            var userid = $("#jquser").getGridParam("selrow");
+            if (userid == undefined || userid == null) {
+                layer.msg("请选择一个用户进行删除！");
+                return;
+            }
+            var roleid = $("#jqrole").getGridParam("selrow");
+            if (roleid == undefined || roleid == null) {
+                layer.msg("请选择一个角色！");
+                return;
+            }
+            layer.msg("确定删除该数据吗？", {
+                btn: ['确定', '取消']
+                ,yes: function(index, layero){
+                    sendPostReq('/sysinfo/roleclient/deleteroleuser', {
+                        "userId": userid,
+                        "roleId": roleid
+                    }, function (data) {
+                        layer.msg(data.msg, {icon: 6});
+                        //重新载入jqGrid表格
+                        $("#jquser").trigger("reloadGrid");
+                    });
+                }
+                ,btn2: function(index, layero){
+                    //按钮【按钮二】的回调
+                    //layer.msg("按钮2回调,参数是:"+index)
+                    return false //开启该代码可禁止点击该按钮关闭
+                }
+            });
+
+        }
+
+        //新增roleuser
+        function addRoleUser() {
+            if (prevEditRow != null) {
+                layer.msg("请对正在编辑或新增的角色档案进行保存！");
+                return;
+            }
+            var rowId = $("#jqrole").getGridParam("selrow");
+            if (rowId == undefined || rowId == null) {
+                layer.msg("请选择一个角色！");
+                return;
+            }
+            layui.use("layer",function () {
+                var layer = layui.layer;
+                layer.open({
+                    type: 2,
+                    title: "用户信息",
+                    resize: false,
+                    content: "./winMultiselectUserClient.html?roleid=" + rowId,
+                    area: [cwd - 250 + 'px', cht - 100 + 'px'],
+                    btn: ["确定", "关闭"],
+                    yes: function (index, layero) {
+                        var rows = $(layero).find("iframe")[0].contentWindow.FnOk();
+                        layer.close(index);
+                        saveRoleUsers(rows, rowId);
+                    },
+                    close: function (index) {
+                        layer.close(index);
+                    }
+                });
+            });
+        }
+
+        //保存rolemenu
+        function addRoleMenu() {
+            if (prevEditRow != null) {
+                layer.msg("请对正在编辑或新增的角色档案进行保存！");
+                return;
+            }
+            var rowId = $("#jqrole").getGridParam("selrow");
+            if (rowId == undefined || rowId == null) {
+                layer.msg("请选择一个角色！");
+                return;
+            }
+            sendPostReq("/sysinfo/roleclient/saveOrDeleteRoleMenus", {
+                mdatas: JSON.stringify(selArrRow),
+                roleId: rowId
+            }, function (data) {
+                layer.msg(data.msg, {icon: 6});
+                $("#jqmenu").trigger("reloadGrid");
+            });
+        }
+
+
+
+    </script>
+</body>
+</html>

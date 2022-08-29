@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.st.mapper.IaStUnAccountVouch11Mapper">
+  <resultMap id="BaseResultMap" type="com.web.st.entity.IaStUnAccountVouch11">
+    <!--@mbg.generated-->
+    <!--@Table IA_ST_UnAccountVouch11-->
+    <result column="IDUN" jdbcType="INTEGER" property="idun" />
+    <result column="IDSUN" jdbcType="INTEGER" property="idsun" />
+    <result column="cVouTypeUN" jdbcType="VARCHAR" property="cvoutypeun" />
+    <result column="cBustypeUN" jdbcType="VARCHAR" property="cbustypeun" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    IDUN, IDSUN, cVouTypeUN, cBustypeUN
+  </sql>
+</mapper>

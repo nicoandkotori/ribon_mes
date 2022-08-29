@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>成本核算报表</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../static/css/font.css">
+    <link rel="stylesheet" href="../../../static/css/weadmin.css">
+    <!-- jqgrid -->
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/jquery-ui.theme.min.css'/>
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/ui.jqgrid.css'/>
+
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="../../../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+    <!--jquery-->
+    <script src='../../../static/Scripts/jquery-1.10.2.min.js'></script>
+    <script src='../../../static/Scripts/jquery.json.js'></script>
+    <script src='../../../static/Scripts/Common.js'></script>
+    <!--jqgrid-->
+    <script src='../../../static/Scripts/jqgrid/js/i18n/grid.locale-cn.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery-ui.min.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery.jqGrid.js'></script>
+    <script src='../../../static/Scripts/jqgrid/jquery.jqGrid.groupHeader-0.2.1.js'></script>
+    <script src='../../../static/Scripts/Print.js'></script>
+    <script src='../../../static/Scripts/lodop/LodopFuncs.js'></script>
+</head>
+<style type="text/css">
+
+</style>
+<body>
+<div class="weadmin-body">
+    <div class="layui-row">
+        <form id="formquery" class="layui-form layui-col-md12 we-search">
+            <div class="layui-row">
+                <div class="layui-inline" style="width: 50px" >
+                    <span>年份</span>
+                </div>
+                <div class="layui-inline" >
+
+                    <select id="iyear" name="iyear"  placeholder="年份"  lay-filter="iyear" lay-search="">
+                        <option value=></option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                        <option value="2030">2030</option>
+                    </select>
+
+
+                </div>
+
+                <div class="layui-inline" style="width: 50px" >
+                    <span>月份</span>
+                </div>
+                <div class="layui-inline"   >
+                    <select id="imonth" name="imonth"  placeholder="月份"  lay-filter="imonth" lay-search="">
+                        <option value=></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+
+                <div class="layui-inline">
+                    日期
+                    <input type="text" class="layui-input weadmin-input" style="width: 100px; display: inline;" name="dateStart" id="dateStart" autocomplete="off">
+                    —<input type="text" class="layui-input weadmin-input" style="width: 100px; display: inline;" name="dateEnd" id="dateEnd" autocomplete="off">
+                </div>
+                <div class="layui-inline" style="width: 90px" >
+                    <span>销售合同号</span>
+                </div>
+                <div class="layui-inline"   >
+                    <input type="text" class="layui-input weadmin-input"  placeholder="销售合同号" name="soCode" id="soCode" autocomplete="off">
+                </div>
+
+                <div class="layui-inline"   >
+                    <button type="button"
+                            class="layui-btn layui-btn-danger layui-btn-sm removeclass"  onclick="FnClear()">X</button>
+                </div>
+
+                <div class="layui-inline" style="width: 70px" >
+                    <span>存货编码</span>
+                </div>
+
+                <div class="layui-inline" >
+                    <input type="text" class="layui-input weadmin-input"  placeholder="存货编码" name="invCode" id="invCode" autocomplete="off">
+                </div>
+                <div class="layui-inline"   >
+                    <button type="button"
+                            class="layui-btn layui-btn-danger layui-btn-sm removeclass"  onclick="FnClear1()">X</button>
+                </div>
+
+                <div class="layui-inline" style="width: 70px" >
+
+                </div>
+                <button type="button" class="layui-btn layui-btn-sm" lay-filter="select" lay-submit="" id="select"><i class="layui-icon">&#xe615;</i></button>
+            </div>
+
+        </form>
+    </div>
+    <div class="weadmin-block">
+        <button type="button" class="layui-btn layui-btn-sm" onclick="FnJs()">成本计算</button>
+        <button type="button" class="layui-btn layui-btn-sm" onclick="edit()">明细</button>
+        <button type="button" class="layui-btn layui-btn-sm" lay-filter="exportBtn" lay-submit="" id="exportBtn" >导出</button>
+        <button type="button" class="layui-btn layui-btn-sm" lay-filter="save"   id="btnSave" lay-submit="">保存</button>
+
+    </div>
+</div>
+<div class="weadmin-body-table">
+    <table id="jqGrid"></table>
+
+</div>
+</body>
+<script>
+    var baseUrl = "/ar/costsimreport/";
+    var CurRow1;
+    var CurCol1;
+    //判断是否计算的查询方法
+    var izJs=0;
+    $(function () {
+        initJqgrid();
+        // initBtn(".weadmin-block button", "/biz/moplanmain");
+    });
+
+    function initJqgrid() {
+        $("#jqGrid").jqGrid({
+            mtype: 'GET',
+            datatype: "local",
+            colModel: [
+                {name: "id", hidden: true},
+                {label: "iyear", name: "iyear",  hidden: true},
+                {label: "imonth", name: "imonth",  hidden: true},
+                {label: "custCode", name: "custCode",  hidden: true},
+                {label: "unit", name: "unit",  hidden: true},
+                {label: "客户名称", name: "custName", width: 200},
+                {label: "合同号", name: "orderNo", width: 110},
+                {label: "产品编码", name: "invCode", width: 130},
+                {label: "产品名称", name: "invName", width: 200},
+                {label: "规格", name: "invStd", width: 200},
+                {label: "类型", name: "invType", width: 100},
+                {label: "仓库", name: "whName", width: 100},
+                {label: "数量", name: "iqty", width: 100},
+                {label: "销售价格", name: "saleAmount", width: 100,editable: true},
+                {label: "数量", name: "kqty", width: 100},
+                {label: "金额", name: "knum", width: 100},
+                {label: "数量", name: "mqty", width: 100},
+                {label: "金额", name: "mnum", width: 100},
+                {label: "金加工材料费", name: "wmny", width: 100},
+                {label: "金加工费", name: "wnum", width: 100},
+                {label: "合计", name: "wtol", width: 100},
+//                {label: "板金材料", name: "板金材料", width: 100},
+//                {label: "板金加工", name: "板金加工", width: 100},
+                {label: "其他金额", name: "omum", width: 100},
+                {label: "总金额", name: "tolnum", width: 100},
+            ],
+
+            viewrecords: true,
+            multiselect: true,
+            multiboxonly:false,
+            autowidth: true,
+            shrinkToFit: false,
+            autoScroll: true,
+            scrollrows: true, // 是否显示行滚动条
+            rownumbers: true,
+            rowNum: 9999999,
+//            rowList: [  100,150],
+            colMenu: false,
+            cellEdit: true,
+//            pager: "#jqGridPager",
+            footerrow: false,//分页上添加一行，用于显示统计信息
+            userDataOnFooter:true,
+            cmTemplate:{sortable: false, align: "center"},
+            cellsubmit: 'clientArray',
+            beforeProcessing: function (data, st, xhr) {//登录失效时请求将被拦截，提示用户：未登录
+                if (data.success == false){
+                    layer.msg(data.msg);
+                }
+                return true;
+            },
+            loadBeforeSend:function (jqXHR) {
+                var token = sessionStorage.getItem("mestoken");
+                jqXHR.setRequestHeader('Authorization',  token);
+
+            },
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+
+            },
+
+            loadComplete: function () {
+
+
+            },
+            afterSaveCell : function(rowid,name,val,iRow,iCol) {
+
+
+
+            },
+            onCellSelect: function (rowid, iCol, cellcontent, e) { //单击选择行
+
+            },
+            beforeEditCell :function(rowid, cellname, value, iRow, iCol ){
+                CurRow1=iRow;
+                CurCol1=iCol;
+
+
+            },
+            gridComplete: function () {
+
+            }
+        });
+
+        //二级表头
+        $("#jqGrid").jqGrid("setGroupHeaders",{
+            useColSpanStyle: true,
+            groupHeaders:[
+                {startColumnName: 'kqty', numberOfColumns: 2, titleText: '板材型材(KG)'},
+                {startColumnName: 'mqty', numberOfColumns: 2, titleText: '板材型材(M)'},
+                {startColumnName: 'wmny', numberOfColumns: 3, titleText: '委外加工'},
+
+            ],
+
+        });
+
+        //三级表头
+        $("#jqGrid").jqGrid('setComplexGroupHeaders', {
+            useColSpanStyle: true,
+            complexGroupHeaders:[
+                {startColumnName:'custName',numberOfColumns:9,titleText:'当月入库产品'},
+                {startColumnName:'kqty',numberOfColumns:4,titleText:'直接材料标准成本'},
+                {startColumnName: 'wmny', numberOfColumns: 5, titleText: ''},
+
+            ]
+        })
+        $("#jqGrid").setGridHeight($(window).outerHeight() - $(".weadmin-body").height() - 135);
+
+    }
+
+
+    layui.use(['form', 'admin', 'jquery', 'table', 'layer', 'tableSelect'], function() {
+        var form = layui.form,
+            admin = layui.admin,
+            $ = layui.jquery,
+            table = layui.table,
+            layer = layui.layer,
+            tableSelect = layui.tableSelect,
+            laydate = layui.laydate;
+
+        //日期
+        laydate.render({
+            elem: '#dateStart'
+            // ,value: new Date()
+            ,theme: 'molv'
+        });
+        laydate.render({
+            elem: '#dateEnd'
+            // ,value: new Date()
+            ,theme: 'molv'
+        });
+        var myDate = new Date();
+        $("#iyear").val(myDate.getFullYear());
+        $("#imonth").val(myDate.getMonth()+1);
+
+        form.render('select');
+
+        //查询
+        form.on('submit(select)', function (data) {
+            izJs=0;
+            $.ajax({
+                type: "post",
+                url: baseUrl+"getlist",
+                data: {querystr: JSON.stringify(data.field)},
+                success: function (data) {
+                    $("#jqGrid").jqGrid("clearGridData");
+                    $("#jqGrid").jqGrid("setGridParam", { datatype: 'local', data:data.rows, rowNum:data.rows.length }).trigger("reloadGrid");
+                },
+                error: function ()
+                { }
+            });
+
+
+        });
+
+        //导出
+        form.on('submit(exportBtn)', function (data) {
+            var qo = $("#formquery").serializeObject();
+
+            window.location.href = encodeURI(baseUrl+'export1?queryStr='+qo+'&izJs='+izJs
+                +'&userName='+sessionStorage.getItem("userName"));
+
+        });
+
+
+
+
+        //监听提交
+        form.on('submit(save)', function (data) {
+            if (CurRow1 != "" || CurRow1 != undefined) {
+                $("#jqGrid").saveCell(CurRow1,CurCol1);
+            }
+            var gridData = $("#jqGrid").jqGrid("getRowData");
+            var gridDataStr = JSON.stringify(gridData);
+            var flag= true;
+            if(flag){
+                $.ajax({
+                    type: "post",
+                    async: false,
+                    dataType: "json",
+                    url: baseUrl+"saveprice",
+                    data: {mData: gridDataStr},
+                    success: function (data) {
+                        if (data.success == true || data.success == "true") {
+                            layer.alert("保存成功!");
+                            var qo = $("#formquery").serializeObject();
+                            $.ajax({
+                                type: "post",
+                                url: baseUrl+"getlist",
+                                data: {querystr: qo},
+                                success: function (data) {
+                                    $("#jqGrid").jqGrid("clearGridData");
+                                    $("#jqGrid").jqGrid("setGridParam", { datatype: 'local', data:data.rows, rowNum:data.rows.length }).trigger("reloadGrid");
+                                },
+                                error: function ()
+                                { }
+                            });
+
+
+                        } else {
+                            layer.alert("保存失败！  " + data.msg);
+                        }
+                    },
+                    error: function () {
+                        layer.alert("保存失败！");
+                    }
+                });
+
+            }
+
+
+
+
+        });
+
+    });
+
+
+    function edit() {
+        var rowid = $("#jqGrid").getGridParam("selrow");
+        if (rowid != null && rowid != '') {
+            var rowData =  $("#jqGrid").getRowData(rowid);
+            WeAdminShow('明细表','./showdetail.html?invCode='+rowData.invCode);
+        } else {
+            layer.alert("请先选择行再操作！");
+        }
+
+    }
+
+
+    var IsAble = true;
+    function FnJs() {
+
+        layer.confirm('是否开始计算？', function(index) {
+            if (!IsAble) return;
+            IsAble = false;
+            var ids= $("#jqGrid").jqGrid('getGridParam','selarrrow');
+            if(ids.length==0)
+            {
+                layer.alert("请勾选需要生成的数据!");
+                IsAble=true;
+                return;
+            }
+            var newGridData = [];
+            for(var i=0; i<ids.length; i++) {
+                var rowData = $("#jqGrid").jqGrid('getRowData', ids[i]);
+                newGridData.push(rowData);
+            }
+            var gridDataStr = JSON.stringify(newGridData);
+            $.ajax({
+                type: "post",
+                async: false,
+                dataType: "json",
+                url:baseUrl+ "save",
+                data: {mData: gridDataStr,iState:"0"},
+
+                success: function (data) {
+                    if (data.success == true || data.success == "true") {
+
+                        var qo = $("#formquery").serializeObject();
+                        $.ajax({
+                            type: "post",
+                            url: baseUrl+"getlistforsave",
+                            data: {querystr: qo},
+                            success: function (data) {
+                                $("#jqGrid").jqGrid("clearGridData");
+                                $("#jqGrid").jqGrid("setGridParam", { datatype: 'local', data:data.rows, rowNum:data.rows.length }).trigger("reloadGrid");
+
+
+                            },
+                            error: function ()
+                            { }
+                        });
+
+                        //计算成功的状态
+                        izJs=1;
+
+                        layer.alert("计算成功!"+data.msg);
+
+                    } else {
+                        layer.alert("计算失败！  " + data.msg);
+                    }
+                    IsAble = true;
+                },
+                error: function () {
+                    IsAble = true;
+                    layer.alert("计算失败！");
+                }
+            });
+
+
+
+        });
+
+
+    }
+
+    function FnClear() {
+        $("#soCode").val("");
+    }
+    function FnClear1() {
+        $("#invCode").val("");
+    }
+
+</script>
+
+</html>

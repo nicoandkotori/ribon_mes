@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.web.u8system.mapper.U8CommonMapper" >
+    <resultMap id="BaseResultMap" type="com.web.u8system.entity.U8Common" >
+        <id column="cAcc_Id" property="cAcc_Id" jdbcType="VARCHAR" />
+        <result column="iLength" property="iLength" jdbcType="INTEGER" />
+        <result column="IsUpdate" property="IsUpdate" jdbcType="BIT" />
+        <result column="iFatherId" property="iFatherId" jdbcType="INTEGER" />
+        <result column="iChildId" property="iChildId" jdbcType="INTEGER" />
+        <result column="cVouchType" property="cVouchType" jdbcType="VARCHAR" />
+
+        <result column="CardNumber" property="CardNumber" jdbcType="VARCHAR" />
+        <result column="cWhCode" property="cWhCode" jdbcType="VARCHAR" />
+        <result column="Vendor" property="Vendor" jdbcType="VARCHAR" />
+        <result column="Prefix1" property="Prefix1" jdbcType="VARCHAR" />
+        <result column="Prefix1Len" property="Prefix1Len" jdbcType="INTEGER" />
+        <result column="Prefix1Rule" property="Prefix1Rule" jdbcType="VARCHAR" />
+
+        <result column="Prefix2" property="Prefix2" jdbcType="VARCHAR" />
+        <result column="Prefix2Len" property="Prefix2Len" jdbcType="INTEGER" />
+        <result column="Prefix2Rule" property="Prefix2Rule" jdbcType="VARCHAR" />
+
+        <result column="Prefix3" property="Prefix3" jdbcType="VARCHAR" />
+        <result column="Prefix3Len" property="Prefix3Len" jdbcType="INTEGER" />
+        <result column="Prefix3Rule" property="Prefix3Rule" jdbcType="VARCHAR" />
+
+
+        <result column="Glide" property="Glide" jdbcType="VARCHAR" />
+        <result column="GlideLen" property="GlideLen" jdbcType="INTEGER" />
+        <result column="GlideRule" property="GlideRule" jdbcType="VARCHAR" />
+        <result column="iStartNumber" property="iStartNumber" jdbcType="INTEGER" />
+
+        <result column="cCode" property="cCode" jdbcType="VARCHAR" />
+        <result column="cNumber" property="cNumber" jdbcType="INTEGER" />
+    </resultMap>
+
+    <select id="GetU8ID" parameterType="com.web.u8system.entity.U8Common" resultMap="BaseResultMap">
+        SELECT top 1
+        iFatherId, iChildId
+        FROM  ufsystem.dbo.UA_Identity
+        where  cAcc_Id = #{cAcc_Id} and cVouchType=#{cVouchType,jdbcType=VARCHAR}
+    </select>
+    <insert id="insertU8Identity" parameterType="com.web.u8system.entity.U8Common">
+         insert into  ufsystem.dbo.UA_Identity (cAcc_Id,cVouchType,iFatherId,iChildId)
+          VALUES (#{cAcc_Id,jdbcType=NVARCHAR},#{cVouchType,jdbcType=NVARCHAR},1,1)
+    </insert>
+
+    <update id="UpdateU8FatherID" parameterType="com.web.u8system.entity.U8Common">
+        Update ufsystem.dbo.UA_Identity Set iFatherId= #{iFatherId,jdbcType=INTEGER}  where cAcc_Id=#{cAcc_Id,jdbcType=VARCHAR} and cVouchType=#{cVouchType,jdbcType=VARCHAR}
+
+    </update>
+
+    <update id="UpdateU8ID" parameterType="com.web.u8system.entity.U8Common">
+        Update ufsystem.dbo.UA_Identity Set iFatherId= #{iFatherId,jdbcType=INTEGER} ,iChildId= #{iFatherId,jdbcType=INTEGER}  where cAcc_Id=#{cAcc_Id,jdbcType=VARCHAR} and cVouchType=#{cVouchType,jdbcType=VARCHAR}
+
+    </update>
+
+
+    <update id="UpdateU8ChildID" parameterType="com.web.u8system.entity.U8Common">
+        Update ufsystem.dbo.UA_Identity Set iChildId= #{iChildId,jdbcType=INTEGER}  where cAcc_Id=#{cAcc_Id,jdbcType=VARCHAR} and cVouchType=#{cVouchType,jdbcType=VARCHAR}
+
+    </update>
+
+
+
+
+    <select id="GetVoucherNumber" parameterType="com.web.u8system.entity.U8Common" resultMap="BaseResultMap">
+        SELECT top 1
+        COALESCE(Prefix1,'') Prefix1,Prefix1Len,COALESCE(Prefix1Rule,'') Prefix1Rule, COALESCE(Prefix2,'') Prefix2,Prefix2Len,COALESCE(Prefix2Rule,'') Prefix2Rule, COALESCE(Prefix3,'') Prefix3,Prefix3Len,COALESCE(Prefix3Rule,'') Prefix3Rule
+        ,iStartNumber,COALESCE(Glide,'') Glide,GlideLen,COALESCE(GlideRule,'')  GlideRule
+        FROM VoucherNumber
+        where  CardNumber = #{main.CardNumber,jdbcType=VARCHAR}
+    </select>
+
+    <select id="GetVouchercontrapose" parameterType="com.web.u8system.entity.U8Common" resultMap="BaseResultMap">
+        SELECT top 1
+        COALESCE(cCode,'') cCode
+        FROM Vouchercontrapose
+        where cContent='Vendor' and cSeed= #{main.Vendor,jdbcType=VARCHAR}
+    </select>
+
+
+    <select id="GetGlide" parameterType="com.web.u8system.entity.U8Common" resultMap="BaseResultMap">
+        SELECT top 1
+        cNumber as cNumber From VoucherHistory   Where CardNumber =#{main.CardNumber,jdbcType=VARCHAR}
+        <if test="main.Glide =='日期' " >
+            and cContent = #{main.Glide,jdbcType=VARCHAR}
+            and cContentRule = #{main.GlideRule,jdbcType=VARCHAR}
+            and cSeed = #{main.cCode,jdbcType=VARCHAR}
+        </if>
+        <if test="main.Glide =='单据日期' " >
+            and cContent = #{main.Glide,jdbcType=VARCHAR}
+            and cContentRule = #{main.GlideRule,jdbcType=VARCHAR}
+            and cSeed = #{main.cCode,jdbcType=VARCHAR}
+        </if>
+
+        <if test="main.Glide =='供应商' " >
+            and cContent = #{main.Glide,jdbcType=VARCHAR}
+            and cSeed = #{main.cCode,jdbcType=VARCHAR}
+        </if>
+        <if test="main.Glide =='' or main.Glide ==null " >
+            and cContent is NULL and cContentRule  is NULL
+        </if>
+    </select>
+    <update id="UpdateGlide" parameterType="com.web.u8system.entity.U8Common">
+        Update VoucherHistory Set cNumber= #{main.cNumber,jdbcType=INTEGER}
+        where CardNumber=#{main.CardNumber,jdbcType=VARCHAR}
+        <if test="main.Glide =='日期' " >
+            and cContent = #{main.Glide,jdbcType=VARCHAR}
+            and cContentRule = #{main.GlideRule,jdbcType=VARCHAR}
+            and cSeed = #{main.cCode,jdbcType=VARCHAR}
+        </if>
+        <if test="main.Glide =='单据日期' " >
+            and cContent = #{main.Glide,jdbcType=VARCHAR}
+            and cContentRule = #{main.GlideRule,jdbcType=VARCHAR}
+            and cSeed = #{main.cCode,jdbcType=VARCHAR}
+        </if>
+
+        <if test="main.Glide =='供应商' " >
+            and cContent = #{main.Glide,jdbcType=VARCHAR}
+            and cSeed = #{main.cCode,jdbcType=VARCHAR}
+        </if>
+        <if test="main.Glide =='' or main.Glide==null " >
+            and cContent is NULL and cContentRule  is NULL
+        </if>
+
+    </update>
+
+    <insert id="insertGlide" parameterType="com.web.u8system.entity.U8Common">
+
+        insert into VoucherHistory (CardNumber, cContent, cContentRule,cSeed,cNumber,bEmpty)
+        values (#{main.CardNumber,jdbcType=VARCHAR}, #{main.Glide,jdbcType=VARCHAR},#{main.GlideRule,jdbcType=VARCHAR},#{main.cCode,jdbcType=VARCHAR} ,#{main.cNumber,jdbcType=INTEGER},0)
+    </insert>
+</mapper>

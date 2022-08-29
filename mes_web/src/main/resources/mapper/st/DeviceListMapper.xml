@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.st.mapper.DeviceListMapper">
+
+  <select id="getList" resultType="com.web.st.dto.DeviceListDTO">
+    select t.id, t.order_no, t.from_no, t.cMemo, t.CreateDate from (
+    select max(t1.id) as id, t1.order_no, t1.from_no, t2.Description as cMemo, t2.CreateDate
+    from ribon_mes.dbo.production_test_so_list t1
+    left join mps_plancode t2 on t1.order_no = t2.PlanCode
+    where t1.iz_delete = 0
+    <if test="query.orderNo != null and query.orderNo != ''">
+      and t1.order_no like '%' + #{query.orderNo} + '%'
+    </if>
+    <if test="query.fromNo != null and query.fromNo != ''">
+      and t1.from_no like '%' + #{query.fromNo} + '%'
+    </if>
+    <if test="query.cmemo != null and query.cmemo != ''">
+      and t2.Description like '%' + #{query.cmemo} + '%'
+    </if>
+    <if test="query.dateStart != null">
+      and t2.CreateDate >= #{query.dateStart}
+    </if>
+    <if test="query.dateEnd != null">
+      and t2.CreateDate &lt; #{query.dateEnd}
+    </if>
+    group by t1.order_no, t1.from_no, t2.Description, t2.CreateDate) t
+    order by t.CreateDate desc, t.order_no
+  </select>
+
+  <select id="getListByOrderNo" resultType="com.web.st.dto.DeviceListDTO">
+    select MAX(matsort.id) id, ComputationUnit.cComunitName unit,matsort.order_no orderNo, max(con_no) conNo, matsort.ps_code invCode,case when SUM(qtys) is null then 0 else SUM(qtys) end orderQty,
+           Inventory.cInvName invName,Inventory.cInvStd invStd,mat_size matSize, case when pro_type is null then '' else pro_type end proType, matsort.from_no fromNo,
+           ppo.Description as cmemo, Inventory.i_id as iid,
+           (select sum(iQuantity) from Rdrecords11 where cmocode = matsort.order_no and cInvCode = matsort.ps_code) as outQty,
+           (select sum(iQuantity) from CurrentStock where cWhCode = '01' and cInvCode = matsort.ps_code) as curQty
+    from ribon_mes.dbo.production_test_so_list matsort left join Inventory Inventory
+            on Inventory.cinvcode=matsort.ps_code left join ComputationUnit ComputationUnit
+            on Inventory.cComUnitCode=ComputationUnit.cComunitCode  left join mps_plancode ppo
+            on MatSort.order_no=ppo.PlanCode where qtys>0 and case when iz_delete is null then 0 else iz_delete end = 0 and
+            (pro_type='金工' or pro_type='外购'  or pro_type='半成品' or (case when pro_type is null then '' else pro_type end = '' and Inventory.bPurchase = 1)) and order_no=#{orderNo}
+    <if test="proType != null and proType != ''">
+      <if test='proType == "金工"'>
+        and matsort.pro_type = '金工'
+      </if>
+      <if test='proType == "半成品"'>
+        and matsort.pro_type = '半成品'
+      </if>
+      <if test='proType == "外购"'>
+        and (matsort.pro_type = '外购' or (case when matsort.pro_type is null then '' else matsort.pro_type end = '' and Inventory.bPurchase = 1))
+      </if>
+    </if>
+    group by ComputationUnit.cComunitName,order_no,ps_code,Inventory.cInvName,Inventory.cInvStd,mat_size,
+    case when pro_type is null then '' else pro_type end,matsort.from_no,ppo.Description, Inventory.i_id
+    order by case when pro_type is null then '' else pro_type end,ps_code
+  </select>
+
+  <select id="getById" parameterType="java.lang.String" resultType="com.web.st.dto.DeviceListDTO">
+    select id, order_no, from_no from ribon_mes.dbo.production_test_so_list
+    where id = #{id}
+  </select>
+
+  <select id="getByCode" resultType="com.web.st.dto.DeviceListDTO">
+    select t.id, t.order_no, t.from_no, t.cMemo, t.CreateDate from (
+    select max(t1.id) as id, t1.order_no, t1.from_no, t2.Description as cMemo, t2.CreateDate
+    from ribon_mes.dbo.production_test_so_list t1
+    left join mps_plancode t2 on t1.order_no = t2.PlanCode
+    left join Inventory inv on t1.ps_code = inv.cInvCode
+    where t1.iz_delete = 0 and t1.order_no = #{orderNo}
+    <if test="proType != null and proType != ''">
+      <if test='proType == "金工"'>
+        and t1.pro_type = '金工'
+      </if>
+      <if test='proType == "半成品"'>
+        and t1.pro_type = '半成品'
+      </if>
+      <if test='proType == "外购"'>
+        and (t1.pro_type = '外购' or (case when t1.pro_type is null then '' else t1.pro_type end = '' and inv.bPurchase = 1))
+      </if>
+    </if>
+    group by t1.order_no, t1.from_no, t2.Description, t2.CreateDate) t
+  </select>
+
+  <select id="getDetail" resultType="com.web.st.dto.DeviceListDTO">
+    select id, unit, orderNo, invCode, orderQty, invName, invStd, matSize, proType, fromNo, outQty,
+    orderQty - case when outQty is null then 0 else outQty end as unOutQty,
+    (select sum(iQuantity) from CurrentStock where cWhCode = '01' and cInvCode = t.invCode) as curQty
+    from (
+    select MAX(matsort.id) id, ComputationUnit.cComunitName unit,matsort.order_no orderNo, matsort.ps_code invCode,case when SUM(qtys) is null then 0 else SUM(qtys) end orderQty,
+    Inventory.cInvName invName,Inventory.cInvStd invStd,mat_size matSize, case when pro_type is null then '' else pro_type end proType, matsort.from_no fromNo,
+    (select sum(iQuantity) from Rdrecords11 where cmocode = matsort.order_no and cInvCode = matsort.ps_code) as outQty
+    from ribon_mes.dbo.production_test_so_list matsort left join Inventory Inventory
+    on Inventory.cinvcode=matsort.ps_code left join ComputationUnit ComputationUnit
+    on Inventory.cComUnitCode=ComputationUnit.cComunitCode  left join mps_plancode ppo
+    on MatSort.order_no=ppo.PlanCode where qtys>0 and case when iz_delete is null then 0 else iz_delete end = 0 and
+    (pro_type='金工' or pro_type='外购'  or pro_type='半成品' or (case when pro_type is null then '' else pro_type end = '' and Inventory.bPurchase = 1))
+    and matsort.order_no=#{orderNo} and Inventory.i_id = #{barcode}
+    group by ComputationUnit.cComunitName,order_no,ps_code,Inventory.cInvName,Inventory.cInvStd,mat_size,
+    case when pro_type is null then '' else pro_type end,matsort.from_no) t
+    where orderQty - case when outQty is null then 0 else outQty end > 0
+  </select>
+</mapper>

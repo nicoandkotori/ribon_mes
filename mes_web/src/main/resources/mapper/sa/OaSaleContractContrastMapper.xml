@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.sa.mapper.OaSaleContractContrastMapper">
+  <resultMap id="BaseResultMap" type="com.web.sa.entity.OaSaleContractContrast">
+    <!--@mbg.generated-->
+    <!--@Table formmain_0102-->
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="start_member_id" jdbcType="VARCHAR" property="startMemberId" />
+    <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="approve_member_id" jdbcType="VARCHAR" property="approveMemberId" />
+    <result column="approve_date" jdbcType="TIMESTAMP" property="approveDate" />
+    <result column="finishedflag" jdbcType="INTEGER" property="finishedflag" />
+    <result column="ratifyflag" jdbcType="INTEGER" property="ratifyflag" />
+    <result column="ratify_member_id" jdbcType="VARCHAR" property="ratifyMemberId" />
+    <result column="ratify_date" jdbcType="TIMESTAMP" property="ratifyDate" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="modify_member_id" jdbcType="VARCHAR" property="modifyMemberId" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="field0001" jdbcType="VARCHAR" property="field0001" />
+    <result column="field0002" jdbcType="VARCHAR" property="field0002" />
+    <result column="field0003" jdbcType="TIMESTAMP" property="field0003" />
+    <result column="field0004" jdbcType="VARCHAR" property="field0004" />
+    <result column="field0005" jdbcType="VARCHAR" property="field0005" />
+    <result column="field0006" jdbcType="NUMERIC" property="field0006" />
+    <result column="field0007" jdbcType="TIMESTAMP" property="field0007" />
+    <result column="field0008" jdbcType="TIMESTAMP" property="field0008" />
+    <result column="field0009" jdbcType="TIMESTAMP" property="field0009" />
+    <result column="field0010" jdbcType="NUMERIC" property="field0010" />
+    <result column="field0011" jdbcType="NUMERIC" property="field0011" />
+    <result column="field0012" jdbcType="NUMERIC" property="field0012" />
+    <result column="field0013" jdbcType="VARCHAR" property="field0013" />
+    <result column="field0014" jdbcType="VARCHAR" property="field0014" />
+    <result column="field0015" jdbcType="VARCHAR" property="field0015" />
+    <result column="field0031" jdbcType="VARCHAR" property="field0031" />
+    <result column="field0032" jdbcType="TIMESTAMP" property="field0032" />
+    <result column="field0033" jdbcType="VARCHAR" property="field0033" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, [state], start_member_id, start_date, approve_member_id, approve_date, finishedflag, 
+    ratifyflag, ratify_member_id, ratify_date, sort, modify_member_id, modify_date, field0001, 
+    field0002, field0003, field0004, field0005, field0006, field0007, field0008, field0009, 
+    field0010, field0011, field0012, field0013, field0014, field0015, field0031, field0032, 
+    field0033
+  </sql>
+
+  <update id="updateSoCode" parameterType="com.web.sa.entity.OaSaleContractContrast">
+    Update ${database}.dbo.formmain_0110 Set field0033= #{main.field0033,jdbcType=VARCHAR}  where ID=#{main.id,jdbcType=BIGINT}
+
+  </update>
+</mapper>

@@ -1,0 +1,46 @@
+{
+    "page":"1",
+    "total":2,
+    "records":"13",
+    "rows":[
+        {
+            "custCode":"1001",
+            "parentCustCode":"10",
+            "custName":"aaa",
+            "person":"张三",
+            "tel":"13588881234"
+        },
+        {
+            "custCode":"1002",
+            "parentCustCode":"10",
+            "custName":"BBB",
+            "person":"张四",
+            "tel":"1356771234"
+        }
+        ,
+        {
+            "custCode":"1002",
+            "parentCustCode":"10",
+            "custName":"BBB",
+            "person":"张四",
+            "tel":"1356771234"
+        }
+        ,
+        {
+            "custCode":"1002",
+            "parentCustCode":"10",
+            "custName":"BBB",
+            "person":"张四",
+            "tel":"1356771234"
+        }
+
+        ,
+        {
+            "custCode":"1002",
+            "parentCustCode":"10",
+            "custName":"BBB",
+            "person":"张四",
+            "tel":"1356771234"
+        }
+    ]
+}

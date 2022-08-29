@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.st.mapper.RdRecord11Mapper">
+  <resultMap id="BaseResultMap" type="com.web.st.entity.RdRecord11">
+    <!--@mbg.generated-->
+    <!--@Table rdrecord11-->
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="bRdFlag" jdbcType="TINYINT" property="brdflag" />
+    <result column="cVouchType" jdbcType="VARCHAR" property="cvouchtype" />
+    <result column="cBusType" jdbcType="VARCHAR" property="cbustype" />
+    <result column="cSource" jdbcType="VARCHAR" property="csource" />
+    <result column="cBusCode" jdbcType="VARCHAR" property="cbuscode" />
+    <result column="cWhCode" jdbcType="VARCHAR" property="cwhcode" />
+    <result column="dDate" jdbcType="TIMESTAMP" property="ddate" />
+    <result column="cCode" jdbcType="VARCHAR" property="ccode" />
+    <result column="cRdCode" jdbcType="VARCHAR" property="crdcode" />
+    <result column="cDepCode" jdbcType="VARCHAR" property="cdepcode" />
+    <result column="cPersonCode" jdbcType="VARCHAR" property="cpersoncode" />
+    <result column="cPTCode" jdbcType="VARCHAR" property="cptcode" />
+    <result column="cSTCode" jdbcType="VARCHAR" property="cstcode" />
+    <result column="cCusCode" jdbcType="VARCHAR" property="ccuscode" />
+    <result column="cVenCode" jdbcType="VARCHAR" property="cvencode" />
+    <result column="cOrderCode" jdbcType="VARCHAR" property="cordercode" />
+    <result column="cARVCode" jdbcType="VARCHAR" property="carvcode" />
+    <result column="cBillCode" jdbcType="BIGINT" property="cbillcode" />
+    <result column="cDLCode" jdbcType="BIGINT" property="cdlcode" />
+    <result column="cProBatch" jdbcType="VARCHAR" property="cprobatch" />
+    <result column="cHandler" jdbcType="VARCHAR" property="chandler" />
+    <result column="cMemo" jdbcType="VARCHAR" property="cmemo" />
+    <result column="bTransFlag" jdbcType="BIT" property="btransflag" />
+    <result column="cAccounter" jdbcType="VARCHAR" property="caccounter" />
+    <result column="cMaker" jdbcType="VARCHAR" property="cmaker" />
+    <result column="cDefine1" jdbcType="VARCHAR" property="cdefine1" />
+    <result column="cDefine2" jdbcType="VARCHAR" property="cdefine2" />
+    <result column="cDefine3" jdbcType="VARCHAR" property="cdefine3" />
+    <result column="cDefine4" jdbcType="TIMESTAMP" property="cdefine4" />
+    <result column="cDefine5" jdbcType="INTEGER" property="cdefine5" />
+    <result column="cDefine6" jdbcType="TIMESTAMP" property="cdefine6" />
+    <result column="cDefine7" jdbcType="FLOAT" property="cdefine7" />
+    <result column="cDefine8" jdbcType="VARCHAR" property="cdefine8" />
+    <result column="cDefine9" jdbcType="VARCHAR" property="cdefine9" />
+    <result column="cDefine10" jdbcType="VARCHAR" property="cdefine10" />
+    <result column="dKeepDate" jdbcType="VARCHAR" property="dkeepdate" />
+    <result column="dVeriDate" jdbcType="TIMESTAMP" property="dveridate" />
+    <result column="bpufirst" jdbcType="BIT" property="bpufirst" />
+    <result column="biafirst" jdbcType="BIT" property="biafirst" />
+    <result column="iMQuantity" jdbcType="FLOAT" property="imquantity" />
+    <result column="dARVDate" jdbcType="TIMESTAMP" property="darvdate" />
+    <result column="cChkCode" jdbcType="VARCHAR" property="cchkcode" />
+    <result column="dChkDate" jdbcType="TIMESTAMP" property="dchkdate" />
+    <result column="cChkPerson" jdbcType="VARCHAR" property="cchkperson" />
+    <result column="VT_ID" jdbcType="INTEGER" property="vtId" />
+    <result column="bIsSTQc" jdbcType="BIT" property="bisstqc" />
+    <result column="cDefine11" jdbcType="VARCHAR" property="cdefine11" />
+    <result column="cDefine12" jdbcType="VARCHAR" property="cdefine12" />
+    <result column="cDefine13" jdbcType="VARCHAR" property="cdefine13" />
+    <result column="cDefine14" jdbcType="VARCHAR" property="cdefine14" />
+    <result column="cDefine15" jdbcType="INTEGER" property="cdefine15" />
+    <result column="cDefine16" jdbcType="FLOAT" property="cdefine16" />
+    <result column="cPsPcode" jdbcType="VARCHAR" property="cpspcode" />
+    <result column="cMPoCode" jdbcType="VARCHAR" property="cmpocode" />
+    <result column="gspcheck" jdbcType="VARCHAR" property="gspcheck" />
+    <result column="ipurorderid" jdbcType="BIGINT" property="ipurorderid" />
+    <result column="iproorderid" jdbcType="INTEGER" property="iproorderid" />
+    <result column="ufts" jdbcType="TIMESTAMP" property="ufts" />
+    <result column="iExchRate" jdbcType="FLOAT" property="iexchrate" />
+    <result column="cExch_Name" jdbcType="VARCHAR" property="cexchName" />
+    <result column="bOMFirst" jdbcType="BIT" property="bomfirst" />
+    <result column="bFromPreYear" jdbcType="BIT" property="bfrompreyear" />
+    <result column="bIsLsQuery" jdbcType="BIT" property="bislsquery" />
+    <result column="bIsComplement" jdbcType="SMALLINT" property="biscomplement" />
+    <result column="iDiscountTaxType" jdbcType="TINYINT" property="idiscounttaxtype" />
+    <result column="ireturncount" jdbcType="INTEGER" property="ireturncount" />
+    <result column="iverifystate" jdbcType="INTEGER" property="iverifystate" />
+    <result column="iswfcontrolled" jdbcType="INTEGER" property="iswfcontrolled" />
+    <result column="cModifyPerson" jdbcType="VARCHAR" property="cmodifyperson" />
+    <result column="dModifyDate" jdbcType="TIMESTAMP" property="dmodifydate" />
+    <result column="dnmaketime" jdbcType="TIMESTAMP" property="dnmaketime" />
+    <result column="dnmodifytime" jdbcType="TIMESTAMP" property="dnmodifytime" />
+    <result column="dnverifytime" jdbcType="TIMESTAMP" property="dnverifytime" />
+    <result column="bredvouch" jdbcType="INTEGER" property="bredvouch" />
+    <result column="bmotran" jdbcType="TINYINT" property="bmotran" />
+    <result column="iFlowId" jdbcType="INTEGER" property="iflowid" />
+    <result column="cPZID" jdbcType="VARCHAR" property="cpzid" />
+    <result column="cSourceLs" jdbcType="VARCHAR" property="csourcels" />
+    <result column="cSourceCodeLs" jdbcType="VARCHAR" property="csourcecodels" />
+    <result column="bHYVouch" jdbcType="BIT" property="bhyvouch" />
+    <result column="iPrintCount" jdbcType="INTEGER" property="iprintcount" />
+    <result column="csysbarcode" jdbcType="VARCHAR" property="csysbarcode" />
+    <result column="cCurrentAuditor" jdbcType="VARCHAR" property="ccurrentauditor" />
+    <result column="cCheckSignFlag" jdbcType="VARCHAR" property="cchecksignflag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, bRdFlag, cVouchType, cBusType, cSource, cBusCode, cWhCode, dDate, cCode, cRdCode, 
+    cDepCode, cPersonCode, cPTCode, cSTCode, cCusCode, cVenCode, cOrderCode, cARVCode, 
+    cBillCode, cDLCode, cProBatch, cHandler, cMemo, bTransFlag, cAccounter, cMaker, cDefine1, 
+    cDefine2, cDefine3, cDefine4, cDefine5, cDefine6, cDefine7, cDefine8, cDefine9, cDefine10, 
+    dKeepDate, dVeriDate, bpufirst, biafirst, iMQuantity, dARVDate, cChkCode, dChkDate, 
+    cChkPerson, VT_ID, bIsSTQc, cDefine11, cDefine12, cDefine13, cDefine14, cDefine15, 
+    cDefine16, cPsPcode, cMPoCode, gspcheck, ipurorderid, iproorderid, ufts, iExchRate, 
+    cExch_Name, bOMFirst, bFromPreYear, bIsLsQuery, bIsComplement, iDiscountTaxType, 
+    ireturncount, iverifystate, iswfcontrolled, cModifyPerson, dModifyDate, dnmaketime, 
+    dnmodifytime, dnverifytime, bredvouch, bmotran, iFlowId, cPZID, cSourceLs, cSourceCodeLs, 
+    bHYVouch, iPrintCount, csysbarcode, cCurrentAuditor, cCheckSignFlag
+  </sql>
+</mapper>

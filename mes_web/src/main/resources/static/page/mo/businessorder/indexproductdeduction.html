@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>管理员列表-WeAdmin Frame型后台管理系统-WeAdmin 1.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../static/css/font.css">
+    <link rel="stylesheet" href="../../../static/css/weadmin.css">
+    <!-- jqgrid -->
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/jquery-ui.theme.min.css'/>
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/ui.jqgrid.css'/>
+    <!--select2-->
+    <link rel="stylesheet" href='../../../static/Scripts/select2/css/select2.min.css'/>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="../../../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+    <!--jquery-->
+    <script src='../../../static/Scripts/jquery-1.10.2.min.js'></script>
+    <script src='../../../static/Scripts/jquery.json.js'></script>
+    <script src='../../../static/Scripts/Common.js'></script>
+    <!--jqgrid-->
+    <script src='../../../static/Scripts/jqgrid/js/i18n/grid.locale-cn.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery-ui.min.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery.jqGrid.js'></script>
+
+</head>
+<style type="text/css">
+
+    .red-bg {
+        background-color: #e6afaf;
+    }
+
+</style>
+<body>
+<div class="weadmin-body">
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 we-search">
+            <div class="layui-row">
+                <div class="layui-inline" style="width: 70px" >
+                    <span>图号</span>
+                </div>
+                <div class="layui-inline" style="width: 200px">
+                    <input type="text" class="layui-input weadmin-input" placeholder="图号" name="productInvCode" id="productInvCode" autocomplete="off">
+                </div>
+
+            </div>
+            <div class="layui-row">
+                <div class="layui-inline" style="width: 70px" >
+                    <span>订单号</span>
+                </div>
+                <div class="layui-inline" style="width: 200px">
+                    <input type="text" class="layui-input weadmin-input" placeholder="订单号" name="orderNo" id="orderNo" autocomplete="off">
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+    <div class="weadmin-block">
+        <button type="button" class="layui-btn layui-btn-sm" onclick="FnSaveT6()" id="FnSaveT6" >审核出库</button>
+
+    </div>
+</div>
+<div class="weadmin-body-table">
+    <table id="jqGrid"></table>
+
+</div>
+</body>
+<script>
+    var baseUrl = " /mo/businessorder/";
+    var CurRow;
+    var CurCol;
+    var CurRow1;
+    var CurCol1;
+    var cht, cwd;
+    $(function () {
+        initJqgrid();
+    });
+
+    function initJqgrid() {
+        $("#productInvCode").val(parent.$("#productInvCode").val());
+        $("#orderNo").val(parent.$("#orderNo").val());
+        var qo = {};
+        qo.productInvCode =  $("#productInvCode").val();
+        qo.orderNo = $("#orderNo").val();
+        qo.proType = '半成品';
+
+
+        $("#jqGrid").jqGrid({
+            mtype: "GET",
+            url: baseUrl+"getdetaillistbywhcode",
+            postData: {
+                querystr: JSON.stringify(qo)
+            },
+            datatype: "json",
+            colModel: [
+                {name: "id", name: 'id',key:true, hidden: true},
+                {label: "部件编码", name: "psCode", width: 140},
+                {label: "部件名称", name: "invName", width: 120},
+                {label: "规格型号", name: "invAddCode", width: 120},
+                {label: "单位", name: "invUnit", width: 60},
+                {label: "抵扣量", name: "adQty", width: 60},
+                {label: "本次抵扣量", name: "nowAdQty", width: 60, editable: true,},
+                {label: "库存量", name: "iquantity", width: 70},
+                {label: "已出库量", name: "yqty", width: 70},
+                {label: "历史已分配数", name: "hisAdQty", width: 70},
+                {name: "orderNo", name: 'orderNo', hidden: true},
+                {name: "productInvCode", name: 'productInvCode', hidden: true},
+            ],
+            viewrecords: true,
+            multiselect: true,
+            autowidth: true,
+            shrinkToFit: false,
+            autoScroll: true,
+            scrollrows: true, // 是否显示行滚动条
+            rownumbers: true,
+            footerrow:false,
+            rowNum: 9000000000000,
+            colMenu: false,
+            cellEdit: true,
+            cmTemplate:{sortable: false, align: "center"},
+            cellsubmit: 'clientArray',
+            beforeProcessing: function (data, st, xhr) {//登录失效时请求将被拦截，提示用户：未登录
+                if (data.success == false){
+                    layer.msg(data.msg);
+                }
+                return true;
+            },
+            loadBeforeSend:function (jqXHR) {
+                var token = sessionStorage.getItem("mestoken");
+                jqXHR.setRequestHeader('Authorization',  token);
+
+            },
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+
+            },
+            beforeSelectRow: function (rowid, e) {
+                var $myGrid = $(this),
+                    i = $.jgrid.getCellIndex($(e.target).closest('td')[0]),
+                    cm = $myGrid.jqGrid('getGridParam', 'colModel');
+                return (cm[i].name === 'cb');
+            },
+            loadComplete: function () {
+
+
+            },
+            afterSaveCell : function(rowid,name,val,iRow,iCol) {
+
+
+
+            },
+            onCellSelect: function (rowid, iCol, cellcontent, e) { //单击选择行
+
+            },
+            beforeEditCell :function(rowid, cellname, value, iRow, iCol ){
+                CurRow=iRow;
+                CurCol=iCol;
+
+
+            },
+            gridComplete: function () {
+                var ids = $("#jqGrid").jqGrid('getDataIDs');
+                for (var i = 0; i < ids.length; i++) {
+                    var cl = ids[i];
+                    var rowData = $("#jqGrid").jqGrid('getRowData', ids[i]);
+                    if((rowData.yqty==null||(rowData.yqty-0)==0)&&((rowData.nowAdQty-0)-(rowData.yqty-0)>0)&&(( Number(rowData.iquantity)- Number(rowData.nowAdQty))>0))
+                    {
+                        $("#jqGrid").jqGrid('setSelection', cl, true);  //无法选中
+                    }
+
+
+
+                }
+            }
+        });
+
+
+        $("#jqGrid").setGridHeight($(window).outerHeight() - $(".weadmin-body").height() - 75);
+    }
+
+    layui.use(['form', 'admin', 'jquery', 'table', 'laydate', 'layer', 'tableSelect'], function() {
+        var form = layui.form,
+            admin = layui.admin,
+            $ = layui.jquery,
+            table = layui.table,
+            laydate = layui.laydate,
+            layer = layui.layer,
+            tableSelect = layui.tableSelect;
+        form.render('select');
+
+
+        //查询
+        form.on('submit(select)', function (data) {
+
+            $("#jqGrid").jqGrid('setGridParam', {
+                datatype:'json',
+                postData: {querystr: JSON.stringify(data.field)},
+            }).trigger('reloadGrid');
+        });
+    });
+
+    var IsAble = true;
+    function FnSaveT6() {
+        layer.confirm("是否审核出库？", function (result) {
+
+            if (!IsAble) return;
+            IsAble = false;
+            if (CurRow != "" || CurRow != undefined) {
+                $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
+            }
+
+            var ids= $("#jqGrid").jqGrid('getGridParam','selarrrow');
+
+            var gridData = [];
+            for(var i=0; i<ids.length; i++) {
+                var rowData = $("#jqGrid").jqGrid('getRowData', ids[i]);
+
+                gridData.push(rowData);
+            }
+            var gridDataStr = JSON.stringify(gridData);
+            if(gridData.length>0)
+            {
+                $.ajax({
+                    type: "post",
+                    async: false,
+                    dataType: "json",
+                    url: baseUrl+"saveT6",
+                    data: {mData: gridDataStr},
+                    success: function (data) {
+                        if (data.success == true || data.success == "true") {
+                            parent.layer.alert("出库成功!");
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);//关闭当前页
+                        } else {
+                            layer.alert("出库失败！  " + data.msg);
+                        }
+                        IsAble = true;
+                    },
+                    error: function () {
+                        IsAble = true;
+                        layer.alert("出库失败！");
+                    }
+                });
+
+            }
+            else
+            {
+                IsAble = true;
+                layer.alert("请选择数据！");
+            }
+
+
+        });
+
+    }
+
+</script>
+
+</html>

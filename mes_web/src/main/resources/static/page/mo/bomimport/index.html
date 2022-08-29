@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>BOM导入</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../static/css/font.css">
+    <link rel="stylesheet" href="../../../static/css/weadmin.css">
+    <!-- jqgrid -->
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/jquery-ui.theme.min.css'/>
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/ui.jqgrid.css'/>
+
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="../../../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+    <!--jquery-->
+    <script src='../../../static/Scripts/jquery-1.10.2.min.js'></script>
+    <script src='../../../static/Scripts/jquery.json.js'></script>
+    <script src='../../../static/Scripts/Common.js'></script>
+    <!--jqgrid-->
+    <script src='../../../static/Scripts/jqgrid/js/i18n/grid.locale-cn.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery-ui.min.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery.jqGrid.js'></script>
+    <script src='../../../static/Scripts/Print.js'></script>
+    <script src='../../../static/Scripts/lodop/LodopFuncs.js'></script>
+</head>
+<style type="text/css">
+
+</style>
+<body>
+
+<div class="weadmin-body">
+    <form class="layui-form">
+    <div class="weadmin-block">
+        <button type="button" class="layui-btn layui-btn-sm" id="importBtn">BOM导入</button>
+    </div>
+    </form>
+</div>
+
+</body>
+<script>
+    var baseUrl = "/mo/bom/";
+    var CurRow;
+    var CurCol;
+    var CurRow1;
+    var CurCol1;
+
+    $(function () {
+    });
+
+
+    layui.use(['form', 'admin', 'jquery', 'table', 'layer', 'tableSelect', "upload"], function() {
+        var form = layui.form,
+            admin = layui.admin,
+            $ = layui.jquery,
+            table = layui.table,
+            layer = layui.layer,
+            tableSelect = layui.tableSelect,
+            laydate = layui.laydate,
+            upload = layui.upload;
+
+        //读取EXCEL
+        var loadIndex = '';
+        upload.render({
+            elem: "#importBtn",
+            url: "/mo/bomimport/readexcel",
+            size: '3072',
+            accept: "file",
+            exts: 'xls|xlsx|xlsm|xlt|xltx|xltm',
+            before: function (obj) {
+                loadIndex = layer.load(1, {
+                    shade: [0.3, '#fff']
+                });
+            },
+            done: function (result) {
+                layer.msg(result.msg);
+                layer.closeAll('loading');
+            },
+            error: function (index, upload) {
+                layer.alert("导入失败");
+                layer.closeAll('loading');
+            }
+        });
+
+    });
+
+</script>
+
+</html>

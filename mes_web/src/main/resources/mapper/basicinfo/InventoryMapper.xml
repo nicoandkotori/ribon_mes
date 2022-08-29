@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.basicinfo.mapper.InventoryMapper">
+  <resultMap id="BaseResultMap" type="com.web.basicinfo.entity.Inventory">
+    <!--@mbg.generated-->
+    <!--@Table Inventory-->
+    <id column="cInvCode" jdbcType="VARCHAR" property="cinvcode" />
+    <result column="cInvAddCode" jdbcType="VARCHAR" property="cinvaddcode" />
+    <result column="cInvName" jdbcType="VARCHAR" property="cinvname" />
+    <result column="cInvStd" jdbcType="VARCHAR" property="cinvstd" />
+    <result column="cInvCCode" jdbcType="VARCHAR" property="cinvccode" />
+    <result column="cVenCode" jdbcType="VARCHAR" property="cvencode" />
+    <result column="cReplaceItem" jdbcType="VARCHAR" property="creplaceitem" />
+    <result column="cPosition" jdbcType="VARCHAR" property="cposition" />
+    <result column="bSale" jdbcType="BIT" property="bsale" />
+    <result column="bPurchase" jdbcType="BIT" property="bpurchase" />
+    <result column="bSelf" jdbcType="BIT" property="bself" />
+    <result column="bComsume" jdbcType="BIT" property="bcomsume" />
+    <result column="bProducing" jdbcType="BIT" property="bproducing" />
+    <result column="bService" jdbcType="BIT" property="bservice" />
+    <result column="bAccessary" jdbcType="BIT" property="baccessary" />
+    <result column="iTaxRate" jdbcType="FLOAT" property="itaxrate" />
+    <result column="iInvWeight" jdbcType="FLOAT" property="iinvweight" />
+    <result column="iVolume" jdbcType="FLOAT" property="ivolume" />
+    <result column="iInvRCost" jdbcType="FLOAT" property="iinvrcost" />
+    <result column="iInvSPrice" jdbcType="FLOAT" property="iinvsprice" />
+    <result column="iInvSCost" jdbcType="FLOAT" property="iinvscost" />
+    <result column="iInvLSCost" jdbcType="FLOAT" property="iinvlscost" />
+    <result column="iInvNCost" jdbcType="FLOAT" property="iinvncost" />
+    <result column="iInvAdvance" jdbcType="FLOAT" property="iinvadvance" />
+    <result column="iInvBatch" jdbcType="FLOAT" property="iinvbatch" />
+    <result column="iSafeNum" jdbcType="FLOAT" property="isafenum" />
+    <result column="iTopSum" jdbcType="FLOAT" property="itopsum" />
+    <result column="iLowSum" jdbcType="FLOAT" property="ilowsum" />
+    <result column="iOverStock" jdbcType="FLOAT" property="ioverstock" />
+    <result column="cInvABC" jdbcType="VARCHAR" property="cinvabc" />
+    <result column="bInvQuality" jdbcType="BIT" property="binvquality" />
+    <result column="bInvBatch" jdbcType="BIT" property="binvbatch" />
+    <result column="bInvEntrust" jdbcType="BIT" property="binventrust" />
+    <result column="bInvOverStock" jdbcType="BIT" property="binvoverstock" />
+    <result column="dSDate" jdbcType="TIMESTAMP" property="dsdate" />
+    <result column="dEDate" jdbcType="TIMESTAMP" property="dedate" />
+    <result column="bFree1" jdbcType="BIT" property="bfree1" />
+    <result column="bFree2" jdbcType="BIT" property="bfree2" />
+    <result column="cInvDefine1" jdbcType="VARCHAR" property="cinvdefine1" />
+    <result column="cInvDefine2" jdbcType="VARCHAR" property="cinvdefine2" />
+    <result column="cInvDefine3" jdbcType="VARCHAR" property="cinvdefine3" />
+    <result column="I_id" jdbcType="INTEGER" property="iId" />
+    <result column="bInvType" jdbcType="BIT" property="binvtype" />
+    <result column="iInvMPCost" jdbcType="FLOAT" property="iinvmpcost" />
+    <result column="cQuality" jdbcType="VARCHAR" property="cquality" />
+    <result column="iInvSaleCost" jdbcType="FLOAT" property="iinvsalecost" />
+    <result column="iInvSCost1" jdbcType="FLOAT" property="iinvscost1" />
+    <result column="iInvSCost2" jdbcType="FLOAT" property="iinvscost2" />
+    <result column="iInvSCost3" jdbcType="FLOAT" property="iinvscost3" />
+    <result column="bFree3" jdbcType="BIT" property="bfree3" />
+    <result column="bFree4" jdbcType="BIT" property="bfree4" />
+    <result column="bFree5" jdbcType="BIT" property="bfree5" />
+    <result column="bFree6" jdbcType="BIT" property="bfree6" />
+    <result column="bFree7" jdbcType="BIT" property="bfree7" />
+    <result column="bFree8" jdbcType="BIT" property="bfree8" />
+    <result column="bFree9" jdbcType="BIT" property="bfree9" />
+    <result column="bFree10" jdbcType="BIT" property="bfree10" />
+    <result column="cCreatePerson" jdbcType="VARCHAR" property="ccreateperson" />
+    <result column="cModifyPerson" jdbcType="VARCHAR" property="cmodifyperson" />
+    <result column="dModifyDate" jdbcType="TIMESTAMP" property="dmodifydate" />
+    <result column="fSubscribePoint" jdbcType="FLOAT" property="fsubscribepoint" />
+    <result column="fVagQuantity" jdbcType="FLOAT" property="fvagquantity" />
+    <result column="cValueType" jdbcType="VARCHAR" property="cvaluetype" />
+    <result column="bFixExch" jdbcType="BIT" property="bfixexch" />
+    <result column="fOutExcess" jdbcType="FLOAT" property="foutexcess" />
+    <result column="fInExcess" jdbcType="FLOAT" property="finexcess" />
+    <result column="iMassDate" jdbcType="SMALLINT" property="imassdate" />
+    <result column="iWarnDays" jdbcType="SMALLINT" property="iwarndays" />
+    <result column="fExpensesExch" jdbcType="FLOAT" property="fexpensesexch" />
+    <result column="bTrack" jdbcType="BIT" property="btrack" />
+    <result column="bSerial" jdbcType="BIT" property="bserial" />
+    <result column="bBarCode" jdbcType="BIT" property="bbarcode" />
+    <result column="iId" jdbcType="INTEGER" property="iid" />
+    <result column="cBarCode" jdbcType="VARCHAR" property="cbarcode" />
+    <result column="cInvDefine4" jdbcType="VARCHAR" property="cinvdefine4" />
+    <result column="cInvDefine5" jdbcType="VARCHAR" property="cinvdefine5" />
+    <result column="cInvDefine6" jdbcType="VARCHAR" property="cinvdefine6" />
+    <result column="cInvDefine7" jdbcType="VARCHAR" property="cinvdefine7" />
+    <result column="cInvDefine8" jdbcType="VARCHAR" property="cinvdefine8" />
+    <result column="cInvDefine9" jdbcType="VARCHAR" property="cinvdefine9" />
+    <result column="cInvDefine10" jdbcType="VARCHAR" property="cinvdefine10" />
+    <result column="cInvDefine11" jdbcType="INTEGER" property="cinvdefine11" />
+    <result column="cInvDefine12" jdbcType="INTEGER" property="cinvdefine12" />
+    <result column="cInvDefine13" jdbcType="FLOAT" property="cinvdefine13" />
+    <result column="cInvDefine14" jdbcType="FLOAT" property="cinvdefine14" />
+    <result column="cInvDefine15" jdbcType="TIMESTAMP" property="cinvdefine15" />
+    <result column="cInvDefine16" jdbcType="TIMESTAMP" property="cinvdefine16" />
+    <result column="iGroupType" jdbcType="TINYINT" property="igrouptype" />
+    <result column="cGroupCode" jdbcType="VARCHAR" property="cgroupcode" />
+    <result column="cComUnitCode" jdbcType="VARCHAR" property="ccomunitcode" />
+    <result column="cAssComUnitCode" jdbcType="VARCHAR" property="casscomunitcode" />
+    <result column="cSAComUnitCode" jdbcType="VARCHAR" property="csacomunitcode" />
+    <result column="cPUComUnitCode" jdbcType="VARCHAR" property="cpucomunitcode" />
+    <result column="cSTComUnitCode" jdbcType="VARCHAR" property="cstcomunitcode" />
+    <result column="cCAComUnitCode" jdbcType="VARCHAR" property="ccacomunitcode" />
+    <result column="cFrequency" jdbcType="VARCHAR" property="cfrequency" />
+    <result column="iFrequency" jdbcType="SMALLINT" property="ifrequency" />
+    <result column="iDays" jdbcType="SMALLINT" property="idays" />
+    <result column="dLastDate" jdbcType="TIMESTAMP" property="dlastdate" />
+    <result column="iWastage" jdbcType="FLOAT" property="iwastage" />
+    <result column="bSolitude" jdbcType="BIT" property="bsolitude" />
+    <result column="cEnterprise" jdbcType="VARCHAR" property="centerprise" />
+    <result column="cAddress" jdbcType="VARCHAR" property="caddress" />
+    <result column="cFile" jdbcType="VARCHAR" property="cfile" />
+    <result column="cLabel" jdbcType="VARCHAR" property="clabel" />
+    <result column="cCheckOut" jdbcType="VARCHAR" property="ccheckout" />
+    <result column="cLicence" jdbcType="VARCHAR" property="clicence" />
+    <result column="bSpecialties" jdbcType="BIT" property="bspecialties" />
+    <result column="cDefWareHouse" jdbcType="VARCHAR" property="cdefwarehouse" />
+    <result column="iHighPrice" jdbcType="FLOAT" property="ihighprice" />
+    <result column="iExpSaleRate" jdbcType="FLOAT" property="iexpsalerate" />
+    <result column="cPriceGroup" jdbcType="VARCHAR" property="cpricegroup" />
+    <result column="cOfferGrade" jdbcType="VARCHAR" property="coffergrade" />
+    <result column="iOfferRate" jdbcType="FLOAT" property="iofferrate" />
+    <result column="cMonth" jdbcType="VARCHAR" property="cmonth" />
+    <result column="iAdvanceDate" jdbcType="SMALLINT" property="iadvancedate" />
+    <result column="cCurrencyName" jdbcType="VARCHAR" property="ccurrencyname" />
+    <result column="cProduceAddress" jdbcType="VARCHAR" property="cproduceaddress" />
+    <result column="cProduceNation" jdbcType="VARCHAR" property="cproducenation" />
+    <result column="cRegisterNo" jdbcType="VARCHAR" property="cregisterno" />
+    <result column="cEnterNo" jdbcType="VARCHAR" property="centerno" />
+    <result column="cPackingType" jdbcType="VARCHAR" property="cpackingtype" />
+    <result column="cEnglishName" jdbcType="VARCHAR" property="cenglishname" />
+    <result column="bPropertyCheck" jdbcType="BIT" property="bpropertycheck" />
+    <result column="cPreparationType" jdbcType="VARCHAR" property="cpreparationtype" />
+    <result column="cCommodity" jdbcType="VARCHAR" property="ccommodity" />
+    <result column="iRecipeBatch" jdbcType="TINYINT" property="irecipebatch" />
+    <result column="cNotPatentName" jdbcType="VARCHAR" property="cnotpatentname" />
+
+    <result column="bPromotSales" jdbcType="BIT" property="bpromotsales" />
+    <result column="iPlanPolicy" jdbcType="SMALLINT" property="iplanpolicy" />
+    <result column="iROPMethod" jdbcType="SMALLINT" property="iropmethod" />
+    <result column="iBatchRule" jdbcType="SMALLINT" property="ibatchrule" />
+    <result column="fBatchIncrement" jdbcType="FLOAT" property="fbatchincrement" />
+    <result column="iAssureProvideDays" jdbcType="INTEGER" property="iassureprovidedays" />
+    <result column="iTestStyle" jdbcType="SMALLINT" property="iteststyle" />
+    <result column="iDTMethod" jdbcType="SMALLINT" property="idtmethod" />
+    <result column="fDTRate" jdbcType="FLOAT" property="fdtrate" />
+    <result column="fDTNum" jdbcType="FLOAT" property="fdtnum" />
+    <result column="cDTUnit" jdbcType="VARCHAR" property="cdtunit" />
+    <result column="iDTStyle" jdbcType="SMALLINT" property="idtstyle" />
+    <result column="iQTMethod" jdbcType="INTEGER" property="iqtmethod" />
+    <result column="PictureGUID" jdbcType="OTHER" property="pictureguid" />
+    <result column="bPlanInv" jdbcType="BIT" property="bplaninv" />
+    <result column="bProxyForeign" jdbcType="BIT" property="bproxyforeign" />
+    <result column="bATOModel" jdbcType="BIT" property="batomodel" />
+    <result column="bCheckItem" jdbcType="BIT" property="bcheckitem" />
+    <result column="bPTOModel" jdbcType="BIT" property="bptomodel" />
+    <result column="bEquipment" jdbcType="BIT" property="bequipment" />
+    <result column="cProductUnit" jdbcType="VARCHAR" property="cproductunit" />
+    <result column="fOrderUpLimit" jdbcType="FLOAT" property="forderuplimit" />
+    <result column="cMassUnit" jdbcType="SMALLINT" property="cmassunit" />
+    <result column="fRetailPrice" jdbcType="FLOAT" property="fretailprice" />
+    <result column="cInvDepCode" jdbcType="VARCHAR" property="cinvdepcode" />
+    <result column="iAlterAdvance" jdbcType="INTEGER" property="ialteradvance" />
+    <result column="fAlterBaseNum" jdbcType="FLOAT" property="falterbasenum" />
+    <result column="cPlanMethod" jdbcType="VARCHAR" property="cplanmethod" />
+    <result column="bMPS" jdbcType="BIT" property="bmps" />
+    <result column="bROP" jdbcType="BIT" property="brop" />
+    <result column="bRePlan" jdbcType="BIT" property="breplan" />
+    <result column="cSRPolicy" jdbcType="VARCHAR" property="csrpolicy" />
+    <result column="bBillUnite" jdbcType="BIT" property="bbillunite" />
+    <result column="iSupplyDay" jdbcType="INTEGER" property="isupplyday" />
+    <result column="fSupplyMulti" jdbcType="FLOAT" property="fsupplymulti" />
+    <result column="fMinSupply" jdbcType="FLOAT" property="fminsupply" />
+    <result column="bCutMantissa" jdbcType="BIT" property="bcutmantissa" />
+    <result column="cInvPersonCode" jdbcType="VARCHAR" property="cinvpersoncode" />
+    <result column="iInvTfId" jdbcType="INTEGER" property="iinvtfid" />
+    <result column="cEngineerFigNo" jdbcType="VARCHAR" property="cengineerfigno" />
+    <result column="bInTotalCost" jdbcType="BIT" property="bintotalcost" />
+    <result column="iSupplyType" jdbcType="SMALLINT" property="isupplytype" />
+    <result column="bConfigFree1" jdbcType="BIT" property="bconfigfree1" />
+    <result column="bConfigFree2" jdbcType="BIT" property="bconfigfree2" />
+    <result column="bConfigFree3" jdbcType="BIT" property="bconfigfree3" />
+    <result column="bConfigFree4" jdbcType="BIT" property="bconfigfree4" />
+    <result column="bConfigFree5" jdbcType="BIT" property="bconfigfree5" />
+    <result column="bConfigFree6" jdbcType="BIT" property="bconfigfree6" />
+    <result column="bConfigFree7" jdbcType="BIT" property="bconfigfree7" />
+    <result column="bConfigFree8" jdbcType="BIT" property="bconfigfree8" />
+    <result column="bConfigFree9" jdbcType="BIT" property="bconfigfree9" />
+    <result column="bConfigFree10" jdbcType="BIT" property="bconfigfree10" />
+    <result column="iDTLevel" jdbcType="SMALLINT" property="idtlevel" />
+    <result column="cDTAQL" jdbcType="VARCHAR" property="cdtaql" />
+    <result column="bPeriodDT" jdbcType="BIT" property="bperioddt" />
+    <result column="cDTPeriod" jdbcType="VARCHAR" property="cdtperiod" />
+    <result column="iBigMonth" jdbcType="INTEGER" property="ibigmonth" />
+    <result column="iBigDay" jdbcType="INTEGER" property="ibigday" />
+    <result column="iSmallMonth" jdbcType="INTEGER" property="ismallmonth" />
+    <result column="iSmallDay" jdbcType="INTEGER" property="ismallday" />
+    <result column="bOutInvDT" jdbcType="BIT" property="boutinvdt" />
+    <result column="bBackInvDT" jdbcType="BIT" property="bbackinvdt" />
+    <result column="iEndDTStyle" jdbcType="SMALLINT" property="ienddtstyle" />
+    <result column="bDTWarnInv" jdbcType="BIT" property="bdtwarninv" />
+    <result column="fBackTaxRate" jdbcType="FLOAT" property="fbacktaxrate" />
+    <result column="cCIQCode" jdbcType="VARCHAR" property="cciqcode" />
+    <result column="cWGroupCode" jdbcType="VARCHAR" property="cwgroupcode" />
+    <result column="cWUnit" jdbcType="VARCHAR" property="cwunit" />
+    <result column="fGrossW" jdbcType="FLOAT" property="fgrossw" />
+    <result column="cVGroupCode" jdbcType="VARCHAR" property="cvgroupcode" />
+    <result column="cVUnit" jdbcType="VARCHAR" property="cvunit" />
+    <result column="fLength" jdbcType="FLOAT" property="flength" />
+    <result column="fWidth" jdbcType="FLOAT" property="fwidth" />
+    <result column="fHeight" jdbcType="FLOAT" property="fheight" />
+    <result column="iDTUCounter" jdbcType="INTEGER" property="idtucounter" />
+    <result column="iDTDCounter" jdbcType="INTEGER" property="idtdcounter" />
+    <result column="iBatchCounter" jdbcType="INTEGER" property="ibatchcounter" />
+    <result column="cShopUnit" jdbcType="VARCHAR" property="cshopunit" />
+    <result column="cPurPersonCode" jdbcType="VARCHAR" property="cpurpersoncode" />
+    <result column="bImportMedicine" jdbcType="BIT" property="bimportmedicine" />
+    <result column="bFirstBusiMedicine" jdbcType="BIT" property="bfirstbusimedicine" />
+    <result column="bForeExpland" jdbcType="BIT" property="bforeexpland" />
+    <result column="cInvPlanCode" jdbcType="VARCHAR" property="cinvplancode" />
+    <result column="fConvertRate" jdbcType="FLOAT" property="fconvertrate" />
+    <result column="dReplaceDate" jdbcType="TIMESTAMP" property="dreplacedate" />
+    <result column="bInvModel" jdbcType="BIT" property="binvmodel" />
+    <result column="bKCCutMantissa" jdbcType="BIT" property="bkccutmantissa" />
+    <result column="bReceiptByDT" jdbcType="BIT" property="breceiptbydt" />
+    <result column="iImpTaxRate" jdbcType="FLOAT" property="iimptaxrate" />
+    <result column="iExpTaxRate" jdbcType="FLOAT" property="iexptaxrate" />
+    <result column="bExpSale" jdbcType="BIT" property="bexpsale" />
+    <result column="iDrawBatch" jdbcType="FLOAT" property="idrawbatch" />
+    <result column="bCheckBSATP" jdbcType="BIT" property="bcheckbsatp" />
+    <result column="cInvProjectCode" jdbcType="VARCHAR" property="cinvprojectcode" />
+    <result column="iTestRule" jdbcType="SMALLINT" property="itestrule" />
+    <result column="cRuleCode" jdbcType="VARCHAR" property="crulecode" />
+    <result column="bCheckFree1" jdbcType="BIT" property="bcheckfree1" />
+    <result column="bCheckFree2" jdbcType="BIT" property="bcheckfree2" />
+    <result column="bCheckFree3" jdbcType="BIT" property="bcheckfree3" />
+    <result column="bCheckFree4" jdbcType="BIT" property="bcheckfree4" />
+    <result column="bCheckFree5" jdbcType="BIT" property="bcheckfree5" />
+    <result column="bCheckFree6" jdbcType="BIT" property="bcheckfree6" />
+    <result column="bCheckFree7" jdbcType="BIT" property="bcheckfree7" />
+    <result column="bCheckFree8" jdbcType="BIT" property="bcheckfree8" />
+    <result column="bCheckFree9" jdbcType="BIT" property="bcheckfree9" />
+    <result column="bCheckFree10" jdbcType="BIT" property="bcheckfree10" />
+    <result column="bBomMain" jdbcType="BIT" property="bbommain" />
+    <result column="bBomSub" jdbcType="BIT" property="bbomsub" />
+    <result column="bProductBill" jdbcType="BIT" property="bproductbill" />
+    <result column="iCheckATP" jdbcType="SMALLINT" property="icheckatp" />
+    <result column="iInvATPId" jdbcType="INTEGER" property="iinvatpid" />
+    <result column="iPlanTfDay" jdbcType="INTEGER" property="iplantfday" />
+    <result column="iOverlapDay" jdbcType="INTEGER" property="ioverlapday" />
+    <result column="bPiece" jdbcType="BIT" property="bpiece" />
+    <result column="bSrvItem" jdbcType="BIT" property="bsrvitem" />
+    <result column="bSrvFittings" jdbcType="BIT" property="bsrvfittings" />
+    <result column="fMaxSupply" jdbcType="FLOAT" property="fmaxsupply" />
+    <result column="fMinSplit" jdbcType="FLOAT" property="fminsplit" />
+    <result column="bSpecialOrder" jdbcType="BIT" property="bspecialorder" />
+    <result column="bTrackSaleBill" jdbcType="BIT" property="btracksalebill" />
+    <result column="cInvMnemCode" jdbcType="VARCHAR" property="cinvmnemcode" />
+    <result column="iPlanDefault" jdbcType="SMALLINT" property="iplandefault" />
+    <result column="iPFBatchQty" jdbcType="FLOAT" property="ipfbatchqty" />
+    <result column="iAllocatePrintDgt" jdbcType="INTEGER" property="iallocateprintdgt" />
+    <result column="bCheckBatch" jdbcType="BIT" property="bcheckbatch" />
+    <result column="bMngOldpart" jdbcType="BIT" property="bmngoldpart" />
+    <result column="iOldpartMngRule" jdbcType="SMALLINT" property="ioldpartmngrule" />
+    <result column="cRetailDefReturnWH" jdbcType="VARCHAR" property="cretaildefreturnwh" />
+
+    <result column="ccomunitcodeassist" jdbcType="VARCHAR" property="ccomunitcodeassist" />
+    <result column="ccomunitnameassist" jdbcType="VARCHAR" property="ccomunitnameassist" />
+    <result column="cComUnitName" jdbcType="VARCHAR" property="ccomunitname" />
+    <result column="ichangrate" jdbcType="DECIMAL" property="ichangrate" />
+
+
+    <result column="parentCode" jdbcType="VARCHAR" property="parentCode" />
+    <result column="parentName" jdbcType="VARCHAR" property="parentName" />
+  </resultMap>
+
+  <select id="getList" resultMap="BaseResultMap" parameterType="com.web.basicinfo.entity.Inventory" >
+    select
+    a.cInvCode,a.cInvName,a.cInvAddCode,a.cInvStd,b.cComUnitName,cInvDefine6,a.cInvDefine2,a.cInvDefine1,a.cInvDefine3,c.cComUnitName ccomunitnameassist,c.iChangRate ichangrate
+    from Inventory a
+    left join ComputationUnit b on a.cComUnitCode = b.cComUnitCode
+    left join ComputationUnit c on a.cSTComUnitCode = c.cComUnitCode
+    where 1=1
+    <if test="main.cinvcode != null and main.cinvcode != ''">
+      AND a.cinvcode like '%' + #{main.cinvcode} + '%'
+    </if>
+    <if test="main.cinvname != null and main.cinvname != ''">
+      AND a.cInvName like '%' + #{main.cinvname} + '%'
+    </if>
+    <if test="main.cinvaddcode != null and main.cinvaddcode != ''">
+      AND a.cInvAddCode like '%' + #{main.cinvaddcode} + '%'
+    </if>
+    <if test="main.cinvstd != null and main.cinvstd != ''">
+      AND a.cInvStd like '%' + #{main.cinvstd} + '%'
+    </if>
+    <if test="main.cinvccode != null and main.cinvccode != ''">
+      AND a.cInvCCode like '%' + #{main.cinvccode} + '%'
+    </if>
+    <if test="main.cinvdefine6 != null and main.cinvdefine6 != ''">
+      AND a.cInvDefine6 like '%' + #{main.cinvdefine6} + '%'
+    </if>
+    order by cInvCode
+  </select>
+
+
+
+  <select id="getInfoById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    a.cInvCode,a.cInvName,a.cInvAddCode,a.cInvStd,a.cComUnitCode,b.cComUnitCode ccomunitcodeassist,b.cComUnitName,cInvDefine6,cInvCCode,a.cInvDefine1,cInvDefine2,cInvDefine3,c.cComUnitName ccomunitnameassist,c.iChangRate ichangrate,a.iInvNCost,a.bProxyForeign,a.bPurchase
+    from Inventory a
+    left join ComputationUnit b on a.cComUnitCode = b.cComUnitCode
+    left join ComputationUnit c on a.cSTComUnitCode = c.cComUnitCode
+    where cInvCode = #{cinvcode,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getPrice" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select top 1 iInCost  iInvNCost from IA_Subsidiary
+    where cInvCode = #{cinvcode,jdbcType=VARCHAR} and cBusType='普通采购'
+    order by dVouDate desc
+  </select>
+  <select id="getPriceFirst" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select top 1 iUnitPrice  iInvNCost
+    from po_pomain t left join po_podetails t1 on t.poid=t1.poid
+    where cInvCode = #{cinvcode,jdbcType=VARCHAR} and iUnitPrice!=0
+    order by dpodate desc
+  </select>
+
+
+  <select id="selectParentMenuList" resultMap="BaseResultMap">
+    select
+      cInvCCode,cInvCCode+' '+ cInvCName cInvCName, case when len(cInvCCode)>2 then left(cInvCCode,len(cInvCCode)-2)  else '' end parentcinvccode
+    from InventoryClass
+    where case when len(cInvCCode)>2 then left(cInvCCode,len(cInvCCode)-2)  else '' end =''
+  </select>
+
+<!--  <select id="selectByMenu" parameterType="java.lang.String" resultMap="BaseResultMap">-->
+<!--    select-->
+<!--    cInvCCode,cInvCCode+' '+ cInvCName cInvCName,case when len(cInvCCode)>2 then left(cInvCCode,len(cInvCCode)-2)  else '' end parentcinvccode-->
+<!--    from InventoryClass-->
+<!--    where case when len(cInvCCode)>2 then left(cInvCCode,len(cInvCCode)-2)  else '' end = #{parentcinvccode,jdbcType=VARCHAR}-->
+<!--  </select>-->
+  <select id="selectByMenu" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    t.cInvCCode,t.cInvCCode+' '+ t.cInvCName cInvCName,t1.cinvccode parentCode,t1.cinvcname parentName
+    from InventoryClass t left join InventoryClass t1 on case when len(t.cInvCCode)>2 then left(t.cInvCCode,len(t.cInvCCode)-2)  else ''end=t1.cinvccode
+    where t.binvcend=1
+  </select>
+</mapper>

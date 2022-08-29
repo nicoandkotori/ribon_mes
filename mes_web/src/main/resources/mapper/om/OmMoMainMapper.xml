@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.om.mapper.OmMoMainMapper">
+  <resultMap id="BaseResultMap" type="com.web.om.entity.OmMoMain">
+    <!--@mbg.generated-->
+    <!--@Table OM_MOMain-->
+    <id column="MOID" jdbcType="INTEGER" property="moid" />
+    <result column="cCode" jdbcType="VARCHAR" property="ccode" />
+    <result column="dDate" jdbcType="TIMESTAMP" property="ddate" />
+    <result column="cVenCode" jdbcType="VARCHAR" property="cvencode" />
+    <result column="cDepCode" jdbcType="VARCHAR" property="cdepcode" />
+    <result column="cPersonCode" jdbcType="VARCHAR" property="cpersoncode" />
+    <result column="cPTCode" jdbcType="VARCHAR" property="cptcode" />
+    <result column="cArrivalPlace" jdbcType="VARCHAR" property="carrivalplace" />
+    <result column="cSCCode" jdbcType="VARCHAR" property="csccode" />
+    <result column="cexch_name" jdbcType="VARCHAR" property="cexchName" />
+    <result column="nflat" jdbcType="DECIMAL" property="nflat" />
+    <result column="iTaxRate" jdbcType="FLOAT" property="itaxrate" />
+    <result column="cPayCode" jdbcType="VARCHAR" property="cpaycode" />
+    <result column="iCost" jdbcType="OTHER" property="icost" />
+    <result column="iBargain" jdbcType="OTHER" property="ibargain" />
+    <result column="cMemo" jdbcType="VARCHAR" property="cmemo" />
+    <result column="cMaker" jdbcType="VARCHAR" property="cmaker" />
+    <result column="cVerifier" jdbcType="VARCHAR" property="cverifier" />
+    <result column="cCloser" jdbcType="VARCHAR" property="ccloser" />
+    <result column="cDefine1" jdbcType="VARCHAR" property="cdefine1" />
+    <result column="cDefine2" jdbcType="VARCHAR" property="cdefine2" />
+    <result column="cDefine3" jdbcType="VARCHAR" property="cdefine3" />
+    <result column="cDefine4" jdbcType="TIMESTAMP" property="cdefine4" />
+    <result column="cDefine5" jdbcType="INTEGER" property="cdefine5" />
+    <result column="cDefine6" jdbcType="TIMESTAMP" property="cdefine6" />
+    <result column="cDefine7" jdbcType="FLOAT" property="cdefine7" />
+    <result column="cDefine8" jdbcType="VARCHAR" property="cdefine8" />
+    <result column="cDefine9" jdbcType="VARCHAR" property="cdefine9" />
+    <result column="cDefine10" jdbcType="VARCHAR" property="cdefine10" />
+    <result column="iVTid" jdbcType="INTEGER" property="ivtid" />
+    <result column="ufts" jdbcType="TIMESTAMP" property="ufts" />
+    <result column="cChanger" jdbcType="VARCHAR" property="cchanger" />
+    <result column="cBusType" jdbcType="VARCHAR" property="cbustype" />
+    <result column="cDefine11" jdbcType="VARCHAR" property="cdefine11" />
+    <result column="cDefine12" jdbcType="VARCHAR" property="cdefine12" />
+    <result column="cDefine13" jdbcType="VARCHAR" property="cdefine13" />
+    <result column="cDefine14" jdbcType="VARCHAR" property="cdefine14" />
+    <result column="cDefine15" jdbcType="INTEGER" property="cdefine15" />
+    <result column="cDefine16" jdbcType="FLOAT" property="cdefine16" />
+    <result column="cLocker" jdbcType="VARCHAR" property="clocker" />
+    <result column="cState" jdbcType="TINYINT" property="cstate" />
+    <result column="iReturnCount" jdbcType="INTEGER" property="ireturncount" />
+    <result column="iVerifyStateNew" jdbcType="INTEGER" property="iverifystatenew" />
+    <result column="IsWfControlled" jdbcType="INTEGER" property="iswfcontrolled" />
+    <result column="cModifier" jdbcType="VARCHAR" property="cmodifier" />
+    <result column="dCreateTime" jdbcType="TIMESTAMP" property="dcreatetime" />
+    <result column="dModifyDate" jdbcType="TIMESTAMP" property="dmodifydate" />
+    <result column="dModifyTime" jdbcType="TIMESTAMP" property="dmodifytime" />
+    <result column="dVerifyDate" jdbcType="TIMESTAMP" property="dverifydate" />
+    <result column="dVerifyTime" jdbcType="TIMESTAMP" property="dverifytime" />
+    <result column="dAlterTime" jdbcType="TIMESTAMP" property="daltertime" />
+    <result column="cChangeVerifier" jdbcType="VARCHAR" property="cchangeverifier" />
+    <result column="dChangeVerifyDate" jdbcType="TIMESTAMP" property="dchangeverifydate" />
+    <result column="dChangeVerifyTime" jdbcType="TIMESTAMP" property="dchangeverifytime" />
+    <result column="cVenPUOMProtocol" jdbcType="VARCHAR" property="cvenpuomprotocol" />
+    <result column="iPrintCount" jdbcType="INTEGER" property="iprintcount" />
+    <result column="dCloseDate" jdbcType="TIMESTAMP" property="dclosedate" />
+    <result column="dCloseTime" jdbcType="TIMESTAMP" property="dclosetime" />
+    <result column="ccleanver" jdbcType="VARCHAR" property="ccleanver" />
+    <result column="cContactCode" jdbcType="VARCHAR" property="ccontactcode" />
+    <result column="cVenPerson" jdbcType="VARCHAR" property="cvenperson" />
+    <result column="cVenBank" jdbcType="VARCHAR" property="cvenbank" />
+    <result column="cVenAccount" jdbcType="VARCHAR" property="cvenaccount" />
+    <result column="csrccode" jdbcType="VARCHAR" property="csrccode" />
+    <result column="csysbarcode" jdbcType="VARCHAR" property="csysbarcode" />
+    <result column="cCurrentAuditor" jdbcType="VARCHAR" property="ccurrentauditor" />
+    <result column="iOrderType" jdbcType="TINYINT" property="iordertype" />
+    <result column="bRework" jdbcType="TINYINT" property="brework" />
+  </resultMap>
+  <resultMap id="BaseResultMapVM" type="com.web.om.dto.OmProductVM"  >
+    <id column="MOMaterialsID" property="momaterialsid" jdbcType="INTEGER" />
+    <result column="MoID" property="moid" jdbcType="INTEGER" />
+    <result column="MoDetailsID" property="modetailsid" jdbcType="INTEGER" />
+    <result column="cState" property="cstate" jdbcType="INTEGER" />
+    <result column="cCode" property="ccode" jdbcType="VARCHAR" />
+    <result column="dDate" property="ddate" jdbcType="TIMESTAMP" />
+    <result column="cDepCode" property="cdepcode" jdbcType="VARCHAR" />
+    <result column="cDepName" property="cdepname" jdbcType="VARCHAR" />
+    <result column="cPersonCode" property="cpersoncode" jdbcType="VARCHAR" />
+    <result column="cPersonName" property="cpersonname" jdbcType="VARCHAR" />
+    <result column="cVenCode" property="cvencode" jdbcType="VARCHAR" />
+    <result column="cVenName" property="cvenname" jdbcType="VARCHAR" />
+    <result column="cMemo" property="cmemo" jdbcType="NVARCHAR" />
+    <result column="cDefine2" property="cdefine2" jdbcType="VARCHAR" />
+    <result column="cDefine1" property="cdefine1" jdbcType="VARCHAR" />
+    <result column="cDefine14" property="cdefine14" jdbcType="VARCHAR" />
+    <result column="cInvCode" property="cinvcode" jdbcType="VARCHAR" />
+    <result column="cInvName" property="cinvname" jdbcType="VARCHAR" />
+    <result column="cInvStd" property="cinvstd" jdbcType="VARCHAR" />
+    <result column="cComUnitName" property="ccomunitname" jdbcType="VARCHAR" />
+    <result column="cDefine26" property="cdefine26" jdbcType="DECIMAL" />
+    <result column="cDefine27" property="cdefine27" jdbcType="DECIMAL" />
+    <result column="iTaxPrice" property="itaxprice" jdbcType="DECIMAL" />
+    <result column="iNatSum" property="inatsum" jdbcType="DECIMAL" />
+    <result column="tolPic" property="tolpic" jdbcType="DECIMAL" />
+    <result column="tolNum" property="tolnum" jdbcType="DECIMAL" />
+    <result column="dStartDate" property="dstartdate" jdbcType="TIMESTAMP" />
+    <result column="dArriveDate" property="darrivedate" jdbcType="TIMESTAMP" />
+    <result column="iQuantity" property="iquantity" jdbcType="DECIMAL" />
+    <result column="cInvCodes" property="cinvcodes" jdbcType="VARCHAR" />
+    <result column="cInvNames" property="cinvnames" jdbcType="VARCHAR" />
+    <result column="cInvStds" property="cinvstds" jdbcType="VARCHAR" />
+    <result column="cDefine28" property="cdefine28" jdbcType="VARCHAR" />
+    <result column="cDefine29" property="cdefine29" jdbcType="VARCHAR" />
+    <result column="cDefine30" property="cdefine30" jdbcType="VARCHAR" />
+    <result column="cDefine31" property="cdefine31" jdbcType="VARCHAR" />
+    <result column="cDefine32" property="cdefine32" jdbcType="VARCHAR" />
+    <result column="cInvDefine2" property="cinvdefine2" jdbcType="VARCHAR" />
+    <result column="cDefine22" property="cdefine22" jdbcType="VARCHAR" />
+    <result column="fBaseQtyN" property="fbaseqtyn" jdbcType="DECIMAL" />
+<!--    <result column="iUnitQuantity" property="iunitquantity" jdbcType="DECIMAL" />-->
+    <result column="fqtys" property="fqtys" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <select id="getMainList" resultMap="BaseResultMapVM" parameterType="com.web.om.dto.OmProductVM" >
+    select op.cCode,op.dDate,op.cDefine1,op.cDefine2,vr.cVenName,dep.cDepName,per.cPersonName,op.cMemo,op.MOID
+    from OM_MOMain  op
+    left join Vendor vr on op.cVenCode=vr.cVenCode
+    left join Department dep on op.cdepcode=dep.cDepCode
+    left join Person per on op.cPersonCode=per.cPersonCode
+    where 1=1
+    <if test="main.cmemo != null   and main.cmemo != '' ">
+      AND   op.cmemo   like '%' + #{main.cmemo} + '%'
+    </if>
+    <if test="main.cpersonname != null   and main.cpersonname != '' ">
+      AND   per.cpersonname   like '%' + #{main.cpersonname} + '%'
+    </if>
+    <if test="main.cdepname != null   and main.cdepname != '' ">
+      AND   dep.cdepname   like '%' + #{main.cdepname} + '%'
+    </if>
+    <if test="main.cvenname != null   and main.cvenname != '' ">
+      AND   vr.cvenname   like '%' + #{main.cvenname} + '%'
+    </if>
+    <if test="main.ccode != null   and main.ccode != '' ">
+      AND op.ccode   like '%' + #{main.ccode} + '%'
+    </if>
+    <if test="main.cdefine1 != null   and main.cdefine1 != '' ">
+      AND op.cdefine1   like '%' + #{main.cdefine1} + '%'
+    </if>
+    <if test="main.cdefine2 != null   and main.cdefine2 != '' ">
+      AND op.cdefine2   like '%' + #{main.cdefine2} + '%'
+    </if>
+    <if test="main.cstate != null   and main.cstate != -1 ">
+      AND op.cstate = #{main.cstate,jdbcType=INTEGER}
+    </if>
+    <if test="main.cinvcode != null   and main.cinvcode != '' ">
+      AND  op.moID in (select moID  from  OM_MODetails where  cInvCode like '%' + #{main.cinvcode} + '%')
+    </if>
+    <if test="main.dateStart != null ">
+      AND  op.ddate >= #{main.dateStart,jdbcType=TIMESTAMP}
+    </if>
+    <if test="main.dateEnd != null ">
+      AND  op.ddate &lt; #{main.dateEnd,jdbcType=TIMESTAMP}
+    </if>
+    order by dDate desc,ccode desc
+
+  </select>
+
+  <select id="getDetailList" resultMap="BaseResultMapVM" parameterType="com.web.om.dto.OmProductVM" >
+    select inv.cInvCode,inv.cInvName,inv.cinvstd,cu.cComUnitName,om.iQuantity,
+    CONVERT (DECIMAL(18,2),COALESCE(om.cDefine26,0)) cDefine26,CONVERT (DECIMAL(18,2),COALESCE(om.cDefine27,0)) cDefine27 ,om.iTaxPrice,om.iNatSum,CONVERT (DECIMAL(18,2),(COALESCE(om.cDefine27,0) +COALESCE(om.iTaxPrice,0))) as tolPic,CONVERT (DECIMAL(18,2),((COALESCE(om.cDefine27,0) +COALESCE(om.iTaxPrice,0))*om.iquantity)) as tolNum,
+    om.dStartDate,om.dArriveDate,invs.cInvCode as cinvcodes,invs.cInvName as cinvnames,invs.cinvstd as cinvstds,
+    od.cdefine28,od.cdefine29,od.cdefine30,od.cdefine31,od.cdefine32,invs.cInvDefine2,od.cDefine22,od.fBaseQtyN, od.iUnitQuantity as fqtys, op.MoID, om.MoDetailsID, od.MOMaterialsID
+    from OM_MOMain op inner join OM_MODetails om on op.MoID=om.MoID
+    left join OM_MOMaterials od on om.MoDetailsId=od.MoDetailsId
+    left join Inventory inv on om.cInvCode=inv.cInvCode
+    left join ComputationUnit cu on inv.cComUnitCode=cu.cComunitCode
+    left join Inventory invs on od.cInvCode=invs.cinvcode
+    where   op.MoID = #{moid,jdbcType=INTEGER}
+    order by om.iVouchRowNo,od.irowno
+  </select>
+
+
+
+  <select id="getDetailList1" resultMap="BaseResultMapVM" parameterType="com.web.om.dto.OmProductVM" >
+    select inv.cInvCode,inv.cInvName,inv.cinvstd,cu.cComUnitName,om.iQuantity,
+    CONVERT (DECIMAL(18,2),om.cDefine26) cDefine26,CONVERT (DECIMAL(18,2),om.cDefine27) cDefine27 ,om.iTaxPrice,om.iNatSum,CONVERT (DECIMAL(18,2),(COALESCE(om.cDefine27,0) +COALESCE(om.iTaxPrice,0))) as tolPic,CONVERT (DECIMAL(18,2),((COALESCE(om.cDefine27,0) +COALESCE(om.iTaxPrice,0))*om.iquantity)) as tolNum,
+    om.dStartDate,om.dArriveDate,  om.MoID, om.MoDetailsID
+    from OM_MOMain op inner join OM_MODetails om on op.MoID=om.MoID
+    left join OM_MOMaterials od on om.MoDetailsId=od.MoDetailsId
+    left join Inventory inv on om.cInvCode=inv.cInvCode
+    left join ComputationUnit cu on inv.cComUnitCode=cu.cComunitCode
+
+    where   op.MoID = #{moid,jdbcType=INTEGER}
+    order by om.iVouchRowNo,od.irowno
+
+
+  </select>
+  <select id="getDetailList2" resultMap="BaseResultMapVM" parameterType="com.web.om.dto.OmProductVM" >
+    select inv.cInvCode,inv.cInvName,inv.cinvstd,cu.cComUnitName,om.iQuantity,
+    om.dStartDate,om.dArriveDate,invs.cInvCode as cinvcodes,invs.cInvName as cinvnames,invs.cinvstd as cinvstds,
+    CONVERT (DECIMAL(18,2),COALESCE(od.cDefine27,0)) cDefine26,CONVERT (DECIMAL(18,2),COALESCE(od.cDefine27,0)*od.fBaseQtyN) cDefine27,
+    od.cdefine28,od.cdefine29,od.cdefine30,od.cdefine31,od.cdefine32,invs.cinvdefine2,od.cDefine22,od.fBaseQtyN, od.iUnitQuantity as fqtys, op.MoID, om.MoDetailsID, od.MOMaterialsID
+    from OM_MOMain op inner join OM_MODetails om on op.MoID=om.MoID
+    left join OM_MOMaterials od on om.MoDetailsId=od.MoDetailsId
+    left join Inventory inv on om.cInvCode=inv.cInvCode
+    left join ComputationUnit cu on inv.cComUnitCode=cu.cComunitCode
+    left join Inventory invs on od.cInvCode=invs.cinvcode
+    where   op.MoID = #{moid,jdbcType=INTEGER} and  od.momaterialsid is not null
+
+
+
+  </select>
+
+
+
+  <select id="getHistoryByCinvcode" resultMap="BaseResultMapVM" parameterType="com.web.om.dto.OmProductVM" >
+    select top 1 * from   (
+    select  inv.cInvCode,inv.cInvName,inv.cinvstd,cu.cComUnitName,om.iQuantity,
+    CONVERT (DECIMAL(18,2),COALESCE(om.cDefine26,0)) cDefine26,CONVERT (DECIMAL(18,2),COALESCE(om.cDefine27,0)) cDefine27 ,om.iTaxPrice,om.iNatSum,CONVERT (DECIMAL(18,2),(COALESCE(om.cDefine27,0) +COALESCE(om.iTaxPrice,0))) as tolPic,CONVERT (DECIMAL(18,2),((COALESCE(om.cDefine27,0) +COALESCE(om.iTaxPrice,0))*om.iquantity)) as tolNum,
+    om.dStartDate,om.dArriveDate,invs.cInvCode as cinvcodes,invs.cInvName as cinvnames,invs.cinvstd as cinvstds,
+    od.cdefine28,od.cdefine29,od.cdefine30,od.cdefine31,od.cdefine32,invs.cInvDefine2,od.cDefine22,od.fBaseQtyN, od.iUnitQuantity as fqtys, op.MoID, om.MoDetailsID, od.MOMaterialsID
+    from OM_MOMain op inner join OM_MODetails om on op.MoID=om.MoID
+    left join OM_MOMaterials od on om.MoDetailsId=od.MoDetailsId
+    left join Inventory inv on om.cInvCode=inv.cInvCode
+    left join ComputationUnit cu on inv.cComUnitCode=cu.cComunitCode
+    left join Inventory invs on od.cInvCode=invs.cinvcode
+    where   om.cInvCode = #{cinvcode,jdbcType=VARCHAR}
+
+    union all
+
+    select   inv.cInvCode,inv.cInvName,inv.cinvstd,cu.cComUnitName,om.fQuantity,
+    CONVERT (DECIMAL(18,2),om.cDefine26) cDefine26,CONVERT (DECIMAL(18,2),om.cDefine27) cDefine27 ,om.TaxMakePrice,om.TaxMakeMny,CONVERT (DECIMAL(18,2),(om.cDefine27+om.TaxMakePrice)) as tolPic,CONVERT (DECIMAL(18,2),((om.cDefine27+om.TaxMakePrice)*om.fquantity)) as tolNum,
+    om.dStartDate,om.dEndDate,invs.cInvCode as cinvcodes,invs.cInvName as cinvnames,invs.cinvstd as cinvstds,
+    od.cdefine28,od.cdefine29,od.cdefine30,od.cdefine31,od.cdefine32,invs.cInvDefine2,od.cDefine22,od.ipsquantity, od.fQuantity as fqtys, op.ID, om.MainId, od.SubID
+    from OM_ProductPO_2022 op inner join OM_pomain_2022 om on op.ID=om.ID
+    left join OM_PODetails_2022 od on om.MainId=od.MainID
+    left join Inventory inv on om.cInvCode=inv.cInvCode
+    left join ComputationUnit cu on inv.cComUnitCode=cu.cComunitCode
+    left join Inventory invs on od.cInvCode=invs.cinvcode
+    where   om.cInvCode = #{cinvcode,jdbcType=VARCHAR}
+    )t
+    order by t.MoID desc
+
+
+
+  </select>
+
+  <select id="getHistoryListByCinvcode" resultMap="BaseResultMapVM" parameterType="com.web.om.dto.OmProductVM" >
+    select   inv.cInvCode,inv.cInvName,inv.cinvstd,cu.cComUnitName,om.iQuantity,
+    CONVERT (DECIMAL(18,2),COALESCE(om.cDefine26,0)) cDefine26,CONVERT (DECIMAL(18,2),COALESCE(om.cDefine27,0)) cDefine27 ,om.iTaxPrice,om.iNatSum,CONVERT (DECIMAL(18,2),(COALESCE(om.cDefine27,0) +COALESCE(om.iTaxPrice,0))) as tolPic,CONVERT (DECIMAL(18,2),((COALESCE(om.cDefine27,0) +COALESCE(om.iTaxPrice,0))*om.iquantity)) as tolNum,
+    om.dStartDate,om.dArriveDate,invs.cInvCode as cinvcodes,invs.cInvName as cinvnames,invs.cinvstd as cinvstds,
+    od.cdefine28,od.cdefine29,od.cdefine30,od.cdefine31,od.cdefine32,invs.cInvDefine2,od.cDefine22,od.fBaseQtyN, od.iUnitQuantity as fqtys, op.MoID, om.MoDetailsID, od.MOMaterialsID
+    from OM_MOMain op inner join OM_MODetails om on op.MoID=om.MoID
+    left join OM_MOMaterials od on om.MoDetailsId=od.MoDetailsId
+    left join Inventory inv on om.cInvCode=inv.cInvCode
+    left join ComputationUnit cu on inv.cComUnitCode=cu.cComunitCode
+    left join Inventory invs on od.cInvCode=invs.cinvcode
+    where   om.modetailsid = #{modetailsid,jdbcType=INTEGER}
+    union all
+    select   inv.cInvCode,inv.cInvName,inv.cinvstd,cu.cComUnitName,om.fQuantity,
+    CONVERT (DECIMAL(18,2),COALESCE(od.cDefine26,0)) cDefine26,CONVERT (DECIMAL(18,2),COALESCE(od.cDefine27,0)) cDefine27 ,om.TaxMakePrice,om.TaxMakeMny,CONVERT (DECIMAL(18,2),(om.cDefine27+om.TaxMakePrice)) as tolPic,CONVERT (DECIMAL(18,2),((om.cDefine27+om.TaxMakePrice)*om.fquantity)) as tolNum,
+    om.dStartDate,om.dEndDate,invs.cInvCode as cinvcodes,invs.cInvName as cinvnames,invs.cinvstd as cinvstds,
+    od.cdefine28,od.cdefine29,od.cdefine30,od.cdefine31,od.cdefine32,invs.cInvDefine2,od.cDefine22,od.ipsquantity, od.fQuantity as fqtys, op.ID, om.MainId, od.SubID
+    from OM_ProductPO_2022 op inner join OM_pomain_2022 om on op.ID=om.ID
+    left join OM_PODetails_2022 od on om.MainId=od.MainID
+    left join Inventory inv on om.cInvCode=inv.cInvCode
+    left join ComputationUnit cu on inv.cComUnitCode=cu.cComunitCode
+    left join Inventory invs on od.cInvCode=invs.cinvcode
+    where   om.MainId = #{modetailsid,jdbcType=INTEGER}
+  </select>
+
+
+
+  <update id="updateUnCheck" parameterType="com.web.om.entity.OmMoMain" >
+  update OM_MOMain
+  set
+  cVerifier = null,
+  dVerifyDate = null,
+  cState = 0,
+    iVerifyStateNew=0,
+  dVerifyTime=null
+  where moid = #{moid,jdbcType=INTEGER}
+</update>
+</mapper>

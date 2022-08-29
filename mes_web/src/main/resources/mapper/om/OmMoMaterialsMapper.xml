@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.om.mapper.OmMoMaterialsMapper">
+  <resultMap id="BaseResultMap" type="com.web.om.entity.OmMoMaterials">
+    <!--@mbg.generated-->
+    <!--@Table OM_MOMaterials-->
+    <id column="MOMaterialsID" jdbcType="INTEGER" property="momaterialsid" />
+    <result column="MoDetailsID" jdbcType="INTEGER" property="modetailsid" />
+    <result column="MOID" jdbcType="INTEGER" property="moid" />
+    <result column="cInvCode" jdbcType="VARCHAR" property="cinvcode" />
+    <result column="iQuantity" jdbcType="DECIMAL" property="iquantity" />
+    <result column="dRequiredDate" jdbcType="TIMESTAMP" property="drequireddate" />
+    <result column="iSendQTY" jdbcType="DECIMAL" property="isendqty" />
+    <result column="cFree1" jdbcType="VARCHAR" property="cfree1" />
+    <result column="cFree2" jdbcType="VARCHAR" property="cfree2" />
+    <result column="cFree3" jdbcType="VARCHAR" property="cfree3" />
+    <result column="cFree4" jdbcType="VARCHAR" property="cfree4" />
+    <result column="cFree5" jdbcType="VARCHAR" property="cfree5" />
+    <result column="cFree6" jdbcType="VARCHAR" property="cfree6" />
+    <result column="cFree7" jdbcType="VARCHAR" property="cfree7" />
+    <result column="cFree8" jdbcType="VARCHAR" property="cfree8" />
+    <result column="cFree9" jdbcType="VARCHAR" property="cfree9" />
+    <result column="cFree10" jdbcType="VARCHAR" property="cfree10" />
+    <result column="fBaseQtyN" jdbcType="DECIMAL" property="fbaseqtyn" />
+    <result column="fBaseQtyD" jdbcType="DECIMAL" property="fbaseqtyd" />
+    <result column="fCompScrp" jdbcType="DECIMAL" property="fcompscrp" />
+    <result column="bFVQty" jdbcType="TINYINT" property="bfvqty" />
+    <result column="iWIPtype" jdbcType="TINYINT" property="iwiptype" />
+    <result column="cWhCode" jdbcType="VARCHAR" property="cwhcode" />
+    <result column="iUnitQuantity" jdbcType="DECIMAL" property="iunitquantity" />
+    <result column="cBatch" jdbcType="VARCHAR" property="cbatch" />
+    <result column="OpComponentId" jdbcType="INTEGER" property="opcomponentid" />
+    <result column="SubFlag" jdbcType="TINYINT" property="subflag" />
+    <result column="cDefine22" jdbcType="VARCHAR" property="cdefine22" />
+    <result column="cDefine23" jdbcType="VARCHAR" property="cdefine23" />
+    <result column="cDefine24" jdbcType="VARCHAR" property="cdefine24" />
+    <result column="cDefine25" jdbcType="VARCHAR" property="cdefine25" />
+    <result column="cDefine26" jdbcType="REAL" property="cdefine26" />
+    <result column="cDefine27" jdbcType="REAL" property="cdefine27" />
+    <result column="cDefine28" jdbcType="VARCHAR" property="cdefine28" />
+    <result column="cDefine29" jdbcType="VARCHAR" property="cdefine29" />
+    <result column="cDefine30" jdbcType="VARCHAR" property="cdefine30" />
+    <result column="cDefine31" jdbcType="VARCHAR" property="cdefine31" />
+    <result column="cDefine32" jdbcType="VARCHAR" property="cdefine32" />
+    <result column="cDefine33" jdbcType="VARCHAR" property="cdefine33" />
+    <result column="cDefine34" jdbcType="INTEGER" property="cdefine34" />
+    <result column="cDefine35" jdbcType="INTEGER" property="cdefine35" />
+    <result column="cDefine36" jdbcType="TIMESTAMP" property="cdefine36" />
+    <result column="cDefine37" jdbcType="TIMESTAMP" property="cdefine37" />
+    <result column="fbasenumn" jdbcType="DECIMAL" property="fbasenumn" />
+    <result column="iUnitNum" jdbcType="DECIMAL" property="iunitnum" />
+    <result column="iNum" jdbcType="DECIMAL" property="inum" />
+    <result column="iSendNum" jdbcType="DECIMAL" property="isendnum" />
+    <result column="cUnitID" jdbcType="VARCHAR" property="cunitid" />
+    <result column="iComplementQty" jdbcType="DECIMAL" property="icomplementqty" />
+    <result column="iComplementNum" jdbcType="DECIMAL" property="icomplementnum" />
+    <result column="fTransQty" jdbcType="DECIMAL" property="ftransqty" />
+    <result column="dUfts" jdbcType="TIMESTAMP" property="dufts" />
+    <result column="cBatchProperty1" jdbcType="DECIMAL" property="cbatchproperty1" />
+    <result column="cBatchProperty2" jdbcType="DECIMAL" property="cbatchproperty2" />
+    <result column="cBatchProperty3" jdbcType="DECIMAL" property="cbatchproperty3" />
+    <result column="cBatchProperty4" jdbcType="DECIMAL" property="cbatchproperty4" />
+    <result column="cBatchProperty5" jdbcType="DECIMAL" property="cbatchproperty5" />
+    <result column="cBatchProperty6" jdbcType="VARCHAR" property="cbatchproperty6" />
+    <result column="cBatchProperty7" jdbcType="VARCHAR" property="cbatchproperty7" />
+    <result column="cBatchProperty8" jdbcType="VARCHAR" property="cbatchproperty8" />
+    <result column="cBatchProperty9" jdbcType="VARCHAR" property="cbatchproperty9" />
+    <result column="cBatchProperty10" jdbcType="TIMESTAMP" property="cbatchproperty10" />
+    <result column="sotype" jdbcType="SMALLINT" property="sotype" />
+    <result column="sodid" jdbcType="VARCHAR" property="sodid" />
+    <result column="csocode" jdbcType="VARCHAR" property="csocode" />
+    <result column="irowno" jdbcType="INTEGER" property="irowno" />
+    <result column="cdemandmemo" jdbcType="VARCHAR" property="cdemandmemo" />
+    <result column="cdetailsdemandcode" jdbcType="VARCHAR" property="cdetailsdemandcode" />
+    <result column="cdetailsdemandmemo" jdbcType="VARCHAR" property="cdetailsdemandmemo" />
+    <result column="csendtype" jdbcType="VARCHAR" property="csendtype" />
+    <result column="fsendapplyqty" jdbcType="DECIMAL" property="fsendapplyqty" />
+    <result column="fsendapplynum" jdbcType="DECIMAL" property="fsendapplynum" />
+    <result column="fapplyqty" jdbcType="DECIMAL" property="fapplyqty" />
+    <result column="fapplynum" jdbcType="DECIMAL" property="fapplynum" />
+    <result column="cbMemo" jdbcType="VARCHAR" property="cbmemo" />
+    <result column="csubsysbarcode" jdbcType="VARCHAR" property="csubsysbarcode" />
+    <result column="iPickQty" jdbcType="DECIMAL" property="ipickqty" />
+    <result column="iPickNum" jdbcType="DECIMAL" property="ipicknum" />
+    <result column="iProductType" jdbcType="TINYINT" property="iproducttype" />
+    <result column="cFactoryCode" jdbcType="VARCHAR" property="cfactorycode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    MOMaterialsID, MoDetailsID, MOID, cInvCode, iQuantity, dRequiredDate, iSendQTY, cFree1, 
+    cFree2, cFree3, cFree4, cFree5, cFree6, cFree7, cFree8, cFree9, cFree10, fBaseQtyN, 
+    fBaseQtyD, fCompScrp, bFVQty, iWIPtype, cWhCode, iUnitQuantity, cBatch, OpComponentId, 
+    SubFlag, cDefine22, cDefine23, cDefine24, cDefine25, cDefine26, cDefine27, cDefine28, 
+    cDefine29, cDefine30, cDefine31, cDefine32, cDefine33, cDefine34, cDefine35, cDefine36, 
+    cDefine37, fbasenumn, iUnitNum, iNum, iSendNum, cUnitID, iComplementQty, iComplementNum, 
+    fTransQty, dUfts, cBatchProperty1, cBatchProperty2, cBatchProperty3, cBatchProperty4, 
+    cBatchProperty5, cBatchProperty6, cBatchProperty7, cBatchProperty8, cBatchProperty9, 
+    cBatchProperty10, sotype, sodid, csocode, irowno, cdemandmemo, cdetailsdemandcode, 
+    cdetailsdemandmemo, csendtype, fsendapplyqty, fsendapplynum, fapplyqty, fapplynum, 
+    cbMemo, csubsysbarcode, iPickQty, iPickNum, iProductType, cFactoryCode
+  </sql>
+</mapper>

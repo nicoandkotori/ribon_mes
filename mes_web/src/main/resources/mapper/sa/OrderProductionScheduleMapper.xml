@@ -1,0 +1,695 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.sa.mapper.OrderProductionScheduleMapper">
+  <resultMap id="BaseResultMap" type="com.web.sa.entity.OrderProductionSchedule">
+    <!--@mbg.generated-->
+    <!--@Table all_order_production_schedule-->
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="fresh_equipment" jdbcType="BIT" property="freshEquipment" />
+    <result column="cust_name" jdbcType="VARCHAR" property="custName" />
+    <result column="contract_code" jdbcType="VARCHAR" property="contractCode" />
+    <result column="product_inv_name" jdbcType="VARCHAR" property="productInvName" />
+    <result column="product_inv_code" jdbcType="VARCHAR" property="productInvCode" />
+    <result column="product_inv_std" jdbcType="VARCHAR" property="productInvStd" />
+    <result column="qty" jdbcType="DECIMAL" property="qty" />
+    <result column="order_date" jdbcType="TIMESTAMP" property="orderDate" />
+    <result column="delivery_date" jdbcType="TIMESTAMP" property="deliveryDate" />
+    <result column="negotiate_date" jdbcType="TIMESTAMP" property="negotiateDate" />
+    <result column="inv_name" jdbcType="VARCHAR" property="invName" />
+    <result column="inv_code" jdbcType="VARCHAR" property="invCode" />
+    <result column="inv_std" jdbcType="VARCHAR" property="invStd" />
+    <result column="tqty" jdbcType="DECIMAL" property="tqty" />
+    <result column="person" jdbcType="VARCHAR" property="person" />
+    <result column="unit_cost" jdbcType="VARCHAR" property="unitCost" />
+    <result column="production_team" jdbcType="VARCHAR" property="productionTeam" />
+    <result column="pmc_type" jdbcType="VARCHAR" property="pmcType" />
+    <result column="so_id" jdbcType="INTEGER" property="soId" />
+    <result column="so_detail_id" jdbcType="INTEGER" property="soDetailId" />
+    <result column="structure_id" jdbcType="INTEGER" property="structureId" />
+    <result column="structure_detail_id" jdbcType="INTEGER" property="structureDetailId" />
+    <result column="plan_draw_date" jdbcType="TIMESTAMP" property="planDrawDate" />
+    <result column="actual_draw_date" jdbcType="TIMESTAMP" property="actualDrawDate" />
+    <result column="plan_t6_create_date" jdbcType="TIMESTAMP" property="planT6CreateDate" />
+    <result column="actual_t6_create_date" jdbcType="TIMESTAMP" property="actualT6CreateDate" />
+    <result column="plan_raw_ma_wh_date" jdbcType="TIMESTAMP" property="planRawMaWhDate" />
+    <result column="actual_raw_ma_wh_date" jdbcType="TIMESTAMP" property="actualRawMaWhDate" />
+    <result column="plan_mw_wh_date" jdbcType="TIMESTAMP" property="planMwWhDate" />
+    <result column="actual_mw_wh_date" jdbcType="TIMESTAMP" property="actualMwWhDate" />
+    <result column="plan_raw_ma_mw_disp_date" jdbcType="TIMESTAMP" property="planRawMaMwDispDate" />
+    <result column="actual_raw_ma_mw_disp_date" jdbcType="TIMESTAMP" property="actualRawMaMwDispDate" />
+    <result column="plan_out_disp_date" jdbcType="TIMESTAMP" property="planOutDispDate" />
+    <result column="actual_out_disp_date" jdbcType="TIMESTAMP" property="actualOutDispDate" />
+    <result column="plan_pro_ins_date" jdbcType="TIMESTAMP" property="planProInsDate" />
+    <result column="actual_pro_ins_date" jdbcType="TIMESTAMP" property="actualProInsDate" />
+    <result column="plan_qua_ins_wh_date" jdbcType="TIMESTAMP" property="planQuaInsWhDate" />
+    <result column="actual_qua_ins_wh_date" jdbcType="TIMESTAMP" property="actualQuaInsWhDate" />
+    <result column="actual_delivery_date" jdbcType="TIMESTAMP" property="actualDeliveryDate" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="delayed_shipments" jdbcType="BIT" property="delayedShipments" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="delete_user" jdbcType="VARCHAR" property="deleteUser" />
+    <result column="delete_date" jdbcType="TIMESTAMP" property="deleteDate" />
+    <result column="iz_delete" jdbcType="BIT" property="izDelete" />
+    <result column="com_dep_user" jdbcType="VARCHAR" property="comDepUser" />
+    <result column="com_dep_date" jdbcType="DATE" property="comDepDate" />
+    <result column="tec_dep_user" jdbcType="VARCHAR" property="tecDepUser" />
+    <result column="tec_dep_date" jdbcType="DATE" property="tecDepDate" />
+    <result column="pmc_dep_user" jdbcType="VARCHAR" property="pmcDepUser" />
+    <result column="pmc_dep_date" jdbcType="DATE" property="pmcDepDate" />
+    <result column="qua_con_dep_user" jdbcType="VARCHAR" property="quaConDepUser" />
+    <result column="qua_con_dep_date" jdbcType="DATE" property="quaConDepDate" />
+    <result column="ass_dep_user" jdbcType="VARCHAR" property="assDepUser" />
+    <result column="ass_dep_date" jdbcType="DATE" property="assDepDate" />
+    <result column="wh_user" jdbcType="VARCHAR" property="whUser" />
+    <result column="wh_date" jdbcType="DATE" property="whDate" />
+    <result column="production_team_user" jdbcType="VARCHAR" property="productionTeamUser" />
+    <result column="production_team_date" jdbcType="DATE" property="productionTeamDate" />
+    <result column="roll_kneading_unit_user" jdbcType="VARCHAR" property="rollKneadingUnitUser" />
+    <result column="roll_kneading_unit_date" jdbcType="DATE" property="rollKneadingUnitDate" />
+    <result column="special_rules_set_user" jdbcType="VARCHAR" property="specialRulesSetUser" />
+    <result column="special_rules_set_date" jdbcType="DATE" property="specialRulesSetDate" />
+    <result column="new_pro_group_user" jdbcType="VARCHAR" property="newProGroupUser" />
+    <result column="new_pro_group_date" jdbcType="DATE" property="newProGroupDate" />
+    <result column="purchas_dep_user" jdbcType="VARCHAR" property="purchasDepUser" />
+    <result column="purchas_dep_date" jdbcType="DATE" property="purchasDepDate" />
+    <result column="cw_dep_user" jdbcType="VARCHAR" property="cwDepUser" />
+    <result column="cw_dep_date" jdbcType="DATE" property="cwDepDate" />
+    <result column="iprice" jdbcType="DECIMAL" property="iprice" />
+    <result column="iamount" jdbcType="DECIMAL" property="iamount" />
+    <result column="cost_material" jdbcType="DECIMAL" property="costMaterial" />
+    <result column="cost_machine" jdbcType="DECIMAL" property="costMachine" />
+    <result column="cost_price" jdbcType="DECIMAL" property="costPrice" />
+    <result column="cost_fact_price" jdbcType="DECIMAL" property="costFactPrice" />
+    <result column="chuchai_date" jdbcType="TIMESTAMP" property="chuchaiDate" />
+    <result column="chuchai_amount" jdbcType="DECIMAL" property="chuchaiAmount" />
+    <result column="chuchai_date1" jdbcType="TIMESTAMP" property="chuchaiDate1" />
+    <result column="chuchai_amount1" jdbcType="DECIMAL" property="chuchaiAmount1" />
+    <result column="chuchai_date2" jdbcType="TIMESTAMP" property="chuchaiDate2" />
+    <result column="chuchai_amount2" jdbcType="DECIMAL" property="chuchaiAmount2" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, fresh_equipment, cust_name, contract_code, product_inv_name, product_inv_code, 
+    product_inv_std, qty, order_date, delivery_date, negotiate_date, inv_name, inv_code, 
+    inv_std, tqty, person, unit_cost, production_team, pmc_type, so_id, so_detail_id, 
+    structure_id, structure_detail_id, plan_draw_date, actual_draw_date, plan_t6_create_date, 
+    actual_t6_create_date, plan_raw_ma_wh_date, actual_raw_ma_wh_date, plan_mw_wh_date, 
+    actual_mw_wh_date, plan_raw_ma_mw_disp_date, actual_raw_ma_mw_disp_date, plan_out_disp_date, 
+    actual_out_disp_date, plan_pro_ins_date, actual_pro_ins_date, plan_qua_ins_wh_date, 
+    actual_qua_ins_wh_date, actual_delivery_date, remark, delayed_shipments, create_user, 
+    create_date, update_user, update_date, delete_user, delete_date, iz_delete, com_dep_user, 
+    com_dep_date, tec_dep_user, tec_dep_date, pmc_dep_user, pmc_dep_date, qua_con_dep_user, 
+    qua_con_dep_date, ass_dep_user, ass_dep_date, wh_user, wh_date, production_team_user, 
+    production_team_date, roll_kneading_unit_user, roll_kneading_unit_date, special_rules_set_user, 
+    special_rules_set_date, new_pro_group_user, new_pro_group_date, purchas_dep_user, 
+    purchas_dep_date, cw_dep_user, cw_dep_date, iprice, iamount, cost_material, cost_machine, 
+    cost_price, cost_fact_price, chuchai_date, chuchai_amount, chuchai_date1, chuchai_amount1, 
+    chuchai_date2, chuchai_amount2
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from ${database}.dbo.all_order_production_schedule
+    where iz_delete != 1 AND
+    id = #{id,jdbcType=VARCHAR}
+  </select>
+  <insert id="insertSelective" parameterType="com.web.sa.entity.OrderProductionSchedule" >
+    insert into ${database}.dbo.all_order_production_schedule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="main.id != null" >
+        id,
+      </if>
+      <if test="main.freshEquipment != null" >
+        fresh_equipment,
+      </if>
+      <if test="main.custName != null" >
+        cust_name,
+      </if>
+      <if test="main.contractCode != null" >
+        contract_code,
+      </if>
+      <if test="main.productInvName != null" >
+        product_inv_name,
+      </if>
+      <if test="main.productInvCode != null" >
+        product_inv_code,
+      </if>
+      <if test="main.productInvStd != null" >
+        product_inv_std,
+      </if>
+      <if test="main.qty != null" >
+        qty,
+      </if>
+      <if test="main.orderDate != null" >
+        order_date,
+      </if>
+      <if test="main.deliveryDate != null" >
+        delivery_date,
+      </if>
+      <if test="main.negotiateDate != null" >
+        negotiate_date,
+      </if>
+      <if test="main.invName != null" >
+        inv_name,
+      </if>
+      <if test="main.invCode != null" >
+        inv_code,
+      </if>
+      <if test="main.invStd != null" >
+        inv_std,
+      </if>
+      <if test="main.tqty != null" >
+        tqty,
+      </if>
+      <if test="main.person != null" >
+        person,
+      </if>
+      <if test="main.unitCost != null" >
+        unit_cost,
+      </if>
+      <if test="main.productionTeam != null" >
+        production_team,
+      </if>
+      <if test="main.pmcType != null" >
+        pmc_type,
+      </if>
+      <if test="main.soId != null" >
+        so_id,
+      </if>
+      <if test="main.soDetailId != null" >
+        so_detail_id,
+      </if>
+      <if test="main.structureId != null" >
+        structure_id,
+      </if>
+      <if test="main.structureDetailId != null" >
+        structure_detail_id,
+      </if>
+      <if test="main.planDrawDate != null" >
+        plan_draw_date,
+      </if>
+      <if test="main.actualDrawDate != null" >
+        actual_draw_date,
+      </if>
+      <if test="main.planT6CreateDate != null" >
+        plan_t6_create_date,
+      </if>
+      <if test="main.actualT6CreateDate != null" >
+        actual_t6_create_date,
+      </if>
+      <if test="main.planRawMaWhDate != null" >
+        plan_raw_ma_wh_date,
+      </if>
+      <if test="main.actualRawMaWhDate != null" >
+        actual_raw_ma_wh_date,
+      </if>
+      <if test="main.planMwWhDate != null" >
+        plan_mw_wh_date,
+      </if>
+      <if test="main.actualMwWhDate != null" >
+        actual_mw_wh_date,
+      </if>
+      <if test="main.planRawMaMwDispDate != null" >
+        plan_raw_ma_mw_disp_date,
+      </if>
+      <if test="main.actualRawMaMwDispDate != null" >
+        actual_raw_ma_mw_disp_date,
+      </if>
+      <if test="main.planOutDispDate != null" >
+        plan_out_disp_date,
+      </if>
+      <if test="main.actualOutDispDate != null" >
+        actual_out_disp_date,
+      </if>
+      <if test="main.planProInsDate != null" >
+        plan_pro_ins_date,
+      </if>
+      <if test="main.actualProInsDate != null" >
+        actual_pro_ins_date,
+      </if>
+      <if test="main.planQuaInsWhDate != null" >
+        plan_qua_ins_wh_date,
+      </if>
+      <if test="main.actualQuaInsWhDate != null" >
+        actual_qua_ins_wh_date,
+      </if>
+      <if test="main.actualDeliveryDate != null" >
+        actual_delivery_date,
+      </if>
+      <if test="main.remark != null" >
+        remark,
+      </if>
+      <if test="main.delayedShipments != null" >
+        delayed_shipments,
+      </if>
+      <if test="main.createUser != null" >
+        create_user,
+      </if>
+      <if test="main.createDate != null" >
+        create_date,
+      </if>
+      <if test="main.updateUser != null" >
+        update_user,
+      </if>
+      <if test="main.updateDate != null" >
+        update_date,
+      </if>
+      <if test="main.deleteUser != null" >
+        delete_user,
+      </if>
+      <if test="main.deleteDate != null" >
+        delete_date,
+      </if>
+      <if test="main.izDelete != null" >
+        iz_delete,
+      </if>
+      <if test="main.comDepUser != null" >
+        com_dep_user,
+      </if>
+      <if test="main.comDepDate != null" >
+        com_dep_date,
+      </if>
+      <if test="main.tecDepUser != null" >
+        tec_dep_user,
+      </if>
+      <if test="main.tecDepDate != null" >
+        tec_dep_date,
+      </if>
+      <if test="main.pmcDepUser != null" >
+        pmc_dep_user,
+      </if>
+      <if test="main.pmcDepDate != null" >
+        pmc_dep_date,
+      </if>
+      <if test="main.quaConDepUser != null" >
+        qua_con_dep_user,
+      </if>
+      <if test="main.quaConDepDate != null" >
+        qua_con_dep_date,
+      </if>
+      <if test="main.assDepUser != null" >
+        ass_dep_user,
+      </if>
+      <if test="main.assDepDate != null" >
+        ass_dep_date,
+      </if>
+      <if test="main.whUser != null" >
+        wh_user,
+      </if>
+      <if test="main.whDate != null" >
+        wh_date,
+      </if>
+      <if test="main.productionTeamUser != null" >
+        production_team_user,
+      </if>
+      <if test="main.productionTeamDate != null" >
+        production_team_date,
+      </if>
+      <if test="main.rollKneadingUnitUser != null" >
+        roll_kneading_unit_user,
+      </if>
+      <if test="main.rollKneadingUnitDate != null" >
+        roll_kneading_unit_date,
+      </if>
+      <if test="main.specialRulesSetUser != null" >
+        special_rules_set_user,
+      </if>
+      <if test="main.specialRulesSetDate != null" >
+        special_rules_set_date,
+      </if>
+      <if test="main.newProGroupUser != null" >
+        new_pro_group_user,
+      </if>
+      <if test="main.newProGroupDate != null" >
+        new_pro_group_date,
+      </if>
+      <if test="main.purchasDepUser != null" >
+        purchas_dep_user,
+      </if>
+      <if test="main.purchasDepDate != null" >
+        purchas_dep_date,
+      </if>
+      <if test="main.cwDepUser != null" >
+        cw_dep_user,
+      </if>
+      <if test="main.cwDepDate != null" >
+        cw_dep_date,
+      </if>
+      <if test="main.iprice != null" >
+        iprice,
+      </if>
+      <if test="main.iamount != null" >
+        iamount,
+      </if>
+      <if test="main.costMaterial != null" >
+        cost_material,
+      </if>
+      <if test="main.costMachine != null" >
+        cost_machine,
+      </if>
+      <if test="main.costPrice != null" >
+        cost_price,
+      </if>
+
+      <if test="main.costFactPrice != null" >
+        cost_fact_price,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="main.id != null" >
+        #{main.id,jdbcType=VARCHAR},
+      </if>
+      <if test="main.freshEquipment != null" >
+        #{main.freshEquipment,jdbcType=BIT},
+      </if>
+      <if test="main.custName != null" >
+        #{main.custName,jdbcType=VARCHAR},
+      </if>
+      <if test="main.contractCode != null" >
+        #{main.contractCode,jdbcType=VARCHAR},
+      </if>
+      <if test="main.productInvName != null" >
+        #{main.productInvName,jdbcType=VARCHAR},
+      </if>
+      <if test="main.productInvCode != null" >
+        #{main.productInvCode,jdbcType=VARCHAR},
+      </if>
+      <if test="main.productInvStd != null" >
+        #{main.productInvStd,jdbcType=VARCHAR},
+      </if>
+      <if test="main.qty != null" >
+        #{main.qty,jdbcType=DECIMAL},
+      </if>
+      <if test="main.orderDate != null" >
+        #{main.orderDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.deliveryDate != null" >
+        #{main.deliveryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.negotiateDate != null" >
+        #{main.negotiateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.invName != null" >
+        #{main.invName,jdbcType=VARCHAR},
+      </if>
+      <if test="main.invCode != null" >
+        #{main.invCode,jdbcType=VARCHAR},
+      </if>
+      <if test="main.invStd != null" >
+        #{main.invStd,jdbcType=VARCHAR},
+      </if>
+      <if test="main.tqty != null" >
+        #{main.tqty,jdbcType=DECIMAL},
+      </if>
+      <if test="main.person != null" >
+        #{main.person,jdbcType=VARCHAR},
+      </if>
+      <if test="main.unitCost != null" >
+        #{main.unitCost,jdbcType=VARCHAR},
+      </if>
+      <if test="main.productionTeam != null" >
+        #{main.productionTeam,jdbcType=VARCHAR},
+      </if>
+      <if test="main.pmcType != null" >
+        #{main.pmcType,jdbcType=VARCHAR},
+      </if>
+      <if test="main.soId != null" >
+        #{main.soId,jdbcType=INTEGER},
+      </if>
+      <if test="main.soDetailId != null" >
+        #{main.soDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="main.structureId != null" >
+        #{main.structureId,jdbcType=INTEGER},
+      </if>
+      <if test="main.structureDetailId != null" >
+        #{main.structureDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="main.planDrawDate != null" >
+        #{main.planDrawDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.actualDrawDate != null" >
+        #{main.actualDrawDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.planT6CreateDate != null" >
+        #{main.planT6CreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.actualT6CreateDate != null" >
+        #{main.actualT6CreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.planRawMaWhDate != null" >
+        #{main.planRawMaWhDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.actualRawMaWhDate != null" >
+        #{main.actualRawMaWhDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.planMwWhDate != null" >
+        #{main.planMwWhDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.actualMwWhDate != null" >
+        #{main.actualMwWhDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.planRawMaMwDispDate != null" >
+        #{main.planRawMaMwDispDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.actualRawMaMwDispDate != null" >
+        #{main.actualRawMaMwDispDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.planOutDispDate != null" >
+        #{main.planOutDispDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.actualOutDispDate != null" >
+        #{main.actualOutDispDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.planProInsDate != null" >
+        #{main.planProInsDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.actualProInsDate != null" >
+        #{main.actualProInsDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.planQuaInsWhDate != null" >
+        #{main.planQuaInsWhDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.actualQuaInsWhDate != null" >
+        #{main.actualQuaInsWhDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.actualDeliveryDate != null" >
+        #{main.actualDeliveryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.remark != null" >
+        #{main.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="main.delayedShipments != null" >
+        #{main.delayedShipments,jdbcType=BIT},
+      </if>
+      <if test="main.createUser != null" >
+        #{main.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="main.createDate != null" >
+        #{main.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.updateUser != null" >
+        #{main.updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="main.updateDate != null" >
+        #{main.updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.deleteUser != null" >
+        #{main.deleteUser,jdbcType=VARCHAR},
+      </if>
+      <if test="main.deleteDate != null" >
+        #{main.deleteDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.izDelete != null" >
+        #{main.izDelete,jdbcType=BIT},
+      </if>
+      <if test="main.comDepUser != null" >
+        #{main.comDepUser,jdbcType=VARCHAR},
+      </if>
+      <if test="main.comDepDate != null" >
+        #{main.comDepDate,jdbcType=DATE},
+      </if>
+      <if test="main.tecDepUser != null" >
+        #{main.tecDepUser,jdbcType=VARCHAR},
+      </if>
+      <if test="main.tecDepDate != null" >
+        #{main.tecDepDate,jdbcType=DATE},
+      </if>
+      <if test="main.pmcDepUser != null" >
+        #{main.pmcDepUser,jdbcType=VARCHAR},
+      </if>
+      <if test="main.pmcDepDate != null" >
+        #{main.pmcDepDate,jdbcType=DATE},
+      </if>
+      <if test="main.quaConDepUser != null" >
+        #{main.quaConDepUser,jdbcType=VARCHAR},
+      </if>
+      <if test="main.quaConDepDate != null" >
+        #{main.quaConDepDate,jdbcType=DATE},
+      </if>
+      <if test="main.assDepUser != null" >
+        #{main.assDepUser,jdbcType=VARCHAR},
+      </if>
+      <if test="main.assDepDate != null" >
+        #{main.assDepDate,jdbcType=DATE},
+      </if>
+      <if test="main.whUser != null" >
+        #{main.whUser,jdbcType=VARCHAR},
+      </if>
+      <if test="main.whDate != null" >
+        #{main.whDate,jdbcType=DATE},
+      </if>
+      <if test="main.productionTeamUser != null" >
+        #{main.productionTeamUser,jdbcType=VARCHAR},
+      </if>
+      <if test="main.productionTeamDate != null" >
+        #{main.productionTeamDate,jdbcType=DATE},
+      </if>
+      <if test="main.rollKneadingUnitUser != null" >
+        #{main.rollKneadingUnitUser,jdbcType=VARCHAR},
+      </if>
+      <if test="main.rollKneadingUnitDate != null" >
+        #{main.rollKneadingUnitDate,jdbcType=DATE},
+      </if>
+      <if test="main.specialRulesSetUser != null" >
+        #{main.specialRulesSetUser,jdbcType=VARCHAR},
+      </if>
+      <if test="main.specialRulesSetDate != null" >
+        #{main.specialRulesSetDate,jdbcType=DATE},
+      </if>
+      <if test="main.newProGroupUser != null" >
+        #{main.newProGroupUser,jdbcType=VARCHAR},
+      </if>
+      <if test="main.newProGroupDate != null" >
+        #{main.newProGroupDate,jdbcType=DATE},
+      </if>
+      <if test="main.purchasDepUser != null" >
+        #{main.purchasDepUser,jdbcType=VARCHAR},
+      </if>
+      <if test="main.purchasDepDate != null" >
+        #{main.purchasDepDate,jdbcType=DATE},
+      </if>
+      <if test="main.cwDepUser != null" >
+        #{main.cwDepUser,jdbcType=VARCHAR},
+      </if>
+      <if test="main.cwDepDate != null" >
+        #{main.cwDepDate,jdbcType=DATE},
+      </if>
+      <if test="main.iprice != null" >
+        #{main.iprice,jdbcType=DECIMAL},
+      </if>
+      <if test="main.iamount != null" >
+        #{main.iamount,jdbcType=DECIMAL},
+      </if>
+      <if test="main.costMaterial != null" >
+        #{main.costMaterial,jdbcType=DECIMAL},
+      </if>
+      <if test="main.costMachine != null" >
+        #{main.costMachine,jdbcType=DECIMAL},
+      </if>
+      <if test="main.costPrice != null" >
+        #{main.costPrice,jdbcType=DECIMAL},
+      </if>
+
+      <if test="main.costFactPrice != null" >
+        #{main.costFactPrice,jdbcType=DECIMAL},
+      </if>
+
+    </trim>
+  </insert>
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.sa.entity.OrderProductionSchedule">
+    update  ${database}.dbo.all_order_production_schedule
+    <set>
+      <if test="main.freshEquipment != null">
+        fresh_equipment = #{main.freshEquipment,jdbcType=BIT},
+      </if>
+      <if test="main.negotiateDate != null">
+        negotiate_date = #{main.negotiateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.unitCost != null">
+        unit_cost = #{main.unitCost,jdbcType=VARCHAR},
+      </if>
+      <if test="main.productionTeam != null">
+        production_team = #{main.productionTeam,jdbcType=VARCHAR},
+      </if>
+
+      <if test="main.deliveryDate != null">
+        delivery_date = #{main.deliveryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="main.remark != null">
+        remark = #{main.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="main.delayedShipments != null">
+        delayed_shipments = #{main.delayedShipments,jdbcType=BIT},
+      </if>
+      <if test="main.updateUser != null">
+        update_user = #{main.updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="main.updateDate != null">
+        update_date = #{main.updateDate,jdbcType=TIMESTAMP},
+      </if>
+
+      <if test="main.productInvStd != null">
+        product_inv_std= #{main.productInvStd,jdbcType=VARCHAR},
+      </if>
+      <if test="main.custName != null">
+        cust_name= #{main.custName,jdbcType=VARCHAR},
+      </if>
+      <if test="main.contractCode != null">
+        contract_code= #{main.contractCode,jdbcType=VARCHAR},
+      </if>
+      <if test="main.productInvCode != null">
+        product_inv_code= #{main.productInvCode,jdbcType=VARCHAR},
+      </if>
+      <if test="main.productInvName != null">
+        product_inv_name= #{main.productInvName,jdbcType=VARCHAR},
+      </if>
+      <if test="main.qty != null">
+        qty= #{main.qty,jdbcType=DECIMAL},
+      </if>
+
+      <if test="main.iprice != null" >
+        iprice=#{main.iprice,jdbcType=DECIMAL},
+      </if>
+      <if test="main.iamount != null" >
+        iamount=#{main.iamount,jdbcType=DECIMAL},
+      </if>
+
+
+      <if test="main.invCode != null">
+        inv_code= #{main.invCode,jdbcType=VARCHAR},
+      </if>
+      <if test="main.invName != null">
+        inv_name= #{main.invName,jdbcType=VARCHAR},
+      </if>
+
+      <if test="main.invStd != null">
+        inv_std= #{main.invStd,jdbcType=VARCHAR},
+      </if>
+      <if test="main.tqty != null">
+        tqty= #{main.tqty,jdbcType=DECIMAL},
+      </if>
+
+      <if test="main.person != null">
+        person= #{main.person,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{main.id,jdbcType=VARCHAR}
+  </update>
+
+
+  <update id="udateBySodId" parameterType="com.web.sa.entity.OrderProductionSchedule">
+    update ${database}.dbo.all_order_production_schedule
+    set iz_delete = 1,
+    delete_date = getdate()
+
+    where so_detail_id = #{sodId}
+  </update>
+
+</mapper>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.web.u8system.mapper.U8CurrentStockMapper" >
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(*) from CurrentStock
+        where cWhCode = #{whCode} and cInvCode = #{invCode} and cfree1 = #{cfree1} and cfree2 = #{cfree2} and cfree3 = #{cfree3}and cBatch = #{cBatch}
+    </select>
+    <select id="selectStock" resultType="com.web.u8system.entity.U8CurrentStock">
+        select top 1 * from CurrentStock
+        where cWhCode = #{whCode} and cInvCode = #{invCode} and cfree1 = #{cfree1}  and cfree2 = #{cfree2} and cfree3 = #{cfree3}and cBatch = #{cBatch}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.web.u8system.entity.U8CurrentStock">
+        insert into CurrentStock
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="cWhCode != null">
+                cWhCode,
+            </if>
+            <if test="cInvCode != null">
+                cInvCode,
+            </if>
+            <if test="itemId != null">
+                ItemId,
+            </if>
+            <if test="iSoType != null">
+                iSoType,
+            </if>
+            <if test="iSodid != null">
+                iSodid,
+            </if>
+            <if test="iQuantity != null">
+                iQuantity,
+            </if>
+            <if test="fInQuantity != null">
+                fInQuantity,
+            </if>
+            <if test="fAvaQuantity != null">
+                fAvaQuantity,
+            </if>
+            <if test="bStopFlag != null">
+                bStopFlag,
+            </if>
+            <if test="bGspStop != null">
+                BGSPSTOP,
+            </if>
+            <if test="cBatch != null">
+                cBatch,
+            </if>
+            <if test="cfree2 != null">
+                cfree2,
+            </if>
+            <if test="cfree3 != null">
+                cfree3,
+            </if>
+            <if test="iNum != null">
+                iNum,
+            </if>
+            <if test="cfree1 != null">
+                cfree1,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="cWhCode != null">
+                #{cWhCode},
+            </if>
+            <if test="cInvCode != null">
+                #{cInvCode},
+            </if>
+            <if test="itemId != null">
+                #{itemId},
+            </if>
+            <if test="iSoType != null">
+                #{iSoType},
+            </if>
+            <if test="iSodid != null">
+                #{iSodid},
+            </if>
+            <if test="iQuantity != null">
+                #{iQuantity},
+            </if>
+            <if test="fInQuantity != null">
+                #{fInQuantity},
+            </if>
+            <if test="fAvaQuantity != null">
+                #{fAvaQuantity},
+            </if>
+            <if test="bStopFlag != null">
+                #{bStopFlag},
+            </if>
+            <if test="bGspStop != null">
+                #{bGspStop},
+            </if>
+            <if test="cBatch != null">
+                #{cBatch},
+            </if>
+            <if test="cfree2 != null">
+                #{cfree2},
+            </if>
+            <if test="cfree3 != null">
+                #{cfree3},
+            </if>
+            <if test="iNum != null">
+                #{iNum},
+            </if>
+            <if test="cfree1 != null">
+                #{cfree1},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateQuanity">
+        update CurrentStock set iQuantity = case when iQuantity is null then 0 else iQuantity end  + #{iQuantity},iNum =case when iNum is null then 0 else iNum end   + #{iNum}
+        where cWhCode = #{whCode} and cInvCode = #{invCode}and cfree1 = #{cfree1}and cfree2 = #{cfree2}  and cfree3 = #{cfree3} and cBatch = #{cBatch}
+    </update>
+    <update id="updateQuanity1">
+        update CurrentStock set iQuantity =case when iQuantity is null then 0 else iQuantity end- #{iQuantity},iNum = case when iNum is null then 0 else iNum end - #{iNum}
+        where cWhCode = #{whCode} and cInvCode = #{invCode}and cfree1 = #{cfree1} and cfree2 = #{cfree2} and cfree3 = #{cfree3} and cBatch = #{cBatch}
+    </update>
+</mapper>
