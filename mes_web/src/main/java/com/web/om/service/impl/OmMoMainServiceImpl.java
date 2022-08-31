@@ -15,10 +15,12 @@ import com.web.basicinfo.mapper.ComputationUnitMapper;
 import com.web.basicinfo.mapper.InventoryMapper;
 import com.web.basicinfo.mapper.VendorMapper;
 import com.web.basicinfo.service.IInventoryService;
+import com.web.om.dto.OmOrderPartDTO;
 import com.web.om.dto.OmProductVM;
 import com.web.om.entity.OmMoDetails;
 import com.web.om.entity.OmMoMain;
 import com.web.om.entity.OmMoMaterials;
+import com.web.om.entity.OmOrderPart;
 import com.web.om.mapper.OmMoDetailsMapper;
 import com.web.om.mapper.OmMoMainMapper;
 import com.web.om.mapper.OmMoMaterialsMapper;
@@ -168,7 +170,7 @@ public class OmMoMainServiceImpl extends ServiceImpl<OmMoMainMapper, OmMoMain> i
      * @throws Exception
      */
     @Transactional(rollbackFor = Exception.class)
-    public ResponseResult save1(OmMoMain omProductPo, List<OmProductVM>  list,  List<OmProductVM>  listDetail) throws Exception{
+    public ResponseResult save1(OmMoMain omProductPo, List<OmProductVM>  list, List<OmProductVM>  listDetail, List<OmOrderPart> partList) throws Exception{
         ResponseResult result = new ResponseResult();
         try{
 
@@ -364,12 +366,6 @@ public class OmMoMainServiceImpl extends ServiceImpl<OmMoMainMapper, OmMoMain> i
 
                     }
 
-
-
-
-
-
-
                 }
                 //循环插入明细信息
                 for(OmProductVM t:listDetail)
@@ -381,10 +377,6 @@ public class OmMoMainServiceImpl extends ServiceImpl<OmMoMainMapper, OmMoMain> i
                         {
                             throw new Exception("单耗不能为空！");
                         }
-
-
-
-
 
                         OmMoMaterials omPoDetails=new OmMoMaterials();
                         omPoDetails.setCinvcode(t.getCinvcodes());
@@ -700,8 +692,16 @@ public class OmMoMainServiceImpl extends ServiceImpl<OmMoMainMapper, OmMoMain> i
         return result;
     }
 
+    @Override
+    public ResponseResult saveToMes(OmMoMain main, List<OmProductVM> list, List<OmProductVM> listDetail, List<OmOrderPartDTO> partList) {
+        ResponseResult result = new ResponseResult();
+        //保存产品表ID，key是recordId（产品表表示），value是产品表ID
+        Map<String,String> productIdMap = new HashMap<>();
+        //保存部件表ID，key是partId，value是部件表ID
+        Map<String,String> partIdMap = new HashMap<>();
 
-
+        return result;
+    }
 
 
     /**

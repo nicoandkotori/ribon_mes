@@ -6,8 +6,10 @@ import com.common.util.ResponseResult;
 import com.web.mo.dto.BomDTO;
 import com.web.mo.entity.TestSo;
 import com.web.mo.entity.U8MpsNetdemand;
+import com.web.om.dto.OmOrderPartDTO;
 import com.web.om.dto.OmProductVM;
 import com.web.om.entity.OmMoMain;
+import com.web.om.entity.OmOrderPart;
 
 import java.util.List;
 import java.util.Map;
@@ -24,7 +26,9 @@ public interface IOmMoMainService extends IService<OmMoMain> {
     Map<String, Object>  getDetailList1(OmProductVM query) throws Exception;
     Map<String, Object> getHistoryByCinvcode1(OmProductVM query) throws Exception;
 
-    ResponseResult save1(OmMoMain main, List<OmProductVM> list, List<OmProductVM>  listDetail) throws Exception;
+    ResponseResult save1(OmMoMain main, List<OmProductVM> list, List<OmProductVM>  listDetail, List<OmOrderPart> partList) throws Exception;
+
+    ResponseResult saveToMes(OmMoMain main,List<OmProductVM> list, List<OmProductVM>  listDetail, List<OmOrderPartDTO> partList);
 
     ResponseResult deleteByDetailMainId(Integer id,Integer mainid,Integer subid) throws Exception;
     ResponseResult deleteByDetailSubId(Integer id,Integer mainid,Integer subid) throws Exception;
