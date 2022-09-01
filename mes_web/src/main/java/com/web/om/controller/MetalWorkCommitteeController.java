@@ -10,10 +10,15 @@ import com.modules.data.mybatis.DbContextHolder;
 import com.web.basicinfo.entity.Vendor;
 import com.web.basicinfo.service.IVendorService;
 import com.web.common.controller.BasicController;
+import com.web.om.dto.OmOrderMaterialDTO;
+import com.web.om.dto.OmOrderPartDTO;
 import com.web.om.dto.OmProductVM;
 import com.web.om.entity.OmMoMain;
+import com.web.om.entity.OmOrderMain;
+import com.web.om.entity.OmOrderPart;
 import com.web.om.service.IOmMoMainService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -284,7 +289,7 @@ public class MetalWorkCommitteeController extends BasicController {
      */
     @RequestMapping(value = "/save1")
     @ResponseBody
-    public ResponseResult save1(String mData,String mDatas,String mDataDetail) {
+    public ResponseResult save1(String mData,String mDatas,String mDataDetail,String partData) {
         ResponseResult result = new ResponseResult();
         try{
             DbContextHolder.setDbType(DBTypeEnum.db2);
@@ -299,12 +304,39 @@ public class MetalWorkCommitteeController extends BasicController {
             }
             List<OmProductVM> list = JSON.parseArray(mDatas, OmProductVM.class);
             List<OmProductVM> listDetail = JSON.parseArray(mDataDetail, OmProductVM.class);
-            result=omMainService.save1(m,list,listDetail);
+            List<OmOrderPart> partList = JSON.parseArray(partData, OmOrderPart.class);
+            result=omMainService.save1(m,list,listDetail,partList);
         }catch (Exception e){
             result.setSuccess(false);
             result.setMsg(e.getMessage());
         }
         return result;
+    }
+
+    /**
+     * 将委外订单保存到mes里
+     *
+     * @param mData 订单主表
+     * @param mDatas   产品表
+     * @param partStr      部件表
+     * @param mDataDetail  材料表
+     * @return {@link ResponseResult}
+     */
+    @PostMapping("save_to_mes")
+    public ResponseResult saveToMes(String mData,String mDatas,String partStr,String mDataDetail){
+        try {
+            ResponseResult result = null;
+            List<OmOrderMain> orderMainList = JSON.parseArray(mData,OmOrderMain.class);
+            List<OmProductVM> productList = JSON.parseArray(mDatas,OmProductVM.class);
+            List<OmOrderPartDTO> partList = JSON.parseArray(partStr, OmOrderPartDTO.class);
+            List<OmOrderMaterialDTO> materialList = JSON.parseArray(mDataDetail, OmOrderMaterialDTO.class);
+
+            return null;
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
 
