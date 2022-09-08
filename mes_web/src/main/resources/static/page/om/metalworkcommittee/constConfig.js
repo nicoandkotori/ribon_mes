@@ -1,2 +1,5 @@
 const PRODUCT_TABLE_ID = "jqGrid";
-const partTableId = "part_table";
+const PART_TABLE_ID = "part_table";
+const MATERIAL_TABLE_ID = "jqGridDetail";
+//行标识隐藏flag
+const INDEX_HIDDEN = false;

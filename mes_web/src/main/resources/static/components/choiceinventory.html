@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>存货选择</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/MyBootstrap.css">
+
+    <link rel="stylesheet" href="../static/css/font.css">
+    <link rel="stylesheet" href="../static/css/weadmin.css">
+    <!-- jqgrid -->
+    <link rel="stylesheet" href='../static/Scripts/jqgrid/css/jquery-ui.theme.min.css'/>
+    <link rel="stylesheet" href='../static/Scripts/jqgrid/css/ui.jqgrid.css'/>
+    <link rel="stylesheet" href='../static/Scripts/bootstrap-treeview/bootstrap-treeview.min.css'/>
+
+
+
+
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+    <!--jquery-->
+    <script src='../static/Scripts/jquery-1.10.2.min.js'></script>
+    <script src='../static/Scripts/jquery.json.js'></script>
+    <script src='../static/Scripts/Common.js'></script>
+    <!--jqgrid-->
+    <script src='../static/Scripts/jqgrid/js/i18n/grid.locale-cn.js'></script>
+    <script src='../static/Scripts/jqgrid/js/jquery-ui.min.js'></script>
+    <script src='../static/Scripts/jqgrid/js/jquery.jqGrid.js'></script>
+    <script src='../static/Scripts/Print.js'></script>
+    <script src='../static/Scripts/lodop/LodopFuncs.js'></script>
+    <!-- bootstrap -->
+
+
+    <script src='../static/Scripts/bootstrap-treeview/bootstrap-treeview.min.js'></script>
+
+</head>
+<style type="text/css">
+
+</style>
+<body>
+
+<div style="width: 35%;  height:100%; float:left; ">
+
+    <div class="weadmin-body-table">
+        <div id="tree"style="overflow-y :scroll;"></div>
+    </div>
+
+
+
+</div>
+<div style="width:64.5%; height:100%; float:right; ">
+    <div class="weadmin-body">
+        <div class="layui-row">
+            <form id="formquery" class="layui-form layui-col-md12 we-search">
+                <div class="layui-row">
+                    <input type="hidden" id="cinvccode" name="cinvccode"/>
+                    <input type="hidden" id="paramAcceptor"/>
+                    <input type="hidden" id="callBackAcceptor" />
+                    <input type="hidden" id="returnData" />
+                    <div class="layui-inline" style="width: 70px" >
+                        <span>存货编码</span>
+                    </div>
+                    <div class="layui-inline" style="width: 200px">
+                        <input type="text" class="layui-input weadmin-input" placeholder="存货编码" name="cinvcode" id="cinvcode" onkeypress="onKeyEnter()" autocomplete="off">
+                    </div>
+
+                    <div class="layui-inline" style="width: 70px" >
+                        <span>存货名称</span>
+                    </div>
+                    <div class="layui-inline" style="width: 200px">
+                        <input type="text" class="layui-input weadmin-input" placeholder="存货名称" name="cinvname" id="cinvname"onkeypress="onKeyEnter()" autocomplete="off">
+                    </div>
+
+                    <div class="layui-inline" style="width: 70px" >
+                        <span>规格型号</span>
+                    </div>
+                    <div class="layui-inline" style="width: 200px">
+                        <input type="text" class="layui-input weadmin-input" placeholder="规格型号" name="cinvstd" id="cinvstd"onkeypress="onKeyEnter()" autocomplete="off">
+                    </div>
+                    <button type="button" class="layui-btn layui-btn-sm" lay-filter="select" lay-submit="" id="select"><i class="layui-icon">&#xe615;</i></button>
+                </div>
+
+
+            </form>
+        </div>
+        <div class="weadmin-block">
+            <button type="button" class="layui-btn layui-btn-sm" onclick="goback()">选择带回</button>
+        </div>
+    </div>
+    <div class="weadmin-body-table">
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+</div>
+
+</body>
+<script>
+    var baseUrl = "/mo/bom/";
+    var CurRow;
+    var CurCol;
+    var CurRow1;
+    var CurCol1;
+
+    $(function () {
+        initMenu();
+        initJqgrid();
+        // initBtn(".weadmin-block button", "/biz/moplanmain");
+    });
+    //加载左侧部门菜单
+    function initMenu() {
+
+        $.ajax({
+            type: "get",
+            async:false,
+            url: "/basicinfo/inventory/getMenuList",
+            data:{},
+            success: function (data) {
+
+                var jsonStr = JSON.stringify(data);
+                while(jsonStr.indexOf('"nodes":[],')>-1) {
+                    jsonStr = jsonStr.replace('"nodes":[],', '');
+                }
+                data = JSON.parse(jsonStr);
+
+                $('#tree').treeview({
+                    data: data,
+                    levels: 5,
+                    enableLinks: true,
+                    highlightSelected: true,//是否突出显示选定的节点
+
+                });
+            },
+        });
+
+
+        $('#tree').on('nodeSelected', function(event, data) {
+            if (data.cinvccode != null && data.cinvccode != "") {
+                $("#cinvccode").val(data.cinvccode);
+                init();
+            }else{
+                clear();
+                $("#cinvccode").val("");
+            }
+        });
+        $('#tree').on('nodeUnselected', function(event, data) {
+
+        });
+
+        $("#tree").css("height", ($(window).outerHeight() - 85));
+    }
+    //点击菜单加载右侧内容
+    function init() {
+        $('#select').click();
+
+    }
+    //清空表格,初始化按钮
+    function clear(){
+        $("#jqGrid").jqGrid("clearGridData");
+
+    }
+    function initJqgrid() {
+        var qo = $("#formquery").serializeObject();
+        $("#jqGrid").jqGrid({
+            mtype: "GET",
+            url: "/basicinfo/inventory/getlistbypage",
+            postData: {
+                querystr: qo
+            },
+            datatype: "json",
+            colModel: [
+                {label: "物料编码", name: "cinvcode", width: 150, key: true},
+                {label: "物料名称", name: "cinvname", width: 200},
+                {label: "规格型号", name: "cinvstd", width: 150},
+                {label: "单位", name: "ccomunitname", width: 60},
+                {label: "cinvdefine2", name: "cinvdefine2", hidden: true },
+                {label: "cinvdefine1", name: "cinvdefine1", hidden: true},
+                {label: "cinvdefine3", name: "cinvdefine3", hidden: true},
+                {label: "ichangrate", name: "ichangrate", hidden: true},
+            ],
+            viewrecords: true,
+            multiselect: false,
+            autowidth: true,
+            shrinkToFit: false,
+            autoScroll: true,
+            scrollrows: true, // 是否显示行滚动条
+            rownumbers: true,
+            rowNum: 50,
+            rowList: [50, 100, 150],
+            colMenu: false,
+            cellEdit: false,
+            pager: "#jqGridPager",
+            cmTemplate:{sortable: false, align: "center"},
+            beforeProcessing: function (data, st, xhr) {//登录失效时请求将被拦截，提示用户：未登录
+                if (data.success == false){
+                    layer.msg(data.msg);
+                }
+                return true;
+            },
+            loadBeforeSend:function (jqXHR) {
+                var token = sessionStorage.getItem("mestoken");
+                jqXHR.setRequestHeader('Authorization',  token);
+
+            },
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+                // goback();
+                parent.chooseInventoryCallBack(getSelectedRowData("jqGrid"));
+                closePage();
+            }
+        });
+
+        $("#jqGrid").setGridHeight(($(window).outerHeight() - $(".weadmin-body").height() - 105));
+
+
+
+    }
+
+
+    layui.use(['form', 'admin', 'jquery', 'table', 'layer', 'tableSelect'], function() {
+        var form = layui.form,
+            admin = layui.admin,
+            $ = layui.jquery,
+            table = layui.table,
+            layer = layui.layer,
+            tableSelect = layui.tableSelect,
+            laydate = layui.laydate;
+
+
+        //查询
+        form.on('submit(select)', function (data) {
+            $("#jqGrid").jqGrid('setGridParam', {
+                postData: {querystr: JSON.stringify(data.field)},
+            }).trigger('reloadGrid');
+
+
+
+        });
+        //
+        // //导出
+        // form.on('submit(exportBtn)', function (data) {
+        //     var qo = $("#formquery").serializeObject();
+        //     window.location.href = encodeURI(baseUrl+'export?queryStr='+qo
+        //         +'&userName='+sessionStorage.getItem("userName"));
+        //
+        // });
+    });
+
+
+
+    //选择带回
+    function goback() {
+
+        var itype = GetQueryString("itype");
+        var rowid = parent.$("#jqGrid").getGridParam("selrow");
+        var rowid1 = parent.$("#jqGridDetail").getGridParam("selrow");
+        var ids= $("#jqGrid").getGridParam("selrow");
+        var rowData =  $("#jqGrid").getRowData(ids);
+        var cinvcode = rowData.cinvcode;
+        var cinvname = rowData.cinvname;
+        var cinvstd = rowData.cinvstd;
+        var ccomunitname = rowData.ccomunitname;
+        var cinvdefine2 = rowData.cinvdefine2;
+        //1是母件，2是子件
+        if(itype=="1")
+        {
+            if (parent.CurRow != "" || parent.CurRow != undefined) {
+                parent.$("#jqGrid").jqGrid('saveCell', parent.CurRow, parent.CurCol);
+            }
+            if (parent.CurRow1 != "" || parent.CurRow1 != undefined) {
+                parent.$("#jqGridDetail").jqGrid('saveCell', parent.CurRow1, parent.CurCol1);
+            }
+            var parentRowData =  parent.$("#jqGrid").getRowData(rowid);
+            parent.$("#jqGrid").setRowData(rowid, {cinvcode: cinvcode,cinvname: cinvname,cinvstd:cinvstd,ccomunitname:ccomunitname});
+            var ids = parent.$("#jqGridDetail").getDataIDs();
+            for (var i = 0; i < ids.length; i++) {
+                var rowDataDetail = parent.$("#jqGridDetail").getRowData(ids[i]);
+                if (rowDataDetail.recordId ==parentRowData.recordId) {
+                    parent.$('#jqGridDetail').jqGrid('setRowData', ids[i], { cinvcode: cinvcode, cinvname: cinvname, cinvstd: cinvstd, ccomunitname: ccomunitname,});
+                }
+            }
+        }
+        else if (itype == "2")
+        {
+            var iprice=0;
+            $.ajax({
+                type: "post",
+                async: false,
+                dataType: "json",
+                url: "/basicinfo/inventory/getprice",
+                data: {cinvcode:cinvcode},
+                success: function (data) {
+                    iprice=parseFloat(data- 0).toFixed(2);
+                },
+
+            });
+            if (parent.CurRow1 != "" || parent.CurRow1 != undefined) {
+                parent.$("#jqGridDetail").jqGrid('saveCell', parent.CurRow1, parent.CurCol1);
+            }
+            parent.$("#jqGridDetail").setRowData(rowid1, {cinvcodes: cinvcode,cinvnames: cinvname,cinvstds:cinvstd,cinvdefine2:cinvdefine2,cdefine26:iprice});
+            parent.SetSize(rowid1);
+        }
+        else if (itype == "addpart_part_table"){
+            let seletedRowId = parent.$("#part_table").getGridParam("selrow");
+            parent.$("#part_table").setRowData(seletedRowId, {cinvcode: cinvcode,cinvname: cinvname,cinvstd:cinvstd,ccomunitname:ccomunitname});
+        }
+
+
+
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);//关闭当前页
+    }
+
+    function onKeyEnter() {
+        if (window.event.keyCode == '13') {
+            $('#select').click()
+        }
+    }
+
+    /*
+     * 获取选中行ID
+     */
+    var getSelectedRowId = (tableId)=>{
+        return $("#"+tableId).getGridParam("selrow");
+    }
+
+    /*
+     * 获取选中行数据
+     */
+    var getSelectedRowData = (tableId)=>{
+        let id = getSelectedRowId(tableId);
+        console.log("rowid:"+id);
+        return $("#"+tableId).getRowData(id);
+    }
+
+
+    /*
+     * 关闭当前页
+     */
+    var closePage = ()=>{
+        let index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    }
+</script>
+
+</html>

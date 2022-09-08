@@ -48,8 +48,6 @@
     <script src="../../../static/Scripts/easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
     <script src="./constConfig.js"></script>
     <script src="/js/jqGridTableHelper.js"></script>
-    <script src="./class.js"></script>
-    <script src="./function.js"></script>
     <style>
         .layui-select, .layui-input {
             height: 24px;
@@ -134,9 +132,6 @@
     var recordId;
     var partHelper = new jqGridTableHelper($('#'+PART_TABLE_ID));
     var materialHelper = new jqGridTableHelper($('#'+MATERIAL_TABLE_ID));
-    var materialRowIndex = 0;
-    //选择物料的种类，为'part'或'material'
-    var chooseInvType;
     initJqgrid();
     layui.use(['form', 'admin', 'jquery', 'table', 'layer', 'laydate', 'treeSelect', "upload", 'tableSelect'], function () {
         var form = layui.form,
@@ -187,7 +182,6 @@
             ondblClickRow: function (rowid, iRow, iCol, e) {
                 if (iCol == 3 || iCol == 4) {
                     //选择自建
-                    chooseInvType = 'part';
                     choice(rowid, "addpart_part_table");
                 }
             },
@@ -196,12 +190,12 @@
                 CurCol = iCol;
             },
             afterSaveCell: function (rowid, name, val, iRow, iCol) {
-                // switch (name){
-                //     case 'iquantity':
-                //         setQty(rowid);
-                //         break;
-                //     default:break;
-                // }
+                switch (name){
+                    case 'iquantity':
+                        setQty(rowid);
+                        break;
+                    default:break;
+                }
             }
 
         });
@@ -264,7 +258,6 @@
                 console.log(rowid);
                 if (iCol == 14 || iCol == 13) {
                     //选择自建
-                    chooseInvType = 'material';
                     choice(rowid, "2");
                 }
             },
@@ -410,14 +403,30 @@
      * 材料表增行函数
      */
     function addMaterialRow(){
-        materialRowIndex++;
-        partHelper.saveCell(CurRow,CurCol);
-        let partRowData = partHelper.getSelectedRowData();
-        console.log("材料表增行函数");
-        let productMaterialRowData = new omMesProductMaterial();
-        //数据字段转换
-        productMaterialRowData.setDataFromPartData(partRowData);
-        materialHelper.addRowData(materialRowIndex,productMaterialRowData);
+        partRowIndex = partRowIndex + 1;
+        if (CurRow != "" || CurRow != undefined) {
+            $("#part_table").jqGrid('saveCell', CurRow, CurCol);
+        }
+        //获取部件表选中行
+        var rowid = $("#part_table").getGridParam("selrow");
+        if (rowid != null && rowid != '') {
+            //获取部件表选中行数据
+            var rowData = $("#part_table").getRowData(rowid);
+            var o = {
+                mainid: rowData.mainid,
+                id: rowData.id,
+                recordId: rowData.recordId,
+                partRowId:rowData.partRowId,
+                cinvcode: rowData.cinvcode,
+                cinvname: rowData.cinvname,
+                cinvstd: rowData.cinvstd,
+                ccomunitname: rowData.ccomunitname,
+                iquantity: rowData.iquantity,
+            };
+            $("#jqGridDetail").addRowData(partRowIndex, o);
+        } else {
+            layer.alert("请先选择行再操作！");
+        }
     }
 
     /*
@@ -450,7 +459,7 @@
     //弹窗选择产品编码函数
     function choice(rowid, itype) {
         if (rowid != null && rowid != '') {
-            WeAdminShow('选择产品', '/components/choiceinventory.html?itype=' + itype);
+            WeAdminShow('选择产品', './choiceinventory.html?itype=' + itype);
         } else {
             layer.alert("请先选择行再操作！");
         }
@@ -659,23 +668,10 @@
     /*
      * 选择部件信息回调函数
      */
-    function chooseInventoryCallBack(u8Data){
-        //根据选择物料类型来为部件表或材料表赋值，不算优雅的设计，但受限于框架没有更好的实现方式
-        switch (chooseInvType) {
-            case 'part':
-                let part = new omMesPart();
-                part = setPartInfoFromU8Data(part,u8Data);
-                partHelper.setSelectedRowData(part);
-                break;
-            case 'material':
-                let selectedMaterialRow = materialHelper.getSelectedRowData();
-                //转换u8字段
-                selectedMaterialRow = setMaterialInfoFromU8Data(selectedMaterialRow,u8Data);
-                //选中记录赋值
-                materialHelper.setSelectedRowData(selectedMaterialRow);
-                break;
-        }
-
+    function chooseInventoryCallBack(row){
+        let part = new omMesPart();
+        part.setDataFromU8Data(row);
+        partHelper.setSelectedRowData(part);
     }
 </script>
 </html>

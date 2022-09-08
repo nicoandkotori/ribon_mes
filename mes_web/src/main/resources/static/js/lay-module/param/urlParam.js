@@ -56,6 +56,7 @@ layui.define([], function (exports) {
             title = false;
         }
         ;
+        console.log("!");
         if (url == null || url == '') {
             url = "404.html";
         }

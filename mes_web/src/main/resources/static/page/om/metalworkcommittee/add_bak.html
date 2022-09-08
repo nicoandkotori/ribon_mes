@@ -46,6 +46,7 @@
     <!--easyui-->
     <script src="../../../static/Scripts/easyui-1.7.0/jquery.easyui.min.js"></script>
     <script src="../../../static/Scripts/easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
+    <script src="./constConfig.js"></script>
     <style>
         .layui-select, .layui-input {
             height: 24px;
@@ -360,7 +361,7 @@
                 {name: "modetailsid", key: true, hidden: true},
                 {name: "moid", hidden: true},
                 // {name: "recordId", hidden: true},
-                {label:"产品表行标识",name: "recordId",width: 80,sortable: false, editable: true, align: "center"},
+                {label:"产品表行标识",name: "recordId",width: 80,sortable: false, editable: true, align: "center",hidden: INDEX_HIDDEN},
                 {label: "产品编码", name: "cinvcode", width: 110, sortable: false, editable: true, align: "center"},
                 {label: "产品名称", name: "cinvname", width: 90, sortable: false, editable: false, align: "center"},
                 {label: "规格型号", name: "cinvstd", width: 80, sortable: false, editable: false, align: "center"},
@@ -438,8 +439,8 @@
                     method: "post",
                     colModel: [
                         // {name: "recordId", hidden: true},
-                        {label:"产品表行标识",name: "recordId",width: 80,sortable: false, editable: true, align: "center"},
-                        {label: "部件表行标识",name: "partRowId", width: 80,},
+                        {label:"产品表行标识",name: "recordId",width: 80,sortable: false, editable: true, align: "center",hidden:INDEX_HIDDEN},
+                        {label: "部件表行标识",name: "partRowId", width: 80,hidden:INDEX_HIDDEN},
                         {label: "产品编码", name: "cinvcode", width: 110, sortable: false, editable: true, align: "center"},
                         {label: "产品名称", name: "cinvname", width: 90, sortable: false, editable: false, align: "center"},
                         {label: "规格型号", name: "cinvstd", width: 80, sortable: false, editable: false, align: "center"},
@@ -566,7 +567,7 @@
                 {name: "momaterialsid", key: true, hidden: true},
                 {name: "modetailsid", hidden: true},
                 {name: "moid", hidden: true},
-                {name: "recordId", hidden: true},
+                {label: "产品表行表示",name: "recordId", hidden: INDEX_HIDDEN},
                 {label: "产品编码", name: "cinvcode", width: 110, sortable: false, editable: false, align: "center"},
                 {label: "产品名称", name: "cinvname", width: 90, sortable: false, editable: false, align: "center"},
                 {label: "规格型号", name: "cinvstd", width: 80, sortable: false, editable: false, align: "center"},
