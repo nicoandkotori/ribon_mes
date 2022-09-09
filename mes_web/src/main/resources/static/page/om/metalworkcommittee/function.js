@@ -27,3 +27,11 @@ function setPartInfoFromU8Data(part,u8Data){
     return part;
 }
 
+function initDecimal(num){
+    let result = 0;
+    if (num != "" && num != null) {
+        result = parseFloat(num - 0).toFixed(2);
+    }
+    return result;
+}
+

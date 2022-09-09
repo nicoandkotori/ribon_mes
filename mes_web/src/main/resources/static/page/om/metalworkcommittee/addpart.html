@@ -48,7 +48,11 @@
     <script src="../../../static/Scripts/easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
     <script src="./constConfig.js"></script>
     <script src="/js/jqGridTableHelper.js"></script>
-    <script src="./class.js"></script>
+    <script src="./omMesProduct.js"></script>
+    <script src="./omMesPart.js"></script>
+    <script src="./omMesMaterial.js"></script>
+    <script src="./omMesProductMaterial.js"></script>
+    <script src="./omMesPartMaterial.js"></script>
     <script src="./function.js"></script>
     <style>
         .layui-select, .layui-input {
@@ -414,9 +418,9 @@
         partHelper.saveCell(CurRow,CurCol);
         let partRowData = partHelper.getSelectedRowData();
         console.log("材料表增行函数");
-        let productMaterialRowData = new omMesProductMaterial();
+        let productMaterialRowData = new omMesPartMaterial();
         //数据字段转换
-        productMaterialRowData.setDataFromPartData(partRowData);
+        productMaterialRowData.setEntity(partRowData);
         materialHelper.addRowData(materialRowIndex,productMaterialRowData);
     }
 
@@ -664,7 +668,8 @@
         switch (chooseInvType) {
             case 'part':
                 let part = new omMesPart();
-                part = setPartInfoFromU8Data(part,u8Data);
+                part.setEntity(partHelper.getSelectedRowData());
+                part.setDataFromU8Data(u8Data);
                 partHelper.setSelectedRowData(part);
                 break;
             case 'material':
