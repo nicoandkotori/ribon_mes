@@ -1,0 +1,929 @@
+<project version="4">
+  <component name="BookmarksManager">
+    <option name="groups">
+      <GroupState>
+        <option name="bookmarks">
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/omMesProductMaterial.js" />
+              <entry key="line" value="386" />
+            </attributes>
+            <option name="description" value="类_mes_产品-材料表" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add_new.html" />
+              <entry key="line" value="357" />
+            </attributes>
+            <option name="description" value="产品表_表头" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add_new.html" />
+              <entry key="line" value="439" />
+            </attributes>
+            <option name="description" value="部件表_表头" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add_new.html" />
+              <entry key="line" value="574" />
+            </attributes>
+            <option name="description" value="材料表_表头" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add_new.html" />
+              <entry key="line" value="677" />
+            </attributes>
+            <option name="description" value="函数_产品表修改数量" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add_new.html" />
+              <entry key="line" value="740" />
+            </attributes>
+            <option name="description" value="函数_选择产品信息回调" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/omMesProduct.js" />
+              <entry key="line" value="4" />
+            </attributes>
+            <option name="description" value="类_mes产品表" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/omMesPart.js" />
+              <entry key="line" value="3" />
+            </attributes>
+            <option name="description" value="类_mes部件表" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/index.html" />
+              <entry key="line" value="344" />
+            </attributes>
+            <option name="description" value="新增金工委外订单" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/controller/MetalWorkCommitteeController.java" />
+            </attributes>
+            <option name="description" value="controller" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/controller/MetalWorkCommitteeController.java" />
+              <entry key="line" value="325" />
+            </attributes>
+            <option name="description" value="保存到mes里" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/impl/OmMoMainServiceImpl.java" />
+              <entry key="line" value="695" />
+            </attributes>
+            <option name="description" value="保存到mes里" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/impl/OmMoMainServiceImpl.java" />
+            </attributes>
+            <option name="description" value="serviceImpl" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/impl/OmMoMainServiceImpl.java" />
+              <entry key="line" value="415" />
+            </attributes>
+            <option name="description" value="记录标识" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add.html" />
+              <entry key="line" value="71" />
+            </attributes>
+            <option name="description" value="订单编号_ccode" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/addpart.html" />
+              <entry key="line" value="75" />
+            </attributes>
+            <option name="description" value="产品编码_cinvcode" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/addpart.html" />
+              <entry key="line" value="160" />
+            </attributes>
+            <option name="description" value="部件表表头" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/addpart.html" />
+              <entry key="line" value="203" />
+            </attributes>
+            <option name="description" value="部件表_修改数量" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/addpart.html" />
+              <entry key="line" value="216" />
+            </attributes>
+            <option name="description" value="材料表表头" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/addpart.html" />
+              <entry key="line" value="310" />
+            </attributes>
+            <option name="description" value="函数_初始化数据" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/addpart.html" />
+              <entry key="line" value="385" />
+            </attributes>
+            <option name="description" value="函数_部件表增行" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/addpart.html" />
+              <entry key="line" value="401" />
+            </attributes>
+            <option name="description" value="函数_部件表删行" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/addpart.html" />
+              <entry key="line" value="415" />
+            </attributes>
+            <option name="description" value="函数_材料表增行" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/addpart.html" />
+              <entry key="line" value="429" />
+            </attributes>
+            <option name="description" value="函数_材料表删行" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/addpart.html" />
+              <entry key="line" value="442" />
+            </attributes>
+            <option name="description" value="函数_设置产品表字段信息" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/addpart.html" />
+              <entry key="line" value="453" />
+            </attributes>
+            <option name="description" value="函数_弹窗选择产品编码" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/addpart.html" />
+              <entry key="line" value="665" />
+            </attributes>
+            <option name="description" value="函数_选择产品信息回调" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/addpart.html" />
+              <entry key="line" value="650" />
+            </attributes>
+            <option name="description" value="函数_带回数据" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add.html" />
+              <entry key="line" value="1114" />
+            </attributes>
+            <option name="description" value="函数_材料表删行" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+          <BookmarkState>
+            <attributes>
+              <entry key="url" value="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add.html" />
+              <entry key="line" value="1307" />
+            </attributes>
+            <option name="description" value="函数_增加部件表回调" />
+            <option name="provider" value="com.intellij.ide.bookmark.providers.LineBookmarkProvider" />
+          </BookmarkState>
+        </option>
+        <option name="default" value="true" />
+        <option name="name" value="金工委外" />
+      </GroupState>
+      <GroupState>
+        <option name="name" value="物料" />
+      </GroupState>
+      <GroupState>
+        <option name="name" value="配置文件" />
+      </GroupState>
+      <GroupState>
+        <option name="name" value="ribon_mes" />
+      </GroupState>
+    </option>
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:origin/master" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="DatabaseView">
+    <expand>
+      <path>
+        <item name="Root Group" type="25e4ec8d:DvRootDsGroup" />
+        <item name="ribon_mes@121.4.180.106: DSN" type="27e358d6:DataSourceNode" />
+      </path>
+      <path>
+        <item name="Root Group" type="25e4ec8d:DvRootDsGroup" />
+        <item name="ribon_mes@121.4.180.106: DSN" type="27e358d6:DataSourceNode" />
+        <item name="ribon_mes: database" type="ccb7ac2a:MsImplModel$Database" />
+      </path>
+      <path>
+        <item name="Root Group" type="25e4ec8d:DvRootDsGroup" />
+        <item name="ribon_mes@121.4.180.106: DSN" type="27e358d6:DataSourceNode" />
+        <item name="ribon_mes: database" type="ccb7ac2a:MsImplModel$Database" />
+        <item name="dbo: schema" type="2865ee2e:MsImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Root Group" type="25e4ec8d:DvRootDsGroup" />
+        <item name="ribon_mes@121.4.180.106: DSN" type="27e358d6:DataSourceNode" />
+        <item name="ribon_mes: database" type="ccb7ac2a:MsImplModel$Database" />
+        <item name="dbo: schema" type="2865ee2e:MsImplModel$Schema" />
+        <item name="Family of 26 表 (host: 架构 dbo)" type="28178dcc:BaseModel$BaseNamingIdentifyingFamily" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="-1">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add_new.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="19548">
+              <caret line="724" selection-start-line="724" selection-end-line="724" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17712">
+              <caret line="656" column="13" selection-start-line="656" selection-start-column="13" selection-end-line="656" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/function.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="648">
+              <caret line="26" column="16" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="16" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/addpart.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="18009">
+              <caret line="667" column="32" selection-start-line="667" selection-start-column="32" selection-end-line="667" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add_bak.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="40338">
+              <caret line="1494" column="30" selection-start-line="1494" selection-start-column="30" selection-end-line="1494" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/components/choiceinventory.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="6210">
+              <caret line="230" column="29" selection-start-line="230" selection-start-column="29" selection-end-line="230" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bookmark/2Bse28blAIDYUrdUM0KFbwiPSbv.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="108">
+              <caret line="4" column="33" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$APPLICATION_CONFIG_DIR$/workspace/2Bse28blAIDYUrdUM0KFbwiPSbv.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="169">
+              <caret line="246" column="19" selection-start-line="246" selection-start-column="19" selection-end-line="246" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="9288">
+              <caret line="344" selection-start-line="344" selection-end-line="344" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTypeUsageLocalSummary">
+    <fileType name="CSS">
+      <summary usageCount="1" lastUsed="1662089820949" />
+    </fileType>
+    <fileType name="Database Element">
+      <summary usageCount="1" lastUsed="1662086741417" />
+    </fileType>
+    <fileType name="HTML">
+      <summary usageCount="69" lastUsed="1662889226911" />
+    </fileType>
+    <fileType name="JavaScript">
+      <summary usageCount="47" lastUsed="1662889226667" />
+    </fileType>
+    <fileType name="Properties">
+      <summary usageCount="2" lastUsed="1662221344219" />
+    </fileType>
+    <fileType name="XML">
+      <summary usageCount="15" lastUsed="1662889226865" />
+    </fileType>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>get</find>
+      <find>selrow</find>
+      <find>getGrid</find>
+      <find>CurCol</find>
+      <find>saveCell</find>
+      <find>productHelper</find>
+      <find>标识</find>
+      <find>partRowId</find>
+      <find>增行</find>
+      <find>modetailsid</find>
+      <find>回调</find>
+      <find>cho</find>
+      <find>cinvname</find>
+      <find>ccomunitname</find>
+      <find>cinvcode</find>
+      <find>iquantity</find>
+      <find>setRowData</find>
+      <find>添加部件</find>
+      <find>WeAdminShow</find>
+      <find>choo</find>
+      <find>irowid</find>
+      <find>addMaterialRow</find>
+      <find>af</find>
+      <find>addPart</find>
+      <find>product</find>
+      <find>choice</find>
+      <find>data</find>
+      <find>chooseInvType</find>
+      <find>add_new</find>
+      <find>测试</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>true</replace>
+      <replace>tqty</replace>
+      <replace>productInvUnit</replace>
+      <replace>productQty</replace>
+      <replace>part</replace>
+      <replace>u8Data</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>D:\IDEAProjects\ribon_mes\mes_web\src\main\resources\static\static\js</dir>
+    </dirStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <changedPaths>
+      <option value="$PROJECT_DIR$/.idea/vcs.xml" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add.html" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add_bak.html" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/index.html" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/js/lay-module/param/urlParam.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/static/js/admin.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/jqGridHelper.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/application-test.properties" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/components/choiceinventory.html" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/constConfig.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/jqGridTableHelper.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/components/addpart.html" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/function.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/addpart.html" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add_new.html" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/js_class_init_template/OmOrderDetail.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/class.js" />
+      <option value="$PROJECT_DIR$/../../documents/Tencent Files/806768974/FileRecv/2Bse28blAIDYUrdUM0KFbwiPSbv(1).xml" />
+      <option value="$APPLICATION_CONFIG_DIR$/workspace/2Bse28blAIDYUrdUM0KFbwiPSbv.xml" />
+      <option value="$PROJECT_DIR$/bookmark/2Bse28blAIDYUrdUM0KFbwiPSbv.xml" />
+    </changedPaths>
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" />
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="ribon_mes" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ribon_mes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ribon_mes" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ribon_mes" type="462c0819:PsiDirectoryNode" />
+              <item name="bookmark" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="RunConfigurationStartHistory">
+    <history>
+      <element setting="Spring Boot.MesWebApplication" executorId="JRebel Debug" />
+    </history>
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="65259000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+      <todo-filter name="mijiahao" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <editor active="true" />
+    <layout>
+      <window_info id="Structure" order="0" side_tool="true" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.50071025" visible="true" weight="0.19721639" />
+      <window_info id="JRebel" order="2" sideWeight="0.49928975" side_tool="true" weight="0.23398109" />
+      <window_info id="Web" order="3" side_tool="true" />
+      <window_info id="Learn" order="4" />
+      <window_info anchor="bottom" id="Version Control" order="0" visible="true" weight="0.29505813" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.19040698" />
+      <window_info anchor="bottom" id="JRebel Console" order="4" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" order="5" />
+      <window_info anchor="bottom" id="Endpoints" order="6" />
+      <window_info anchor="bottom" id="Sequence Diagram" order="7" />
+      <window_info anchor="bottom" id="依赖" order="8" />
+      <window_info anchor="bottom" id="Profiler" order="9" />
+      <window_info anchor="bottom" id="Build" order="10" />
+      <window_info anchor="bottom" id="TODO" order="11" weight="0.42102712" />
+      <window_info anchor="bottom" id="Java Enterprise" order="12" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Inspection" order="13" weight="0.4" />
+      <window_info anchor="bottom" id="Problems View" order="14" />
+      <window_info anchor="bottom" id="Spring" order="15" />
+      <window_info anchor="bottom" id="Terminal" order="16" />
+      <window_info anchor="bottom" id="Services" order="17" />
+      <window_info anchor="bottom" id="Problems" order="18" />
+      <window_info anchor="right" id="Key Promoter X" order="0" />
+      <window_info anchor="right" id="Maven" order="1" weight="0.25551468" />
+      <window_info anchor="right" id="Database" order="2" weight="0.26129204" />
+      <window_info anchor="right" id="JRebel Setup Guide" order="3" side_tool="true" />
+      <window_info anchor="right" id="Bean Validation" order="4" show_stripe_button="false" />
+      <window_info anchor="right" id="Notifications" order="5" weight="0.25" />
+      <window_info anchor="right" id="Bookmarks" order="6" sideWeight="0.49923313" visible="true" weight="0.20404412" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="Structure" order="0" side_tool="true" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.5007669" visible="true" weight="0.24343488" />
+      <window_info id="JRebel" order="2" side_tool="true" />
+      <window_info id="Web" order="3" side_tool="true" />
+      <window_info id="Learn" order="4" />
+      <window_info anchor="bottom" id="Version Control" order="0" weight="0.2117248" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.20784883" />
+      <window_info anchor="bottom" id="JRebel Console" order="4" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" order="5" />
+      <window_info anchor="bottom" id="Endpoints" order="6" />
+      <window_info anchor="bottom" id="Sequence Diagram" order="7" />
+      <window_info anchor="bottom" id="依赖" order="8" />
+      <window_info anchor="bottom" id="Profiler" order="9" />
+      <window_info anchor="bottom" id="Build" order="10" />
+      <window_info anchor="bottom" id="TODO" order="11" />
+      <window_info anchor="bottom" id="Java Enterprise" order="12" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Inspection" order="13" weight="0.4" />
+      <window_info anchor="bottom" id="Problems View" order="14" />
+      <window_info anchor="bottom" id="Spring" order="15" />
+      <window_info anchor="bottom" id="Terminal" order="16" />
+      <window_info anchor="bottom" id="Services" order="17" />
+      <window_info anchor="bottom" id="Problems" order="18" />
+      <window_info anchor="right" id="Key Promoter X" order="0" />
+      <window_info anchor="right" id="Maven" order="1" weight="0.25551468" />
+      <window_info anchor="right" id="Database" order="2" weight="0.26129204" />
+      <window_info anchor="right" id="JRebel Setup Guide" order="3" side_tool="true" />
+      <window_info anchor="right" id="Bean Validation" order="4" show_stripe_button="false" />
+      <window_info anchor="right" id="Notifications" order="5" weight="0.25" />
+      <window_info anchor="right" id="Bookmarks" order="6" sideWeight="0.49923313" weight="0.25026262" />
+    </layout-to-restore>
+    <recentWindows>
+      <value>Project</value>
+      <value>Bookmarks</value>
+      <value>Database</value>
+      <value>Version Control</value>
+      <value>Maven</value>
+      <value>Debug</value>
+      <value>TODO</value>
+      <value>JRebel</value>
+    </recentWindows>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="552" y="160" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1662086668680">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="160" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1662086668680" />
+    <state x="386" y="76" key="CommitChangelistDialog2" timestamp="1662681187174">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="386" y="76" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1662681187174" />
+    <state x="0" y="0" key="FileDocumentManager.FileCacheConflict" timestamp="1662736700791">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="0" y="0" key="FileDocumentManager.FileCacheConflict/0.0.1920.1040@0.0.1920.1040" timestamp="1662736700791" />
+    <state width="1850" height="161" key="GridCell.Tab.0.bottom" timestamp="1662681112371">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1850" height="161" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1662681112371" />
+    <state width="1850" height="161" key="GridCell.Tab.0.center" timestamp="1662681112370">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1850" height="161" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1662681112370" />
+    <state width="1850" height="161" key="GridCell.Tab.0.left" timestamp="1662681112370">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1850" height="161" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1662681112370" />
+    <state width="1850" height="161" key="GridCell.Tab.0.right" timestamp="1662681112370">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1850" height="161" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1662681112370" />
+    <state width="1850" height="161" key="GridCell.Tab.1.bottom" timestamp="1662681112371">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1850" height="161" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1662681112371" />
+    <state width="1850" height="161" key="GridCell.Tab.1.center" timestamp="1662681112371">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1850" height="161" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1662681112371" />
+    <state width="1850" height="161" key="GridCell.Tab.1.left" timestamp="1662681112371">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1850" height="161" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1662681112371" />
+    <state width="1850" height="161" key="GridCell.Tab.1.right" timestamp="1662681112371">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1850" height="161" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1662681112371" />
+    <state width="1850" height="161" key="GridCell.Tab.2.bottom" timestamp="1662681112371">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1850" height="161" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1662681112371" />
+    <state width="1850" height="161" key="GridCell.Tab.2.center" timestamp="1662681112371">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1850" height="161" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1662681112371" />
+    <state width="1850" height="161" key="GridCell.Tab.2.left" timestamp="1662681112371">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1850" height="161" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1662681112371" />
+    <state width="1850" height="161" key="GridCell.Tab.2.right" timestamp="1662681112371">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1850" height="161" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1662681112371" />
+    <state width="311" height="560" key="HiddenNamespacesPopup" timestamp="1662086641408">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="311" height="560" key="HiddenNamespacesPopup/0.0.1920.1040@0.0.1920.1040" timestamp="1662086641408" />
+    <state x="184" y="82" key="MergeDialog" timestamp="1661862402717">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="184" y="82" key="MergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1661862402717" />
+    <state x="503" y="230" key="MultipleFileMergeDialog" timestamp="1662039893721">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="503" y="230" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1662039893721" />
+    <state x="338" y="54" key="SettingsEditor" timestamp="1662733859820">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="338" y="54" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1662733859820" />
+    <state width="1224" height="330" key="ShowBookmarks" timestamp="1662736997466">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1224" height="330" key="ShowBookmarks/0.0.1920.1040@0.0.1920.1040" timestamp="1662736997466" />
+    <state width="623" height="729" key="SwitcherDM" timestamp="1662290769529">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="623" height="729" key="SwitcherDM/0.0.1920.1040@0.0.1920.1040" timestamp="1662290769529" />
+    <state x="452" y="186" key="Vcs.Push.Dialog.v2" timestamp="1662681192695">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="452" y="186" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1662681192695" />
+    <state x="682" y="62" width="719" height="759" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1662733262573">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="682" y="62" width="719" height="759" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1662733262573" />
+    <state x="100" y="100" width="1720" height="840" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1662223042180">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="100" y="100" width="1720" height="840" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1662223042180" />
+    <state x="762" y="418" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1662730375032">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="762" y="418" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1662730375032" />
+    <state x="660" y="0" width="673" height="708" key="find.popup" timestamp="1662097912970">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="660" y="0" width="673" height="708" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1662097912970" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/.idea/vcs.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="3" column="51" selection-start-line="3" selection-start-column="51" selection-end-line="3" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../documents/Tencent Files/806768974/FileRecv/2Bse28blAIDYUrdUM0KFbwiPSbv.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="187" column="12" selection-start-line="1" selection-end-line="184" selection-end-column="14" />
+          <folding>
+            <element signature="n#component#0;n#project#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://44a43b63-2ab4-4d66-8256-0898bd7589fa/database/ribon_mes/schema/dbo/table/om_order_detail">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state lastOpenedTimestamp="1662086740849" presentationMode="TABLE" projectRestartId="bb4e53c3-850d-4121-acde-a689012d977b" pageSize="500">
+          <filtering>
+            <filter text="" />
+          </filtering>
+          <sorting>
+            <sort text="" />
+          </sorting>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/static/css/weadmin.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/static/Scripts/Common.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="591" column="41" selection-start-line="591" selection-start-column="41" selection-end-line="591" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/js/lay-module/param/urlParam.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1059">
+          <caret line="58" column="8" lean-forward="true" selection-start-line="58" selection-start-column="8" selection-end-line="58" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/js/lay-module/layuimini/miniTab.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="91" column="8" selection-start-line="91" selection-start-column="8" selection-end-line="91" selection-end-column="8" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/choiceinventory.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5562">
+          <caret line="261" column="40" lean-forward="true" selection-start-line="261" selection-start-column="40" selection-end-line="261" selection-end-column="40" />
+          <folding>
+            <element signature="e#5926#7866#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/lib/jqgrid/js/jquery.jqGrid.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="4086" column="4" selection-start-line="4086" selection-start-column="4" selection-end-line="4086" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/js_class_init_template/OmOrderPart.js" />
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resource/js_class_init_template/OmOrderMaterial.js" />
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/static/js/admin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10044">
+          <caret line="381" column="14" selection-start-line="381" selection-start-column="14" selection-end-line="381" selection-end-column="14" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/static/js/tableSelect.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/application-test.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="16" selection-start-column="16" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/constConfig.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" column="26" lean-forward="true" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/components/addpart.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="47" column="33" selection-start-line="47" selection-start-column="33" selection-end-line="47" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/js/jqGridTableHelper.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/jqGridTableHelper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="50" column="4" selection-start-line="50" selection-start-column="4" selection-end-line="50" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resource/js_class_init_template/OmOrderDetail.js" />
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/js_class_init_template/OmOrderDetail.js" />
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/js_class_init_template/OmOrderDetail.js" />
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/recources/js_class_init_template/OmOrderPart.js" />
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/class.js" />
+    <entry file="file://$PROJECT_DIR$/../../documents/Tencent Files/806768974/FileRecv/2Bse28blAIDYUrdUM0KFbwiPSbv(1).xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="258" column="38" selection-start-line="1" selection-end-line="257" selection-end-column="14" />
+          <folding>
+            <element signature="n#component#0;n#project#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add_new.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19548">
+          <caret line="724" selection-start-line="724" selection-end-line="724" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17712">
+          <caret line="656" column="13" selection-start-line="656" selection-start-column="13" selection-end-line="656" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/function.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="648">
+          <caret line="26" column="16" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="16" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/addpart.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18009">
+          <caret line="667" column="32" selection-start-line="667" selection-start-column="32" selection-end-line="667" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add_bak.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40338">
+          <caret line="1494" column="30" selection-start-line="1494" selection-start-column="30" selection-end-line="1494" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/components/choiceinventory.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6210">
+          <caret line="230" column="29" selection-start-line="230" selection-start-column="29" selection-end-line="230" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bookmark/2Bse28blAIDYUrdUM0KFbwiPSbv.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" column="33" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9288">
+          <caret line="344" selection-start-line="344" selection-end-line="344" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/workspace/2Bse28blAIDYUrdUM0KFbwiPSbv.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="246" column="19" selection-start-line="246" selection-start-column="19" selection-end-line="246" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
