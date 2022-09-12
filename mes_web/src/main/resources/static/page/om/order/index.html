@@ -342,8 +342,8 @@
     function add() {
         // 打开新的窗口
         layui.miniTab.openNewTabByIframe({
-            href: "page/om/metalworkcommittee/add_new.html",
-            title: "新增金工委外订单",
+            href: "page/om/order/add_new.html",
+            title: "新增金工委外订单（新）",
         });
     }
 
@@ -351,7 +351,7 @@
         var rowid = $("#jqGrid").getGridParam("selrow");
         if (rowid != null && rowid != '') {
             layui.miniTab.openNewTabByIframe({
-                href: "page/om/metalworkcommittee/edit.html?id=" + rowid,
+                href: "page/om/order/edit.html?id=" + rowid,
                 title: "编辑金工委外订单",
             });
 

@@ -9,9 +9,12 @@ class omMesMaterial {
         this.id = "";
         this.detailId = "";
         this.partId = "";
+        this.recordId = "";
+        this.partRowId = "";
         this.mainId = "";
         this.invCode = "";
         this.invName = "";
+        this.invStd = "";
         this.unitMaterialPrice = "";
         this.unitMaterialAmount = "";
         this.invLand = "";
@@ -38,6 +41,8 @@ class omMesMaterial {
         this.partInvUnit = "";
     }
 
+
+
     getId() {
         return this.id;
     }
@@ -60,6 +65,10 @@ class omMesMaterial {
     //材料编码
     getInvCode() {
         return this.invCode;
+    }
+
+    getInvStd() {
+        return this.invStd;
     }
 
     //材料名称
@@ -106,6 +115,8 @@ class omMesMaterial {
     getInvDensity() {
         return this.invDensity;
     }
+
+
 
     //下料尺寸
     getInvSize() {
@@ -210,10 +221,16 @@ class omMesMaterial {
         this.invCode = invCode;
     }
 
+    //材料规格
+    setInvStd(invStd) {
+        this.invStd = invStd
+    }
+
     //材料名称
     setInvName(invName) {
         this.invName = invName;
     }
+
 
     //材料单价
     setUnitMaterialPrice(unitMaterialPrice) {
@@ -239,6 +256,7 @@ class omMesMaterial {
     setInvLen(invLen) {
         this.invLen = invLen;
     }
+
 
     //外径
     setInvExternalDiameter(invExternalDiameter) {
@@ -364,6 +382,8 @@ class omMesMaterial {
         this.setMainId(data.mainId);
         //材料编码
         this.setInvCode(data.invCode);
+        //材料规格
+        this.setInvStd(data.invStd);
         //材料名称
         this.setInvName(data.invName);
         //材料单价
@@ -444,8 +464,18 @@ class omMesMaterial {
         this.setProductInvUnit(data.productInvUnit);
     }
 
+    <!--DATE: 2022/9/12-->
+    <!--mijiahao TODO:123 -->
+    /*
+     * 转换u8数据
+     */
     setRowDataFromU8Data(u8Data) {
-
+        this.setInvName(u8Data.cinvname);
+        this.setInvCode(u8Data.cinvcode);
+        this.setInvStd(u8Data.cinvstd);
+        this.setPro(u8Data.ccomunitname);
+        this.setInvDensity(u8Data.cinvdefine2);
+        return this;
     }
 
 

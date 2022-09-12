@@ -531,6 +531,7 @@
                     for (var i = 0; i < ids.length; i++) {
                         productObj.setEntity(productHelper.getRowDataById(ids[i]));
                         productObj.setPlanStartDate(val);
+                        productHelper.setRowDataById(ids[i],productObj);
                     }
 
                 }
@@ -693,7 +694,7 @@
         productHelper.setSelectedRowData(product);
         //循环子表更新数量
         let ids = materialHelper.getAllRowsId();
-        for (var i = 0; i < ids.length; i++) {
+        for (let i = 0; i < ids.length; i++) {
             let productMaterialRow = materialHelper.getRowDataById(ids[i]);
             let productMaterialObj = new omMesMaterial();
             productMaterialObj.setEntity(productMaterialRow);
@@ -703,9 +704,10 @@
                 //单耗初始化
                 let iqty = initDecimal(0);
                 //同步材料表数量
-                productMaterialObj.setQty(materialQty);
+                productMaterialObj.setProductQty(materialQty);
                 //计算材料表总量
                 productMaterialObj.setTqty((materialQty * iqty).toFixed(2));
+                console.log(productMaterialObj);
                 materialHelper.setRowDataById(ids[i],productMaterialObj);
             }
 
@@ -763,10 +765,12 @@
                 break;
             case 'material':
                 let selectedMaterialRow = materialHelper.getSelectedRowData();
+                let materialObj = new omMesMaterial();
+                materialObj.setEntity(selectedMaterialRow);
                 //转换u8字段
-                selectedMaterialRow = setMaterialInfoFromU8Data(selectedMaterialRow,u8Data);
+                materialObj.setRowDataFromU8Data(u8Data);
                 //选中记录赋值
-                materialHelper.setSelectedRowData(selectedMaterialRow);
+                materialHelper.setSelectedRowData(materialObj);
                 break;
             default:
                 break
@@ -990,7 +994,6 @@
                         } else if (data.cinvdefine1 == "G" || data.cinvdefine1 == "g") {
                             iqty = parseFloat((invLen / 1000 * 1).toFixed(3));
                         }
-
 
                     }
 
