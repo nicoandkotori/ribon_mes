@@ -54,20 +54,20 @@
                     <span>委外合同</span>
                 </div>
                 <div class="layui-inline">
-                    <input type="text" class="layui-input weadmin-input" placeholder="委外合同" name="contractOm" id="contractOm" autocomplete="off">
+                    <input type="text" class="layui-input weadmin-input" placeholder="委外合同" name="cdefine2" id="cdefine2" autocomplete="off">
                 </div>
 
                 <div class="layui-inline">
                     <span>委外单号</span>
                 </div>
                 <div class="layui-inline">
-                    <input type="text" class="layui-input weadmin-input" placeholder="委外单号" name="vouchCode" id="vouchCode" autocomplete="off">
+                    <input type="text" class="layui-input weadmin-input" placeholder="委外单号" name="ccode" id="ccode" autocomplete="off">
                 </div>
                 <div class="layui-inline">
                     <span>备注</span>
                 </div>
                 <div class="layui-inline">
-                    <input type="text" class="layui-input weadmin-input" placeholder="备注" name="remark" id="remark" autocomplete="off">
+                    <input type="text" class="layui-input weadmin-input" placeholder="备注" name="cmemo" id="cmemo" autocomplete="off">
                 </div>
 
                 <button type="button" class="layui-btn layui-btn-sm" lay-filter="select" lay-submit="" id="select"><i class="layui-icon">&#xe615;</i></button>
@@ -80,7 +80,7 @@
                     <span>销售合同</span>
                 </div>
                 <div class="layui-inline">
-                    <input type="text" class="layui-input weadmin-input"  name="contractSale" id="contractSale" autocomplete="off">
+                    <input type="text" class="layui-input weadmin-input"  name="cdefine1" id="cdefine1" autocomplete="off">
                 </div>
 
                 <div class="layui-inline"   >
@@ -91,21 +91,21 @@
                     <span>委外商</span>
                 </div>
                 <div class="layui-inline">
-                    <input type="text" class="layui-input weadmin-input"  name="venName" id="venName" autocomplete="off">
+                    <input type="text" class="layui-input weadmin-input"  name="cvenname" id="cvenname" autocomplete="off">
                 </div>
 
                 <div class="layui-inline">
                     <span>业务员</span>
                 </div>
                 <div class="layui-inline">
-                    <input type="text" class="layui-input weadmin-input"  name="personName" id="personName" autocomplete="off">
+                    <input type="text" class="layui-input weadmin-input"  name="cpersonname" id="cpersonname" autocomplete="off">
                 </div>
 
                 <div class="layui-inline">
                     <span>存货编码</span>
                 </div>
                 <div class="layui-inline">
-                    <input type="text" class="layui-input weadmin-input"  name="productInvCode" id="productInvCode" autocomplete="off">
+                    <input type="text" class="layui-input weadmin-input"  name="cinvcode" id="cinvcode" autocomplete="off">
                 </div>
 
                 <div class="layui-inline"   >
@@ -117,10 +117,10 @@
                 </div>
 
                 <div class="layui-inline">
-                    <select id="statusId" name="statusId"  placeholder="状态"  lay-filter="statusId" lay-search="">
+                    <select id="cstate" name="cstate"  placeholder="状态"  lay-filter="cstate" lay-search="">
                         <option value=></option>
-                        <option value="未审核">未审核</option>
-                        <option value="已审核">已审核</option>
+                        <option value="0">未审核</option>
+                        <option value="1">已审核</option>
                     </select>
                 </div>
 
@@ -145,7 +145,7 @@
 </div>
 </body>
 <script>
-    var baseUrl = " /om/order/";
+    var baseUrl = " /om/metalworkcommittee/";
     var CurRow;
     var CurCol;
     var CurRow1;
@@ -159,21 +159,21 @@
         var qo = $("#formquery").serializeObject();
         $("#jqGrid").jqGrid({
             mtype: "GET",
-            url: "/om/order/getmainlistbypage",
+            url: "/om/metalworkcommittee/getmainlistbypage",
             datatype: "json",
             postData: {
                 querystr: qo
             },
             colModel: [
-                {name: "id", key: true,  hidden:true },
-                {label: "订单编号", name: "vouchCode", width: 120, sortable: false, editable: false, align: "center"},
-                {label: "订单日期", name: "vouchDate", width: 100, sortable: false, editable: false, align: "center"},
-                {label: "销售合同", name: "contractSale", width: 100, sortable: false, editable: false, align: "center"},
-                {label: "委外合同", name: "contractOm", width:120, sortable: false, editable: false, align: "center"},
-                {label: "委外商", name: "venName", width: 180, sortable: false, editable: false, align: "center"},
-                {label: "部门", name: "depName", width: 120, sortable: false, editable: false, align: "center"},
-                {label: "业务员", name: "personName", width: 120, sortable: false, editable: false, align: "center"},
-                {label: "备注", name: "remark", width:230, sortable: false, editable: false, align: "center"},
+                {name: "moid", key: true,  hidden:true },
+                {label: "订单编号", name: "ccode", width: 120, sortable: false, editable: false, align: "center"},
+                {label: "订单日期", name: "ddate", width: 100, sortable: false, editable: false, align: "center"},
+                {label: "销售合同", name: "cdefine1", width: 100, sortable: false, editable: false, align: "center"},
+                {label: "委外合同", name: "cdefine2", width:120, sortable: false, editable: false, align: "center"},
+                {label: "委外商", name: "cvenname", width: 180, sortable: false, editable: false, align: "center"},
+                {label: "部门", name: "cdepname", width: 120, sortable: false, editable: false, align: "center"},
+                {label: "业务员", name: "cpersonname", width: 120, sortable: false, editable: false, align: "center"},
+                {label: "备注", name: "cmemo", width:230, sortable: false, editable: false, align: "center"},
 
             ],
             viewrecords: true,
@@ -238,35 +238,35 @@
             mtype: "GET",
             datatype: "local",
             colModel: [
-                { name: "id", key: true,  hidden:true },
-                { name: "detailId",   hidden:true },
-                { name: "mainId",   hidden:true },
-                {label: "产品编码", name: "productInvCode", width: 110, sortable: false, editable: false, align: "center"},
-                {label: "产品名称", name: "productInvName", width: 90, sortable: false, editable: false, align: "center"},
-                {label: "规格型号", name: "productInvStd", width: 80, sortable: false, editable: false, align: "center"},
-                {label: "单位", name: "productInvUnit", width: 40, sortable: false, editable: false, align: "center"},
-                {label: "数量", name: "productQty", width: 40, sortable: false, editable: false, align: "center"},
-                {label: "材料单价", name: "materialPrice", width: 60, sortable: false, editable: false, align: "center"},
-                {label: "单件材料费", name: "materialAmount", width: 70, sortable: false, editable: false, align: "center"},
-                {label: "单件加工费", name: "workPrice", width: 70, sortable: false, editable: false, align: "center"},
-                {label: "加工费合计", name: "totalWorkAmount", width: 70, sortable: false, editable: false, align: "center"},
-                {label: "单件价格", name: "price", width: 60, sortable: false, editable: false, align: "center"},
-                {label: "合计", name: "amount", width: 70, sortable: false, editable: false, align: "center"},
-                {label: "计划开工日期", name: "planStartDate", width: 80, sortable: false, editable: false, align: "center"},
-                {label: "计划完工日期", name: "planEndDate", width: 80, sortable: false, editable: false, align: "center"},
-                {label: "材料编码", name: "invCode", width: 90, sortable: false, editable: false, align: "center"},
-                {label: "材料名称", name: "invName", width: 120, sortable: false, editable: false, align: "center"},
-                {label: "材料规格", name: "invStd", width: 80, sortable: false, editable: false, align: "center"},
+                { name: "momaterialsid", key: true,  hidden:true },
+                { name: "modetailsid",   hidden:true },
+                { name: "moid",   hidden:true },
+                {label: "产品编码", name: "cinvcode", width: 110, sortable: false, editable: false, align: "center"},
+                {label: "产品名称", name: "cinvname", width: 90, sortable: false, editable: false, align: "center"},
+                {label: "规格型号", name: "cinvstd", width: 80, sortable: false, editable: false, align: "center"},
+                {label: "单位", name: "ccomunitname", width: 40, sortable: false, editable: false, align: "center"},
+                {label: "数量", name: "iquantity", width: 40, sortable: false, editable: false, align: "center"},
+                {label: "材料单价", name: "cdefine26", width: 60, sortable: false, editable: false, align: "center"},
+                {label: "单件材料费", name: "cdefine27", width: 70, sortable: false, editable: false, align: "center"},
+                {label: "单件加工费", name: "itaxprice", width: 70, sortable: false, editable: false, align: "center"},
+                {label: "加工费合计", name: "inatsum", width: 70, sortable: false, editable: false, align: "center"},
+                {label: "单件价格", name: "tolpic", width: 60, sortable: false, editable: false, align: "center"},
+                {label: "合计", name: "tolnum", width: 70, sortable: false, editable: false, align: "center"},
+                {label: "计划开工日期", name: "dstartdate", width: 80, sortable: false, editable: false, align: "center"},
+                {label: "计划完工日期", name: "darrivedate", width: 80, sortable: false, editable: false, align: "center"},
+                {label: "材料编码", name: "cinvcodes", width: 90, sortable: false, editable: false, align: "center"},
+                {label: "材料名称", name: "cinvnames", width: 120, sortable: false, editable: false, align: "center"},
+                {label: "材料规格", name: "cinvstds", width: 80, sortable: false, editable: false, align: "center"},
 
-                {label: "厚度", name: "invLand", width: 40, sortable: false, editable: false, align: "center"},
-                {label: "长", name: "invLen", width: 45, sortable: false, editable: false, align: "center"},
-                {label: "宽", name: "invWidth", width: 40, sortable: false, editable: false, align: "center"},
-                {label: "外径", name: "invExternalDiameter", width: 40, sortable: false, editable: false, align: "center"},
-                {label: "内径", name: "invInternalDiameter", width: 40, sortable: false, editable: false, align: "center"},
-                {label: "密度", name: "invDensity", width: 40, sortable: false, editable: false, align: "center"},
-                {label: "下料尺寸", name: "invSize", width: 80, sortable: false, editable: false, align: "center"},
-                {label: "单耗", name: "iqty", width: 45, sortable: false, editable: false, align: "center"},
-                {label: "总量", name: "tqty", width: 45, sortable: false, editable: false, align: "center"},
+                {label: "厚度", name: "cdefine28", width: 40, sortable: false, editable: false, align: "center"},
+                {label: "长", name: "cdefine29", width: 45, sortable: false, editable: false, align: "center"},
+                {label: "宽", name: "cdefine30", width: 40, sortable: false, editable: false, align: "center"},
+                {label: "外径", name: "cdefine31", width: 40, sortable: false, editable: false, align: "center"},
+                {label: "内径", name: "cdefine32", width: 40, sortable: false, editable: false, align: "center"},
+                {label: "密度", name: "cinvdefine2", width: 40, sortable: false, editable: false, align: "center"},
+                {label: "下料尺寸", name: "cdefine22", width: 80, sortable: false, editable: false, align: "center"},
+                {label: "单耗", name: "fbaseqtyn", width: 45, sortable: false, editable: false, align: "center"},
+                {label: "总量", name: "fqtys", width: 45, sortable: false, editable: false, align: "center"},
 
             ],
             viewrecords: true,
@@ -342,7 +342,7 @@
     function add() {
         // 打开新的窗口
         layui.miniTab.openNewTabByIframe({
-            href: "page/om/order/add.html",
+            href: "page/om/metalworkcommittee/add_new.html",
             title: "新增金工委外订单",
         });
     }
@@ -351,7 +351,7 @@
         var rowid = $("#jqGrid").getGridParam("selrow");
         if (rowid != null && rowid != '') {
             layui.miniTab.openNewTabByIframe({
-                href: "page/om/order/edit.html?id=" + rowid,
+                href: "page/om/metalworkcommittee/edit.html?id=" + rowid,
                 title: "编辑金工委外订单",
             });
 
@@ -366,7 +366,7 @@
             var rowData = $("#jqGrid").jqGrid('getRowData', rowid);
             layer.confirm('确定作废数据？', function(index) {
 
-                sendPostReq('/om/order/delete', {id: rowData.id}, function (data) {
+                sendPostReq('/om/metalworkcommittee/delete', {id: rowData.moid}, function (data) {
                     $("#jqGrid").trigger("reloadGrid");
                     layer.alert("作废成功！");
                 });
@@ -380,12 +380,12 @@
         var rowid = $("#jqGrid").getGridParam("selrow");
         if (rowid != null && rowid != undefined && rowid != "") {
             var rowData = $("#jqGrid").jqGrid('getRowData', rowid);
-            $.get('/om/order/getbyid', {id: rowData.id}, function (data) {
+            $.get('/om/metalworkcommittee/getbyid', {id: rowData.moid}, function (data) {
                 if (data != null){
                     $.ajax({
                         type: "post",
-                        url: "/om/order/getdetaillist",
-                        data: {id: rowData.id},
+                        url: "/om/metalworkcommittee/getdetaillist",
+                        data: {id: rowData.moid},
                         success: function (data1) {
                             // if(data.cmaker=="gzl") {
                             //     data.cmaker = "高正林";
@@ -409,10 +409,10 @@
 
     }
     function FnClear() {
-        $("#contractSale").val("");
+        $("#cdefine1").val("");
     }
     function FnClear1() {
-        $("#productInvCode").val("");
+        $("#cinvcode").val("");
     }
 </script>
 

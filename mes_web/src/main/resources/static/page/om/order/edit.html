@@ -57,7 +57,7 @@
 <div class="weadmin-body">
     <form class="layui-form">
         <div class="weadmin-block">
-            <button type="button" class="layui-btn layui-btn-sm" onclick="continueAdd()">新增</button>
+
             <button type="button" class="layui-btn layui-btn-sm" lay-filter="save" lay-submit="">保存</button>
             <button type="button" class="layui-btn layui-btn-sm" onclick="FnCheck()">审核</button>
             <button type="button" class="layui-btn layui-btn-sm" onclick="FnUnCheck()">弃审</button>
@@ -122,7 +122,7 @@
                 <span class="we-red">*</span>业务员
             </label>
             <div class="layui-col-md2">
-                <select id="cpersoncode" name="cpersoncode" autocomplete="off" lay-verify="" lay-filter="cpersoncode" lay-search="">
+                <select id="cpersoncode" name="cpersoncode" autocomplete="off" lay-verify="required" lay-filter="cpersoncode" lay-search="">
                 </select>
 
             </div>
@@ -208,17 +208,49 @@
         });
 
 
-        initData();
 
 
-        form.render();
         laydate.render({
             elem: '#ddate'
-            ,value: new Date()
+
             ,theme: 'molv'
         });
 
 
+
+        var id = GetQueryString("id");
+        //数据初始化
+        sendPostReq('/om/metalworkcommittee/getbyid', {id: id}, function (data) {
+            if (data != null){
+                $("form").setForm(data);
+                $("#cmemo").val(data.cmemo);
+                form.render();
+                $.ajax({
+                    type: "post",
+                    url: "/om/metalworkcommittee/getdetaillist1",
+                    data: {id: data.moid},
+                    success: function (data) {
+                        if (data != null && data != "") {
+
+                            if(data["mData"]!=null&&data["mData"]!="")
+                            {
+                                $("#jqGrid").jqGrid("setGridParam", { datatype: 'local', data: data["mData"], rowNum:data["mData"].length }).trigger("reloadGrid");
+
+                            }
+                            if(data["mDatas"]!=null&&data["mDatas"]!="")
+                            {
+                                $("#jqGridDetail").jqGrid("setGridParam", { datatype: 'local', data: data["mDatas"], rowNum:data["mDatas"].length }).trigger("reloadGrid");
+                            }
+                        }
+                    },
+                    error: function ()
+                    { }
+                });
+
+            }
+        });
+
+        form.render();
 
         //监听提交
         form.on('submit(save)', function (data) {
@@ -241,7 +273,6 @@
                     if (data.success == true || data.success == "true") {
                         layer.msg("保存成功", {icon: 6});
                         $("#moid").val(data.result);
-                        $("#ccode").val(data.result1);
                         $.ajax({
                             type: "post",
                             url: "/om/metalworkcommittee/getdetaillist1",
@@ -280,27 +311,6 @@
         });
     });
 
-
-    function  initData() {
-        $.get("/om/metalworkcommittee/getmaxcode", {}, function (text) {
-            $("#ccode").val(text.result);
-        });
-
-        $("#cdepcode").val("109");
-
-        sendPostReq("/basicinfo/person/getdefuser", {}, function (data) {
-            if (data.result!=null) {
-
-                $("#cpersoncode").val(data.result.cpersoncode);
-            }
-            else {
-                $("#cpersoncode").val("200402009");
-            }
-
-        },false);
-
-
-    }
 
     //
     // //刷新表格

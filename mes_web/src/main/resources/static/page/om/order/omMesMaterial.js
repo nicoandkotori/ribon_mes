@@ -1,20 +1,17 @@
 /*
- * mes材料表
+ * 材料表entity
+ * @author mijiahao
  */
 class omMesMaterial {
 
+
     constructor() {
         this.id = "";
-        this.recordId = "";
-        this.partRowId = "";
         this.detailId = "";
         this.partId = "";
         this.mainId = "";
         this.invCode = "";
         this.invName = "";
-        this.invStd = "";
-        this.invUnit = "";
-        this.qty = "";
         this.unitMaterialPrice = "";
         this.unitMaterialAmount = "";
         this.invLand = "";
@@ -29,23 +26,16 @@ class omMesMaterial {
         this.itype = "";
         this.u8MoMaterialId = "";
         this.rowNo = "";
-    }
-
-    getRecordId(){
-        return this.recordId;
-    }
-
-    setRecordId(value){
-        this.recordId = value;
-    }
-
-    getPartRowId(){
-        return this.partRowId;
-    }
-
-
-    setPartRowId(value) {
-        this.partRowId = value;
+        this.productInvStd = "";
+        this.productInvUnit = "";
+        this.productQty = "";
+        this.productInvCode = "";
+        this.productInvName = "";
+        this.partInvName = "";
+        this.partInvCode = "";
+        this.partQty = "";
+        this.partInvStd = "";
+        this.partInvUnit = "";
     }
 
     getId() {
@@ -75,21 +65,6 @@ class omMesMaterial {
     //材料名称
     getInvName() {
         return this.invName;
-    }
-
-    //规格
-    getInvStd() {
-        return this.invStd;
-    }
-
-    //单位
-    getInvUnit() {
-        return this.invUnit;
-    }
-
-    //数量
-    getQty() {
-        return this.qty;
     }
 
     //材料单价
@@ -147,6 +122,7 @@ class omMesMaterial {
         return this.tqty;
     }
 
+
     getItype() {
         return this.itype;
     }
@@ -157,6 +133,56 @@ class omMesMaterial {
 
     getRowNo() {
         return this.rowNo;
+    }
+
+    //规格
+    getProductInvStd() {
+        return this.productInvStd;
+    }
+
+    //单位
+    getProductInvUnit() {
+        return this.productInvUnit;
+    }
+
+    //产品数量
+    getProductQty() {
+        return this.productQty;
+    }
+
+    //产品编码
+    getProductInvCode() {
+        return this.productInvCode;
+    }
+
+    //产品名称
+    getProductInvName() {
+        return this.productInvName;
+    }
+
+    //部件名称
+    getPartInvName() {
+        return this.partInvName;
+    }
+
+    //部件编码
+    getPartInvCode() {
+        return this.partInvCode;
+    }
+
+    //部件数量
+    getPartQty() {
+        return this.partQty;
+    }
+
+    //部件规格
+    getPartInvStd() {
+        return this.partInvStd;
+    }
+
+    //部件单位
+    getPartInvUnit() {
+        return this.partInvUnit;
     }
 
 
@@ -187,21 +213,6 @@ class omMesMaterial {
     //材料名称
     setInvName(invName) {
         this.invName = invName;
-    }
-
-    //规格
-    setInvStd(invStd) {
-        this.invStd = invStd;
-    }
-
-    //单位
-    setInvUnit(invUnit) {
-        this.invUnit = invUnit;
-    }
-
-    //数量
-    setQty(qty) {
-        this.qty = qty;
     }
 
     //材料单价
@@ -259,6 +270,7 @@ class omMesMaterial {
         this.tqty = tqty;
     }
 
+
     setItype(itype) {
         this.itype = itype;
     }
@@ -271,7 +283,76 @@ class omMesMaterial {
         this.rowNo = rowNo;
     }
 
+    //规格
+    setProductInvStd(productInvStd) {
+        this.productInvStd = productInvStd;
+    }
+
+    //单位
+    setProductInvUnit(productInvUnit) {
+        this.productInvUnit = productInvUnit;
+    }
+
+    //产品数量
+    setProductQty(productQty) {
+        this.productQty = productQty;
+    }
+
+    //产品编码
+    setProductInvCode(productInvCode) {
+        this.productInvCode = productInvCode;
+    }
+
+    //产品名称
+    setProductInvName(productInvName) {
+        this.productInvName = productInvName;
+    }
+
+    //部件名称
+    setPartInvName(partInvName) {
+        this.partInvName = partInvName;
+    }
+
+    //部件编码
+    setPartInvCode(partInvCode) {
+        this.partInvCode = partInvCode;
+    }
+
+    //部件数量
+    setPartQty(partQty) {
+        this.partQty = partQty;
+    }
+
+    //部件规格
+    setPartInvStd(partInvStd) {
+        this.partInvStd = partInvStd;
+    }
+
+    //部件单位
+    setPartInvUnit(partInvUnit) {
+        this.partInvUnit = partInvUnit;
+    }
+
+    getPartRowId() {
+        return this.partRowId;
+    }
+
+
+    setPartRowId(value) {
+        this.partRowId = value;
+    }
+
+
+    getRecordId() {
+        return this.recordId;
+    }
+
+    setRecordId(value) {
+        this.recordId = value;
+    }
+
     setEntity(data) {
+
         this.setId(data.id);
         this.setRecordId(data.recordId);
         this.setPartRowId(data.partRowId);
@@ -285,12 +366,6 @@ class omMesMaterial {
         this.setInvCode(data.invCode);
         //材料名称
         this.setInvName(data.invName);
-        //规格
-        this.setInvStd(data.invStd);
-        //单位
-        this.setInvUnit(data.invUnit);
-        //数量
-        this.setQty(data.qty);
         //材料单价
         this.setUnitMaterialPrice(data.unitMaterialPrice);
         //单件材料费
@@ -316,6 +391,61 @@ class omMesMaterial {
         this.setItype(data.itype);
         this.setU8MoMaterialId(data.u8MoMaterialId);
         this.setRowNo(data.rowNo);
+        //规格
+        this.setProductInvStd(data.productInvStd);
+        //单位
+        this.setProductInvUnit(data.productInvUnit);
+        //产品数量
+        this.setProductQty(data.productQty);
+        //产品编码
+        this.setProductInvCode(data.productInvCode);
+        //产品名称
+        this.setProductInvName(data.productInvName);
+        //部件名称
+        this.setPartInvName(data.partInvName);
+        //部件编码
+        this.setPartInvCode(data.partInvCode);
+        //部件数量
+        this.setPartQty(data.partQty);
+        //部件规格
+        this.setPartInvStd(data.partInvStd);
+        //部件单位
+        this.setPartInvUnit(data.partInvUnit);
+    }
+
+
+    /*
+     * 转换部件表行记录
+     */
+    setDataFromPartData(data) {
+        this.partId = data.id;
+        this.detailId = data.detailId;
+        this.mainId = data.mainId;
+        this.recordId = data.recordId;
+        this.partRowId = data.partRowId;
+        this.partInvCode = data.partInvCode;
+        this.partInvName = data.partInvName;
+        this.partInvStd = data.partInvStd;
+        this.partInvUnit = data.partInvUnit;
+        this.partQty = data.partQty;
+    }
+
+    /*
+     * 转换产品表行记录
+     */
+    setRowDataFromProductRow(data) {
+        this.setRecordId(data.recordId);
+        this.setMainId(data.mainId);
+        this.setDetailId(data.id);
+        this.setProductInvName(data.productInvName);
+        this.setProductInvCode(data.productInvCode);
+        this.setProductInvStd(data.productInvStd);
+        this.setProductQty(data.productQty)
+        this.setProductInvUnit(data.productInvUnit);
+    }
+
+    setRowDataFromU8Data(u8Data) {
+
     }
 
 

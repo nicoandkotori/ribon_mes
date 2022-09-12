@@ -27,6 +27,9 @@ function setPartInfoFromU8Data(part,u8Data){
     return part;
 }
 
+/*
+ * 若入参不为空，则在小数点后保留两位小数，否则为0
+ */
 function initDecimal(num){
     let result = 0;
     if (num != "" && num != null) {

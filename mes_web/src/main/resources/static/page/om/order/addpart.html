@@ -46,14 +46,13 @@
     <!--easyui-->
     <script src="../../../static/Scripts/easyui-1.7.0/jquery.easyui.min.js"></script>
     <script src="../../../static/Scripts/easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
-    <script src="./constConfig.js"></script>
+    <script src="constConfig.js"></script>
     <script src="/js/jqGridTableHelper.js"></script>
-    <script src="./omMesProduct.js"></script>
-    <script src="./omMesPart.js"></script>
-    <script src="./omMesMaterial.js"></script>
-    <script src="./omMesProductMaterial.js"></script>
-    <script src="./omMesPartMaterial.js"></script>
-    <script src="./function.js"></script>
+    <script src="omMesProduct.js"></script>
+    <script src="omMesPart.js"></script>
+    <script src="omMesMaterial.js"></script>
+    <script src="omMesPartMaterial.js"></script>
+    <script src="function.js"></script>
     <style>
         .layui-select, .layui-input {
             height: 24px;
@@ -418,7 +417,7 @@
         partHelper.saveCell(CurRow,CurCol);
         let partRowData = partHelper.getSelectedRowData();
         console.log("材料表增行函数");
-        let productMaterialRowData = new omMesPartMaterial();
+        let productMaterialRowData = new omMesMaterial();
         //数据字段转换
         productMaterialRowData.setEntity(partRowData);
         materialHelper.addRowData(materialRowIndex,productMaterialRowData);

@@ -46,7 +46,6 @@
     <!--easyui-->
     <script src="../../../static/Scripts/easyui-1.7.0/jquery.easyui.min.js"></script>
     <script src="../../../static/Scripts/easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
-    <script src="./constConfig.js"></script>
     <style>
         .layui-select, .layui-input {
             height: 24px;
@@ -361,14 +360,14 @@
                 {name: "modetailsid", key: true, hidden: true},
                 {name: "moid", hidden: true},
                 // {name: "recordId", hidden: true},
-                {label:"产品表行标识",name: "recordId",width: 80,sortable: false, editable: true, align: "center",hidden: INDEX_HIDDEN},
-                {label: "产品编码", name: "cinvcode", width: 110, sortable: false, editable: true, align: "center"},
-                {label: "产品名称", name: "cinvname", width: 90, sortable: false, editable: false, align: "center"},
-                {label: "规格型号", name: "cinvstd", width: 80, sortable: false, editable: false, align: "center"},
-                {label: "单位", name: "ccomunitname", width: 40, sortable: false, editable: false, align: "center"},
-                {label: "数量", name: "iquantity", width: 40, sortable: false, editable: true, align: "center"},
-                {label: "材料单价", name: "cdefine26", width: 60, sortable: false, editable: false, align: "center"},
-                {label: "单件材料费", name: "cdefine27", width: 70, sortable: false, editable: false, align: "center"},
+                {label:"产品表行标识",name: "recordId",width: 80,sortable: false, editable: true, align: "center",hidden: true},
+                {label: "产品编码", name: "productInvCode", width: 110, sortable: false, editable: true, align: "center",hidden:true},
+                {label: "产品名称", name: "productInvName", width: 90, sortable: false, editable: false, align: "center"},
+                {label: "规格型号", name: "invStd", width: 80, sortable: false, editable: false, align: "center"},
+                {label: "单位", name: "invUnit", width: 40, sortable: false, editable: false, align: "center"},
+                {label: "数量", name: "iqty", width: 40, sortable: false, editable: true, align: "center"},
+                {label: "材料单价", name: "unitMaterialPrice", width: 60, sortable: false, editable: false, align: "center"},
+                {label: "单件材料费", name: "unitMaterial", width: 70, sortable: false, editable: false, align: "center"},
                 {label: "单件加工费", name: "itaxprice", width: 70, sortable: false, editable: true, align: "center"},
                 {label: "加工费合计", name: "inatsum", width: 70, sortable: false, editable: false, align: "center"},
                 {label: "单件价格", name: "tolpic", width: 60, sortable: false, editable: false, align: "center"},
@@ -439,13 +438,13 @@
                     method: "post",
                     colModel: [
                         // {name: "recordId", hidden: true},
-                        {label:"产品表行标识",name: "recordId",width: 80,sortable: false, editable: true, align: "center",hidden:INDEX_HIDDEN},
-                        {label: "部件表行标识",name: "partRowId", width: 80,hidden:INDEX_HIDDEN},
-                        {label: "产品编码", name: "cinvcode", width: 110, sortable: false, editable: true, align: "center"},
-                        {label: "产品名称", name: "cinvname", width: 90, sortable: false, editable: false, align: "center"},
-                        {label: "规格型号", name: "cinvstd", width: 80, sortable: false, editable: false, align: "center"},
-                        {label: "单位", name: "ccomunitname", width: 40, sortable: false, editable: false, align: "center"},
-                        {label: "数量", name: "iquantity", width: 40, sortable: false, editable: true, align: "center"},
+                        {label:"产品表行标识",name: "recordId",width: 80,sortable: false, editable: true, align: "center",hidden:true},
+                        {label: "部件表行标识",name: "partRowId", width: 80,hidden:true},
+                        {label: "产品编码", name: "invCode", width: 110, sortable: false, editable: true, align: "center"},
+                        {label: "产品名称", name: "invName", width: 90, sortable: false, editable: false, align: "center"},
+                        {label: "规格型号", name: "invStd", width: 80, sortable: false, editable: false, align: "center"},
+                        {label: "单位", name: "invUnit", width: 40, sortable: false, editable: false, align: "center"},
+                        {label: "数量", name: "iqty", width: 40, sortable: false, editable: true, align: "center"},
                     ],
                     cmTemplate: {sortable: false, align: "center"},
                     pager: false,
@@ -517,11 +516,8 @@
                 if (name == 'dstartdate') {
                     var ids = $("#jqGrid").jqGrid('getDataIDs');
                     for (var i = 0; i < ids.length; i++) {
-
                         $('#jqGrid').jqGrid('setRowData', ids[i], {dstartdate: val});
-
                     }
-
                 }
                 if (name == 'darrivedate') {
                     var ids = $("#jqGrid").jqGrid('getDataIDs');
@@ -532,9 +528,9 @@
                     }
 
                 }
-                if (name == 'cinvcode') {
+                if (name == "productInvCode") {
                     SetInventory(rowid, "1");
-                } else if (name == "iquantity") {
+                } else if (name == "iqty") {
                     SetQty(rowid);
                 } else if (name == "itaxprice" || name == "cdefine27") {
                     SetTaxMakePrice(rowid);
@@ -548,7 +544,6 @@
             beforeEditCell: function (rowid, cellname, value, iRow, iCol) {
                 CurRow = iRow;
                 CurCol = iCol;
-
 
             },
             gridComplete: function () {
@@ -567,17 +562,17 @@
                 {name: "momaterialsid", key: true, hidden: true},
                 {name: "modetailsid", hidden: true},
                 {name: "moid", hidden: true},
-                {label: "产品表行表示",name: "recordId", hidden: INDEX_HIDDEN},
-                {label: "产品编码", name: "cinvcode", width: 110, sortable: false, editable: false, align: "center"},
-                {label: "产品名称", name: "cinvname", width: 90, sortable: false, editable: false, align: "center"},
-                {label: "规格型号", name: "cinvstd", width: 80, sortable: false, editable: false, align: "center"},
-                {label: "单位", name: "ccomunitname", width: 40, sortable: false, editable: false, align: "center"},
-                {label: "数量", name: "iquantity", width: 40, sortable: false, editable: false, align: "center"},
-                {label: "材料单价", name: "cdefine26", width: 60, sortable: false, editable: true, align: "center"},
+                {name: "recordId", hidden: true},
+                {label: "产品编码", name: "productInvCode", width: 110, sortable: false, editable: false, align: "center"},
+                {label: "产品名称", name: "productInvName", width: 90, sortable: false, editable: false, align: "center"},
+                {label: "规格型号", name: "invStd", width: 80, sortable: false, editable: false, align: "center"},
+                {label: "单位", name: "invUnit", width: 40, sortable: false, editable: false, align: "center"},
+                {label: "数量", name: "iqty", width: 40, sortable: false, editable: false, align: "center"},
+                {label: "材料单价", name: "unitMaterialPrice", width: 60, sortable: false, editable: true, align: "center"},
                 {label: "单件材料费", name: "cdefine27", width: 70, sortable: false, editable: true, align: "center"},
-                {label: "材料编码", name: "cinvcodes", width: 90, sortable: false, editable: true, align: "center"},
+                {label: "材料编码", name: "materialInvCode", width: 90, sortable: false, editable: true, align: "center"},
 
-                {label: "材料名称", name: "cinvnames", width: 120, sortable: false, editable: false, align: "center"},
+                {label: "材料名称", name: "invNames", width: 120, sortable: false, editable: false, align: "center"},
                 {label: "材料规格", name: "cinvstds", width: 80, sortable: false, editable: false, align: "center"},
 
                 {label: "厚度", name: "cdefine28", width: 40, sortable: false, editable: true, align: "center"},
@@ -631,9 +626,9 @@
 //                    if (CurRow != "" || CurRow != undefined) {
 //                        $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
 //                    }
-                if (name == 'cinvcodes') {
+                if (name == 'materialInvCode') {
                     SetInventory(rowid, "2");
-                } else if (name == "cdefine26" || name == "cdefine28" || name == "cdefine29" || name == "cdefine30" || name == "cdefine31" || name == "cdefine32" || name == "cinvdefine2") {
+                } else if (name == "unitMaterialPrice" || name == "cdefine28" || name == "cdefine29" || name == "cdefine30" || name == "cdefine31" || name == "cdefine32" || name == "cinvdefine2") {
                     SetSize(rowid);
                 } else if (name == "fbaseqtyn") {
                     SetIpsQuantity(rowid);
@@ -663,8 +658,8 @@
         var rowData = $("#jqGrid").jqGrid('getRowData', rowid);
         //数量
         var fquantity = 0;
-        if (rowData.iquantity != "" && rowData.iquantity != null) {
-            fquantity = parseFloat(rowData.iquantity - 0).toFixed(2);
+        if (rowData.iqty != "" && rowData.iqty != null) {
+            fquantity = parseFloat(rowData.iqty - 0).toFixed(2);
         }
         //单件加工费
         var taxmakeprice = 0;
@@ -702,8 +697,8 @@
             if (rowDataDetail.recordId == rowData.recordId) {
                 //数量
                 var fquantity = 0;
-                if (rowData.iquantity != "" && rowData.iquantity != null) {
-                    fquantity = parseFloat(rowData.iquantity - 0).toFixed(2);
+                if (rowData.iqty != "" && rowData.iqty != null) {
+                    fquantity = parseFloat(rowData.iqty - 0).toFixed(2);
                 }
 
 
@@ -728,8 +723,8 @@
         var rowData = $("#jqGrid").jqGrid('getRowData', rowid);
         //数量
         var fquantity = 0;
-        if (rowData.iquantity != "" && rowData.iquantity != null) {
-            fquantity = parseFloat(rowData.iquantity - 0).toFixed(2) - 0;
+        if (rowData.iqty != "" && rowData.iqty != null) {
+            fquantity = parseFloat(rowData.iqty - 0).toFixed(2) - 0;
         }
         //单件加工费
         var taxmakeprice = 0;
@@ -755,8 +750,8 @@
         var rowData = $("#jqGridDetail").jqGrid('getRowData', rowid);
         //数量
         var fquantity = 0;
-        if (rowData.iquantity != "" && rowData.iquantity != null) {
-            fquantity = parseFloat(rowData.iquantity - 0).toFixed(2);
+        if (rowData.iqty != "" && rowData.iqty != null) {
+            fquantity = parseFloat(rowData.iqty - 0).toFixed(2);
         }
 
 
@@ -774,8 +769,8 @@
         var rowData = $("#jqGridDetail").jqGrid('getRowData', rowid);
         //数量
         var fquantity = 0;
-        if (rowData.iquantity != "" && rowData.iquantity != null) {
-            fquantity = parseFloat(rowData.iquantity - 0).toFixed(2);
+        if (rowData.iqty != "" && rowData.iqty != null) {
+            fquantity = parseFloat(rowData.iqty - 0).toFixed(2);
         }
 
 
@@ -836,7 +831,7 @@
             type: "get",
             async: false,
             url: "/basicinfo/inventory/getbyid",
-            data: {cinvcode: rowData.cinvcodes},
+            data: {cinvcode: rowData.materialInvCode},
             success: function (data) {
                 if (data != null && data != "") {
 
@@ -869,12 +864,12 @@
 
 
         //材料单价
-        var cdefine26 = 0;
-        if (rowData.cdefine26 != "" && rowData.cdefine26 != null) {
-            cdefine26 = parseFloat(rowData.cdefine26 - 0).toFixed(2);
+        var unitMaterialPrice = 0;
+        if (rowData.unitMaterialPrice != "" && rowData.unitMaterialPrice != null) {
+            unitMaterialPrice = parseFloat(rowData.unitMaterialPrice - 0).toFixed(2);
         }
 
-        var cdefine27 = ((ipsquantity - 0) * (cdefine26 - 0)).toFixed(2);
+        var cdefine27 = ((ipsquantity - 0) * (unitMaterialPrice - 0)).toFixed(2);
 
         $('#jqGridDetail').jqGrid('setRowData', rowid, {
             cdefine22: strSize,
@@ -885,12 +880,12 @@
 
 
         //循环子表合计材料单价和单件材料费
-        var totalcdefine26 = 0, totalcdefine27 = 0;
+        var totalunitMaterialPrice = 0, totalcdefine27 = 0;
         var ids = $("#jqGridDetail").getDataIDs();
         for (var i = 0; i < ids.length; i++) {
             var rowDataDetail = $("#jqGridDetail").getRowData(ids[i]);
             if (rowDataDetail.recordId == rowData.recordId) {
-                totalcdefine26 = totalcdefine26 + parseFloat(rowDataDetail.cdefine26 - 0);
+                totalunitMaterialPrice = totalunitMaterialPrice + parseFloat(rowDataDetail.unitMaterialPrice - 0);
                 totalcdefine27 = totalcdefine27 + parseFloat(rowDataDetail.cdefine27 - 0);
             }
         }
@@ -915,7 +910,7 @@
             }
             var tolpic = ((totalcdefine27 - 0) + (taxmakeprice - 0)) - 0;
             $('#jqGrid').jqGrid('setRowData', rowMainId, {
-                cdefine26: totalcdefine26.toFixed(2),
+                unitMaterialPrice: totalunitMaterialPrice.toFixed(2),
                 cdefine27: totalcdefine27.toFixed(2),
                 tolpic: tolpic,
                 tolnum: (tolpic * fquantity).toFixed(2)
@@ -952,10 +947,11 @@
                                 izExist = true;
 //                                    $("#jqGridDetail").jqGrid("delRowData", ids[i]);
                                 $('#jqGridDetail').jqGrid('setRowData', ids[i], {
-                                    cinvcode: data["mData"].cinvcode,
-                                    cinvname: data["mData"].cinvname,
-                                    cinvstd: data["mData"].cinvstd,
-                                    ccomunitname: data["mData"].ccomunitname,
+                                    //mes                   u8
+                                    productInvCode: data["mData"].cinvcode,
+                                    productInvName: data["mData"].cinvname,
+                                    invStds: data["mData"].cinvstd,
+                                    invUnit: data["mData"].ccomunitname,
                                 });
                             }
                         }
@@ -982,28 +978,28 @@
             });
         } else {
             var rowData = $("#jqGridDetail").jqGrid('getRowData', rowid);
-            var cinvcodes = rowData.cinvcodes;
+            var materialInvCode = rowData.materialInvCode;
             $.ajax({
                 type: "get",
                 async: false,
                 url: "/basicinfo/inventory/getbyid",
-                data: {cinvcode: cinvcodes},
+                data: {cinvcode: materialInvCode},
                 success: function (data) {
                     if (data != null && data != "") {
 
                         $('#jqGridDetail').jqGrid('setRowData', rowid, {
-                            cinvcodes: data.cinvcode,
-                            cinvnames: data.cinvname,
-                            cinvstds: data.cinvstd,
-                            cdefine26: parseFloat(data.iinvncost - 0).toFixed(2),
+                            materialInvCode: data.cinvcode,
+                            invNames: data.cinvname,
+                            invStds: data.cinvstd,
+                            unitMaterialPrice: parseFloat(data.iinvncost - 0).toFixed(2),
                             cinvdefine2: data.cinvdefine2
                         });
                     } else {
                         $('#jqGridDetail').jqGrid('setRowData', rowid, {
-                            cinvcodes: "",
-                            cinvnames: "",
-                            cinvstds: "",
-                            cdefine26: "",
+                            materialInvCode: "",
+                            invNames: "",
+                            invStds: "",
+                            unitMaterialPrice: "",
                             cinvdefine2: ""
                         });
                     }
@@ -1058,6 +1054,7 @@
 
     }
 
+    //材料表增行
     function FnAdd1() {
         irowid = irowid + 1;
         if (CurRow != "" || CurRow != undefined) {
@@ -1072,11 +1069,11 @@
                 mainid: rowData.mainid,
                 id: rowData.id,
                 recordId: rowData.recordId,
-                cinvcode: rowData.cinvcode,
-                cinvname: rowData.cinvname,
-                cinvstd: rowData.cinvstd,
-                ccomunitname: rowData.ccomunitname,
-                iquantity: rowData.iquantity,
+                productInvCode: rowData.productInvCode,
+                productInvName: rowData.productInvName,
+                productInvStd: rowData.productInvStd,
+                productInvUnit: rowData.productInvUnit,
+                productQty: rowData.productQty,
 
             };
 
@@ -1090,189 +1087,7 @@
 
     }
 
-    //
-    // function FnDelete() {
-    //     if (CurRow != "" || CurRow != undefined) {
-    //         $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
-    //     }
-    //     var rowId = $('#jqGrid').jqGrid('getGridParam', 'selrow');
-    //     if (rowId != "" && rowId != undefined) {
-    //         var rowData = $("#jqGrid").jqGrid('getRowData', rowId);
-    //
-    //         var ids = $("#jqGridDetail").getDataIDs();
-    //         for (var i = 0; i < ids.length; i++) {
-    //             var rowDataDetail = $("#jqGridDetail").getRowData(ids[i]);
-    //             if (rowDataDetail.recordId ==rowData.recordId) {
-    //                 layer.alert("请先删除明细表数据！");
-    //                 return;
-    //             }
-    //         }
-    //
-    //         if (rowData.modetailsid == ""||rowData.modetailsid ==null)
-    //         {
-    //
-    //             $("#jqGrid").jqGrid("delRowData", rowId);
-    //
-    //         }
-    //         else
-    //         {
-    //             layer.confirm('已存在的数据删除，删除后不可恢复，是否确认删除?？', function(index) {
-    //                     $.ajax({
-    //                         type: "post",
-    //                         url: "/om/metalworkcommittee/deletebydetailmainid",
-    //                         data: { modetailsid: rowData.modetailsid,moid:rowData.moid,momaterialsid:rowData.momaterialsid},
-    //                         success: function (text) {
-    //                             var data = text;
-    //                             if (data.success == true || data.success == "true") {
-    //                                 $("#jqGrid").jqGrid("delRowData", rowId);
-    //
-    //                                 layer.alert("删除成功!");
-    //                             }
-    //                             else {
-    //                                 layer.alert(data.errormsg);
-    //                             }
-    //
-    //                         },
-    //                         error: function ()
-    //                         { }
-    //                     });
-    //
-    //
-    //             });
-    //         }
-    //
-    //
-    //     }
-    //
-    // }
-
-    // function FnDelete1() {
-    //     if (CurRow1 != "" || CurRow1 != undefined) {
-    //         $("#jqGridDetail").jqGrid('saveCell', CurRow1, CurCol1);
-    //     }
-    //     var rowId = $('#jqGridDetail').jqGrid('getGridParam', 'selrow');
-    //     if (rowId != "" && rowId != undefined) {
-    //         var rowData = $("#jqGridDetail").jqGrid('getRowData', rowId);
-    //         if (rowData.momaterialsid == ""||rowData.momaterialsid ==null)
-    //         {
-    //             $("#jqGridDetail").jqGrid("delRowData", rowId);
-    //
-    //             //循环子表合计材料单价和单件材料费
-    //             var totalcdefine26=0,totalcdefine27=0;
-    //             var ids = $("#jqGridDetail").getDataIDs();
-    //             for (var i = 0; i < ids.length; i++) {
-    //                 var rowDataDetail = $("#jqGridDetail").getRowData(ids[i]);
-    //                 if (rowDataDetail.recordId ==rowData.recordId) {
-    //                     totalcdefine26=totalcdefine26+parseFloat(rowDataDetail.cdefine26 - 0);
-    //                     totalcdefine27=totalcdefine27+parseFloat(rowDataDetail.cdefine27 - 0);
-    //                 }
-    //             }
-    //
-    //             //查询对应主表id
-    //             var idsMain = $("#jqGrid").getDataIDs();
-    //             var rowMainId="";
-    //             var rowMain=null;
-    //             for (var i = 0; i < idsMain.length; i++) {
-    //                 var rowData1 = $("#jqGrid").getRowData(idsMain[i]);
-    //                 if (rowData1.recordId ==rowData.recordId) {
-    //                     rowMainId=idsMain[i];
-    //                     rowMain=rowData1;
-    //                     break;
-    //                 }
-    //             }
-    //             if(rowMain!=null)
-    //             {
-    //                 //单件加工费
-    //                 var taxmakeprice =0;
-    //                 if(rowMain.itaxprice!=""&&rowMain.itaxprice!=null) {
-    //                     taxmakeprice=parseFloat(rowMain.itaxprice - 0).toFixed(2);
-    //                 }
-    //                 //数量
-    //                 var fquantity =0;
-    //                 if(rowData.iquantity!=""&&rowData.iquantity!=null) {
-    //                     fquantity=parseFloat(rowData.iquantity - 0).toFixed(2);
-    //                 }
-    //                 var tolpic =((totalcdefine27-0)+(taxmakeprice-0))-0;
-    //                 $('#jqGrid').jqGrid('setRowData', rowMainId, {cdefine26:totalcdefine26.toFixed(2),cdefine27:totalcdefine27.toFixed(2),tolpic:tolpic,tolnum:(tolpic*fquantity).toFixed(2)});
-    //
-    //                 //需要计算主表合计
-    //                 SetTaxMakePrice(rowMainId);
-    //             }
-    //         }
-    //         else
-    //         {
-    //             layer.confirm('已存在的数据删除，删除后不可恢复，是否确认删除?？', function(index) {
-    //                     $.ajax({
-    //                         type: "post",
-    //                         url: "/om/metalworkcommittee/deletebydetailsubid",
-    //                         data: { moid: rowData.moid,modetailsid:rowData.modetailsid,momaterialsid:rowData.momaterialsid},
-    //                         success: function (text) {
-    //                             var data = text;
-    //                             if (data.success == true || data.success == "true") {
-    //                                 $("#jqGridDetail").jqGrid("delRowData", rowId);
-    //
-    //                                 //循环子表合计材料单价和单件材料费
-    //                                 var totalcdefine26=0,totalcdefine27=0;
-    //                                 var ids = $("#jqGridDetail").getDataIDs();
-    //                                 for (var i = 0; i < ids.length; i++) {
-    //                                     var rowDataDetail = $("#jqGridDetail").getRowData(ids[i]);
-    //                                     if (rowDataDetail.recordId ==rowData.recordId) {
-    //                                         totalcdefine26=totalcdefine26+parseFloat(rowDataDetail.cdefine26 - 0);
-    //                                         totalcdefine27=totalcdefine27+parseFloat(rowDataDetail.cdefine27 - 0);
-    //                                     }
-    //                                 }
-    //
-    //                                 //查询对应主表id
-    //                                 var idsMain = $("#jqGrid").getDataIDs();
-    //                                 var rowMainId="";
-    //                                 var rowMain=null;
-    //                                 for (var i = 0; i < idsMain.length; i++) {
-    //                                     var rowData1 = $("#jqGrid").getRowData(idsMain[i]);
-    //                                     if (rowData1.recordId ==rowData.recordId) {
-    //                                         rowMainId=idsMain[i];
-    //                                         rowMain=rowData1;
-    //                                         break;
-    //                                     }
-    //                                 }
-    //                                 if(rowMain!=null)
-    //                                 {
-    //                                     //单件加工费
-    //                                     var taxmakeprice =0;
-    //                                     if(rowMain.itaxprice!=""&&rowMain.itaxprice!=null) {
-    //                                         taxmakeprice=parseFloat(rowMain.itaxprice - 0).toFixed(2);
-    //                                     }
-    //                                     //数量
-    //                                     var fquantity =0;
-    //                                     if(rowData.iquantity!=""&&rowData.iquantity!=null) {
-    //                                         fquantity=parseFloat(rowData.iquantity - 0).toFixed(2);
-    //                                     }
-    //                                     var tolpic =((totalcdefine27-0)+(taxmakeprice-0))-0;
-    //                                     $('#jqGrid').jqGrid('setRowData', rowMainId, {cdefine26:totalcdefine26.toFixed(2),cdefine27:totalcdefine27.toFixed(2),tolpic:tolpic,tolnum:(tolpic*fquantity).toFixed(2)});
-    //
-    //                                     //需要计算主表合计
-    //                                     SetTaxMakePrice(rowMainId);
-    //                                 }
-    //                                 layer.alert("删除成功!");
-    //                             }
-    //                             else {
-    //                                 layer.alert(data.errormsg);
-    //                             }
-    //
-    //                         },
-    //                         error: function ()
-    //                         { }
-    //                     });
-    //
-    //
-    //             });
-    //         }
-    //
-    //
-    //     }
-    //
-    // }
-
-    function FnDelete() {
+     function FnDelete() {
         if (CurRow != "" || CurRow != undefined) {
             $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
         }
@@ -1308,12 +1123,12 @@
             $("#jqGridDetail").jqGrid("delRowData", rowId);
 
             //循环子表合计材料单价和单件材料费
-            var totalcdefine26 = 0, totalcdefine27 = 0;
+            var totalunitMaterialPrice = 0, totalcdefine27 = 0;
             var ids = $("#jqGridDetail").getDataIDs();
             for (var i = 0; i < ids.length; i++) {
                 var rowDataDetail = $("#jqGridDetail").getRowData(ids[i]);
                 if (rowDataDetail.recordId == rowData.recordId) {
-                    totalcdefine26 = totalcdefine26 + parseFloat(rowDataDetail.cdefine26 - 0);
+                    totalunitMaterialPrice = totalunitMaterialPrice + parseFloat(rowDataDetail.unitMaterialPrice - 0);
                     totalcdefine27 = totalcdefine27 + parseFloat(rowDataDetail.cdefine27 - 0);
                 }
             }
@@ -1338,12 +1153,12 @@
                 }
                 //数量
                 var fquantity = 0;
-                if (rowData.iquantity != "" && rowData.iquantity != null) {
-                    fquantity = parseFloat(rowData.iquantity - 0).toFixed(2);
+                if (rowData.iqty != "" && rowData.iqty != null) {
+                    fquantity = parseFloat(rowData.iqty - 0).toFixed(2);
                 }
                 var tolpic = ((totalcdefine27 - 0) + (taxmakeprice - 0)) - 0;
                 $('#jqGrid').jqGrid('setRowData', rowMainId, {
-                    cdefine26: totalcdefine26.toFixed(2),
+                    unitMaterialPrice: totalunitMaterialPrice.toFixed(2),
                     cdefine27: totalcdefine27.toFixed(2),
                     tolpic: tolpic,
                     tolnum: (tolpic * fquantity).toFixed(2)
@@ -1528,7 +1343,7 @@
      */
     function convertOrderMainFromU8ToMes(orderMain){
         let mesOrderMain = {
-            
+
         };
 
     }
