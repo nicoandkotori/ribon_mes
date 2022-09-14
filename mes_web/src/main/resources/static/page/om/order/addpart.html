@@ -48,11 +48,11 @@
     <script src="../../../static/Scripts/easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
     <script src="constConfig.js"></script>
     <script src="/js/jqGridTableHelper.js"></script>
-    <script src="omMesProduct.js"></script>
-    <script src="omMesPart.js"></script>
-    <script src="omMesMaterial.js"></script>
-    <script src="omMesPartMaterial.js"></script>
+    <script src="entity/omMesProduct.js"></script>
+    <script src="entity/omMesPart.js"></script>
+    <script src="entity/omMesMaterial.js"></script>
     <script src="function.js"></script>
+    <script src="U8QueryDTO.js"></script>
     <style>
         .layui-select, .layui-input {
             height: 24px;
@@ -119,7 +119,7 @@
         <button type="button" class="layui-btn layui-btn-sm" onclick="addPartRow()">增行</button>
         <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="deletePartRow()">删行</button>
         <table id="part_table"></table>
-        <button type="button" class="layui-btn layui-btn-sm" onclick="addMaterialRow()">增行</button>
+        <button type="button" class="layui-btn layui-btn-sm" onclick="addMaterialRowEvent()">增行</button>
         <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="deleteMaterialRow()">删行</button>
         <table id="jqGridDetail"></table>
     </div>
@@ -162,14 +162,14 @@
             datatype: "local",
             colModel: [
                 // {name: "recordId", hidden: true},
-                {label: "产品表行标识",name: "recordId", width: 80,hidden:INDEX_HIDDEN},
+                {label: "产品表行标识",name: RECORD_ID, width: 80,hidden:INDEX_HIDDEN},
                 // {name: "partRowId", hidden: true},
-                {label: "部件表行标识",name: "partRowId", width: 80,hidden:INDEX_HIDDEN},
-                {label: "产品编码", name: "partInvCode", width: 110, sortable: false, editable: true, align: "center"},
-                {label: "产品名称", name: "partInvName", width: 90, sortable: false, editable: false, align: "center"},
-                {label: "规格型号", name: "partInvStd", width: 80, sortable: false, editable: false, align: "center"},
-                {label: "单位", name: "partInvUnit", width: 40, sortable: false, editable: false, align: "center"},
-                {label: "数量", name: "partQty", width: 40, sortable: false, editable: true, align: "center"},
+                {label: "部件表行标识",name: PART_ROW_ID, width: 80,hidden:INDEX_HIDDEN},
+                {label: "部件编码", name: PART_INV_CODE, width: 110, sortable: false, editable: true, align: "center"},
+                {label: "部件名称", name: PART_INV_NAME, width: 90, sortable: false, editable: false, align: "center"},
+                {label: "规格型号", name: PART_INV_STD, width: 80, sortable: false, editable: false, align: "center"},
+                {label: "单位", name: PART_INV_UNIT, width: 40, sortable: false, editable: false, align: "center"},
+                {label: "数量", name: PART_QTY, width: 40, sortable: false, editable: true, align: "center"},
             ],
             viewrecords: true,
             multiselect: false,
@@ -188,6 +188,7 @@
 
             },
             ondblClickRow: function (rowid, iRow, iCol, e) {
+                console.log(partHelper.getRowDataById(rowid));
                 if (iCol == 3 || iCol == 4) {
                     //选择自建
                     chooseInvType = 'part';
@@ -199,12 +200,17 @@
                 CurCol = iCol;
             },
             afterSaveCell: function (rowid, name, val, iRow, iCol) {
-                // switch (name){
-                //     case 'iquantity':
-                //         setQty(rowid);
-                //         break;
-                //     default:break;
-                // }
+                console.log("保存单元格name:"+name);
+                switch (name){
+                    case PART_QTY:
+                        setQty(rowid);
+                        break;
+                    case PART_INV_CODE:
+                        setInventory(rowid, "1");
+                        break;
+                    default:
+                        break;
+                }
             }
 
         });
@@ -215,29 +221,32 @@
             colModel: [
                 {name: "momaterialsid", key: true, hidden: true},
                 {name: "modetailsid", hidden: true},
-                {label: "产品表行标识",name: "recordId",width:80,hidden:INDEX_HIDDEN},
-                {label:" 部件表行标识",name: "partRowId",width: 80,hidden:INDEX_HIDDEN},
-                {label: "部件编码", name: "partInvCode", width: 110, sortable: false, editable: false, align: "center"},
-                {label: "部件名称", name: "partInvName", width: 90, sortable: false, editable: false, align: "center"},
-                {label: "规格型号", name: "partInvStd", width: 80, sortable: false, editable: false, align: "center"},
-                {label: "单位", name: "partInvUnit", width: 40, sortable: false, editable: false, align: "center"},
-                {label: "数量", name: "partQty", width: 40, sortable: false, editable: false, align: "center"},
-                {label: "材料单价", name: "materialPrice", width: 60, sortable: false, editable: true, align: "center"},
-                {label: "单件材料费", name: "materialAmount", width: 70, sortable: false, editable: true, align: "center"},
-                {label: "材料编码", name: "invCode", width: 90, sortable: false, editable: true, align: "center"},
-                {label: "材料名称", name: "invName", width: 120, sortable: false, editable: false, align: "center"},
-                {label: "材料规格", name: "invStd", width: 80, sortable: false, editable: false, align: "center"},
-                {label: "厚度", name: "invLand", width: 40, sortable: false, editable: true, align: "center"},
-                {label: "长", name: "invLength", width: 45, sortable: false, editable: true, align: "center"},
-                {label: "宽", name: "invWidth", width: 40, sortable: false, editable: true, align: "center"},
-                {label: "外径", name: "invExternalDiameter", width: 40, sortable: false, editable: true, align: "center"},
-                {label: "内径", name: "invInternalDiameter", width: 40, sortable: false, editable: true, align: "center"},
-                {label: "密度", name: "invDensity", width: 40, sortable: false, editable: true, align: "center"},
-                {label: "下料尺寸", name: "invSize", width: 110, sortable: false, editable: true, align: "center"},
-                {label: "单耗", name: "iqty", width: 45, sortable: false, editable: true, align: "center"},
-                {label: "总量", name: "tqty", width: 45, sortable: false, editable: false, align: "center"},
-
-
+                {label: "产品表行标识",name: RECORD_ID,width:80,hidden:INDEX_HIDDEN},
+                {label:" 部件表行标识",name: PART_ROW_ID,width: 80,hidden:INDEX_HIDDEN},
+                {label: "部件编码", name: PART_INV_CODE, width: 110, sortable: false, editable: true, align: "center"},
+                {label: "部件名称", name: PART_INV_NAME, width: 90, sortable: false, editable: false, align: "center"},
+                {label: "规格型号", name: PART_INV_STD, width: 80, sortable: false, editable: false, align: "center"},
+                {label: "单位", name: PART_INV_UNIT, width: 40, sortable: false, editable: false, align: "center"},
+                {label: "数量", name: PART_QTY, width: 40, sortable: false, editable: true, align: "center"},
+                {label: "材料单价", name: UNIT_MATERIAL_PRICE, width: 60, sortable: false, editable: true, align: "center"},
+                {label: "单件材料费", name: UNIT_MATERIAL_AMOUNT, width: 70, sortable: false, editable: true, align: "center"},
+                {label: "材料编码", name: INV_CODE, width: 90, sortable: false, editable: true, align: "center"},
+                {label: "材料名称", name: INV_NAME, width: 120, sortable: false, editable: false, align: "center"},
+                {label: "材料规格", name: INV_STD, width: 80, sortable: false, editable: false, align: "center"},
+                {label: "厚度", name: INV_LAND, width: 40, sortable: false, editable: true, align: "center"},
+                {label: "长", name: INV_LEN, width: 45, sortable: false, editable: true, align: "center"},
+                {label: "宽", name: INV_WIDTH, width: 40, sortable: false, editable: true, align: "center"},
+                {label: "外径", name: INV_EXTERNAL_DIAMETER, width: 40, sortable: false, editable: true, align: "center"},
+                {label: "内径", name: INV_INTERNAL_DIAMETER, width: 40, sortable: false, editable: true, align: "center"},
+                {label: "密度", name: INV_DENSITY, width: 40, sortable: false, editable: true, align: "center"},
+                {label: "下料尺寸", name: INV_SIZE, width: 110, sortable: false, editable: true, align: "center"},
+                {label: "单耗", name: IQTY, width: 45, sortable: false, editable: true, align: "center"},
+                {label: "总量", name: TQTY, width: 45, sortable: false, editable: false, align: "center"},
+                {label: "产品编码", name: PRODUCT_INV_CODE, width: 110, sortable: false, editable: true, align: "center",hidden: true},
+                {label: "产品名称", name: PRODUCT_INV_NAME, width: 90, sortable: false, editable: false, align: "center",hidden: true},
+                {label: "规格型号", name: PRODUCT_INV_STD, width: 80, sortable: false, editable: false, align: "center",hidden: true},
+                {label: "单位", name: PRODUCT_INV_UNIT, width: 40, sortable: false, editable: false, align: "center",hidden: true},
+                {label: "数量", name: PRODUCT_QTY, width: 40, sortable: false, editable: true, align: "center",hidden: true},
             ],
             viewrecords: true,
             multiselect: false,
@@ -265,7 +274,7 @@
             ondblClickRow: function (rowid, iRow, iCol, e) {
                 //iCol==6||
                 console.log(rowid);
-                if (iCol == 14 || iCol == 13) {
+                if (iCol == 12 || iCol == 13) {
                     //选择自建
                     chooseInvType = 'material';
                     choice(rowid, "2");
@@ -277,15 +286,16 @@
 
             },
             afterSaveCell: function (rowid, name, val, iRow, iCol) {
-//                    if (CurRow != "" || CurRow != undefined) {
-//                        $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
-//                    }
-                if (name == 'cinvcodes') {
-                    SetInventory(rowid, "2");
-                } else if (name == "cdefine26" || name == "cdefine28" || name == "cdefine29" || name == "cdefine30" || name == "cdefine31" || name == "cdefine32" || name == "cinvdefine2") {
-                    SetSize(rowid);
-                } else if (name == "fbaseqtyn") {
-                    SetIpsQuantity(rowid);
+                   if (CurRow1 != "" || CurRow1 != undefined) {
+                       $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
+                   }
+                console.log("保存单元格name:"+name);
+                if (name == INV_CODE) {
+                    setInventory(rowid, "2");
+                } else if (name == UNIT_MATERIAL_PRICE || name == INV_LAND || name == INV_LEN || name == INV_WIDTH || name == INV_EXTERNAL_DIAMETER || name == INV_INTERNAL_DIAMETER || name == INV_DENSITY) {
+                    setSize(rowid);
+                } else if (name == IQTY) {
+                    afterUpdatingIqty(rowid);
                 }
 
             },
@@ -313,69 +323,231 @@
         setProductionInfo(selectedRowData);
     }
 
-    //修改数量
+    <!--DATE: 2022/9/13-->
+    <!--mijiahao TODO:逻辑待优化 -->
+    //修改数量后，同步更新其它字段
     function setQty(rowid) {
-        var rowData = $("#part_table").jqGrid('getRowData', rowid);
-        //数量
-        var fquantity = 0;
-        if (rowData.iquantity != "" && rowData.iquantity != null) {
-            fquantity = parseFloat(rowData.iquantity - 0).toFixed(2);
-        }
-        //单件加工费
-        var taxmakeprice = 0;
-        if (rowData.itaxprice != "" && rowData.itaxprice != null) {
-            taxmakeprice = parseFloat(rowData.itaxprice - 0).toFixed(2);
-        }
-
-        //单件材料费
-        var cdefine27 = 0;
-        if (rowData.cdefine27 != "" && rowData.cdefine27 != null) {
-            cdefine27 = parseFloat(rowData.cdefine27 - 0).toFixed(2) - 0;
-        }
-        //单件价格
-        var tolpic = parseFloat((cdefine27 - 0) + (taxmakeprice - 0)) - 0;
-        if (rowData.tolpic != "" && rowData.tolpic != null) {
-            tolpic = parseFloat(rowData.tolpic - 0).toFixed(2);
-        }
-        //单耗
-        var ipsquantity = 0;
-        if (rowData.fbaseqtyn != "" && rowData.fbaseqtyn != null) {
-            ipsquantity = parseFloat(rowData.fbaseqtyn - 0).toFixed(2);
-        }
-        $('#part_table').jqGrid('setRowData', rowid, {
-            inatsum: (fquantity * taxmakeprice).toFixed(2),
-            tolnum: (fquantity * tolpic).toFixed(2),
-            fqtys: (fquantity * ipsquantity).toFixed(2),
-            tolpic: tolpic
-        });
-
-
+        console.log("修改了数量");
+        let partObj = new omMesPart();
+        partObj.setEntity(partHelper.getRowDataById(rowid));
         //循环子表更新数量
-        var ids = $("#jqGridDetail").getDataIDs();
-        for (var i = 0; i < ids.length; i++) {
-            var rowDataDetail = $("#jqGridDetail").getRowData(ids[i]);
-            if (rowDataDetail.recordId == rowData.recordId) {
-                //数量
-                var fquantity = 0;
-                if (rowData.iquantity != "" && rowData.iquantity != null) {
-                    fquantity = parseFloat(rowData.iquantity - 0).toFixed(2);
-                }
-
-
-                //单耗
-                var ipsquantity = 0;
-                if (rowDataDetail.fbaseqtyn != "" && rowDataDetail.fbaseqtyn != null) {
-                    ipsquantity = parseFloat(rowDataDetail.fbaseqtyn - 0).toFixed(2);
-                }
-                $('#jqGridDetail').jqGrid('setRowData', ids[i], {
-                    iquantity: fquantity,
-                    fqtys: (fquantity * ipsquantity).toFixed(2)
-                });
-
+        let ids = materialHelper.getAllRowsId();
+        for (let i = 0; i < ids.length; i++) {
+            let productMaterialRow = materialHelper.getRowDataById(ids[i]);
+            let productMaterialObj = new omMesMaterial();
+            productMaterialObj.setEntity(productMaterialRow);
+            if (productMaterialObj.getRecordId() === partObj.getRecordId()) {
+                //数量初始化
+                let partQty = getStringDecimal(partObj.getPartQty());
+                //单耗初始化
+                let iqty = getStringDecimal(0);
+                //同步材料表数量
+                productMaterialObj.setPartQty(partQty);
+                //计算材料表总量
+                productMaterialObj.setTqty((partQty * iqty).toFixed(2));
+                console.log("修改数量-同步更新材料表数量↓");
+                console.log(productMaterialObj);
+                materialHelper.setRowDataById(ids[i],productMaterialObj);
             }
 
 
         }
+    }
+
+    //修改单耗后同步修改总量
+    function afterUpdatingIqty(rowid) {
+        console.log("修改单耗后同步修改总量");
+        let materialObj = new omMesMaterial();
+        materialObj.setEntity(materialHelper.getRowDataById(rowid));
+        //数量
+        let productQty = getStringDecimal(materialObj.getPartQty());
+        //单耗
+        let iqty = getStringDecimal(materialObj.getIqty());
+        materialObj.setTqty((productQty * iqty).toFixed(2));
+        console.log(materialObj);
+        materialHelper.setRowDataById(rowid,materialObj);
+
+    }
+
+    /*
+     * 设置存货信息
+     */
+    function setInventory(rowid, itype) {
+        console.log("设置存货信息");
+        if (itype == "1") {
+            var rowData = partHelper.getRowDataById(rowid);
+            let partObj = new omMesPart();
+            partObj.setEntity(partHelper.getRowDataById(rowid));
+            let query = new U8QueryDTO(partObj);
+            $.ajax({
+                type: "get",
+                async: false,
+                url: "/om/metalworkcommittee/gethistorybycinvcode1",
+                data: query,
+                success: function (data) {
+                    if (data["mData"] != null && data["mData"] != "") {
+                        data["mData"].recordId = partObj.getRecordId();
+                        partHelper.setRowDataById(rowid,data["mData"])
+                        var ids = materialHelper.getAllRowsId();
+                        var izExist = false;
+                        let materialObj = new omMesMaterial();
+                        for (var i = 0; i < ids.length; i++) {
+                            materialObj.setEntity(materialHelper.getRowDataById(ids[i]))
+                            if (materialObj.getRecordId() == partObj.getRecordId()) {
+                                izExist = true;
+                                materialObj.setProductInfoFromU8Data(data["mData"])
+                                materialHelper.setRowDataById(ids[i],materialObj);
+//                                    $("#jqGridDetail").jqGrid("delRowData", ids[i]);
+                            }
+                        }
+                        if (izExist == false) {
+                            if (data["mDatas"] != null && data["mDatas"] != "") {
+                                let materialObj = new omMesMaterial();
+                                materialObj.setEntity(materialHelper.getRowDataById(rowid));
+                                for (var i = 0; i < data["mDatas"].length; i++) {
+                                    <!--DATE: 2022/9/13-->
+                                    <!--mijiahao TODO:这块的业务逻辑是什么 -->
+                                    materialObj.setMaterialInfoFromU8Data(data["mDatas"]);
+                                    materialRowIndex++;
+                                    materialHelper.addRowData(materialRowIndex,data["mDatas"][i])
+                                }
+                            }
+
+
+                        }
+
+
+                    }
+
+
+                },
+            });
+        } else {
+            let query = new U8QueryDTO(materialHelper.getRowDataById(rowid));
+            $.ajax({
+                type: "get",
+                async: false,
+                url: "/basicinfo/inventory/getbyid",
+                data: query,
+                success: function (data) {
+                    if (data != null && data != "") {
+                        data.cdefine26 = parseFloat(data.iinvncost - 0).toFixed(2);
+                        let materialObj = new omMesMaterial();
+                        materialObj.setEntity(materialHelper.getRowDataById(rowid));
+                        materialObj.setMaterialInfoFromU8Data(data);
+                        materialHelper.setRowDataById(rowid,materialObj);
+                    } else {
+                        materialHelper.setRowDataById(rowid,new omMesMaterial());
+                    }
+
+                },
+            });
+            setSize(rowid);
+        }
+
+
+    }
+
+    //设置下料尺寸
+    function setSize(rowid) {
+        console.log("设置下料尺寸！");
+        let rowData = materialHelper.getRowDataById(rowid);
+        let materialObj = new omMesMaterial();
+        materialObj.setEntity(rowData);
+        //数量
+        let productQty = getStringDecimal(materialObj.getProductQty());
+        var strSize = "";
+        //厚度
+        let invLand = getStringDecimal(materialObj.getInvLand());
+        if (invLand !== 0){
+            strSize = "δ" + materialObj.getInvLand();
+        }
+        //长
+        let invLen = getStringDecimal(materialObj.getInvLen());
+        if (invLen !== 0){
+            if (strSize != "") {
+                strSize = strSize + ",";
+            }
+            strSize = strSize + "L" + materialObj.getInvLen();
+        }
+        //宽
+        let invWidth = getStringDecimal(materialObj.getInvWidth());
+        if (invWidth !== 0){
+            if (strSize != "") {
+                strSize = strSize + ",";
+            }
+            strSize = strSize + "W" + materialObj.getInvWidth();
+        }
+        //外径
+        let externalDiameter = getStringDecimal(materialObj.getInvExternalDiameter());
+        if (externalDiameter !== 0){
+            if (strSize != "") {
+                strSize = strSize + ",";
+            }
+            strSize = strSize + "外φ" + materialObj.getInvExternalDiameter();
+        }
+        //内径
+        let internalDiameter = getStringDecimal(materialObj.getInvInternalDiameter());
+        if (internalDiameter !== 0){
+            if (strSize != "") {
+                strSize = strSize + ",";
+            }
+            strSize = strSize + "内φ" + materialObj.getInvExternalDiameter();
+        }
+        //密度
+        let density = getStringDecimal(materialObj.getInvDensity());
+
+        var iqty = ((invLen * invWidth + 3.1415926 / 4 * (externalDiameter * externalDiameter - internalDiameter * internalDiameter)) * invLand / 1000000 * density).toFixed(2) - 0;
+        let query = new U8QueryDTO(materialObj);
+        $.ajax({
+            type: "get",
+            async: false,
+            url: "/basicinfo/inventory/getbyid",
+            data: query,
+            success: function (data) {
+                if (data != null && data != "") {
+
+                    if ((iqty == null || iqty == 0 || iqty == "0")) {
+                        if (data.cinvdefine1 == "A" || data.cinvdefine1 == "a") {
+                            iqty = parseFloat((invLand * invLen * invWidth * density / 1000000).toFixed(3));
+                        } else if (data.cinvdefine1 == "B" || data.cinvdefine1 == "b") {
+                            iqty = parseFloat((invLen * density * (externalDiameter * externalDiameter - internalDiameter * internalDiameter) * 3.1415926 / 4 / 1000000).toFixed(3));
+
+                        } else if (data.cinvdefine1 == "C" || data.cinvdefine1 == "c") {
+                            iqty = parseFloat((invLen / 1000).toFixed(3));
+                        } else if (data.cinvdefine1 == "D" || data.cinvdefine1 == "d") {
+                            iqty = parseFloat((invLen * invWidth / 1000000).toFixed(3));
+                        } else if (data.cinvdefine1 == "E" || data.cinvdefine1 == "e") {
+                            iqty = parseFloat((invLen / 1000).toFixed(3));
+                        } else if (data.cinvdefine1 == "F" || data.cinvdefine1 == "f") {
+                            iqty = parseFloat((invLand / 1000 * invLen / 1000 * invWidth / 1000 * 1).toFixed(3));
+                        } else if (data.cinvdefine1 == "G" || data.cinvdefine1 == "g") {
+                            iqty = parseFloat((invLen / 1000 * 1).toFixed(3));
+                        }
+
+                    }
+
+                }
+
+
+            },
+        });
+
+
+        //材料单价
+        let unitMaterialPrice = getStringDecimal(materialObj.getUnitMaterialPrice());
+
+        //单件材料费
+        let unitMaterialAmount = ((iqty - 0) * (unitMaterialPrice - 0)).toFixed(2);
+        materialObj.setInvSize(strSize);
+        materialObj.setUnitMaterialAmount(unitMaterialAmount);
+        materialObj.setIqty(iqty)
+        materialObj.setTqty((iqty * productQty).toFixed(2));
+        console.log("设置下料尺寸-材料表字段更新-下料尺寸,材料单价,单耗，总量↓");
+        console.log(materialObj);
+        materialHelper.setRowDataById(rowid,materialObj)
+        
+
     }
 
     /*
@@ -410,18 +582,33 @@
     }
 
     /*
-     * 材料表增行函数
+     * 材料表增行事件
      */
-    function addMaterialRow(){
-        materialRowIndex++;
+    function addMaterialRowEvent(){
+
         partHelper.saveCell(CurRow,CurCol);
         let partRowData = partHelper.getSelectedRowData();
         console.log("材料表增行函数");
         let productMaterialRowData = new omMesMaterial();
-        //数据字段转换
+        //设置部件信息
         productMaterialRowData.setEntity(partRowData);
-        materialHelper.addRowData(materialRowIndex,productMaterialRowData);
+        //设置产品信息
+        productMaterialRowData.setProductInfo(getProductionInfo());
+        console.log("材料表增行↓");
+        console.log(productMaterialRowData);
+        addMaterialRow(productMaterialRowData);
     }
+
+    /*
+     * 材料表增行
+     */
+    function addMaterialRow(row){
+        materialRowIndex++;
+        materialHelper.addRowData(materialRowIndex,row);
+    }
+
+
+
 
     /*
      * 材料表删行函数
@@ -459,164 +646,7 @@
         }
     }
 
-    //设置下料尺寸
-    function SetSize(rowid) {
-        var rowData = $("#jqGridDetail").jqGrid('getRowData', rowid);
-        //数量
-        var fquantity = 0;
-        if (rowData.iquantity != "" && rowData.iquantity != null) {
-            fquantity = parseFloat(rowData.iquantity - 0).toFixed(2);
-        }
 
-
-        var strSize = "";
-        //厚度
-        var cdefine28 = 0;
-        if (rowData.cdefine28 != "" && rowData.cdefine28 != null) {
-            cdefine28 = parseFloat(rowData.cdefine28 - 0).toFixed(2);
-            strSize = "δ" + rowData.cdefine28;
-
-        }
-        //长
-        var cdefine29 = 0;
-        if (rowData.cdefine29 != "" && rowData.cdefine29 != null) {
-            cdefine29 = parseFloat(rowData.cdefine29 - 0).toFixed(2);
-            if (strSize != "") {
-                strSize = strSize + ",";
-            }
-            strSize = strSize + "L" + rowData.cdefine29;
-
-        }
-        //宽
-        var cdefine30 = 0;
-        if (rowData.cdefine30 != "" && rowData.cdefine30 != null) {
-            cdefine30 = parseFloat(rowData.cdefine30 - 0).toFixed(2);
-            if (strSize != "") {
-                strSize = strSize + ",";
-            }
-            strSize = strSize + "W" + rowData.cdefine30;
-        }
-        //外径
-        var cdefine31 = 0;
-        if (rowData.cdefine31 != "" && rowData.cdefine31 != null) {
-            cdefine31 = parseFloat(rowData.cdefine31 - 0).toFixed(2);
-            if (strSize != "") {
-                strSize = strSize + ",";
-            }
-            strSize = strSize + "外φ" + rowData.cdefine31;
-        }
-        //内径
-        var cdefine32 = 0;
-        if (rowData.cdefine32 != "" && rowData.cdefine32 != null) {
-            cdefine32 = parseFloat(rowData.cdefine32 - 0).toFixed(2);
-            if (strSize != "") {
-                strSize = strSize + ",";
-            }
-            strSize = strSize + "内φ" + rowData.cdefine32;
-        }
-        //密度
-        var cinvdefine3 = 0;
-        if (rowData.cinvdefine2 != "" && rowData.cinvdefine2 != null) {
-            cinvdefine3 = parseFloat(rowData.cinvdefine2 - 0).toFixed(2);
-
-        }
-        var ipsquantity = ((cdefine29 * cdefine30 + 3.1415926 / 4 * (cdefine31 * cdefine31 - cdefine32 * cdefine32)) * cdefine28 / 1000000 * cinvdefine3).toFixed(2) - 0;
-
-        $.ajax({
-            type: "get",
-            async: false,
-            url: "/basicinfo/inventory/getbyid",
-            data: {cinvcode: rowData.cinvcodes},
-            success: function (data) {
-                if (data != null && data != "") {
-
-                    if ((ipsquantity == null || ipsquantity == 0 || ipsquantity == "0")) {
-                        if (data.cinvdefine1 == "A" || data.cinvdefine1 == "a") {
-                            ipsquantity = parseFloat((cdefine28 * cdefine29 * cdefine30 * cinvdefine3 / 1000000).toFixed(3));
-                        } else if (data.cinvdefine1 == "B" || data.cinvdefine1 == "b") {
-                            ipsquantity = parseFloat((cdefine29 * cinvdefine3 * (cdefine31 * cdefine31 - cdefine32 * cdefine32) * 3.1415926 / 4 / 1000000).toFixed(3));
-
-                        } else if (data.cinvdefine1 == "C" || data.cinvdefine1 == "c") {
-                            ipsquantity = parseFloat((cdefine29 / 1000).toFixed(3));
-                        } else if (data.cinvdefine1 == "D" || data.cinvdefine1 == "d") {
-                            ipsquantity = parseFloat((cdefine29 * cdefine30 / 1000000).toFixed(3));
-                        } else if (data.cinvdefine1 == "E" || data.cinvdefine1 == "e") {
-                            ipsquantity = parseFloat((cdefine29 / 1000).toFixed(3));
-                        } else if (data.cinvdefine1 == "F" || data.cinvdefine1 == "f") {
-                            ipsquantity = parseFloat((cdefine28 / 1000 * cdefine29 / 1000 * cdefine30 / 1000 * 1).toFixed(3));
-                        } else if (data.cinvdefine1 == "G" || data.cinvdefine1 == "g") {
-                            ipsquantity = parseFloat((cdefine29 / 1000 * 1).toFixed(3));
-                        }
-
-
-                    }
-
-                }
-
-
-            },
-        });
-
-
-        //材料单价
-        var cdefine26 = 0;
-        if (rowData.cdefine26 != "" && rowData.cdefine26 != null) {
-            cdefine26 = parseFloat(rowData.cdefine26 - 0).toFixed(2);
-        }
-
-        var cdefine27 = ((ipsquantity - 0) * (cdefine26 - 0)).toFixed(2);
-
-        $('#jqGridDetail').jqGrid('setRowData', rowid, {
-            cdefine22: strSize,
-            cdefine27: cdefine27,
-            fbaseqtyn: (ipsquantity - 0),
-            fqtys: (ipsquantity * fquantity).toFixed(2)
-        });
-
-
-        //循环子表合计材料单价和单件材料费
-        var totalcdefine26 = 0, totalcdefine27 = 0;
-        var ids = $("#jqGridDetail").getDataIDs();
-        for (var i = 0; i < ids.length; i++) {
-            var rowDataDetail = $("#jqGridDetail").getRowData(ids[i]);
-            if (rowDataDetail.recordId == rowData.recordId) {
-                totalcdefine26 = totalcdefine26 + parseFloat(rowDataDetail.cdefine26 - 0);
-                totalcdefine27 = totalcdefine27 + parseFloat(rowDataDetail.cdefine27 - 0);
-            }
-        }
-
-        //查询对应主表id
-        var idsMain = $("#jqGrid").getDataIDs();
-        var rowMainId = "";
-        var rowMain = null;
-        for (var i = 0; i < idsMain.length; i++) {
-            var rowData1 = $("#jqGrid").getRowData(idsMain[i]);
-            if (rowData1.recordId == rowData.recordId) {
-                rowMainId = idsMain[i];
-                rowMain = rowData1;
-                break;
-            }
-        }
-        if (rowMain != null) {
-            //单件加工费
-            var taxmakeprice = 0;
-            if (rowMain.itaxprice != "" && rowMain.itaxprice != null) {
-                taxmakeprice = parseFloat(rowMain.itaxprice - 0).toFixed(2);
-            }
-            var tolpic = ((totalcdefine27 - 0) + (taxmakeprice - 0)) - 0;
-            $('#jqGrid').jqGrid('setRowData', rowMainId, {
-                cdefine26: totalcdefine26.toFixed(2),
-                cdefine27: totalcdefine27.toFixed(2),
-                tolpic: tolpic,
-                tolnum: (tolpic * fquantity).toFixed(2)
-            });
-
-            //需要计算主表合计
-            SetTaxMakePrice(rowMainId);
-        }
-
-
-    }
 
     /*
      * 获取产品表信息
@@ -628,6 +658,7 @@
             productInvStd:$("#productInvStd").val(),
             productInvUnit:$("#productInvUnit").val(),
             productQty:$("#productQty").val(),
+            recordId:$("#recordId").val(),
         };
         return productionObj;
     }
@@ -660,24 +691,43 @@
     }
 
     /*
-     * 选择部件信息回调函数
+     * 选择产品信息回调函数
      */
     function chooseInventoryCallBack(u8Data){
         //根据选择物料类型来为部件表或材料表赋值，不算优雅的设计，但受限于框架没有更好的实现方式
         switch (chooseInvType) {
             case 'part':
+                partHelper.saveCell(CurRow,CurCol);
                 let part = new omMesPart();
                 part.setEntity(partHelper.getSelectedRowData());
                 part.setDataFromU8Data(u8Data);
                 partHelper.setSelectedRowData(part);
+
                 break;
             case 'material':
+                materialHelper.saveCell(CurRow1,CurCol1);
                 let selectedMaterialRow = materialHelper.getSelectedRowData();
-                //转换u8字段
-                selectedMaterialRow = setMaterialInfoFromU8Data(selectedMaterialRow,u8Data);
-                //选中记录赋值
-                materialHelper.setSelectedRowData(selectedMaterialRow);
-                break;
+                let materialObj = new omMesMaterial();
+                materialObj.setEntity(selectedMaterialRow);
+                var iprice=0;
+                $.ajax({
+                    type: "post",
+                    async: false,
+                    dataType: "json",
+                    url: "/basicinfo/inventory/getprice",
+                    data: {cinvcode:u8Data.cinvcode},
+                    success: function (data) {
+                        iprice=parseFloat(data- 0).toFixed(2);
+                        u8Data.cdefine26 = iprice;
+                        //转换u8字段
+                        materialObj.setMaterialInfoFromU8Data(u8Data);
+                        //选中记录赋值
+                        materialHelper.setSelectedRowData(materialObj);
+                        setSize(materialHelper.getSelectedRowId())
+
+                    },
+
+                });
         }
 
     }

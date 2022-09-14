@@ -3,6 +3,7 @@ package com.web.om.dto;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.web.om.entity.OmOrderMain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -11,7 +12,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-public class OmOrderMainDTO {
+public class OmOrderMainDTO{
     private Date dateStart;  //---
     private Date dateEnd;   //---
 

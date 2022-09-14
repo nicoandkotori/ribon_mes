@@ -1,9 +1,9 @@
 
 /*
- * jqGrid表格操作工具
+ * jqGrid表格行操作工具
  * @author mijiahao
  */
-class jqGridTableHelper {
+class jqGridRowHelper {
 
     /*
      * 传入table的DOM对象
@@ -87,6 +87,20 @@ class jqGridTableHelper {
      */
     setSelectedRowData(rowData){
         this.setRowDataById(this.getSelectedRowId(),rowData)
+    }
+
+    /*
+     * 删除选中行
+     */
+    deleteSelectedRow(){
+       this.deleteRowById(this.getSelectedRowId()) ;
+    }
+
+    /*
+     * 通过id删除行
+     */
+    deleteRowById(id){
+        this.table.jqGrid("delRowData", id);
     }
 
 

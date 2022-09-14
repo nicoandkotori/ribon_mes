@@ -31,6 +31,9 @@
     <script src='../../../static/Scripts/jqgrid/js/jquery.jqGrid.js'></script>
     <script src='../../../static/Scripts/Print.js'></script>
     <script src='../../../static/Scripts/lodop/LodopFuncs.js'></script>
+    <script src="constConfig.js"></script>
+    <script src="function.js"></script>
+    <script src="jqGridRowHelper.js"></script>
 </head>
 <style type="text/css">
 
@@ -54,20 +57,20 @@
                     <span>委外合同</span>
                 </div>
                 <div class="layui-inline">
-                    <input type="text" class="layui-input weadmin-input" placeholder="委外合同" name="cdefine2" id="cdefine2" autocomplete="off">
+                    <input type="text" class="layui-input weadmin-input" placeholder="委外合同" name=“contractOm” id=“contractOm” autocomplete="off">
                 </div>
 
                 <div class="layui-inline">
                     <span>委外单号</span>
                 </div>
                 <div class="layui-inline">
-                    <input type="text" class="layui-input weadmin-input" placeholder="委外单号" name="ccode" id="ccode" autocomplete="off">
+                    <input type="text" class="layui-input weadmin-input" placeholder="委外单号" name="vouchCode" id="vouchCode" autocomplete="off">
                 </div>
                 <div class="layui-inline">
                     <span>备注</span>
                 </div>
                 <div class="layui-inline">
-                    <input type="text" class="layui-input weadmin-input" placeholder="备注" name="cmemo" id="cmemo" autocomplete="off">
+                    <input type="text" class="layui-input weadmin-input" placeholder="备注" name="remark" id="remark" autocomplete="off">
                 </div>
 
                 <button type="button" class="layui-btn layui-btn-sm" lay-filter="select" lay-submit="" id="select"><i class="layui-icon">&#xe615;</i></button>
@@ -80,7 +83,7 @@
                     <span>销售合同</span>
                 </div>
                 <div class="layui-inline">
-                    <input type="text" class="layui-input weadmin-input"  name="cdefine1" id="cdefine1" autocomplete="off">
+                    <input type="text" class="layui-input weadmin-input"  name="contractSale" id="contractSale" autocomplete="off">
                 </div>
 
                 <div class="layui-inline"   >
@@ -91,21 +94,21 @@
                     <span>委外商</span>
                 </div>
                 <div class="layui-inline">
-                    <input type="text" class="layui-input weadmin-input"  name="cvenname" id="cvenname" autocomplete="off">
+                    <input type="text" class="layui-input weadmin-input"  name="venName" id="venName" autocomplete="off">
                 </div>
 
                 <div class="layui-inline">
                     <span>业务员</span>
                 </div>
                 <div class="layui-inline">
-                    <input type="text" class="layui-input weadmin-input"  name="cpersonname" id="cpersonname" autocomplete="off">
+                    <input type="text" class="layui-input weadmin-input"  name="personName" id="personName" autocomplete="off">
                 </div>
 
                 <div class="layui-inline">
                     <span>存货编码</span>
                 </div>
                 <div class="layui-inline">
-                    <input type="text" class="layui-input weadmin-input"  name="cinvcode" id="cinvcode" autocomplete="off">
+                    <input type="text" class="layui-input weadmin-input"  name="productInvCode" id="productInvCode" autocomplete="off">
                 </div>
 
                 <div class="layui-inline"   >
@@ -139,9 +142,9 @@
     </div>
 </div>
 <div class="weadmin-body-table">
-    <table id="jqGrid"></table>
+    <table id=main_table></table>
     <div id="jqGridPager"></div>
-    <table id="jqGrid1"></table>
+    <table id="jqGrid"></table>
 </div>
 </body>
 <script>
@@ -151,13 +154,15 @@
     var CurRow1;
     var CurCol1;
     var cht, cwd;
+    var mainHelper = new jqGridRowHelper($(SELECTOR_MAIN_TABLE_ID));
+    var productHelper = new jqGridRowHelper($(SELECTOR_PRODUCT_TABLE_ID));
     $(function () {
         initJqgrid();
     });
 
     function initJqgrid() {
         var qo = $("#formquery").serializeObject();
-        $("#jqGrid").jqGrid({
+        $(SELECTOR_MAIN_TABLE_ID).jqGrid({
             mtype: "GET",
             url: URL_GET_MES_ORDER,
             datatype: "json",
@@ -165,15 +170,15 @@
                 querystr: qo
             },
             colModel: [
-                {name: "moid", key: true,  hidden:true },
-                {label: "订单编号", name: "ccode", width: 120, sortable: false, editable: false, align: "center"},
-                {label: "订单日期", name: "ddate", width: 100, sortable: false, editable: false, align: "center"},
-                {label: "销售合同", name: "cdefine1", width: 100, sortable: false, editable: false, align: "center"},
-                {label: "委外合同", name: "cdefine2", width:120, sortable: false, editable: false, align: "center"},
-                {label: "委外商", name: "cvenname", width: 180, sortable: false, editable: false, align: "center"},
-                {label: "部门", name: "cdepname", width: 120, sortable: false, editable: false, align: "center"},
-                {label: "业务员", name: "cpersonname", width: 120, sortable: false, editable: false, align: "center"},
-                {label: "备注", name: "cmemo", width:230, sortable: false, editable: false, align: "center"},
+                {name: "id", key: true,  hidden:true },
+                {label: "订单编号", name: VOUCH_CODE, width: 120, sortable: false, editable: false, align: "center"},
+                {label: "订单日期", name: VOUCH_DATE, width: 100, sortable: false, editable: false, align: "center"},
+                {label: "销售合同", name: CONTRACT_SALE, width: 100, sortable: false, editable: false, align: "center"},
+                {label: "委外合同", name: CONTRACT_OM, width: 180, sortable: false, editable: false, align: "center"},
+                {label: "委外商", name: VEN_NAME, width: 180, sortable: false, editable: false, align: "center"},
+                {label: "部门", name: DEP_NAME, width: 120, sortable: false, editable: false, align: "center"},
+                {label: "业务员", name: PERSON_NAME, width: 120, sortable: false, editable: false, align: "center"},
+                {label: "备注", name: REMARK, width:230, sortable: false, editable: false, align: "center"},
 
             ],
             viewrecords: true,
@@ -207,15 +212,17 @@
             onCellSelect: function (rowid, iCol, cellcontent, e) { //单击选择行
                 if(rowid!=null&&rowid!=""&&rowid!=undefined)
                 {
+                    let selectedRow = mainHelper.getRowDataById(rowid);
+                    console.log(selectedRow);
                     $.ajax({
                         type: "post",
-                        url: "/om/metalworkcommittee/getdetaillist",
-                        data: {id:rowid},
+                        url: URL_GET_MES_DETAIL,
+                        data: {id:selectedRow.id},
                         success: function (data) {
 
-                            $("#jqGrid1").jqGrid("clearGridData");
+                            $(SELECTOR_PRODUCT_TABLE_ID).jqGrid("clearGridData");
                             if (data != null &&  data != "") {
-                                $("#jqGrid1").jqGrid("setGridParam", { datatype: 'local', data: data, rowNum:data.length }).trigger("reloadGrid");
+                                $(SELECTOR_PRODUCT_TABLE_ID).jqGrid("setGridParam", { datatype: 'local', data: data, rowNum:data.length }).trigger("reloadGrid");
                             }
                         },
                         error: function ()
@@ -231,42 +238,41 @@
             }
         });
 
-        $("#jqGrid").setGridHeight($(window).outerHeight() - $(".weadmin-body").height() - 400);
+        $(SELECTOR_MAIN_TABLE_ID).setGridHeight($(window).outerHeight() - $(".weadmin-body").height() - 400);
 
 
-        $("#jqGrid1").jqGrid({
+        $(SELECTOR_PRODUCT_TABLE_ID).jqGrid({
             mtype: "GET",
             datatype: "local",
             colModel: [
                 { name: "momaterialsid", key: true,  hidden:true },
                 { name: "modetailsid",   hidden:true },
                 { name: "moid",   hidden:true },
-                {label: "产品编码", name: "cinvcode", width: 110, sortable: false, editable: false, align: "center"},
-                {label: "产品名称", name: "cinvname", width: 90, sortable: false, editable: false, align: "center"},
-                {label: "规格型号", name: "cinvstd", width: 80, sortable: false, editable: false, align: "center"},
-                {label: "单位", name: "ccomunitname", width: 40, sortable: false, editable: false, align: "center"},
-                {label: "数量", name: "iquantity", width: 40, sortable: false, editable: false, align: "center"},
-                {label: "材料单价", name: "cdefine26", width: 60, sortable: false, editable: false, align: "center"},
-                {label: "单件材料费", name: "cdefine27", width: 70, sortable: false, editable: false, align: "center"},
-                {label: "单件加工费", name: "itaxprice", width: 70, sortable: false, editable: false, align: "center"},
-                {label: "加工费合计", name: "inatsum", width: 70, sortable: false, editable: false, align: "center"},
-                {label: "单件价格", name: "tolpic", width: 60, sortable: false, editable: false, align: "center"},
-                {label: "合计", name: "tolnum", width: 70, sortable: false, editable: false, align: "center"},
-                {label: "计划开工日期", name: "dstartdate", width: 80, sortable: false, editable: false, align: "center"},
-                {label: "计划完工日期", name: "darrivedate", width: 80, sortable: false, editable: false, align: "center"},
-                {label: "材料编码", name: "cinvcodes", width: 90, sortable: false, editable: false, align: "center"},
-                {label: "材料名称", name: "cinvnames", width: 120, sortable: false, editable: false, align: "center"},
-                {label: "材料规格", name: "cinvstds", width: 80, sortable: false, editable: false, align: "center"},
-
-                {label: "厚度", name: "cdefine28", width: 40, sortable: false, editable: false, align: "center"},
-                {label: "长", name: "cdefine29", width: 45, sortable: false, editable: false, align: "center"},
-                {label: "宽", name: "cdefine30", width: 40, sortable: false, editable: false, align: "center"},
-                {label: "外径", name: "cdefine31", width: 40, sortable: false, editable: false, align: "center"},
-                {label: "内径", name: "cdefine32", width: 40, sortable: false, editable: false, align: "center"},
-                {label: "密度", name: "cinvdefine2", width: 40, sortable: false, editable: false, align: "center"},
-                {label: "下料尺寸", name: "cdefine22", width: 80, sortable: false, editable: false, align: "center"},
-                {label: "单耗", name: "fbaseqtyn", width: 45, sortable: false, editable: false, align: "center"},
-                {label: "总量", name: "fqtys", width: 45, sortable: false, editable: false, align: "center"},
+                {label: "产品编码", name: PRODUCT_INV_CODE, width: 110, sortable: false, editable: true, align: "center"},
+                {label: "产品名称", name: PRODUCT_INV_NAME, width: 90, sortable: false, editable: false, align: "center"},
+                {label: "规格型号", name: PRODUCT_INV_STD, width: 80, sortable: false, editable: false, align: "center"},
+                {label: "单位", name: PRODUCT_INV_UNIT, width: 40, sortable: false, editable: false, align: "center"},
+                {label: "数量", name: PRODUCT_QTY, width: 40, sortable: false, editable: true, align: "center"},
+                {label: "材料单价", name: MATERIAL_PRICE, width: 60, sortable: false, editable: false, align: "center"},
+                {label: "单件材料费", name: MATERIAL_AMOUNT, width: 70, sortable: false, editable: false, align: "center"},
+                {label: "单件加工费", name: WORK_PRICE, width: 70, sortable: false, editable: true, align: "center"},
+                {label: "加工费合计", name: TOTAL_WORK_AMOUNT, width: 70, sortable: false, editable: false, align: "center"},
+                {label: "单件价格", name: PRICE, width: 60, sortable: false, editable: false, align: "center"},
+                {label: "合计", name: AMOUNT, width: 70, sortable: false, editable: false, align: "center"},
+                {label: "计划开工日期", name: PLAN_START_DATE, width: 80, sortable: false, editable: false, align: "center"},
+                {label: "计划完工日期", name: PLAN_END_DATE, width: 80, sortable: false, editable: false, align: "center"},
+                {label: "材料编码", name: INV_CODE, width: 90, sortable: false, editable: true, align: "center"},
+                {label: "材料名称", name: INV_NAME, width: 120, sortable: false, editable: false, align: "center"},
+                {label: "材料规格", name: INV_STD, width: 80, sortable: false, editable: false, align: "center"},
+                {label: "厚度", name: INV_LAND, width: 40, sortable: false, editable: true, align: "center"},
+                {label: "长", name: INV_LEN, width: 45, sortable: false, editable: true, align: "center"},
+                {label: "宽", name: INV_WIDTH, width: 40, sortable: false, editable: true, align: "center"},
+                {label: "外径", name: INV_EXTERNAL_DIAMETER, width: 40, sortable: false, editable: true, align: "center"},
+                {label: "内径", name: INV_INTERNAL_DIAMETER, width: 40, sortable: false, editable: true, align: "center"},
+                {label: "密度", name: INV_DENSITY, width: 40, sortable: false, editable: true, align: "center"},
+                {label: "下料尺寸", name: INV_SIZE, width: 110, sortable: false, editable: true, align: "center"},
+                {label: "单耗", name: IQTY, width: 45, sortable: false, editable: true, align: "center"},
+                {label: "总量", name: TQTY, width: 45, sortable: false, editable: false, align: "center"},
 
             ],
             viewrecords: true,
@@ -300,7 +306,7 @@
             },
 
         });
-        $("#jqGrid1").setGridHeight(250);
+        $(SELECTOR_PRODUCT_TABLE_ID).setGridHeight(250);
 
     }
 
@@ -331,7 +337,7 @@
         //查询
         form.on('submit(select)', function (data) {
 
-            $("#jqGrid").jqGrid('setGridParam', {
+            $(SELECTOR_MAIN_TABLE_ID).jqGrid('setGridParam', {
                 datatype:'json',
                 postData: {querystr: JSON.stringify(data.field)},
             }).trigger('reloadGrid');
@@ -348,7 +354,7 @@
     }
 
     function edit() {
-        var rowid = $("#jqGrid").getGridParam("selrow");
+        var rowid = $(SELECTOR_MAIN_TABLE_ID).getGridParam("selrow");
         if (rowid != null && rowid != '') {
             layui.miniTab.openNewTabByIframe({
                 href: "page/om/order/edit.html?id=" + rowid,
@@ -361,13 +367,13 @@
     }
 
     function btnDelete() {
-        var rowid = $("#jqGrid").getGridParam("selrow");
+        var rowid = $(SELECTOR_MAIN_TABLE_ID).getGridParam("selrow");
         if (rowid != null && rowid != undefined && rowid != "") {
-            var rowData = $("#jqGrid").jqGrid('getRowData', rowid);
+            var rowData = $(SELECTOR_MAIN_TABLE_ID).jqGrid('getRowData', rowid);
             layer.confirm('确定作废数据？', function(index) {
 
                 sendPostReq('/om/metalworkcommittee/delete', {id: rowData.moid}, function (data) {
-                    $("#jqGrid").trigger("reloadGrid");
+                    $(SELECTOR_MAIN_TABLE_ID).trigger("reloadGrid");
                     layer.alert("作废成功！");
                 });
 
@@ -377,9 +383,9 @@
         }
     }
     function FnPrint() {
-        var rowid = $("#jqGrid").getGridParam("selrow");
+        var rowid = $(SELECTOR_MAIN_TABLE_ID).getGridParam("selrow");
         if (rowid != null && rowid != undefined && rowid != "") {
-            var rowData = $("#jqGrid").jqGrid('getRowData', rowid);
+            var rowData = $(SELECTOR_MAIN_TABLE_ID).jqGrid('getRowData', rowid);
             $.get('/om/metalworkcommittee/getbyid', {id: rowData.moid}, function (data) {
                 if (data != null){
                     $.ajax({
@@ -409,10 +415,10 @@
 
     }
     function FnClear() {
-        $("#cdefine1").val("");
+        $("#contractSale").val("");
     }
     function FnClear1() {
-        $("#cinvcode").val("");
+        $("#productInvCode").val("");
     }
 </script>
 

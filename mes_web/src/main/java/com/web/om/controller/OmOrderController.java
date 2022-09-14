@@ -13,13 +13,13 @@ import com.modules.data.mybatis.DbContextHolder;
 import com.web.basicinfo.entity.Vendor;
 import com.web.basicinfo.service.IVendorService;
 import com.web.common.controller.BasicController;
-import com.web.om.dto.OmOrderMainDTO;
-import com.web.om.dto.OmProductVM;
+import com.web.om.dto.*;
 import com.web.om.entity.OmMoMain;
 import com.web.om.entity.OmOrderMain;
 import com.web.om.service.IOmMoMainService;
 import com.web.om.service.IOmOrderMainService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -85,7 +85,7 @@ public class OmOrderController extends BasicController {
      * @return
      */
     @RequestMapping(value = "/getmainlistbypage")
-    public TableResult<OmOrderMainDTO> findPage(int page, int rows, String querystr) {
+    public TableResult<OmOrderMainDTO> findPage(Integer page, Integer rows, String querystr) {
         TableResult<OmOrderMainDTO> result = new TableResult<>();
         IPage<OmOrderMainDTO> page1 = new Page<>(page, rows);
         IPage<OmOrderMainDTO> resultPage = new Page<>(page, rows);
@@ -150,6 +150,29 @@ public class OmOrderController extends BasicController {
             e.printStackTrace();
         }
         return list;
+    }
+
+    /**
+     * 保存委外订单到mes
+     *
+     * @return {@link ResponseResult}
+     */
+    @PostMapping("save")
+    public ResponseResult save(String mainStr,String productStr,String partStr,String materialStr){
+        try {
+            OmOrderMain main = JSON.parseObject(mainStr, OmOrderMain.class);
+            List<OmOrderProductDTO> productList = JSON.parseArray(productStr,OmOrderProductDTO.class);
+            List<OmOrderPartDTO> partList = null;
+            if (partStr != null){
+                partList = JSON.parseArray(partStr,OmOrderPartDTO.class);
+            }
+            List<OmOrderMaterialDTO> materialList = JSON.parseArray(materialStr,OmOrderMaterialDTO.class);
+            return omMainService.saveToMes(main,productList,partList,materialList);
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseResult.error(e.getMessage());
+        }
+
     }
 
 

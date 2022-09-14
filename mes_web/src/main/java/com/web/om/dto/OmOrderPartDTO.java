@@ -12,7 +12,7 @@ public class OmOrderPartDTO extends OmOrderPart {
 
     private String recordId ;
 
-    private String partRecordId ;
+    private String partRowId;
 
     public String getRecordId() {
         return recordId;
@@ -22,11 +22,11 @@ public class OmOrderPartDTO extends OmOrderPart {
         this.recordId = recordId;
     }
 
-    public String getPartRecordId() {
-        return partRecordId;
+    public String getPartRowId() {
+        return partRowId;
     }
 
-    public void setPartRecordId(String partRecordId) {
-        this.partRecordId = partRecordId;
+    public void setPartRowId(String partRowId) {
+        this.partRowId = partRowId;
     }
 }

@@ -451,9 +451,9 @@ class omMesMaterial {
     }
 
     /*
-     * 转换产品表行记录
+     * 设置产品信息
      */
-    setRowDataFromProductRow(data) {
+    setProductInfo(data) {
         this.setRecordId(data.recordId);
         this.setMainId(data.mainId);
         this.setDetailId(data.id);
@@ -464,17 +464,29 @@ class omMesMaterial {
         this.setProductInvUnit(data.productInvUnit);
     }
 
-    <!--DATE: 2022/9/12-->
-    <!--mijiahao TODO:123 -->
+
     /*
-     * 转换u8数据
+     * 设置来自u8的材料数据
      */
-    setRowDataFromU8Data(u8Data) {
+    setMaterialInfoFromU8Data(u8Data) {
         this.setInvName(u8Data.cinvname);
         this.setInvCode(u8Data.cinvcode);
         this.setInvStd(u8Data.cinvstd);
-        this.setPro(u8Data.ccomunitname);
         this.setInvDensity(u8Data.cinvdefine2);
+        this.setUnitMaterialPrice(u8Data.cdefine26);
+        console.log("设置来自u8的材料数据↓");
+        console.log(u8Data);
+        return this;
+    }
+
+    /*
+     * 设置来自U8的产品数据
+     */
+    setProductInfoFromU8Data(u8Data){
+        this.setProductInvName(u8Data.cinvname);
+        this.setProductInvCode(u8Data.cinvcode)
+        this.setProductInvUnit(u8Data.ccomunitname)
+        this.setProductInvStd(u8Data.cinvstd);
         return this;
     }
 

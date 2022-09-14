@@ -47,12 +47,11 @@
     <script src="../../../static/Scripts/easyui-1.7.0/jquery.easyui.min.js"></script>
     <script src="../../../static/Scripts/easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
     <script src="constConfig.js"></script>
-    <script src="omMesProduct.js"></script>
-    <script src="omMesPart.js"></script>
-    <script src="omMesMaterial.js"></script>
-    <script src="omMesPartMaterial.js"></script>
+    <script src="entity/omMesProduct.js"></script>
+    <script src="entity/omMesPart.js"></script>
+    <script src="entity/omMesMaterial.js"></script>
     <script src="function.js"></script>
-    <script src="jqGridTableHelper.js"></script>
+    <script src="jqGridRowHelper.js"></script>
     <script src="U8QueryDTO.js"></script>
     <style>
         .layui-select, .layui-input {
@@ -106,6 +105,7 @@
                 <select id="venCode" name="venCode" autocomplete="off" lay-verify="required" lay-filter="venCode"
                         lay-search="">
                 </select>
+                <input type="hidden" id="venName" name="venName">
 
             </div>
             <label for="contractSale" class="weadmin-lable-sm layui-col-md1">
@@ -126,6 +126,7 @@
                 <select id="depCode" name="depCode" autocomplete="off" lay-verify="required" lay-filter="depCode"
                         lay-search="">
                 </select>
+                <input type="hidden" id="depName" name="depName">
 
             </div>
             <label for="personCode" class="weadmin-lable-sm layui-col-md1">
@@ -135,6 +136,7 @@
                 <select id="personCode" name="personCode" autocomplete="off" lay-verify="" lay-filter="personCode"
                         lay-search="">
                 </select>
+                <input type="hidden" id="personName" name="personName">
 
             </div>
             <label for="transportWay" class="weadmin-lable-sm layui-col-md1">
@@ -167,11 +169,11 @@
 </div>
 <div class="weadmin-body-table">
     <button type="button" class="layui-btn layui-btn-sm" onclick="addProductRow()">增行</button>
-    <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="">删行</button>
+    <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="deleteProductRow()">删行</button>
     <button type="button" class="layui-btn layui-btn-sm" onclick="addPart()">添加部件</button>
     <table id="jqGrid"></table>
-    <button type="button" class="layui-btn layui-btn-sm" onclick="addMaterialRow()">增行</button>
-    <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="">删行</button>
+    <button type="button" class="layui-btn layui-btn-sm" onclick="addMaterialRowEvent()">增行</button>
+    <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="deleteMaterialRow()">删行</button>
     <table id="jqGridDetail"></table>
 
 </div>
@@ -190,11 +192,15 @@
     //部件表数据map，key是部件表ID，value是部件表数组
     var partDataMap = new Map();
     var array;
-    var productHelper = new jqGridTableHelper($('#'+PRODUCT_TABLE_ID));
-    var partHelper = new jqGridTableHelper($('#'+PART_TABLE_ID));
-    var materialHelper = new jqGridTableHelper($('#'+MATERIAL_TABLE_ID));
+    var productHelper = new jqGridRowHelper($('#'+PRODUCT_TABLE_ID));
+    var partHelper = new jqGridRowHelper($('#'+PART_TABLE_ID));
+    var materialHelper = new jqGridRowHelper($('#'+MATERIAL_TABLE_ID));
     //选择物料的类型，包括'product'和'material'，
     var chooseInvType = '';
+    //计划开工日期
+    var planStartDate = '';
+    //计划结束日期
+    var planEndDate = '';
     $(function () {
         initJqgrid();
         // initBtn(".weadmin-block button", "/biz/moplanmain");
@@ -215,7 +221,8 @@
         //部门
         laySelect('depCode', '/basicinfo/department/getlist', {}, {id: "depCode", text: "cdepname"}, false, form);
         form.on('select(depCode)', function (data) {
-
+            let depName = $("#depCode").find("option:selected").text();
+            $("#depName").val(depName);
         });
         //业务员
         laySelect('personCode', '/basicinfo/person/getlist', {}, {
@@ -223,13 +230,15 @@
             text: "cpersonname"
         }, false, form);
         form.on('select(personCode)', function (data) {
-
+            let personName = $("#personCode").find("option:selected").text();
+            $("#personName").val(personName);
         });
 
         //供应商
-        laySelect('venCode', '/basicinfo/vendor/getlist', {}, {id: "venCode", text: "cvenname"}, false, form);
+        laySelect('venCode', '/basicinfo/vendor/getlist', {}, {id: "cvencode", text: "cvenname"}, false, form);
         form.on('select(venCode)', function (data) {
-
+            let venName = $("#venCode").find("option:selected").text();
+            $("#venName").val(venName);
         });
 
 
@@ -254,20 +263,20 @@
                 $("#jqGridDetail").jqGrid('saveCell', CurRow1, CurCol1);
             }
 
-            var gridData = $("#jqGrid").jqGrid("getRowData");
-            var gridDataStr = JSON.stringify(gridData);
-            var gridDataDetail = $("#jqGridDetail").jqGrid("getRowData");
-            var gridDataDetailStr = JSON.stringify(gridDataDetail);
+            var productData = productHelper.getAllRowData();
+            var productDataStr = JSON.stringify(productData);
+            var materialData = materialHelper.getAllRowData();
+            var materialDataStr = JSON.stringify(materialData);
             //map转成一维object数组
             let partDataArray = convertPartDataMapToArray();
             let partDataStr = JSON.stringify(partDataArray);
             var flag = true;
             if (flag) {
-                sendPostReq("/om/metalworkcommittee/save1", {
-                    mData: JSON.stringify(data.field),
-                    mDatas: gridDataStr,
-                    mDataDetail: gridDataDetailStr,
-                    partStr: partDataStr
+                sendPostReq("/om/order/save", {
+                    mainStr: JSON.stringify(data.field),
+                    productStr: productDataStr,
+                    partStr: partDataStr,
+                    materialStr: materialDataStr
                 }, function (data) {
                     if (data.success == true || data.success == "true") {
                         layer.msg("保存成功", {icon: 6});
@@ -323,6 +332,9 @@
         });
 
         $("#depCode").val("109");
+        //部门名称传给后台
+        let depName = $("#depCode").find("option:selected").text();
+        $("#depName").val(depName);
 
         sendPostReq("/basicinfo/person/getdefuser", {}, function (data) {
             if (data.result != null) {
@@ -331,6 +343,9 @@
             } else {
                 $("#personCode").val("200402009");
             }
+            //业务员姓名传给后台
+            let personName = $("#personCode").find("option:selected").text();
+            $("#personName").val(personName);
 
         }, false);
 
@@ -369,7 +384,7 @@
                 {label: "单件材料费", name: MATERIAL_AMOUNT, width: 70, sortable: false, editable: false, align: "center"},
                 {label: "单件加工费", name: WORK_PRICE, width: 70, sortable: false, editable: true, align: "center"},
                 {label: "加工费合计", name: TOTAL_WORK_AMOUNT, width: 70, sortable: false, editable: false, align: "center"},
-                {label: "单件价格", name: PRICE, width: 60, sortable: false, editable: false, align: "center"},
+                {label: "单件价格", name: PRICE, width: 60, sortable: false, editable: true, align: "center"},
                 {label: "合计", name: AMOUNT, width: 70, sortable: false, editable: false, align: "center"},
                 {
                     label: "计划开工日期",
@@ -386,8 +401,14 @@
                                 language: "zh-CN",//语言
                                 autoclose: true,//自动关闭
                                 todayBtn: "linked",//
-                                format: "yyyy-mm-dd"//时间显示格式
+                                format: "yyyy-mm-dd",//时间显示格式
+                            }).on('changeDate',function(e){
+                                let dateObj = e.date;
+                                //转换为年月日
+                                let time = dateObj.getFullYear()+"-"+(dateObj.getMonth()+1)+"-"+dateObj.getDate();
+                                planStartDate = time;
                             });
+
                             $(this).click(function (e) {//选中时间后隐藏
                                 $(e).parent().datepicker('hide');
                             });
@@ -410,6 +431,11 @@
                                 autoclose: true,//自动关闭
                                 todayBtn: "linked",//
                                 format: "yyyy-mm-dd"//时间显示格式
+                            }).on('changeDate',function(e){
+                                let dateObj = e.date;
+                                //转换为年月日
+                                let time = dateObj.getFullYear()+"-"+(dateObj.getMonth()+1)+"-"+dateObj.getDate();
+                                planEndDate = time;
                             });
                             $(this).click(function (e) {//选中时间后隐藏
                                 $(e).parent().datepicker('hide');
@@ -530,7 +556,7 @@
                     let productObj = new omMesProduct();
                     for (var i = 0; i < ids.length; i++) {
                         productObj.setEntity(productHelper.getRowDataById(ids[i]));
-                        productObj.setPlanStartDate(val);
+                        productObj.setPlanEndDate(val);
                         productHelper.setRowDataById(ids[i],productObj);
                     }
 
@@ -542,6 +568,8 @@
                      SetQty(rowid);
                 } else if (name == WORK_PRICE || name == MATERIAL_AMOUNT) {
                      SetTaxMakePrice(rowid);
+                } else if (name == PRICE){
+                    updateAmount(rowid);
                 }
 
             },
@@ -576,11 +604,11 @@
                 {label: "规格型号", name: PRODUCT_INV_STD, width: 80, sortable: false, editable: false, align: "center"},
                 {label: "单位", name: PRODUCT_INV_UNIT, width: 40, sortable: false, editable: false, align: "center"},
                 {label: "数量", name: PRODUCT_QTY, width: 70, sortable: false, editable: false, align: "center"},
+                {label: "材料单价", name: UNIT_MATERIAL_PRICE, width: 60, sortable: false, editable: true, align: "center"},
+                {label: "单件材料费", name: UNIT_MATERIAL_AMOUNT, width: 70, sortable: false, editable: true, align: "center"},
                 {label: "材料编码", name: INV_CODE, width: 90, sortable: false, editable: true, align: "center"},
                 {label: "材料名称", name: INV_NAME, width: 120, sortable: false, editable: false, align: "center"},
                 {label: "材料规格", name: INV_STD, width: 80, sortable: false, editable: false, align: "center"},
-                {label: "材料单价", name: UNIT_MATERIAL_PRICE, width: 60, sortable: false, editable: true, align: "center"},
-                {label: "单件材料费", name: UNIT_MATERIAL_AMOUNT, width: 70, sortable: false, editable: true, align: "center"},
                 {label: "厚度", name: INV_LAND, width: 40, sortable: false, editable: true, align: "center"},
                 {label: "长", name: INV_LEN, width: 45, sortable: false, editable: true, align: "center"},
                 {label: "宽", name: INV_WIDTH, width: 40, sortable: false, editable: true, align: "center"},
@@ -619,7 +647,7 @@
             ondblClickRow: function (rowid, iRow, iCol, e) {
                 //iCol==6||
 
-                if (iCol == 12 || iCol == 11) {
+                if (iCol == 14 || iCol == 12) {
                     chooseInvType = 'material';
                     //选择自建
                     choice(rowid);
@@ -631,15 +659,16 @@
 
             },
             afterSaveCell: function (rowid, name, val, iRow, iCol) {
+                console.log("保存单元格name:"+name);
                    if (CurRow != "" && CurRow != undefined) {
                        $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
                    }
-                if (name == 'materialInvCode') {
-                    // SetInventory(rowid, "2");
-                } else if (name == UNIT_MATERIAL_PRICE || name == INV_LAND || name == INV_LEN || name == INV_WIDTH || name == INV_EXTERNAL_DIAMETER || name == INV_INTERNAL_DIAMETER || name == INV_DENSITY) {
+                if (name == INV_CODE) {
+                     SetInventory(rowid, "2");
+                } else if (name == UNIT_MATERIAL_PRICE ||  name == UNIT_MATERIAL_AMOUNT ||name == INV_LAND || name == INV_LEN || name == INV_WIDTH || name == INV_EXTERNAL_DIAMETER || name == INV_INTERNAL_DIAMETER || name == INV_DENSITY ) {
                      setSize(rowid);
                 } else if (name == IQTY) {
-                     SetIpsQuantity(rowid);
+                     afterUpdatingIqty(rowid);
                 }
 
             },
@@ -669,11 +698,12 @@
      */
     function addProductRow() {
         irowid++;
-        let rowData = {
-            recordId: "r" + irowid
-        }
+        let productObj = new omMesProduct();
+        productObj.setPlanStartDate(planStartDate);
+        productObj.setPlanEndDate(planEndDate);
+        productObj.setRecordId("r"+irowid);
         productHelper.saveCell(CurRow,CurCol);
-        productHelper.addRowData(irowid,rowData);
+        productHelper.addRowData(irowid,productObj);
     }
 
     //修改数量后，同步更新其它字段
@@ -681,13 +711,13 @@
         let product = new omMesProduct();
         product.setEntity(productHelper.getRowDataById(rowid));
         //数量
-        let productQty = initDecimal(product.getProductQty());
+        let productQty = getStringDecimal(product.getProductQty());
         //单件加工费
-        let workPrice = initDecimal(product.getWorkPrice());
+        let workPrice = getStringDecimal(product.getWorkPrice());
         //单件材料费
-        let materialAmount = initDecimal(product.getMaterialAmount());
+        let materialAmount = getStringDecimal(product.getMaterialAmount());
         //单件价格=单件材料费+单件加工费
-        let price = initDecimal(parseFloat((materialAmount - 0) + (workPrice - 0)) - 0);
+        let price = getStringDecimal(parseFloat((materialAmount - 0) + (workPrice - 0)) - 0);
         product.setTotalWorkAmount((productQty * workPrice).toFixed(2))
         product.setAmount((productQty * price).toFixed(2));
         product.setPrice(price);
@@ -700,9 +730,9 @@
             productMaterialObj.setEntity(productMaterialRow);
             if (productMaterialObj.getRecordId() === product.getRecordId()) {
                 //数量初始化
-                let materialQty = initDecimal(productQty);
+                let materialQty = getStringDecimal(productQty);
                 //单耗初始化
-                let iqty = initDecimal(0);
+                let iqty = getStringDecimal(0);
                 //同步材料表数量
                 productMaterialObj.setProductQty(materialQty);
                 //计算材料表总量
@@ -715,17 +745,40 @@
         }
     }
 
+    //修改单耗后同步修改总量
+    function afterUpdatingIqty(rowid) {
+        console.log("修改单耗后同步修改总量");
+        let materialObj = new omMesMaterial();
+        materialObj.setEntity(materialHelper.getRowDataById(rowid));
+        //数量
+        let productQty = getStringDecimal(materialObj.getProductQty());
+        //单耗
+        let iqty = getStringDecimal(materialObj.getIqty());
+        materialObj.setTqty((productQty * iqty).toFixed(2));
+        console.log(materialObj);
+        materialHelper.setRowDataById(rowid,materialObj);
+
+    }
+
     /*
-     * 材料表增行
+     * 点击材料表增行按钮事件
      */
-    function addMaterialRow(){
-        irowid++;
+    function addMaterialRowEvent(){
+
         productHelper.saveCell(CurRow,CurCol);
         //获取产品表选中行数据
         let productSelectedRowData = productHelper.getSelectedRowData();
-        let productMaterialObj = new omMesMaterial();
-        productMaterialObj.setRowDataFromProductRow(productSelectedRowData);
-        materialHelper.addRowData(irowid,productMaterialObj);
+        let materialObj = new omMesMaterial();
+        materialObj.setEntity(productSelectedRowData);
+        addMaterialRow(materialObj);
+    }
+
+    /*
+     * 材料表增行
+     */
+    function addMaterialRow(row){
+        irowid++;
+        materialHelper.addRowData(irowid,row);
     }
 
 
@@ -739,6 +792,20 @@
     }
 
     /*
+   * 将partDataMap转换成array
+   */
+    function convertPartDataMapToArray(){
+        let partDataArray = [];
+        for ([key,value] of partDataMap){
+            let array = value;
+            array.forEach(function (row){
+                partDataArray.push(row);
+            })
+        }
+        return partDataArray;
+    }
+
+    /*
      * 选择产品信息回调函数
      */
     function chooseInventoryCallBack(u8Data){
@@ -747,6 +814,8 @@
         //根据选择物料类型来为产品表或材料表赋值，不算优雅的设计，但受限于框架没有更好的实现方式
         switch (chooseInvType) {
             case 'product':
+                productHelper.saveCell(CurRow,CurCol);
+                materialHelper.saveCell(CurRow1,CurCol1);
                 let mesProduct = new omMesProduct();
                 mesProduct.setEntity(productHelper.getSelectedRowData());
                 //获取产品表选中行数据
@@ -764,13 +833,30 @@
                 })
                 break;
             case 'material':
+                materialHelper.saveCell(CurRow1,CurCol1);
                 let selectedMaterialRow = materialHelper.getSelectedRowData();
                 let materialObj = new omMesMaterial();
                 materialObj.setEntity(selectedMaterialRow);
-                //转换u8字段
-                materialObj.setRowDataFromU8Data(u8Data);
-                //选中记录赋值
-                materialHelper.setSelectedRowData(materialObj);
+                var iprice=0;
+                $.ajax({
+                    type: "post",
+                    async: false,
+                    dataType: "json",
+                    url: "/basicinfo/inventory/getprice",
+                    data: {cinvcode:u8Data.cinvcode},
+                    success: function (data) {
+                        iprice=parseFloat(data- 0).toFixed(2);
+                        u8Data.cdefine26 = iprice;
+                        //转换u8字段
+                        materialObj.setMaterialInfoFromU8Data(u8Data);
+                        //选中记录赋值
+                        materialHelper.setSelectedRowData(materialObj);
+                        setSize(materialHelper.getSelectedRowId())
+
+                    },
+
+                });
+
                 break;
             default:
                 break
@@ -809,42 +895,55 @@
         partDataMap.set(partTableId,partArray);
         array = partArray;
         //材料表增行
+        <!--DATE: 2022/9/13-->
+        <!--mijiahao TODO:应同步更新单件材料费等字段 -->
+        console.log("增加部件表-带回材料表数据↓");
+        console.log(materialArray);
         materialArray.forEach(function (row){
             addMaterialRow(row);
         })
+    }
+
+    /*
+     * 获取部件表ID
+     */
+    function getPartTableId(rowId){
+        return "jqGrid_"+rowId+"_t";
     }
 
     <!--DATE: 2022/9/12-->
     <!--mijiahao TODO:没懂 -->
     //设置存货信息
     function SetInventory(rowid, itype) {
+        console.log("设置存货信息");
         if (itype == "1") {
             var rowData = $("#jqGrid").jqGrid('getRowData', rowid);
-            var cinvcode = rowData.cinvcode;
+            let productObj = new omMesProduct();
+            productObj.setEntity(productHelper.getRowDataById(rowid));
+            let query = new U8QueryDTO(productObj);
             $.ajax({
                 type: "get",
                 async: false,
                 url: "/om/metalworkcommittee/gethistorybycinvcode1",
-                data: {cinvcode: cinvcode},
+                data: query,
                 success: function (data) {
                     if (data["mData"] != null && data["mData"] != "") {
-                        data["mData"].recordId = rowData.recordId;
-                        $('#jqGrid').jqGrid('setRowData', rowid, data["mData"]);
-                        var ids = $("#jqGridDetail").getDataIDs();
+                        data["mData"].recordId = productObj.getRecordId();
+                        productHelper.setRowDataById(rowid,data["mData"])
+                        var ids = materialHelper.getAllRowsId();
                         var izExist = false;
+                        let materialObj = new omMesMaterial();
                         for (var i = 0; i < ids.length; i++) {
-                            var rowDataDetail = $("#jqGridDetail").getRowData(ids[i]);
-                            if (rowDataDetail.recordId == rowData.recordId) {
+                            materialObj.setEntity(materialHelper.getRowDataById(ids[i]))
+                            if (materialObj.getRecordId() == productObj.getRecordId()) {
                                 izExist = true;
+                                materialObj.setProductInfoFromU8Data(data["mData"])
+                                materialHelper.setRowDataById(ids[i],materialObj);
 //                                    $("#jqGridDetail").jqGrid("delRowData", ids[i]);
-                                $('#jqGridDetail').jqGrid('setRowData', ids[i], {
-                                    cinvcode: data["mData"].cinvcode,
-                                    cinvname: data["mData"].cinvname,
-                                    cinvstd: data["mData"].cinvstd,
-                                    ccomunitname: data["mData"].ccomunitname,
-                                });
                             }
                         }
+                        <!--DATE: 2022/9/13-->
+                        <!--mijiahao TODO:不涉及字段操作，没问题，但待修改 -->
                         if (izExist == false) {
                             if (data["mDatas"] != null && data["mDatas"] != "") {
                                 var gridData = $("#jqGridDetail").jqGrid("getRowData");
@@ -867,31 +966,21 @@
                 },
             });
         } else {
-            var rowData = $("#jqGridDetail").jqGrid('getRowData', rowid);
-            var cinvcodes = rowData.cinvcodes;
+            let query = new U8QueryDTO(materialHelper.getRowDataById(rowid));
             $.ajax({
                 type: "get",
                 async: false,
                 url: "/basicinfo/inventory/getbyid",
-                data: {cinvcode: cinvcodes},
+                data: query,
                 success: function (data) {
                     if (data != null && data != "") {
-
-                        $('#jqGridDetail').jqGrid('setRowData', rowid, {
-                            cinvcodes: data.cinvcode,
-                            cinvnames: data.cinvname,
-                            cinvstds: data.cinvstd,
-                            cdefine26: parseFloat(data.iinvncost - 0).toFixed(2),
-                            cinvdefine2: data.cinvdefine2
-                        });
+                        data.cdefine26 = parseFloat(data.iinvncost - 0).toFixed(2);
+                        let materialObj = new omMesMaterial();
+                        materialObj.setEntity(materialHelper.getRowDataById(rowid));
+                        materialObj.setMaterialInfoFromU8Data(data);
+                        materialHelper.setRowDataById(rowid,materialObj);
                     } else {
-                        $('#jqGridDetail').jqGrid('setRowData', rowid, {
-                            cinvcodes: "",
-                            cinvnames: "",
-                            cinvstds: "",
-                            cdefine26: "",
-                            cinvdefine2: ""
-                        });
+                        materialHelper.setRowDataById(rowid,new omMesMaterial());
                     }
 
                 },
@@ -904,36 +993,129 @@
 
     //修改单价
     function SetTaxMakePrice(rowid) {
+        console.log("修改单价");
         var rowData = productHelper.getRowDataById(rowid);
         let productObj = new omMesProduct();
         productObj.setEntity(rowData);
         //数量
-        let productQty = initDecimal(productObj.getProductQty());
+        let productQty = getNumberDecimal(productObj.getProductQty());
         //单件加工费
-        let workPrice = initDecimal(productObj.getWorkPrice());
+        let workPrice = getNumberDecimal(productObj.getWorkPrice());
         //单件材料费
-        let materialAmount = initDecimal(productObj.getMaterialAmount());
-        productObj.setProductQty(productQty);
-        productObj.setWorkPrice(workPrice);
-        productObj.setMaterialAmount(materialAmount);
+        let materialAmount = getNumberDecimal(productObj.getMaterialAmount());
+        //加工费合计
+        let totalWorkAmount = (productQty*workPrice).toFixed(2);
+        productObj.setTotalWorkAmount(totalWorkAmount);
+        //合计
+        let amount = (productQty * (workPrice + materialAmount)).toFixed(2);
+        productObj.setAmount(amount);
+        //单件价格
+        let price = (materialAmount + workPrice).toFixed(2);
+        productObj.setPrice(price);
         productHelper.setRowDataById(rowid, productObj);
+    }
+
+    //------字段更新函数链
+
+    /*
+     * 更新产品表合计字段
+     */
+    function updateAmount(rowId){
+        let productRow = productHelper.getRowDataById(rowId);
+        let productObj = new omMesProduct();
+        let price = getStringDecimal(productObj.getPrice());
+        let productQty = getStringDecimal(productObj.getProductQty());
+        productObj.setEntity(productRow);
+        productObj.setAmount((price * productQty).toFixed(2));
+        productHelper.setRowDataById(rowId,productObj);
+    }
+
+    /*
+     * 更新加工费合计字段
+     */
+    function updateTotalWorkAmount(rowId){
+        let productRow = productHelper.getRowDataById(rowId);
+        let productObj = new omMesProduct();
+        productObj.setEntity(productRow);
+        let productQty = getNumberDecimal(productObj.getProductQty());
+        let price = getNumberDecimal(productObj.getPrice());
+        <!--DATE: 2022/9/14-->
+        <!--mijiahao TODO:待继续 -->
+    }
+
+    /*
+     * 更新单耗
+     */
+    function updateIqty(rowId){
+        let rowData = materialHelper.getRowDataById(rowId);
+        let materialObj = new omMesMaterial();
+        materialObj.setEntity(rowData);
+        //长
+        let invLen = getStringDecimal(materialObj.getInvLen());
+        //厚
+        let invLand = getStringDecimal(materialObj.getInvLand());
+        //宽
+        let invWidth = getStringDecimal(materialObj.getInvWidth());
+        //外径
+        let externalDiameter = getStringDecimal(materialObj.getInvExternalDiameter());
+        //内径
+        let internalDiameter = getStringDecimal(materialObj.getInvInternalDiameter());
+        //密度
+        let density = getStringDecimal(materialObj.getInvDensity());
+        //计算单耗
+        var iqty = ((invLen * invWidth + 3.1415926 / 4 * (externalDiameter * externalDiameter - internalDiameter * internalDiameter)) * invLand / 1000000 * density).toFixed(2) - 0;
+        let query = new U8QueryDTO(materialObj);
+        $.ajax({
+            type: "get",
+            async: false,
+            url: "/basicinfo/inventory/getbyid",
+            data: query,
+            success: function (data) {
+                if (data != null && data != "") {
+
+                    if ((iqty == null || iqty == 0 || iqty == "0")) {
+                        if (data.cinvdefine1 == "A" || data.cinvdefine1 == "a") {
+                            iqty = parseFloat((invLand * invLen * invWidth * density / 1000000).toFixed(3));
+                        } else if (data.cinvdefine1 == "B" || data.cinvdefine1 == "b") {
+                            iqty = parseFloat((invLen * density * (externalDiameter * externalDiameter - internalDiameter * internalDiameter) * 3.1415926 / 4 / 1000000).toFixed(3));
+
+                        } else if (data.cinvdefine1 == "C" || data.cinvdefine1 == "c") {
+                            iqty = parseFloat((invLen / 1000).toFixed(3));
+                        } else if (data.cinvdefine1 == "D" || data.cinvdefine1 == "d") {
+                            iqty = parseFloat((invLen * invWidth / 1000000).toFixed(3));
+                        } else if (data.cinvdefine1 == "E" || data.cinvdefine1 == "e") {
+                            iqty = parseFloat((invLen / 1000).toFixed(3));
+                        } else if (data.cinvdefine1 == "F" || data.cinvdefine1 == "f") {
+                            iqty = parseFloat((invLand / 1000 * invLen / 1000 * invWidth / 1000 * 1).toFixed(3));
+                        } else if (data.cinvdefine1 == "G" || data.cinvdefine1 == "g") {
+                            iqty = parseFloat((invLen / 1000 * 1).toFixed(3));
+                        }
+                    }
+                }
+            },
+        });
+        materialObj.setIqty(iqty);
+        materialHelper.setRowDataById(rowId,materialObj);
+        <!--DATE: 2022/9/14-->
+        <!--mijiahao TODO:更新单件材料费 -->
     }
 
     //设置下料尺寸
     function setSize(rowid) {
+        console.log("设置下料尺寸！");
         let rowData = materialHelper.getRowDataById(rowid);
         let materialObj = new omMesMaterial();
         materialObj.setEntity(rowData);
         //数量
-        let productQty = initDecimal(materialObj.getProductQty());
+        let productQty = getStringDecimal(materialObj.getProductQty());
         var strSize = "";
         //厚度
-        let invLand = initDecimal(materialObj.getInvLand());
+        let invLand = getStringDecimal(materialObj.getInvLand());
         if (invLand !== 0){
             strSize = "δ" + materialObj.getInvLand();
         }
         //长
-        let invLen = initDecimal(materialObj.getInvLen());
+        let invLen = getStringDecimal(materialObj.getInvLen());
         if (invLen !== 0){
             if (strSize != "") {
                 strSize = strSize + ",";
@@ -941,7 +1123,7 @@
             strSize = strSize + "L" + materialObj.getInvLen();
         }
         //宽
-        let invWidth = initDecimal(materialObj.getInvWidth());
+        let invWidth = getStringDecimal(materialObj.getInvWidth());
         if (invWidth !== 0){
             if (strSize != "") {
                 strSize = strSize + ",";
@@ -949,7 +1131,7 @@
             strSize = strSize + "W" + materialObj.getInvWidth();
         }
         //外径
-        let externalDiameter = initDecimal(materialObj.getInvExternalDiameter());
+        let externalDiameter = getStringDecimal(materialObj.getInvExternalDiameter());
         if (externalDiameter !== 0){
             if (strSize != "") {
                 strSize = strSize + ",";
@@ -957,7 +1139,7 @@
             strSize = strSize + "外φ" + materialObj.getInvExternalDiameter();
         }
         //内径
-        let internalDiameter = initDecimal(materialObj.getInvInternalDiameter());
+        let internalDiameter = getStringDecimal(materialObj.getInvInternalDiameter());
         if (internalDiameter !== 0){
             if (strSize != "") {
                 strSize = strSize + ",";
@@ -965,7 +1147,7 @@
             strSize = strSize + "内φ" + materialObj.getInvExternalDiameter();
         }
         //密度
-        let density = initDecimal(materialObj.getInvDensity());
+        let density = getStringDecimal(materialObj.getInvDensity());
 
         var iqty = ((invLen * invWidth + 3.1415926 / 4 * (externalDiameter * externalDiameter - internalDiameter * internalDiameter)) * invLand / 1000000 * density).toFixed(2) - 0;
         let query = new U8QueryDTO(materialObj);
@@ -1005,63 +1187,86 @@
 
 
         //材料单价
-        var cdefine26 = 0;
-        if (rowData.cdefine26 != "" && rowData.cdefine26 != null) {
-            cdefine26 = parseFloat(rowData.cdefine26 - 0).toFixed(2);
-        }
+        let unitMaterialPrice = getStringDecimal(materialObj.getUnitMaterialPrice());
 
-        var cdefine27 = ((iqty - 0) * (cdefine26 - 0)).toFixed(2);
-
-        $('#jqGridDetail').jqGrid('setRowData', rowid, {
-            cdefine22: strSize,
-            cdefine27: cdefine27,
-            fbaseqtyn: (iqty - 0),
-            fqtys: (iqty * fquantity).toFixed(2)
-        });
-
-
+        //单件材料费
+        var unitMaterialAmount = ((iqty - 0) * (unitMaterialPrice - 0)).toFixed(2);
+        materialObj.setInvSize(strSize);
+        materialObj.setUnitMaterialAmount(unitMaterialAmount);
+        materialObj.setIqty(iqty)
+        materialObj.setTqty((iqty * productQty).toFixed(2));
+        materialHelper.setRowDataById(rowid,materialObj)
         //循环子表合计材料单价和单件材料费
-        var totalcdefine26 = 0, totalcdefine27 = 0;
-        var ids = $("#jqGridDetail").getDataIDs();
-        for (var i = 0; i < ids.length; i++) {
-            var rowDataDetail = $("#jqGridDetail").getRowData(ids[i]);
-            if (rowDataDetail.recordId == rowData.recordId) {
-                totalcdefine26 = totalcdefine26 + parseFloat(rowDataDetail.cdefine26 - 0);
-                totalcdefine27 = totalcdefine27 + parseFloat(rowDataDetail.cdefine27 - 0);
-            }
-        }
+        sumMaterialPriceToProduct(materialObj.getRecordId());
 
-        //查询对应主表id
-        var idsMain = $("#jqGrid").getDataIDs();
+    }
+
+    /*
+     * 产品表删行
+     */
+    function deleteProductRow(){
+        //保存正在编辑的单元格
+        productHelper.saveCell(CurRow,CurRow);
+    }
+
+    /*
+     * 材料表删行
+     */
+    function deleteMaterialRow(){
+        //保存正在编辑的单元格
+        materialHelper.saveCell(CurRow1,CurCol1);
+        let selectedRowId = materialHelper.getSelectedRowId();
+        if (selectedRowId === undefined){
+            return;
+        }
+        let selectedRowData = materialHelper.getRowDataById(selectedRowId);
+        materialHelper.deleteSelectedRow();
+        //循环子表合计材料单价和单件材料费
+        sumMaterialPriceToProduct(selectedRowData.recordId);
+
+    }
+
+    /*
+     * 统计某产品下所有材料的材料单价和单件材料费，然后给该产品记录赋值
+     */
+    function sumMaterialPriceToProduct(recordId){
+        //查询对应的产品记录
+        var idsMain = productHelper.getAllRowsId();
         var rowMainId = "";
-        var rowMain = null;
-        for (var i = 0; i < idsMain.length; i++) {
+        var rowMain = new omMesProduct();
+        for (let i = 0; i < idsMain.length; i++) {
             var rowData1 = $("#jqGrid").getRowData(idsMain[i]);
-            if (rowData1.recordId == rowData.recordId) {
+            if (rowData1.recordId == recordId) {
                 rowMainId = idsMain[i];
-                rowMain = rowData1;
+                rowMain.setEntity(rowData1);
                 break;
             }
         }
+        //循环子表合计材料单价和单件材料费
+        var totalUnitMaterialPrice = 0, totalUnitMaterialAmount = 0;
+        var ids = materialHelper.getAllRowsId();
+        let materialObjForTotalPrice = new omMesMaterial();
+        for (var i = 0; i < ids.length; i++) {
+            let materialRow = materialHelper.getRowDataById(ids[i]);
+            materialObjForTotalPrice.setEntity(materialRow);
+            if (materialRow.recordId ===recordId) {
+                totalUnitMaterialPrice = totalUnitMaterialPrice + parseFloat(materialObjForTotalPrice.getUnitMaterialPrice() - 0);
+                totalUnitMaterialAmount = totalUnitMaterialAmount + parseFloat(materialObjForTotalPrice.getUnitMaterialAmount() - 0);
+            }
+        }
+
         if (rowMain != null) {
             //单件加工费
-            var taxmakeprice = 0;
-            if (rowMain.itaxprice != "" && rowMain.itaxprice != null) {
-                taxmakeprice = parseFloat(rowMain.itaxprice - 0).toFixed(2);
-            }
-            var tolpic = ((totalcdefine27 - 0) + (taxmakeprice - 0)) - 0;
-            $('#jqGrid').jqGrid('setRowData', rowMainId, {
-                cdefine26: totalcdefine26.toFixed(2),
-                cdefine27: totalcdefine27.toFixed(2),
-                tolpic: tolpic,
-                tolnum: (tolpic * fquantity).toFixed(2)
-            });
-
+            let workPrice = getStringDecimal(rowMain.getWorkPrice())
+            var price = ((totalUnitMaterialAmount - 0) + (workPrice - 0)) - 0;
+            rowMain.setMaterialPrice(totalUnitMaterialPrice.toFixed(2));
+            rowMain.setMaterialAmount(totalUnitMaterialAmount.toFixed(2));
+            rowMain.setPrice(price);
+            rowMain.setAmount((price * rowMain.getProductQty).toFixed(2));
+            productHelper.setRowDataById(rowMainId,rowMain);
             //需要计算主表合计
             SetTaxMakePrice(rowMainId);
         }
-
-
     }
 
 

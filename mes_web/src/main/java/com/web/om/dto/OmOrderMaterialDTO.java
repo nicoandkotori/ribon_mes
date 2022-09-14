@@ -1,16 +1,18 @@
 package com.web.om.dto;
 
+import com.web.om.entity.OmOrderMaterial;
+
 /**
  * 材料表DTO
  *
  * @author mijiahao
  * @date 2022/08/31
  */
-public class OmOrderMaterialDTO {
+public class OmOrderMaterialDTO extends OmOrderMaterial {
 
     private String recordId ;
 
-    private String partRecordId ;
+    private String partRowId;
 
     public String getRecordId() {
         return recordId;
@@ -20,11 +22,11 @@ public class OmOrderMaterialDTO {
         this.recordId = recordId;
     }
 
-    public String getPartRecordId() {
-        return partRecordId;
+    public String getPartRowId() {
+        return partRowId;
     }
 
-    public void setPartRecordId(String partRecordId) {
-        this.partRecordId = partRecordId;
+    public void setPartRowId(String partRowId) {
+        this.partRowId = partRowId;
     }
 }
