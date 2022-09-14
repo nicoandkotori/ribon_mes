@@ -15,6 +15,9 @@ const URL_BASE_ORDER = "/om/order/";
 const URL_GET_MES_ORDER = URL_BASE_ORDER+"getmainlistbypage";
 //分页查询mes委外订单子表url
 const URL_GET_MES_DETAIL = URL_BASE_ORDER+"getdetaillist";
+//通过id查询mes委外订单表
+const URL_GET_MES_ORDER_BY_ID = URL_BASE_ORDER+"getbyid"
+
 /*
  * 订单表字段
  */

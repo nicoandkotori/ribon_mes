@@ -19,10 +19,7 @@ import com.web.om.entity.OmOrderMain;
 import com.web.om.service.IOmMoMainService;
 import com.web.om.service.IOmOrderMainService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -78,7 +75,7 @@ public class OmOrderController extends BasicController {
     }
 
     /**
-     * bom列表分页数据
+     * 委外单列表分页数据
      * @param page 当前页
      * @param rows 每页数据条数
      * @param querystr 查询参数
@@ -109,24 +106,23 @@ public class OmOrderController extends BasicController {
 
 
     /**
-     * 根据id查询到款单主表信息
-     * @param id
-     * @return
+     * 根据id查询委外订单主表
+     *
+     * @param id id
+     * @return {@link ResponseResult}
      */
-    @RequestMapping(value = "/getbyid")
-    public OmOrderMain getById(Integer id) {
+    @GetMapping(value = "getbyid")
+    public ResponseResult getById(Integer id) {
         try {
             if (CustomStringUtils.isBlank(id)) {
                 throw new Exception("参数异常");
             }
-            OmOrderMain m =omMainService.getById(id);
-
-            return m;
+            OmOrderMain main =omMainService.getById(id);
+            return ResponseResult.success(main);
         } catch (Exception e) {
             e.printStackTrace();
+            return ResponseResult.error(e.getMessage());
         }
-        return null;
-
     }
 
     /**

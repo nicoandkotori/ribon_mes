@@ -699,8 +699,6 @@
     //行id，当有增行操作时+1
     var irowid = 0;
 
-
-
     /*
      * 产品表增行
      */
@@ -712,6 +710,43 @@
         productObj.setRecordId("r"+irowid);
         productHelper.saveCell(CurRow,CurCol);
         productHelper.addRowData(irowid,productObj);
+    }
+
+    /*
+     * 初始化数据
+     */
+    function initData(){
+        let id = GetQueryString("id");
+        //数据初始化
+        sendPostReq('/om/metalworkcommittee/getbyid', {id: id}, function (data) {
+            if (data != null){
+                $("form").setForm(data);
+                $("#cmemo").val(data.cmemo);
+                form.render();
+                $.ajax({
+                    type: "post",
+                    url: "/om/metalworkcommittee/getdetaillist1",
+                    data: {id: data.moid},
+                    success: function (data) {
+                        if (data != null && data != "") {
+
+                            if(data["mData"]!=null&&data["mData"]!="")
+                            {
+                                $("#jqGrid").jqGrid("setGridParam", { datatype: 'local', data: data["mData"], rowNum:data["mData"].length }).trigger("reloadGrid");
+
+                            }
+                            if(data["mDatas"]!=null&&data["mDatas"]!="")
+                            {
+                                $("#jqGridDetail").jqGrid("setGridParam", { datatype: 'local', data: data["mDatas"], rowNum:data["mDatas"].length }).trigger("reloadGrid");
+                            }
+                        }
+                    },
+                    error: function ()
+                    { }
+                });
+
+            }
+        });
     }
 
 
@@ -832,6 +867,13 @@
         }
 
 
+    }
+
+    /*
+     * 设置行数据
+     */
+    function setRowData(tableId,rowId,rowData){
+        $("#"+tableId).setRowData(rowId,rowData);
     }
 
     /*
@@ -1253,6 +1295,8 @@
     function deleteProductRow(){
         //保存正在编辑的单元格
         productHelper.saveCell(CurRow,CurRow);
+        <!--DATE: 2022/9/14-->
+        <!--mijiahao TODO:产品表删行 -->
     }
 
     /*
