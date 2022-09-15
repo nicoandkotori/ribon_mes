@@ -357,7 +357,7 @@
         var rowid = $(SELECTOR_MAIN_TABLE_ID).getGridParam("selrow");
         if (rowid != null && rowid != '') {
             layui.miniTab.openNewTabByIframe({
-                href: "page/om/order/edit.html?id=" + rowid,
+                href: "page/om/order/edit_new.html?id=" + rowid,
                 title: "编辑金工委外订单",
             });
 
@@ -366,21 +366,20 @@
         }
     }
 
+    /*
+     * 作废数据
+     */
     function btnDelete() {
-        var rowid = $(SELECTOR_MAIN_TABLE_ID).getGridParam("selrow");
-        if (rowid != null && rowid != undefined && rowid != "") {
-            var rowData = $(SELECTOR_MAIN_TABLE_ID).jqGrid('getRowData', rowid);
-            layer.confirm('确定作废数据？', function(index) {
-
-                sendPostReq('/om/metalworkcommittee/delete', {id: rowData.moid}, function (data) {
-                    $(SELECTOR_MAIN_TABLE_ID).trigger("reloadGrid");
-                    layer.alert("作废成功！");
-                });
-
-            });
-        } else {
-            layer.alert("请先选择行再操作！");
+        let rowId  = mainHelper.getSelectedRowId();
+        if (rowId === undefined){
+            return;
         }
+        layer.confirm('确定作废数据？', function(index) {
+            sendPostReq(URL_DELETE_MES_ORDER_BY_ID, {id: rowId}, function (data) {
+                $(SELECTOR_MAIN_TABLE_ID).trigger("reloadGrid");
+                layer.alert("作废成功！");
+            });
+        });
     }
     function FnPrint() {
         var rowid = $(SELECTOR_MAIN_TABLE_ID).getGridParam("selrow");

@@ -176,6 +176,15 @@ public class OmMoMain {
        iordertype=Byte.valueOf("1");
 
     }
+
+    /**
+     * 转换mes字段为u8字段
+     *
+     * @param main 主要
+     */
+    public void setDataFromMesMain(OmOrderMain main){
+
+    }
     
 
 }

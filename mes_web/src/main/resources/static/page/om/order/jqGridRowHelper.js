@@ -50,6 +50,9 @@ class jqGridRowHelper {
      */
     getSelectedRowData(){
         let selectedRowId = this.getSelectedRowId();
+        if (selectedRowId === undefined){
+            return ;
+        }
         return this.getRowDataById(selectedRowId)
     }
 
@@ -103,6 +106,19 @@ class jqGridRowHelper {
         this.table.jqGrid("delRowData", id);
     }
 
+    /*
+     * 清空所有行
+     */
+    deleteAllRows(){
+        this.table.jqGrid("clearGridData");
+    }
+
+    /*
+     * 重新加载
+     */
+    reloadTable(){
+        this.table.trigger("reloadGrid");
+    }
 
 
 }

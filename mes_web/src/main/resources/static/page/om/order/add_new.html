@@ -47,12 +47,12 @@
     <script src="../../../static/Scripts/easyui-1.7.0/jquery.easyui.min.js"></script>
     <script src="../../../static/Scripts/easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
     <script src="constConfig.js"></script>
-    <script src="entity/omMesProduct.js"></script>
-    <script src="entity/omMesPart.js"></script>
-    <script src="entity/omMesMaterial.js"></script>
+    <script src="entity/OmMesProduct.js"></script>
+    <script src="entity/OmMesPart.js"></script>
+    <script src="entity/OmMesMaterial.js"></script>
     <script src="function.js"></script>
     <script src="jqGridRowHelper.js"></script>
-    <script src="U8QueryDTO.js"></script>
+    <script src="dto/U8QueryDTO.js"></script>
     <style>
         .layui-select, .layui-input {
             height: 24px;
@@ -219,7 +219,7 @@
 
 
         //部门
-        laySelect('depCode', '/basicinfo/department/getlist', {}, {id: "depCode", text: "cdepname"}, false, form);
+        laySelect('depCode', '/basicinfo/department/getlist', {}, {id: "cdepcode", text: "cdepname"}, false, form);
         form.on('select(depCode)', function (data) {
             let depName = $("#depCode").find("option:selected").text();
             $("#depName").val(depName);
@@ -382,10 +382,12 @@
                 {label: "数量", name: PRODUCT_QTY, width: 40, sortable: false, editable: true, align: "center"},
                 {label: "材料单价", name: MATERIAL_PRICE, width: 60, sortable: false, editable: false, align: "center"},
                 {label: "单件材料费", name: MATERIAL_AMOUNT, width: 70, sortable: false, editable: false, align: "center"},
-                {label: "单件加工费", name: WORK_PRICE, width: 70, sortable: false, editable: true, align: "center"},
+                {label: "单件加工费（含税）", name: WORK_PRICE, width: 120, sortable: false, editable: true, align: "center"},
                 {label: "加工费合计", name: TOTAL_WORK_AMOUNT, width: 70, sortable: false, editable: false, align: "center"},
                 {label: "单件价格", name: PRICE, width: 60, sortable: false, editable: true, align: "center"},
                 {label: "合计", name: AMOUNT, width: 70, sortable: false, editable: false, align: "center"},
+                {label: "税率", name: TAX_RATE, width: 70, sortable: false, editable: true, align: "center"},
+                {label: "不含税单价", name: WORK_PRICE_WITHOUT_TAX,hidden: true ,width: 70, sortable: false, editable: true, align: "center"},
                 {
                     label: "计划开工日期",
                     name: PLAN_START_DATE,
@@ -839,6 +841,10 @@
      */
     function addPart(){
         productHelper.saveCell(CurCol,CurRow);
+        let id = productHelper.getSelectedRowId();
+        if (id === undefined){
+            return;
+        }
         WeAdminShow('添加部件','./addpart.html');
     }
 
@@ -1253,6 +1259,22 @@
     function deleteProductRow(){
         //保存正在编辑的单元格
         productHelper.saveCell(CurRow,CurRow);
+        let selectedProductData = productHelper.getSelectedRowData();
+        if (selectedProductData === undefined){
+            return;
+        }
+        let ableToDelete = true;
+        let dataArray = materialHelper.getAllRowData();
+        dataArray.forEach(function (material) {
+            if (material.recordId === selectedProductData.recordId){
+                layer.alert("请先删除该产品下的材料表记录");
+                ableToDelete = false;
+                return;
+            }
+        })
+        if (ableToDelete){
+            productHelper.deleteSelectedRow();
+        }
     }
 
     /*

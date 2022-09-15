@@ -70,11 +70,7 @@ public class OmOrderMaterial extends BaseEntity implements Serializable{
     @TableField(value = "inv_unit")
     private String invUnit;
 
-    /**
-     * 数量
-     */
-    @TableField(value = "qty")
-    private BigDecimal qty;
+
 
     /**
      * 材料单价
@@ -316,7 +312,6 @@ public class OmOrderMaterial extends BaseEntity implements Serializable{
             && (this.getInvName() == null ? other.getInvName() == null : this.getInvName().equals(other.getInvName()))
             && (this.getInvStd() == null ? other.getInvStd() == null : this.getInvStd().equals(other.getInvStd()))
             && (this.getInvUnit() == null ? other.getInvUnit() == null : this.getInvUnit().equals(other.getInvUnit()))
-            && (this.getQty() == null ? other.getQty() == null : this.getQty().equals(other.getQty()))
             && (this.getUnitMaterialPrice() == null ? other.getUnitMaterialPrice() == null : this.getUnitMaterialPrice().equals(other.getUnitMaterialPrice()))
             && (this.getUnitMaterialAmount() == null ? other.getUnitMaterialAmount() == null : this.getUnitMaterialAmount().equals(other.getUnitMaterialAmount()))
             && (this.getInvLand() == null ? other.getInvLand() == null : this.getInvLand().equals(other.getInvLand()))
@@ -362,7 +357,6 @@ public class OmOrderMaterial extends BaseEntity implements Serializable{
         result = prime * result + ((getInvName() == null) ? 0 : getInvName().hashCode());
         result = prime * result + ((getInvStd() == null) ? 0 : getInvStd().hashCode());
         result = prime * result + ((getInvUnit() == null) ? 0 : getInvUnit().hashCode());
-        result = prime * result + ((getQty() == null) ? 0 : getQty().hashCode());
         result = prime * result + ((getUnitMaterialPrice() == null) ? 0 : getUnitMaterialPrice().hashCode());
         result = prime * result + ((getUnitMaterialAmount() == null) ? 0 : getUnitMaterialAmount().hashCode());
         result = prime * result + ((getInvLand() == null) ? 0 : getInvLand().hashCode());
@@ -411,7 +405,6 @@ public class OmOrderMaterial extends BaseEntity implements Serializable{
         sb.append(", invName=").append(invName);
         sb.append(", invStd=").append(invStd);
         sb.append(", invUnit=").append(invUnit);
-        sb.append(", qty=").append(qty);
         sb.append(", unitMaterialPrice=").append(unitMaterialPrice);
         sb.append(", unitMaterialAmount=").append(unitMaterialAmount);
         sb.append(", invLand=").append(invLand);

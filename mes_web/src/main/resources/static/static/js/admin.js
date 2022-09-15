@@ -376,7 +376,6 @@ layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
 			content: url,
 			success:function (layero ,index){
 				let body=layer.getChildFrame('body',index);
-				console.log("!!");
 				let paramAcceptor = body.contents().find("#paramAcceptor");
 				paramAcceptor.val(JSON.stringify(param));
 			},

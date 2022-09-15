@@ -425,7 +425,7 @@
 
             },
             afterSaveCell : function(rowid,name,val,iRow,iCol) {
-                console.log("保存单元格name:"+name);
+
                 if(name == 'dstartdate' ) {
                     var ids = $("#jqGrid").jqGrid('getDataIDs');
                     for(var i=0; i<ids.length; i++) {
@@ -654,6 +654,8 @@
         if(rowData.cdefine27!=""&&rowData.cdefine27!=null) {
             cdefine27=parseFloat(rowData.cdefine27 - 0).toFixed(2)-0;
         }
+
+
 
         $('#jqGrid').jqGrid('setRowData', rowid, {inatsum:(fquantity*taxmakeprice).toFixed(2), tolnum:(fquantity*( taxmakeprice+cdefine27)).toFixed(2),tolpic: (taxmakeprice+cdefine27).toFixed(2)});
     }

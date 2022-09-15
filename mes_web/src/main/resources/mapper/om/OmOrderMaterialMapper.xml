@@ -12,7 +12,6 @@
     <result column="inv_name" jdbcType="VARCHAR" property="invName" />
     <result column="inv_std" jdbcType="VARCHAR" property="invStd" />
     <result column="inv_unit" jdbcType="VARCHAR" property="invUnit" />
-    <result column="qty" jdbcType="DECIMAL" property="qty" />
     <result column="unit_material_price" jdbcType="DECIMAL" property="unitMaterialPrice" />
     <result column="unit_material_amount" jdbcType="DECIMAL" property="unitMaterialAmount" />
     <result column="inv_land" jdbcType="VARCHAR" property="invLand" />
@@ -36,7 +35,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, detail_id, part_id, main_id, inv_code, inv_name, inv_std, inv_unit, qty, material_price,
+    id, detail_id, part_id, main_id, inv_code, inv_name, inv_std, inv_unit, material_price,
     material_amount, inv_land, inv_width, inv_len, inv_external_diameter, inv_internal_diameter,
     inv_density, inv_size, iqty, tqty, create_user, create_date, update_user, update_date,
     iz_delete, delete_user, delete_date, itype, u8_mo_material_id

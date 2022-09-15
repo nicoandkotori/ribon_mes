@@ -16,7 +16,21 @@ const URL_GET_MES_ORDER = URL_BASE_ORDER+"getmainlistbypage";
 //分页查询mes委外订单子表url
 const URL_GET_MES_DETAIL = URL_BASE_ORDER+"getdetaillist";
 //通过id查询mes委外订单表
-const URL_GET_MES_ORDER_BY_ID = URL_BASE_ORDER+"getbyid"
+const URL_GET_MES_ORDER_BY_ID = URL_BASE_ORDER+"get_main_by_id"
+//通过mainId获取产品表
+const URL_GET_MES_PRODUCT_BY_MAIN_ID = URL_BASE_ORDER+"get_mes_product_by_main_id";
+//部件表等于查询
+const URL_EQUAL_FIND_PART =URL_BASE_ORDER+ "equal_find_part";
+//材料表等于查询
+const URL_EQUAL_FIND_MATERIAL =URL_BASE_ORDER+ "equal_find_material";
+//通过mainId获取部件表
+const URL_GET_MES_PART_BY_MAIN_ID = URL_BASE_ORDER+"get_mes_part_by_main_id";
+//修改委外订单
+const URL_UPDATE_MES_MAIN_BY_ID = URL_BASE_ORDER+"update";
+//通过id作废委外订单
+const URL_DELETE_MES_ORDER_BY_ID = URL_BASE_ORDER+"delete_main_by_id"
+
+
 
 /*
  * 订单表字段
@@ -63,6 +77,12 @@ const PRODUCT_INV_STD = "productInvStd";
 const PRODUCT_INV_UNIT = "productInvUnit";
 //数量
 const PRODUCT_QTY = "productQty";
+//税率
+<!--DATE: 2022/9/15-->
+<!--mijiahao TODO:数据库里加 -->
+const TAX_RATE = ""
+//不含税单价
+const WORK_PRICE_WITHOUT_TAX = ""
 //材料单价
 const MATERIAL_PRICE = "materialPrice";
 //单件材料费

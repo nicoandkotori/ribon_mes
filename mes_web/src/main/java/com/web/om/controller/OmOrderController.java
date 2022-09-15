@@ -4,21 +4,17 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.common.util.CustomStringUtils;
-import com.common.util.DateUtil;
-import com.common.util.ResponseResult;
-import com.common.util.TableResult;
+import com.common.util.*;
 import com.modules.data.mybatis.DBTypeEnum;
 import com.modules.data.mybatis.DbContextHolder;
 import com.web.basicinfo.entity.Vendor;
 import com.web.basicinfo.service.IVendorService;
 import com.web.common.controller.BasicController;
 import com.web.om.dto.*;
-import com.web.om.entity.OmMoMain;
-import com.web.om.entity.OmOrderMain;
-import com.web.om.service.IOmMoMainService;
-import com.web.om.service.IOmOrderMainService;
+import com.web.om.entity.*;
+import com.web.om.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -36,6 +32,15 @@ public class OmOrderController extends BasicController {
 
     @Autowired
     private IVendorService vendorService;
+
+    @Autowired
+    private IOmOrderDetailService detailService;
+
+    @Autowired
+    private IOmOrderMaterialService materialService;
+
+    @Autowired
+    private IOmOrderPartService partService;
 
     /**
      * 查询最大的单据号
@@ -111,8 +116,8 @@ public class OmOrderController extends BasicController {
      * @param id id
      * @return {@link ResponseResult}
      */
-    @GetMapping(value = "getbyid")
-    public ResponseResult getById(Integer id) {
+    @GetMapping(value = "get_main_by_id")
+    public ResponseResult getById(String id) {
         try {
             if (CustomStringUtils.isBlank(id)) {
                 throw new Exception("参数异常");
@@ -122,6 +127,133 @@ public class OmOrderController extends BasicController {
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseResult.error(e.getMessage());
+        }
+    }
+
+    /**
+     * 通过mainId获取产品表
+     *
+     * @return {@link ResponseResult}
+     */
+    @GetMapping("get_mes_product_by_main_id")
+    public TableResult<OmOrderDetail> getMesProductByMainId(String mainId){
+        try {
+            LambdaQueryWrapper<OmOrderDetail> wrapper = new LambdaQueryWrapper<>();
+            wrapper.eq(StringUtils.isNotBlank(mainId),OmOrderDetail::getMainId,mainId);
+            wrapper.eq(OmOrderDetail::getIzDelete,0);
+            List<OmOrderDetail> mainList = detailService.list(wrapper);
+            return TableResult.success(mainList);
+        } catch (Exception e){
+            e.printStackTrace();
+            return TableResult.error(e.getMessage());
+        }
+    }
+
+    /**
+     * 通过mainId获取部件表
+     *
+     * @return {@link ResponseResult}
+     */
+    @GetMapping("get_mes_part_by_main_id")
+    public TableResult<OmOrderPart> getMesPartByMainId(String mainId){
+        try {
+            LambdaQueryWrapper<OmOrderPart> wrapper = new LambdaQueryWrapper<>();
+            wrapper.eq(StringUtils.isNotBlank(mainId),OmOrderPart::getMainId,mainId);
+            wrapper.eq(OmOrderPart::getIzDelete,0);
+            List<OmOrderPart> mainList = partService.list(wrapper);
+            return TableResult.success(mainList);
+        } catch (Exception e){
+            e.printStackTrace();
+            return TableResult.error(e.getMessage());
+        }
+    }
+
+    /**
+     * 分页等于查询部件表
+     *
+     * @param page  页号
+     * @param limit 页面大小
+     * @param query 查询条件
+     * @return {@link TableResult}
+     */
+    @PostMapping("equal_find_part")
+    public TableResult<OmOrderPart> equalFindPart(Integer page ,Integer limit, String query){
+        try {
+            if (page == null){
+                page = 1;
+            }
+            if (limit == null){
+                limit = 10;
+            }
+            OmOrderPart omOrderPart = JSON.parseObject(query,OmOrderPart.class);
+            LambdaQueryWrapper<OmOrderPart> wrapper = new LambdaQueryWrapper<>();
+            IPage<OmOrderPart> iPage = new Page<>(page,limit);
+            omOrderPart.setIzDelete(0);
+            wrapper.setEntity(omOrderPart);
+            IPage<OmOrderPart> resultPage = partService.page(iPage,wrapper);
+            List<OmOrderPart> resultList = resultPage.getRecords();
+            if (resultList.size()<1){
+                return TableResult.error("查询不到数据");
+            }
+            return TableResult.success(resultList);
+        } catch (Exception e){
+            e.printStackTrace();
+            return TableResult.error(e.getMessage());
+        }
+
+    }
+    
+    /**
+     * 分页等于查询材料
+     *
+     * @param page  页号
+     * @param limit 页面大小
+     * @param query 查询条件
+     * @return {@link TableResult}
+     */
+    @PostMapping("equal_find_material")
+    public TableResult<OmOrderMaterial> equalFind(Integer page ,Integer limit, String query){
+        try {
+            OmOrderMaterial omOrderMaterial = JSON.parseObject(query,OmOrderMaterial.class);
+            LambdaQueryWrapper<OmOrderMaterial> wrapper = new LambdaQueryWrapper<>();
+            if (page == null){
+                page = 1;
+            }
+            if (limit == null){
+                limit = 10;
+            }
+            IPage<OmOrderMaterial> iPage = new Page<>(page,limit);
+            omOrderMaterial.setIzDelete(0);
+            wrapper.setEntity(omOrderMaterial);
+            IPage<OmOrderMaterial> resultPage = materialService.page(iPage,wrapper);
+            List<OmOrderMaterial> resultList = resultPage.getRecords();
+            if (resultList.size()<1){
+                return TableResult.error("查询不到数据");
+            }
+            return TableResult.success(resultList);
+        } catch (Exception e){
+            e.printStackTrace();
+            return TableResult.error(e.getMessage());
+        }
+
+    }
+
+    /**
+     * 通过mainId获取材料表
+     *
+     * @return {@link ResponseResult}
+     */
+    @GetMapping("get_mes_material_by_main_id")
+    public TableResult<OmOrderMaterial> getMesMaterialByMainId(String mainId){
+        try {
+            LambdaQueryWrapper<OmOrderMaterial> wrapper = new LambdaQueryWrapper<>();
+            wrapper.eq(StringUtils.isNotBlank(mainId),OmOrderMaterial::getMainId,mainId);
+            wrapper.eq(OmOrderMaterial::getIzDelete,0);
+            List<OmOrderMaterial> mainList = materialService.list(wrapper);
+            return TableResult.success(mainList);
+        } catch (Exception e){
+            e.printStackTrace();
+            return TableResult.error(e.getMessage());
         }
     }
 
@@ -164,6 +296,47 @@ public class OmOrderController extends BasicController {
             }
             List<OmOrderMaterialDTO> materialList = JSON.parseArray(materialStr,OmOrderMaterialDTO.class);
             return omMainService.saveToMes(main,productList,partList,materialList);
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseResult.error(e.getMessage());
+        }
+    }
+
+    /**
+     * 更新mes委外订单
+     *
+     * @return {@link ResponseResult}
+     */
+    @PostMapping("update")
+    public ResponseResult update(String mainStr,String productStr,String partStr,String materialStr){
+        try {
+            OmOrderMain main = JSON.parseObject(mainStr, OmOrderMain.class);
+            List<OmOrderProductDTO> productList = JSON.parseArray(productStr,OmOrderProductDTO.class);
+            List<OmOrderPartDTO> partList = null;
+            if (partStr != null){
+                partList = JSON.parseArray(partStr,OmOrderPartDTO.class);
+            }
+            List<OmOrderMaterialDTO> materialList = JSON.parseArray(materialStr,OmOrderMaterialDTO.class);
+            return omMainService.updateToMes(main,productList,partList,materialList);
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseResult.error(e.getMessage());
+        }
+    }
+
+    /**
+     * 通过id作废委外订单
+     *
+     * @return {@link TableResult}<{@link OmOrderMain}>
+     */
+    @PostMapping("delete_main_by_id")
+    public ResponseResult deleteMainById(String id){
+        try {
+            /**
+             * DATE: 2022/9/15
+             * mijiahao TODO: 作废前还要判断有没有审核
+             */
+            return omMainService.deleteMainById(id);
         } catch (Exception e){
             e.printStackTrace();
             return ResponseResult.error(e.getMessage());
