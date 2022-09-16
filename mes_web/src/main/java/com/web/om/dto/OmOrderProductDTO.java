@@ -10,15 +10,7 @@ import com.web.om.entity.OmOrderDetail;
  */
 public class OmOrderProductDTO extends OmOrderDetail {
 
-    private String recordId ;
 
-    public String getRecordId() {
-        return recordId;
-    }
-
-    public void setRecordId(String recordId) {
-        this.recordId = recordId;
-    }
 
 
 

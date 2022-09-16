@@ -47,7 +47,7 @@
     <script src="../../../static/Scripts/easyui-1.7.0/jquery.easyui.min.js"></script>
     <script src="../../../static/Scripts/easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
     <script src="constConfig.js"></script>
-    <script src="/js/jqGridTableHelper.js"></script>
+    <script src="jqGridRowHelper.js"></script>
     <script src="entity/OmMesProduct.js"></script>
     <script src="entity/OmMesPart.js"></script>
     <script src="entity/OmMesMaterial.js"></script>
@@ -116,7 +116,7 @@
     </div>
 <!--    表体-->
     <div class="weadmin-body-table">
-        <button type="button" class="layui-btn layui-btn-sm" onclick="addPartRow()">增行</button>
+        <button type="button" class="layui-btn layui-btn-sm" onclick="btnAddPartRow()">增行</button>
         <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="deletePartRow()">删行</button>
         <table id="part_table"></table>
         <button type="button" class="layui-btn layui-btn-sm" onclick="addMaterialRowEvent()">增行</button>
@@ -135,11 +135,15 @@
     var rowNum = 1;
     var partRowId;
     var recordId;
-    var partHelper = new jqGridTableHelper($('#'+PART_TABLE_ID));
-    var materialHelper = new jqGridTableHelper($('#'+MATERIAL_TABLE_ID));
+    var partHelper = new jqGridRowHelper($('#'+PART_TABLE_ID));
+    var materialHelper = new jqGridRowHelper($('#'+MATERIAL_TABLE_ID));
     var materialRowIndex = 0;
     //选择物料的种类，为'part'或'material'
     var chooseInvType;
+    //来自父页面的数据
+    var param;
+    //部件表最大行号
+    var partRowIndex = 1;
     initJqgrid();
     layui.use(['form', 'admin', 'jquery', 'table', 'layer', 'laydate', 'treeSelect', "upload", 'tableSelect'], function () {
         var form = layui.form,
@@ -227,7 +231,7 @@
                 {label: "部件名称", name: PART_INV_NAME, width: 90, sortable: false, editable: false, align: "center"},
                 {label: "规格型号", name: PART_INV_STD, width: 80, sortable: false, editable: false, align: "center"},
                 {label: "单位", name: PART_INV_UNIT, width: 40, sortable: false, editable: false, align: "center"},
-                {label: "数量", name: PART_QTY, width: 40, sortable: false, editable: true, align: "center"},
+                {label: "部件数量", name: PART_QTY, width: 70, sortable: false, editable: true, align: "center"},
                 {label: "材料单价", name: UNIT_MATERIAL_PRICE, width: 60, sortable: false, editable: true, align: "center"},
                 {label: "单件材料费", name: UNIT_MATERIAL_AMOUNT, width: 70, sortable: false, editable: true, align: "center"},
                 {label: "材料编码", name: INV_CODE, width: 90, sortable: false, editable: true, align: "center"},
@@ -318,9 +322,28 @@
      * 初始化数据，显示父页面产品表选中行的记录
      */
     function initData(){
-        let selectedRowData = parent.productHelper.getSelectedRowData();
+        let params = parent.addPartParams;
+        console.log("部件窗口接收的参数↓");
+        console.log(params);
+        let selectedRowData = params.productData;
         recordId = selectedRowData.recordId;
         setProductionInfo(selectedRowData);
+        //设置部件数据
+        let partList = params.partList;
+        if (partList != null){
+            partList.forEach(function (part) {
+                addPartRow(part);
+            })
+        }
+        //设置材料数据
+        let materialList = params.materialList;
+        if (materialList != null){
+            materialList.forEach(function (material) {
+                addMaterialRow(material);
+            })
+        }
+
+        partHelper.addRowData()
     }
 
     <!--DATE: 2022/9/13-->
@@ -551,11 +574,9 @@
     }
 
     /*
-     * 部件表增行函数
+     * 点击按钮部件表增行函数
      */
-    var partRowIndex = 0;
-    function addPartRow() {
-        partRowIndex = partRowIndex + 1;
+    function btnAddPartRow() {
         let rowData = {
             partRowId: recordId+"p" + partRowIndex,
             recordId: recordId
@@ -563,21 +584,41 @@
         if (CurRow != "" || CurRow != undefined) {
             $("#part_table").jqGrid('saveCell', CurRow, CurCol);
         }
-        $("#part_table").jqGrid("addRowData", partRowIndex, rowData);
+        addPartRow(rowData);
+    }
 
+    function addPartRow(rowData){
+        partRowIndex++;
+        partHelper.addRowData(partRowIndex,rowData)
     }
 
     /*
      * 部件表删行函数
      */
     function deletePartRow(){
-        if (CurRow != "" || CurRow != undefined) {
-            $("#part_table").jqGrid('saveCell', CurRow, CurCol);
+        partHelper.saveCell(CurRow,CurCol);
+        let selectedPart = partHelper.getSelectedRowData();
+        if (selectedPart === undefined){
+            return;
         }
-        let rowId = $('#part_table').jqGrid('getGridParam', 'selrow');
-        if (rowId != "" && rowId != undefined) {
-            $("#part_table").jqGrid("delRowData", rowId);
+        let ableToDelete = true;
+        let partObj = new omMesPart();
+        partObj.setEntity(selectedPart);
+        let allMaterial = materialHelper.getAllRowData();
+        let materialObj = new omMesMaterial();
+        //寻找该部件记录下是否有产品记录
+        allMaterial.forEach(function (material) {
+            materialObj.setEntity(material);
+            if (partObj.getPartRowId() === materialObj.getPartRowId()){
+                ableToDelete = false;
+                return;
+            }
+        })
+        if (ableToDelete){
+            partHelper.deleteRowById(partHelper.getSelectedRowId());
+            return;
         }
+        layer.alert("请先删除该部件的所有材料记录");
 
     }
 
@@ -585,10 +626,13 @@
      * 材料表增行事件
      */
     function addMaterialRowEvent(){
-
+        console.log("材料表增行函数");
         partHelper.saveCell(CurRow,CurCol);
         let partRowData = partHelper.getSelectedRowData();
-        console.log("材料表增行函数");
+        if (partRowData === undefined){
+            return;
+        }
+
         let productMaterialRowData = new omMesMaterial();
         //设置部件信息
         productMaterialRowData.setEntity(partRowData);

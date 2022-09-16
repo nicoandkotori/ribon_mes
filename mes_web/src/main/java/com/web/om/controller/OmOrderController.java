@@ -131,6 +131,22 @@ public class OmOrderController extends BasicController {
     }
 
     /**
+     * 通过id查询一个订单中的所有数据
+     *
+     * @return {@link TableResult}
+     */
+    @GetMapping("get_all_main_data_by_id")
+    public TableResult<OmOrderMain> getAllMainDataById(String id){
+        try {
+            return omMainService.getAllMainDataById(id);
+        } catch (Exception e){
+            e.printStackTrace();
+            return TableResult.error(e.getMessage());
+        }
+        
+    }
+
+    /**
      * 通过mainId获取产品表
      *
      * @return {@link ResponseResult}
@@ -289,12 +305,12 @@ public class OmOrderController extends BasicController {
     public ResponseResult save(String mainStr,String productStr,String partStr,String materialStr){
         try {
             OmOrderMain main = JSON.parseObject(mainStr, OmOrderMain.class);
-            List<OmOrderProductDTO> productList = JSON.parseArray(productStr,OmOrderProductDTO.class);
-            List<OmOrderPartDTO> partList = null;
+            List<OmOrderDetail> productList = JSON.parseArray(productStr,OmOrderDetail.class);
+            List<OmOrderPart> partList = null;
             if (partStr != null){
-                partList = JSON.parseArray(partStr,OmOrderPartDTO.class);
+                partList = JSON.parseArray(partStr,OmOrderPart.class);
             }
-            List<OmOrderMaterialDTO> materialList = JSON.parseArray(materialStr,OmOrderMaterialDTO.class);
+            List<OmOrderMaterial> materialList = JSON.parseArray(materialStr,OmOrderMaterial.class);
             return omMainService.saveToMes(main,productList,partList,materialList);
         } catch (Exception e){
             e.printStackTrace();
@@ -311,12 +327,12 @@ public class OmOrderController extends BasicController {
     public ResponseResult update(String mainStr,String productStr,String partStr,String materialStr){
         try {
             OmOrderMain main = JSON.parseObject(mainStr, OmOrderMain.class);
-            List<OmOrderProductDTO> productList = JSON.parseArray(productStr,OmOrderProductDTO.class);
-            List<OmOrderPartDTO> partList = null;
+            List<OmOrderDetail> productList = JSON.parseArray(productStr,OmOrderDetail.class);
+            List<OmOrderPart> partList = null;
             if (partStr != null){
-                partList = JSON.parseArray(partStr,OmOrderPartDTO.class);
+                partList = JSON.parseArray(partStr,OmOrderPart.class);
             }
-            List<OmOrderMaterialDTO> materialList = JSON.parseArray(materialStr,OmOrderMaterialDTO.class);
+            List<OmOrderMaterial> materialList = JSON.parseArray(materialStr,OmOrderMaterial.class);
             return omMainService.updateToMes(main,productList,partList,materialList);
         } catch (Exception e){
             e.printStackTrace();

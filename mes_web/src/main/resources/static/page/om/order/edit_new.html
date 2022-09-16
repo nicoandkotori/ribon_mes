@@ -168,12 +168,12 @@
     </form>
 </div>
 <div class="weadmin-body-table">
-    <button type="button" class="layui-btn layui-btn-sm" onclick="addProductRowEvent()">增行</button>
+    <button type="button" class="layui-btn layui-btn-sm" onclick="btnProductRowEvent()">增行</button>
     <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="deleteProductRow()">删行</button>
     <button type="button" class="layui-btn layui-btn-sm" onclick="addPart()">添加部件</button>
     <table id="jqGrid"></table>
-    <button type="button" class="layui-btn layui-btn-sm" onclick="addMaterialRowEvent()">增行</button>
-    <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="deleteMaterialRow()">删行</button>
+    <button type="button" class="layui-btn layui-btn-sm" onclick="btnMaterialRowEvent()">增行</button>
+    <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="btnDeleteMaterialRow()">删行</button>
     <table id="jqGridDetail"></table>
 
 </div>
@@ -203,11 +203,13 @@
     //计划结束日期
     var planEndDate = '';
     //产品表最大行ID
-    var productMaxId = 0;
+    var productMaxId = 1;
     //部件表最大行ID
-    var partMaxId = 0;
+    var partMaxId = 1;
     //材料表最大行ID
-    var materialMaxId = 0;
+    var materialMaxId = 1;
+    //向打开的部件窗口传递的参数
+    var addPartParams;
     $(function () {
         initJqgrid();
     });
@@ -287,10 +289,7 @@
                 }, function (data) {
                     if (data.success == true || data.success == "true") {
                         layer.msg("保存成功", {icon: 6});
-                        id = data.result
-                        $("#id").val(id);
-                        productHelper.reloadTable();
-                        materialHelper.reloadTable();
+                        reloadAllData();
                     } else {
                         layer.msg("更新失败!" + data.msg, {icon: 6});
                     }
@@ -308,61 +307,45 @@
      * 初始化数据
      */
     function initData() {
-        //获取主表数据
-        sendGetReq(URL_GET_MES_ORDER_BY_ID, {id: id}, function (result) {
-            let data = result.result;
+        //获取主表及其所有字表数据
+        sendGetReq(URL_GET_ALL_MAIN_DATA_BY_ID, {id: id}, function (result) {
+            let data = result.data;
             if (data != null){
                 console.log("初始化数据-主表赋值");
-                $("form").setForm(data);
+                $("form").setForm(data.main);
                 layui.form.render();
-            }
-        });
-        //获取产品数据
-        sendGetReq(URL_GET_MES_PRODUCT_BY_MAIN_ID, {mainId: id}, function (result) {
-            let productList = result.rows;
-            if (productList != null){
-                console.log("初始化数据-产品表赋值");
-                let productObj = new omMesProduct();
-                productList.forEach(function (rowData) {
-                    productObj.setEntity(rowData);
-                    let recordId = "r"+productMaxId;
-                    productObj.setRecordId(recordId);
-                    addProductRow(productObj);
-                    let query = {
-                        detailId:productObj.getId()
-                    };
-                    //对于每条产品数据，单独查询属于该产品的部件数据
-                    sendPostReq(URL_EQUAL_FIND_PART, {query:JSON.stringify(query)}, function (result) {
-                        let partList = result.rows;
-                        if (partList != null){
-                            console.log("初始化数据-部件记录赋值");
-                            partList.forEach(function (part) {
-                                partMaxId++;
-                                let partRowId = recordId+"p"+partMaxId;
-                                part.recordId = recordId;
-                                part.partRowId = partRowId;
-                            })
-                            //mijiahao TODO:有问题，推翻重写
-                            console.log("初始化部件表记录-部件表ID"+getPartTableId(productMaxId));
-                            partDataMap.set(getPartTableId(productMaxId),partList);
-                        }
-                    });
-                    //对于每条产品数据，单独查询属于该产品的材料数据
-                    sendPostReq(URL_EQUAL_FIND_MATERIAL, {query:JSON.stringify(query)}, function (result) {
-                        let materialList = result.rows;
-                        if (materialList != null){
-                            console.log("初始化数据-材料表赋值");
-                            let materialObj = new omMesMaterial();
-                            materialList.forEach(function (rowData) {
-                                materialObj.setEntity(rowData);
-                                materialObj.setRecordId(recordId);
-                                addMaterialRow(materialObj)
-                            })
-                        }
-                    });
+                let productList = data.productList;
+                let partList = data.partList;
+                let materialList = data.materialList;
+                //添加产品数据
+                productList.forEach(function (product) {
+                    addProductRow(product);
                 })
+                //为每条产品设置对应的部件记录
+                let allProductRow = productHelper.getAllRowData();
+                allProductRow.forEach(function (productRow) {
+                    let productObj = new omMesProduct();
+                    productObj.setEntity(productRow);
+                    let partTableId = getPartTableId(productObj.getRowId());
+                    let partArray = [];
+                    let partObj = new omMesPart();
+                    //找出部件记录中部件ID和产品ID相同的记录
+                    partList.forEach(function (part) {
+                        partObj.setEntity(part)
+                        if (partObj.getDetailId() === productObj.getId()){
+                            partArray.push(part);
+                        }
+                    })
+                    partDataMap.set(partTableId,partArray);
+                })
+                //添加材料数据
+                materialList.forEach(function (material) {
+                    addMaterialRow(material);
+                })
+                console.log(data);
             }
         });
+
 
 
 
@@ -389,6 +372,9 @@
                 {label: "加工费合计", name: TOTAL_WORK_AMOUNT, width: 70, sortable: false, editable: false, align: "center"},
                 {label: "单件价格", name: PRICE, width: 60, sortable: false, editable: true, align: "center"},
                 {label: "合计", name: AMOUNT, width: 70, sortable: false, editable: false, align: "center"},
+                {label: "税率", name: TAX_RATE, width: 70, sortable: false, editable: true, align: "center"},
+                {name: ROW_ID, hidden: true},
+                {name: MAIN_ID, hidden: true},
                 {
                     label: "计划开工日期",
                     name: PLAN_START_DATE,
@@ -463,8 +449,6 @@
                 pager_id = "p_" + subgrid_table_id;
                 $("#" + subgrid_id).html("<table id='" + subgrid_table_id + "' class='scroll'></table><div id='" + pager_id + "' class='scroll'></div>");
                 var rwdata = $("#jqGrid").getRowData(row_id);
-                <!--DATE: 2022/9/15-->
-                <!--mijiahao TODO:部件表数据加载 -->
                 $("#" + subgrid_table_id).jqGrid({
                     datatype: "local",
                     method: "post",
@@ -478,6 +462,9 @@
                         {label: "单位", name: PART_INV_UNIT, width: 40, sortable: false, editable: false, align: "center"},
                         {label: "数量", name: PART_QTY, width: 40, sortable: false, editable: true, align: "center"},
                         {name: DETAIL_ID, hidden: true},
+                        {name: ROW_ID, hidden: true},
+                        {name: MAIN_ID, hidden: true},
+                        {name: ID, hidden: true},
                     ],
                     cmTemplate: {sortable: false, align: "center"},
                     pager: false,
@@ -605,14 +592,16 @@
             datatype: "local",
             colModel: [
                 {name: "momaterialsid", key: true, hidden: true},
-                {name: "modetailsid", hidden: true},
+                {name: ID, hidden: true},
                 {label:'产品表行标识',name: RECORD_ID, hidden: INDEX_HIDDEN,width: 80},
                 {label:"部件表行表示",name: PART_ROW_ID, hidden: INDEX_HIDDEN,width: 80},
                 {label: "产品编码", name: PRODUCT_INV_CODE, width: 110, sortable: false, editable: false, align: "center"},
                 {label: "产品名称", name: PRODUCT_INV_NAME, width: 90, sortable: false, editable: false, align: "center"},
                 {label: "规格型号", name: PRODUCT_INV_STD, width: 80, sortable: false, editable: false, align: "center"},
                 {label: "单位", name: PRODUCT_INV_UNIT, width: 40, sortable: false, editable: false, align: "center"},
-                {label: "数量", name: PRODUCT_QTY, width: 70, sortable: false, editable: false, align: "center"},
+                {label: "产品数量", name: PRODUCT_QTY, width: 70, sortable: false, editable: false, align: "center"},
+                {label: "规格型号", name: PART_INV_STD, width: 80, sortable: false, editable: false, align: "center"},
+                {label: "单位", name: PART_INV_UNIT, width: 40, sortable: false, editable: false, align: "center"},
                 {label: "材料单价", name: UNIT_MATERIAL_PRICE, width: 60, sortable: false, editable: true, align: "center"},
                 {label: "单件材料费", name: UNIT_MATERIAL_AMOUNT, width: 70, sortable: false, editable: true, align: "center"},
                 {label: "材料编码", name: INV_CODE, width: 90, sortable: false, editable: true, align: "center"},
@@ -628,7 +617,13 @@
                 {label: "单耗", name: IQTY, width: 45, sortable: false, editable: true, align: "center"},
                 {label: "总量", name: TQTY, width: 45, sortable: false, editable: false, align: "center"},
                 {label: "单位", name: INV_UNIT,hidden:true },
-
+                {label: "部件编码", name: PART_INV_CODE,hidden: true, width: 110, sortable: false, editable: true, align: "center"},
+                {label: "部件名称", name: PART_INV_NAME,hidden: true, width: 90, sortable: false, editable: false, align: "center"},
+                {label: "规格型号", name: PART_INV_STD, hidden: true,width: 80, sortable: false, editable: false, align: "center"},
+                {label: "单位", name: PART_INV_UNIT, hidden: true,width: 40, sortable: false, editable: false, align: "center"},
+                {label: "部件数量", name: PART_QTY,hidden: true, width: 70, sortable: false, editable: true, align: "center"},
+                {name: ROW_ID, hidden: true},
+                {name: MAIN_ID, hidden: true},
             ],
             viewrecords: true,
             multiselect: false,
@@ -709,7 +704,7 @@
     /*
      * 点击按钮产品表增行事件
      */
-    function addProductRowEvent() {
+    function btnProductRowEvent() {
         let productObj = new omMesProduct();
         productObj.setPlanStartDate(planStartDate);
         productObj.setPlanEndDate(planEndDate);
@@ -723,8 +718,12 @@
      */
     function addProductRow(rowData){
         console.log("产品表增行");
+        let productObj = new omMesProduct();
+        productObj.setEntity(rowData);
+        productObj.setTaxRate(DEFAULT_TAX_TATE);
+        productObj.setRowId(productMaxId);
+        productHelper.addRowData(productMaxId,productObj);
         productMaxId++;
-        productHelper.addRowData(productMaxId,rowData);
     }
 
 
@@ -749,7 +748,7 @@
     /*
      * 点击材料表增行按钮事件
      */
-    function addMaterialRowEvent(){
+    function btnMaterialRowEvent(){
         console.log("点击材料表增行按钮事件");
         productHelper.saveCell(CurRow,CurCol);
         //获取产品表选中行数据
@@ -766,8 +765,9 @@
      * 材料表增行
      */
     function addMaterialRow(rowData){
-        materialMaxId++;
+        rowData.rowId = materialMaxId;
         materialHelper.addRowData(materialMaxId,rowData);
+        materialMaxId++;
     }
 
 
@@ -863,13 +863,35 @@
      * 添加部件点击事件
      */
     function addPart(){
-        productHelper.saveCell(CurCol,CurRow);
+        productHelper.saveCell(CurRow,CurCol);
         let id = productHelper.getSelectedRowId();
         if (id === undefined){
             return;
         }
-        <!--DATE: 2022/9/15-->
-        <!--mijiahao TODO:还要把部件和材料记录传过去 -->
+        //产品信息
+        let productData = productHelper.getSelectedRowData();
+        //当前产品的部件信息
+        let partList = partDataMap.get(getPartTableId(id));
+        //当前产品部件的材料信息
+        let materialList = [];
+        if (partList != null){
+            partList.forEach(function (part) {
+                let partRowId = part.partRowId;
+                let allMaterial = materialHelper.getAllRowData();
+                allMaterial.forEach(function (material) {
+                    if (partRowId === material.partRowId){
+                        materialList.push(material);
+                    }
+                })
+            })
+        }
+
+        let param = {
+            productData:productData,
+            partList:partList,
+            materialList:materialList
+        }
+        addPartParams = param;
         WeAdminShow('添加部件','./addpart.html');
     }
 
@@ -880,13 +902,12 @@
      * @param materialArray,材料记录数组
      * @param otherParams,其它参数
      */
-    <!--DATE: 2022/9/15-->
-    <!--mijiahao TODO:当部件表展开时增加部件，带回数据后部件表没有发生变化 -->
     function addPartCallBack(product,partArray,materialArray,otherParams){
         //产品表赋值
         productHelper.setSelectedRowData(product)
         //部件表赋值
-        let partTableId = getPartTableId(productMaxId);
+        let partTableId = getPartTableId(productHelper.getSelectedRowId());
+        console.log("增加部件表-部件赋值-部件表id："+partTableId);
         partDataMap.set(partTableId,partArray);
         array = partArray;
         let productObj = new omMesProduct();
@@ -895,8 +916,19 @@
         sumMaterialPriceToProduct(productObj.getRecordId())
         console.log("增加部件表-带回材料表数据↓");
         console.log(materialArray);
-        materialArray.forEach(function (row){
-            addMaterialRow(row);
+        //先删除材料表中partRowId已存在的记录
+        console.log("增加部件表-删除材料表中partRowId已存在的记录");
+        materialArray.forEach(function (newMaterial){
+            let allOldMaterial = materialHelper.getAllRowData();
+            allOldMaterial.forEach(function (oldMaterial) {
+                if (newMaterial.partRowId === oldMaterial.partRowId){
+                    materialHelper.deleteRowById(oldMaterial.rowId)
+                }
+            })
+        })
+        //再增行
+        materialArray.forEach(function (material) {
+            addMaterialRow(material);
         })
     }
 
@@ -1301,14 +1333,15 @@
         })
         if (ableToDelete){
             productHelper.deleteSelectedRow();
+            productMaxId--;
         }
 
     }
 
     /*
-     * 材料表删行
+     * 点击删行按钮材料表删行
      */
-    function deleteMaterialRow(){
+    function btnDeleteMaterialRow(){
         console.log("材料表删行");
         //保存正在编辑的单元格
         materialHelper.saveCell(CurRow1,CurCol1);
@@ -1318,9 +1351,34 @@
         }
         let selectedRowData = materialHelper.getRowDataById(selectedRowId);
         materialHelper.deleteSelectedRow();
+        materialMaxId--;
         //循环子表合计材料单价和单件材料费
         sumMaterialPriceToProduct(selectedRowData.recordId);
+    }
 
+
+
+    /*
+     * 重新加载所有数据
+     */
+    function reloadAllData(){
+        console.log("重新加载所有数据");
+        productMaxId = 1;
+        materialMaxId = 1;
+        partMaxId = 1;
+        let allMaterialId = materialHelper.getAllRowsId();
+        //清空材料数据
+        allMaterialId.forEach(function (id) {
+            materialHelper.deleteRowById(id)
+        })
+        //清空产品数据
+        let allProductId = productHelper.getAllRowsId()
+        allProductId.forEach(function (id) {
+            productHelper.deleteRowById(id)
+        })
+        //清空部件数据
+        partDataMap = new Map();
+        initData();
     }
 
 

@@ -18,6 +18,10 @@ public class OmOrderPart extends BaseEntity {
     @TableId(value = "id")
     private String id;
 
+    private String recordId;
+
+    private String partRowId;
+
     private String mainId;
 
     private String detailId;

@@ -183,7 +183,16 @@ public class OmMoMain {
      * @param main 主要
      */
     public void setDataFromMesMain(OmOrderMain main){
-
+        setCcode(main.getVouchCode());
+        setDdate(main.getVouchDate());
+        setCdefine2(main.getContractOm());
+        setCvenname(main.getVenName());
+        setCvencode(main.getVenCode());
+        setCdefine1(main.getContractSale());
+        setCdepcode(main.getDepCode());
+        setCpersoncode(main.getPersonCode());
+        setCdefine14(main.getTransportWay());
+        setCmemo(main.getRemark());
     }
     
 

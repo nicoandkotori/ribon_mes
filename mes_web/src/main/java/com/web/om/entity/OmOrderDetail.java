@@ -19,6 +19,8 @@ public class OmOrderDetail extends BaseEntity {
     @TableId(value = "id")
     private String id;
 
+    private String recordId;
+
     private String mainId;
 
     private String productInvCode;

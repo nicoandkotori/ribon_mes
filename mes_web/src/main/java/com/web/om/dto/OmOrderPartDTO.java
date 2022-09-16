@@ -10,23 +10,5 @@ import com.web.om.entity.OmOrderPart;
  */
 public class OmOrderPartDTO extends OmOrderPart {
 
-    private String recordId ;
 
-    private String partRowId;
-
-    public String getRecordId() {
-        return recordId;
-    }
-
-    public void setRecordId(String recordId) {
-        this.recordId = recordId;
-    }
-
-    public String getPartRowId() {
-        return partRowId;
-    }
-
-    public void setPartRowId(String partRowId) {
-        this.partRowId = partRowId;
-    }
 }

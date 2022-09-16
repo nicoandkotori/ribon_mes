@@ -185,4 +185,12 @@ public class OmMoMaterials {
         csendtype="0";
 
     }
+
+    /**
+     * 转换mes字段为u8字段
+     */
+    public void setDataFromMesProduct(OmOrderMaterial material){
+        setCinvcode(material.getInvCode());
+        setIquantity(material.getPartQty());
+    }
 }

@@ -5,8 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.common.util.ResponseResult;
 import com.common.util.TableResult;
 import com.web.om.dto.*;
-import com.web.om.entity.OmMoMaterials;
-import com.web.om.entity.OmOrderMain;
+import com.web.om.entity.*;
 
 import java.util.List;
 
@@ -27,19 +26,24 @@ public interface IOmOrderMainService extends IService<OmOrderMain> {
      * @return {@link ResponseResult}
      */
     ResponseResult saveToMes(OmOrderMain main,
-                             List<OmOrderProductDTO> productList,
-                             List<OmOrderPartDTO> partList,
-                             List<OmOrderMaterialDTO> materialList);
+                             List<OmOrderDetail> productList,
+                             List<OmOrderPart> partList,
+                             List<OmOrderMaterial> materialList);
 
     /**
-     * 更新mes委外订单
+     * mes中更新,因为是先删除所有子表记录再插入，所以性能较差
      *
+     * @param main         主表
+     * @param productList  产品列表
+     * @param partList     部件列表
+     * @param materialList 材料列表
      * @return {@link ResponseResult}
      */
     ResponseResult updateToMes(OmOrderMain main,
-                             List<OmOrderProductDTO> productList,
-                             List<OmOrderPartDTO> partList,
-                             List<OmOrderMaterialDTO> materialList);
+                             List<OmOrderDetail> productList,
+                             List<OmOrderPart> partList,
+                             List<OmOrderMaterial> materialList);
+
 
 
     /**
@@ -49,4 +53,12 @@ public interface IOmOrderMainService extends IService<OmOrderMain> {
      * @return {@link TableResult}<{@link OmOrderMain}>
      */
     ResponseResult deleteMainById(String id);
+
+    /**
+     * 得到所有主要数据通过id
+     *
+     * @param id id
+     * @return {@link TableResult}
+     */
+    TableResult<OmOrderMain> getAllMainDataById(String id);
 }

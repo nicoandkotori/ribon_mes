@@ -116,6 +116,7 @@ class omMesPart {
 
     setEntity(data){
         this.setId(data.id);
+
         this.setRecordId(data.recordId);
         this.setPartRowId(data.partRowId);
         //委外订单ID

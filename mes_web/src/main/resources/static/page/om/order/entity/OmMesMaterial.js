@@ -7,6 +7,7 @@ class omMesMaterial {
 
     constructor() {
         this.id = "";
+        this.rowId = "";
         this.detailId = "";
         this.partId = "";
         this.recordId = "";
@@ -42,6 +43,15 @@ class omMesMaterial {
     }
 
 
+
+    //行号
+    setRowId(value){
+        this.rowId = value;
+    }
+
+    getRowId(){
+        return this.rowId;
+    }
 
     getId() {
         return this.id;
@@ -373,6 +383,7 @@ class omMesMaterial {
 
         this.setId(data.id);
         this.setRecordId(data.recordId);
+        this.setRowId(data.rowId);
         this.setPartRowId(data.partRowId);
         //产品表ID
         this.setDetailId(data.detailId);

@@ -240,4 +240,18 @@ public class OmMoDetails {
       fparentscrp=BigDecimal.ZERO;
 //        ivtids=8159;
     }
+
+    /**
+     * 转换mes字段为u8字段
+     */
+    public void setDataFromMesProduct(OmOrderDetail product){
+        setCinvcode(product.getProductInvCode());
+        setIquantity(product.getProductQty());
+        setCdefine26(product.getMaterialPrice());
+        setCdefine27(product.getMaterialAmount());
+        setItaxprice(product.getWorkPrice());
+        setInatsum(product.getTotalWorkAmount());
+        setDstartdate(product.getPlanStartDate());
+        setDarrivedate(product.getPlanEndDate());
+    }
 }

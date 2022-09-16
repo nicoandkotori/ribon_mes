@@ -67,6 +67,7 @@ class jqGridRowHelper {
      * 保存单元格
      */
     saveCell(row,col){
+        console.log("保存单元格-row:"+row+" col:"+col);
         this.table.jqGrid('saveCell', row, col);
     }
 

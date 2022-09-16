@@ -7,6 +7,7 @@ class omMesProduct {
     constructor() {
         //
         this.id = "";
+        this.rowId = "";
         //
         this.recordId = "";
         //
@@ -42,8 +43,19 @@ class omMesProduct {
         //
         this.rowNo = "";
 
+        this.taxRate = "";
+
     }
 
+
+
+    setRowId(value){
+        this.rowId = value;
+    }
+
+    getRowId(){
+        return this.rowId;
+    }
     getId() {
         return this.id;
     }
@@ -104,6 +116,14 @@ class omMesProduct {
     //单件价格
     getPrice() {
         return this.price;
+    }
+
+    setTaxRate(value){
+        this.taxRate = value;
+    }
+
+    getTaxRate(){
+        return this.taxRate;
     }
 
     //合计
@@ -218,6 +238,7 @@ class omMesProduct {
 
     setEntity(data) {
         this.setId(data.id);
+        this.setRowId(data.rowId)
         this.setRecordId(data.recordId);
         this.setMainId(data.mainId);
         //产品编码
