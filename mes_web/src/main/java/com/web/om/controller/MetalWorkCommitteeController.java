@@ -289,7 +289,7 @@ public class MetalWorkCommitteeController extends BasicController {
      */
     @RequestMapping(value = "/save1")
     @ResponseBody
-    public ResponseResult save1(String mData,String mDatas,String mDataDetail,String partData) {
+    public ResponseResult save1(String mData,String mDatas,String mDataDetail) {
         ResponseResult result = new ResponseResult();
         try{
             DbContextHolder.setDbType(DBTypeEnum.db2);
@@ -304,8 +304,7 @@ public class MetalWorkCommitteeController extends BasicController {
             }
             List<OmProductVM> list = JSON.parseArray(mDatas, OmProductVM.class);
             List<OmProductVM> listDetail = JSON.parseArray(mDataDetail, OmProductVM.class);
-            List<OmOrderPart> partList = JSON.parseArray(partData, OmOrderPart.class);
-            result=omMainService.save1(m,list,listDetail,partList);
+            result=omMainService.save1(m,list,listDetail,null);
         }catch (Exception e){
             result.setSuccess(false);
             result.setMsg(e.getMessage());
@@ -313,31 +312,6 @@ public class MetalWorkCommitteeController extends BasicController {
         return result;
     }
 
-    /**
-     * 将委外订单保存到mes里
-     *
-     * @param mData 订单主表
-     * @param mDatas   产品表
-     * @param partStr      部件表
-     * @param mDataDetail  材料表
-     * @return {@link ResponseResult}
-     */
-    @PostMapping("save_to_mes")
-    public ResponseResult saveToMes(String mData,String mDatas,String partStr,String mDataDetail){
-        try {
-            ResponseResult result = null;
-            List<OmOrderMain> orderMainList = JSON.parseArray(mData,OmOrderMain.class);
-            List<OmProductVM> productList = JSON.parseArray(mDatas,OmProductVM.class);
-            List<OmOrderPartDTO> partList = JSON.parseArray(partStr, OmOrderPartDTO.class);
-            List<OmOrderMaterialDTO> materialList = JSON.parseArray(mDataDetail, OmOrderMaterialDTO.class);
-
-            return null;
-        } catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
-
-    }
 
 
     /**
@@ -382,17 +356,17 @@ public class MetalWorkCommitteeController extends BasicController {
         return result;
     }
     /**
-     * 审核
+     * 弃审
      * @param id
      * @return
      */
     @RequestMapping(value = "/uncheck")
     @ResponseBody
-    public ResponseResult unCheck(Integer id){
+    public ResponseResult unCheck(Integer u8Id,String mesId){
         ResponseResult result = new ResponseResult();
         try{
             DbContextHolder.setDbType(DBTypeEnum.db2);
-            result=  omMainService.unCheck(id);
+            result=  omMainService.unCheck(u8Id,mesId);
 
         }catch (Exception e){
             result.setSuccess(false);

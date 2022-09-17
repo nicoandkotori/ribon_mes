@@ -251,6 +251,8 @@ class omMesProduct {
         this.setProductInvUnit(data.productInvUnit);
         //数量
         this.setProductQty(data.productQty);
+        //税率
+        this.setTaxRate(data.taxRate);
         //材料单价
         this.setMaterialPrice(data.materialPrice);
         //单件材料费

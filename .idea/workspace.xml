@@ -4,56 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9696072-a778-4268-9a34-32db4dcf2a66" name="Default Changelist" comment="Default Changelist">
-      <change afterPath="$PROJECT_DIR$/.idea/easyCodeTableSetting.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/mybatisx/templates.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/smartfox_info.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mes_web/src/main/java/com/util/BaseEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/dto/OmOrderProductDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mes_web/src/main/resources/js_init_class/OmOrderMain.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mes_web/src/main/resources/static/components/readme.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/entity/omMesMain.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/index_new.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/jqGridColHelper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/44a43b63-2ab4-4d66-8256-0898bd7589fa.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/44a43b63-2ab4-4d66-8256-0898bd7589fa.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/44a43b63-2ab4-4d66-8256-0898bd7589fa/storage_v2/_src_/database/ribon_mes.RmCcpQ/schema/dbo.sYMBAA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/44a43b63-2ab4-4d66-8256-0898bd7589fa/storage_v2/_src_/database/ribon_mes.RmCcpQ/schema/dbo.sYMBAA.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="e9696072-a778-4268-9a34-32db4dcf2a66" name="Default Changelist" comment="概述：&#10;1.委外订单mes新增页面&#10;2.委外订单mes查询页面&#10;3.委外订单mes编辑页面&#10;4.委外订单mes部件新增页面">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bookmark/2Bse28blAIDYUrdUM0KFbwiPSbv.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bookmark/2Bse28blAIDYUrdUM0KFbwiPSbv.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mes_web/src/main/java/com/common/util/ResponseResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/java/com/common/util/ResponseResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/controller/MetalWorkCommitteeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/controller/MetalWorkCommitteeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/controller/OmOrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/controller/OmOrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/dto/OmOrderMainDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/dto/OmOrderMainDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/dto/OmOrderMaterialDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/dto/OmOrderMaterialDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/dto/OmOrderPartDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/dto/OmOrderPartDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmOrderDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmOrderDetail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmOrderMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmOrderMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmOrderMaterial.java" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmOrderMaterial.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmOrderPart.java" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmOrderPart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/mapper/OmOrderMaterialMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/mapper/OmOrderMaterialMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/IOmOrderMainService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/IOmOrderMainService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/dto/OmProductVM.java" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/dto/OmProductVM.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmMoMaterials.java" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmMoMaterials.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/mapper/OmOrderMainMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/mapper/OmOrderMainMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/IOmMoMainService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/IOmMoMainService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/impl/OmMoMainServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/impl/OmMoMainServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/impl/OmOrderMainServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/impl/OmOrderMainServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/resources/application-test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/resources/application-test.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/resources/mapper/om/OmMoMaterialsMapper.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/mes_web/src/main/resources/mapper/om/OmOrderMainMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/resources/mapper/om/OmOrderMainMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/resources/static/components/addpart.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/resources/static/components/choiceinventory.html" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/resources/static/components/choiceinventory.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/resources/static/js/jqGridTableHelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/resources/static/js/jqGridTableHelper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/U8QueryDTO.js" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/U8QueryDTO.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/add_new.html" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/add_new.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/addpart.html" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/addpart.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/constConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/constConfig.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/function.js" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/function.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/jqGridTableHelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/jqGridRowHelper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/omMesMaterial.js" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/entity/omMesMaterial.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/omMesPart.js" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/entity/omMesPart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/omMesPartMaterial.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/omMesProduct.js" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/entity/omMesProduct.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/edit_new.html" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/edit_new.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/entity/OmMesProduct.js" beforeDir="false" afterPath="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/entity/OmMesProduct.js" afterDir="false" />
     </list>
+    <list id="5ec52e00-66cc-44a9-ad9d-6f58a13eb3b3" name="ignore" comment="" />
+    <list id="296b3845-7bce-41c3-a1e4-bc0bc00f7a78" name="localchange" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -89,29 +59,53 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/IDEAProjects/ribon_mes/mes_web/src/main/resources/static/page/om/order",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editing.templates",
-    "spring.configuration.checksum": "e08b42554d3b0ef5f20456c6f54e0d6e"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder0&quot;: &quot;0&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder1&quot;: &quot;1&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder2&quot;: &quot;2&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder3&quot;: &quot;3&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder4&quot;: &quot;4&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder5&quot;: &quot;5&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth0&quot;: &quot;176&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth1&quot;: &quot;176&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth2&quot;: &quot;176&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth3&quot;: &quot;176&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth4&quot;: &quot;176&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth5&quot;: &quot;175&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder0&quot;: &quot;0&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder1&quot;: &quot;1&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder2&quot;: &quot;2&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder3&quot;: &quot;3&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder4&quot;: &quot;4&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder5&quot;: &quot;5&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth0&quot;: &quot;176&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth1&quot;: &quot;176&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth2&quot;: &quot;176&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth3&quot;: &quot;176&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth4&quot;: &quot;176&quot;,
+    &quot;FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth5&quot;: &quot;175&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/IDEAProjects/ribon_mes/mes_web/src/main/resources/static/page/om/order&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Subversion&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;e08b42554d3b0ef5f20456c6f54e0d6e&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/新建临时文件": [
-      "JSON5",
-      "JSON"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/新建临时文件&quot;: [
+      &quot;JSON5&quot;,
+      &quot;JSON&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -125,6 +119,7 @@
       <recent name="D:\IDEAProjects\ribon_mes\mes_web\src\main\resources\static\page\om\metalworkcommittee" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\IDEAProjects\ribon_mes\mes_web\src\main\resources\static\page\om\order\dto" />
       <recent name="D:\IDEAProjects\ribon_mes\mes_web\src\main\resources\static\page\om\order\entity" />
       <recent name="D:\IDEAProjects\ribon_mes\mes_web\src\main\resources\static\page\om\order" />
       <recent name="D:\IDEAProjects\ribon_mes\mes_web\src\main\resources\static\page\om\metalworkcommittee" />
@@ -163,6 +158,8 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="e9696072-a778-4268-9a34-32db4dcf2a66" name="Default Changelist" comment="" />
+      <changelist id="5ec52e00-66cc-44a9-ad9d-6f58a13eb3b3" name="ignore" comment="" />
+      <changelist id="296b3845-7bce-41c3-a1e4-bc0bc00f7a78" name="localchange" comment="" />
       <created>1657699011585</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -175,7 +172,11 @@
       <workItem from="1661991970813" duration="26509000" />
       <workItem from="1662683348427" duration="24148000" />
       <workItem from="1662944980614" duration="16211000" />
-      <workItem from="1663029636453" duration="56162000" />
+      <workItem from="1663029636453" duration="56301000" />
+      <workItem from="1663203211667" duration="190000" />
+      <workItem from="1663203460548" duration="29506000" />
+      <workItem from="1663374536769" duration="162000" />
+      <workItem from="1663374718624" duration="24404000" />
     </task>
     <task id="LOCAL-00001" summary="Default Changelist">
       <created>1661763171178</created>
@@ -226,7 +227,21 @@
       <option name="project" value="LOCAL" />
       <updated>1662975541129</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="9.14下班">
+      <created>1663145339005</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1663145339006</updated>
+    </task>
+    <task id="LOCAL-00009" summary="概述：&#10;1.委外订单mes新增页面&#10;2.委外订单mes查询页面&#10;3.委外订单mes编辑页面&#10;4.委外订单mes部件新增页面">
+      <created>1663236941384</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1663236941384</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -265,15 +280,28 @@
     <MESSAGE value="9.9下班" />
     <MESSAGE value="全都移到委外订单列表新" />
     <MESSAGE value="9.12" />
-    <option name="LAST_COMMIT_MESSAGE" value="9.12" />
+    <MESSAGE value="概述：&#10;1.委外订单mes新增页面&#10;2.委外订单mes查询页面&#10;3.委外订单mes编辑页面&#10;4.委外订单mes新增部件页面" />
+    <MESSAGE value="9.14下班" />
+    <MESSAGE value="概述：&#10;1.委外订单mes新增页面&#10;2.委外订单mes查询页面&#10;3.委外订单mes编辑页面&#10;4.委外订单mes部件新增页面" />
+    <option name="LAST_COMMIT_MESSAGE" value="概述：&#10;1.委外订单mes新增页面&#10;2.委外订单mes查询页面&#10;3.委外订单mes编辑页面&#10;4.委外订单mes部件新增页面" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/impl/OmMoMainServiceImpl.java</url>
-          <line>413</line>
+          <line>417</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/controller/OmOrderController.java</url>
+          <line>383</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/impl/OmMoMainServiceImpl.java</url>
+          <line>1006</line>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

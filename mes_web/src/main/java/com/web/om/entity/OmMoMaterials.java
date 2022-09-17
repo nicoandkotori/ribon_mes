@@ -189,8 +189,17 @@ public class OmMoMaterials {
     /**
      * 转换mes字段为u8字段
      */
-    public void setDataFromMesProduct(OmOrderMaterial material){
+    public void setDataFromMesMaterial(OmOrderMaterial material){
         setCinvcode(material.getInvCode());
+        setCdefine28(material.getInvLand());
+        setCdefine29(material.getInvLen());
+        setCdefine30(material.getInvWidth());
+        setCdefine31(material.getInvExternalDiameter());
+        setCdefine32(material.getInvInternalDiameter());
+        setCdefine22(material.getInvSize());
+        setFbaseqtyn(material.getIqty());
         setIquantity(material.getPartQty());
+        setCdefine26(material.getUnitMaterialPrice());
+        setCdefine27(material.getUnitMaterialAmount());
     }
 }

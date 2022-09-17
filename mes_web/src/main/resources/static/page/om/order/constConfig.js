@@ -31,6 +31,10 @@ const URL_UPDATE_MES_MAIN_BY_ID = URL_BASE_ORDER+"update";
 const URL_DELETE_MES_ORDER_BY_ID = URL_BASE_ORDER+"delete_main_by_id"
 //通过id查询一个订单中的所有数据
 const URL_GET_ALL_MAIN_DATA_BY_ID = URL_BASE_ORDER+"get_all_main_data_by_id"
+//审核数据
+const URL_AUDIT = URL_BASE_ORDER+"audit"
+//弃审
+const URL_NOT_AUDIT = URL_BASE_ORDER+"uncheck"
 
 
 /*

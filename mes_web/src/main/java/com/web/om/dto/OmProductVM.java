@@ -1,6 +1,8 @@
 package com.web.om.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.web.om.entity.OmOrderDetail;
+import com.web.om.entity.OmOrderMaterial;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -26,7 +28,12 @@ public class OmProductVM {
     private String cvencode;
     private String cvenname;
     private String cmemo;
-    private Integer cstate;    //---
+    private Byte[] cstate;    //---
+    private Integer iverifystatenew;
+    private String cverifier;
+    private Date dverifydate;
+
+    private Date dverifytime;
 
     //子表
     private Integer modetailsid;   //---
@@ -67,4 +74,47 @@ public class OmProductVM {
 
     private Integer rowNo;
     private String recordId;//标识
+
+    /**
+     * 转换mes字段为u8字段
+     */
+    public void setDataFromMesMaterial(OmOrderMaterial material){
+        setRecordId(material.getRecordId());
+        setCinvcodes(material.getInvCode());
+        setCinvname(material.getInvName());
+        setCinvstds(material.getInvStd());
+        setCcomunitname(material.getInvUnit());
+        setCdefine22(material.getInvSize());
+        setCdefine26(material.getUnitMaterialPrice());
+        setCdefine27(material.getUnitMaterialAmount());
+        setCdefine28(material.getInvLand());
+        setCdefine29(material.getInvLen());
+        setCdefine30(material.getInvWidth());
+        setCdefine31(material.getInvExternalDiameter());
+        setCdefine32(material.getInvInternalDiameter());
+        setFbaseqtyn(material.getIqty());
+        setFqtys(material.getTqty());
+        setIquantity(new BigDecimal(material.getProductQty()));
+
+    }
+
+    /**
+     * 转换mes字段为u8字段
+     */
+    public void setDataFromMesProduct(OmOrderDetail product){
+        setRecordId(product.getRecordId());
+        setCinvcode(product.getProductInvCode());
+        setCinvname(product.getProductInvName());
+        setCinvstd(product.getProductInvStd());
+        setCcomunitname(product.getProductInvUnit());
+        setIquantity(product.getProductQty());
+        setCdefine26(product.getMaterialPrice());
+        setCdefine27(product.getMaterialAmount());
+        setItaxprice(product.getWorkPrice());
+        setInatsum(product.getTotalWorkAmount());
+        setTolpic(product.getPrice());
+        setTolnum(product.getAmount());
+        setDstartdate(product.getPlanStartDate());
+        setDarrivedate(product.getPlanEndDate());
+    }
 }

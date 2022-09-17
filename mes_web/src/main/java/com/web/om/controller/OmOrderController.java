@@ -42,6 +42,9 @@ public class OmOrderController extends BasicController {
     @Autowired
     private IOmOrderPartService partService;
 
+    @Autowired
+    private IOmMoMainService u8MainService;
+
     /**
      * 查询最大的单据号
      */
@@ -353,6 +356,49 @@ public class OmOrderController extends BasicController {
              * mijiahao TODO: 作废前还要判断有没有审核
              */
             return omMainService.deleteMainById(id);
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseResult.error(e.getMessage());
+        }
+    }
+
+    /**
+     * 审核数据，写入U8
+     *
+     * @return {@link ResponseResult}
+     */
+    @PostMapping("audit")
+    public ResponseResult audit(String mainStr,String productStr,String materialStr){
+        try {
+            ResponseResult result = null;
+            DbContextHolder.setDbType(DBTypeEnum.db2);
+            OmOrderMain main = JSON.parseObject(mainStr, OmOrderMain.class);
+            List<OmOrderDetail> productList = JSON.parseArray(productStr,OmOrderDetail.class);
+            List<OmOrderMaterial> materialList = JSON.parseArray(materialStr,OmOrderMaterial.class);
+            if (StringUtils.isNotBlank(main.getU8Id()) && main.getU8Id()>0) {
+                return ResponseResult.error("已审核，请勿重复审核");
+            }
+
+
+            //主表转换
+            OmMoMain u8Main = new OmMoMain();
+            u8Main.setDataFromMesMain(main);
+            //产品记录转换
+            List<OmProductVM> u8DetailList = new ArrayList<>();
+            productList.forEach(product ->{
+                OmProductVM u8Detail = new OmProductVM();
+                u8Detail.setDataFromMesProduct(product);;
+                u8DetailList.add(u8Detail);
+            });
+            //材料记录转换
+            List<OmProductVM> u8MaterialList = new ArrayList<>();
+            materialList.forEach(material -> {
+                OmProductVM u8Material = new OmProductVM();
+                u8Material.setDataFromMesMaterial(material);
+                u8MaterialList.add(u8Material);
+            });
+            result = u8MainService.save1(u8Main,u8DetailList,u8MaterialList,main);
+            return result;
         } catch (Exception e){
             e.printStackTrace();
             return ResponseResult.error(e.getMessage());

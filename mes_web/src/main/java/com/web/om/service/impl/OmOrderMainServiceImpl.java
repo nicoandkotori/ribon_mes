@@ -75,6 +75,7 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
             result.setResult(mainId);
             main.setId(mainId);
             main.setCreateInfo(mainId);
+            main.setStatusId("未审核");
             this.save(main);
             //产品表ID的map，key是recordID，value是产品记录的ID
             Map<String,String> productIdMap = new HashMap<>();
@@ -156,20 +157,25 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
             LambdaQueryWrapper<OmOrderPart> partWrapper = new LambdaQueryWrapper<OmOrderPart>();
             partWrapper.eq(OmOrderPart::getMainId,mainId);
             List<OmOrderPart> deletePartList = partService.list(partWrapper);
-            List<String> deletePartIdList = new ArrayList<>();
-            deletePartList.forEach( part ->{
-                deletePartIdList.add(part.getId());
-            });
-            partService.removeByIds(deletePartIdList);
+            if (deletePartList.size()!=0){
+                List<String> deletePartIdList = new ArrayList<>();
+                deletePartList.forEach( part ->{
+                    deletePartIdList.add(part.getId());
+                });
+
+                partService.removeByIds(deletePartIdList);
+            }
             //删除材料表
             LambdaQueryWrapper<OmOrderMaterial> materialWrapper = new LambdaQueryWrapper<>();
             materialWrapper.eq(OmOrderMaterial::getMainId,mainId);
             List<OmOrderMaterial> deleteMaterialList = materialService.list(materialWrapper);
-            List<String> deleteMaterialIdList = new ArrayList<>();
-            deleteMaterialList.forEach( material ->{
-                deleteMaterialIdList.add(material.getId());
-            });
-            materialService.removeByIds(deleteMaterialIdList);
+            if (deleteMaterialList.size() !=0 ){
+                List<String> deleteMaterialIdList = new ArrayList<>();
+                deleteMaterialList.forEach( material ->{
+                    deleteMaterialIdList.add(material.getId());
+                });
+                materialService.removeByIds(deleteMaterialIdList);
+            }
             //产品表ID的map，key是recordID，value是产品记录的ID
             Map<String,String> productIdMap = new HashMap<>();
             //部件表的ID的mao，key是partRowId,value是部件记录的ID

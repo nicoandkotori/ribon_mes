@@ -66,15 +66,16 @@
         <div class="weadmin-block">
             <button type="button" class="layui-btn layui-btn-sm" onclick="continueAdd()">新增</button>
             <button type="button" class="layui-btn layui-btn-sm" lay-filter="save" lay-submit="">保存</button>
-            <button type="button" class="layui-btn layui-btn-sm" onclick="FnCheck()">审核</button>
-            <button type="button" class="layui-btn layui-btn-sm" onclick="FnUnCheck()">弃审</button>
+            <button type="button" class="layui-btn layui-btn-sm" lay-filter="audit" lay-submit="" >审核</button>
+            <button type="button" class="layui-btn layui-btn-sm" onclick="btnNotAudit()">弃审</button>
             <button type="button" class="layui-btn layui-btn-sm" onclick="FnPrint()">打印</button>
-
         </div>
 
 
         <div class="layui-form-item weadmin-item">
             <input type="hidden" id="id" name="id">
+            <input type="hidden" id="u8Id" name="u8Id">
+            <input type="hidden" id="statusId" name="statusId">
 
             <label for="vouchCode" class="weadmin-lable-sm layui-col-md1">
                 <span class="we-red">*</span>订单编号
@@ -209,6 +210,8 @@
     var partMaxId = 1;
     //材料表最大行ID
     var materialMaxId = 1;
+    //允许审核的标志，每次保存完后会设为true，每次审核完后设为false
+    var ableToAudit = false;
     $(function () {
         initJqgrid();
         // initBtn(".weadmin-block button", "/biz/moplanmain");
@@ -291,18 +294,79 @@
                         layer.msg("保存成功", {icon: 6});
                         console.log("保存成功");
                         $("#id").val(data.result);
+                        ableToAudit = true;
                         loadAllDataByMainId();
                     } else {
                         layer.msg("保存失败!" + data.msg, {icon: 6});
                     }
                 });
             } else {
-                loadAllDataByMainId()
+                //更新
+                console.log("更新数据");
+                sendPostReq(URL_UPDATE_MES_MAIN_BY_ID, {
+                    mainStr: JSON.stringify(data.field),
+                    productStr: productDataStr,
+                    partStr: partDataStr,
+                    materialStr: materialDataStr
+                }, function (data) {
+                    if (data.success == true || data.success == "true") {
+                        layer.msg("保存成功", {icon: 6});
+                        ableToAudit =true;
+                        loadAllDataByMainId();
+                    } else {
+                        layer.msg("更新失败!" + data.msg, {icon: 6});
+                    }
+
+
+                });
+
             }
 
 
 
         });
+
+        /*
+         * 审核
+         */
+        form.on('submit(audit)', function (data) {
+            console.log("审核");
+            if (CurRow != "" && CurRow != undefined) {
+                $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
+            }
+            if (CurRow1 != "" && CurRow1 != undefined) {
+                $("#jqGridDetail").jqGrid('saveCell', CurRow1, CurCol1);
+            }
+            var productData = productHelper.getAllRowData();
+            var productDataStr = JSON.stringify(productData);
+            var materialData = materialHelper.getAllRowData();
+            var materialDataStr = JSON.stringify(materialData);
+            //map转成一维object数组
+            let partDataArray = convertPartDataMapToArray();
+            let partDataStr = JSON.stringify(partDataArray);
+            let mainId = $("#id").val();
+            if (!ableToAudit){
+                layer.alert("请先保存！")
+                return;
+            }
+            sendPostReq(URL_AUDIT, {
+                mainStr: JSON.stringify(data.field),
+                productStr: productDataStr,
+                partStr: partDataStr,
+                materialStr: materialDataStr
+            }, function (data) {
+                if (data.success == true || data.success == "true") {
+                    layer.msg("审核成功", {icon: 6});
+                    console.log("审核成功");
+                    ableToAudit = false;
+                    //$("#id").val(data.result);
+                    loadAllDataByMainId();
+                } else {
+                    layer.msg("保存失败!" + data.msg, {icon: 6});
+                }
+            });
+
+        })
     });
 
 
@@ -791,6 +855,7 @@
         //根据选择物料类型来为产品表或材料表赋值，不算优雅的设计，但受限于框架没有更好的实现方式
         switch (chooseInvType) {
             case 'product':
+                console.log("选择产品信息");
                 productHelper.saveCell(CurRow,CurCol);
                 materialHelper.saveCell(CurRow1,CurCol1);
                 let mesProduct = new omMesProduct();
@@ -1409,6 +1474,46 @@
             }
         });
     }
+
+    /*
+     * 弃审
+     */
+    function btnNotAudit() {
+        var u8Id=$("#u8Id").val();
+        let mesId = $('#id').val();
+        if(u8Id!=""&&u8Id!=null)
+        {
+            $.ajax({
+                type: "post",
+                url: "/om/metalworkcommittee/uncheck",
+                data: { u8Id: u8Id,mesId:mesId},
+                success: function (text) {
+                    var data = text;
+                    if (data.success == true || data.success == "true") {
+                        layer.alert("弃审成功!");
+                        $('#u8Id').val("");
+                        $('#statusId').val("");
+                        $.get("/om/metalworkcommittee/getmaxcode", {}, function (text) {
+                            $("#vouchCode").val(text.result);
+                        });
+                    }
+                    else {
+                        layer.alert(data.msg);
+                    }
+
+                },
+                error: function ()
+                { }
+            });
+        }
+        else
+        {
+            layer.alert("请先保存!");
+        }
+
+    }
+    
+
 
 
 

@@ -112,4 +112,22 @@
         WHERE t.id = #{main.id,jdbcType=VARCHAR}
         ORDER BY t1.row_no, t2.row_no
     </select>
+    
+    <update id="updateWithDbName">
+        update ${database}.dbo.om_order_main
+        <set>
+            <if test="main.u8Id != null and main.u8Id!= ''">
+                u8_id = #{main.u8Id},
+
+            </if>
+            <if test="main.statusId != null and main.statusId != ''">
+                status_id = #{main.statusId},
+            </if>
+        </set>
+        <where>
+            id = #{main.id}
+        </where>
+
+
+    </update>
 </mapper>
