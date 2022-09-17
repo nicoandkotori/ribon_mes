@@ -362,11 +362,11 @@ public class MetalWorkCommitteeController extends BasicController {
      */
     @RequestMapping(value = "/uncheck")
     @ResponseBody
-    public ResponseResult unCheck(Integer u8Id,String mesId){
+    public ResponseResult unCheck(Integer id,String mesId){
         ResponseResult result = new ResponseResult();
         try{
             DbContextHolder.setDbType(DBTypeEnum.db2);
-            result=  omMainService.unCheck(u8Id,mesId);
+            result=  omMainService.unCheck(id,mesId);
 
         }catch (Exception e){
             result.setSuccess(false);

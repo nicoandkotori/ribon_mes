@@ -1486,7 +1486,7 @@
             $.ajax({
                 type: "post",
                 url: "/om/metalworkcommittee/uncheck",
-                data: { u8Id: u8Id,mesId:mesId},
+                data: { id: u8Id,mesId:mesId},
                 success: function (text) {
                     var data = text;
                     if (data.success == true || data.success == "true") {

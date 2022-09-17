@@ -3,10 +3,7 @@ package com.web.om.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.common.util.CustomStringUtils;
-import com.common.util.DateUtil;
-import com.common.util.ParamUtil;
-import com.common.util.ResponseResult;
+import com.common.util.*;
 import com.modules.data.mybatis.DBTypeEnum;
 import com.modules.data.mybatis.DbContextHolder;
 import com.modules.security.util.SecurityUtil;
@@ -513,11 +510,14 @@ public class OmMoMainServiceImpl extends ServiceImpl<OmMoMainMapper, OmMoMain> i
                     throw new Exception("保存表头出错！");
                 }
                 //更新mes委外主表审核信息
-                OmOrderMain updateMain = new OmOrderMain();
-                updateMain.setId(mesMain.getId());
-                updateMain.setStatusId("已审核");
-                updateMain.setU8Id(u8fid);
-                mesMainMapper.updateWithDbName(updateMain, ParamUtil.getParam("localDatabase").toString());
+                if (mesMain != null){
+                    OmOrderMain updateMain = new OmOrderMain();
+                    updateMain.setId(mesMain.getId());
+                    updateMain.setStatusId("已审核");
+                    updateMain.setU8Id(u8fid);
+                    mesMainMapper.updateWithDbName(updateMain, ParamUtil.getParam("localDatabase").toString());
+                }
+
                 //循环插入合同信息
                 int row=1;
                 for(OmProductVM t:list) {
@@ -988,10 +988,12 @@ public class OmMoMainServiceImpl extends ServiceImpl<OmMoMainMapper, OmMoMain> i
                 m.setDverifydate(null);
                 int n=omMoMainMapper.updateUnCheck(m);
                 OmOrderMain mesMain = new OmOrderMain();
-                mesMain.setId(mesId);;
-                mesMain.setU8Id(-1);
-                mesMain.setStatusId("未审核");
-                mesMainMapper.updateWithDbName(mesMain,ParamUtil.getParam("localDatabase").toString());
+                if (StringUtils.isNotBlank(mesId)){
+                    mesMain.setId(mesId);
+                    mesMain.setU8Id(-1);
+                    mesMain.setStatusId("未审核");
+                    mesMainMapper.updateWithDbName(mesMain,ParamUtil.getParam("localDatabase").toString());
+                }
                 if(n<=0)
                 {
                     result.setSuccess(false);
