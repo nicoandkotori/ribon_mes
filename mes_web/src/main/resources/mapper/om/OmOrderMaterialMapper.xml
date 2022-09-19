@@ -40,4 +40,132 @@
     inv_density, inv_size, iqty, tqty, create_user, create_date, update_user, update_date,
     iz_delete, delete_user, delete_date, itype, u8_mo_material_id
   </sql>
+
+  <!--通过主键和数据库名称修改数据-->
+  <update id="updateWithDBName">
+    update ${database}.dbo.om_order_main
+    <set>
+      <if test="detailId != null and detailId != ''">
+        detail_id = #{material.detailId},
+      </if>
+      <if test="partId != null and partId != ''">
+        part_id = #{material.partId},
+      </if>
+      <if test="mainId != null and mainId != ''">
+        main_id = #{material.mainId},
+      </if>
+      <if test="invCode != null and invCode != ''">
+        inv_code = #{material.invCode},
+      </if>
+      <if test="invName != null and invName != ''">
+        inv_name = #{material.invName},
+      </if>
+      <if test="unitMaterialPrice != null">
+        unit_material_price = #{material.unitMaterialPrice},
+      </if>
+      <if test="unitMaterialAmount != null">
+        unit_material_amount = #{material.unitMaterialAmount},
+      </if>
+      <if test="invLand != null and invLand != ''">
+        inv_land = #{material.invLand},
+      </if>
+      <if test="invWidth != null and invWidth != ''">
+        inv_width = #{material.invWidth},
+      </if>
+      <if test="invLen != null and invLen != ''">
+        inv_len = #{material.invLen},
+      </if>
+      <if test="invExternalDiameter != null and invExternalDiameter != ''">
+        inv_external_diameter = #{material.invExternalDiameter},
+      </if>
+      <if test="invInternalDiameter != null and invInternalDiameter != ''">
+        inv_internal_diameter = #{material.invInternalDiameter},
+      </if>
+      <if test="invDensity != null and invDensity != ''">
+        inv_density = #{material.invDensity},
+      </if>
+      <if test="invSize != null and invSize != ''">
+        inv_size = #{material.invSize},
+      </if>
+      <if test="iqty != null">
+        iqty = #{material.iqty},
+      </if>
+      <if test="tqty != null">
+        tqty = #{material.tqty},
+      </if>
+      <if test="createUser != null and createUser != ''">
+        create_user = #{material.createUser},
+      </if>
+      <if test="createDate != null">
+        create_date = #{material.createDate},
+      </if>
+      <if test="updateUser != null and updateUser != ''">
+        update_user = #{material.updateUser},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{material.updateDate},
+      </if>
+      <if test="izDelete != null">
+        iz_delete = #{material.izDelete},
+      </if>
+      <if test="deleteUser != null and deleteUser != ''">
+        delete_user = #{material.deleteUser},
+      </if>
+      <if test="deleteDate != null">
+        delete_date = #{material.deleteDate},
+      </if>
+      <if test="itype != null and itype != ''">
+        itype = #{material.itype},
+      </if>
+      <if test="u8MoMaterialId != null">
+        u8_mo_material_id = #{material.u8MoMaterialId},
+      </if>
+      <if test="rowNo != null">
+        row_no = #{material.rowNo},
+      </if>
+      <if test="productInvStd != null and productInvStd != ''">
+        product_inv_std = #{material.productInvStd},
+      </if>
+      <if test="productInvUnit != null and productInvUnit != ''">
+        product_inv_unit = #{material.productInvUnit},
+      </if>
+      <if test="productInvCode != null and productInvCode != ''">
+        product_inv_code = #{material.productInvCode},
+      </if>
+      <if test="productInvName != null and productInvName != ''">
+        product_inv_name = #{material.productInvName},
+      </if>
+      <if test="partInvName != null and partInvName != ''">
+        part_inv_name = #{material.partInvName},
+      </if>
+      <if test="partInvCode != null and partInvCode != ''">
+        part_inv_code = #{material.partInvCode},
+      </if>
+      <if test="partQty != null">
+        part_qty = #{material.partQty},
+      </if>
+      <if test="partInvStd != null and partInvStd != ''">
+        part_inv_std = #{material.partInvStd},
+      </if>
+      <if test="partInvUnit != null and partInvUnit != ''">
+        part_inv_unit = #{material.partInvUnit},
+      </if>
+      <if test="invStd != null and invStd != ''">
+        inv_std = #{material.invStd},
+      </if>
+      <if test="invUnit != null and invUnit != ''">
+        inv_unit = #{material.invUnit},
+      </if>
+      <if test="productQty != null and productQty != ''">
+        product_qty = #{material.productQty},
+      </if>
+      <if test="recordId != null and recordId != ''">
+        record_id = #{material.recordId},
+      </if>
+      <if test="partRowId != null and partRowId != ''">
+        part_row_id = #{material.partRowId},
+      </if>
+    </set>
+    where id = #{material.id}
+  </update>
 </mapper>

@@ -314,8 +314,13 @@
                 mainStr: JSON.stringify(data.field),
                 productStr: productDataStr,
                 materialStr: materialDataStr
-            },function (result) {
-
+            },function (data) {
+                if (data.success == true || data.success == "true") {
+                    layer.msg("变更成功", {icon: 6});
+                    console.log("变更成功");
+                } else {
+                    layer.msg("保存失败!" + data.msg, {icon: 6});
+                }
             })
         });
 

@@ -67,6 +67,7 @@ public class OmProductVM {
     private String cdefine30;//宽
     private String cdefine31;//外径
     private String cdefine32;//内径
+    private String cdefine33;//mes中材料记录ID
     private String cinvdefine2;//密度   //---
     private String cdefine22;//下料尺寸
     private BigDecimal fbaseqtyn;//单耗     //---
@@ -92,6 +93,7 @@ public class OmProductVM {
         setCdefine30(material.getInvWidth());
         setCdefine31(material.getInvExternalDiameter());
         setCdefine32(material.getInvInternalDiameter());
+        setCdefine33(material.getId());
         setFbaseqtyn(material.getIqty());
         setFqtys(material.getTqty());
         setIquantity(new BigDecimal(material.getProductQty()));

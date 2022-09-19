@@ -66,7 +66,7 @@ public interface IOmOrderMainService extends IService<OmOrderMain> {
      *
      * @return {@link ResponseResult}
      */
-    ResponseResult audit(OmMoMain omProductPo, List<OmProductVM> list, List<OmProductVM> listDetail, OmOrderMain mesMain) throws Exception;
+    ResponseResult audit(OmMoMain omProductPo, List<OmProductVM> list, List<OmProductVM> listDetail, OmOrderMain mesMain, List<OmOrderDetail> mesProduct, List<OmOrderMaterial> mesMaterialList) throws Exception;
 
 
     /**
@@ -79,7 +79,7 @@ public interface IOmOrderMainService extends IService<OmOrderMain> {
      */
     ResponseResult change(OmOrderMain main,
                            List<OmOrderDetail> productList,
-                           List<OmOrderMaterial> materialList);
+                           List<OmOrderMaterial> materialList) ;
 }
 
 

@@ -340,14 +340,21 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
     /**
      * 审核
      *
-     * @param omProductPo
-     * @param list        列表
-     * @param listDetail  列表细节
-     * @param mesMain     mes委外主表
+     * @param u8ProductList   u8产品列表
+     * @param u8MaterialList  u8材料列表
+     * @param mesMain         mes委外主表
+     * @param omProductPo     om产品订单
+     * @param mesProductList  mes产品列表
+     * @param mesMaterialList mes材料列表
      * @return {@link ResponseResult}
+     * @throws Exception 异常
      */
     @Transactional(rollbackFor = Exception.class)
-    public ResponseResult audit(OmMoMain omProductPo, List<OmProductVM>  list, List<OmProductVM>  listDetail, OmOrderMain mesMain) throws Exception{
+    public ResponseResult audit(OmMoMain omProductPo,
+                                List<OmProductVM>  u8ProductList,
+                                List<OmProductVM>  u8MaterialList,
+                                OmOrderMain mesMain,
+                                List<OmOrderDetail> mesProductList, List<OmOrderMaterial> mesMaterialList) throws Exception{
         ResponseResult result = new ResponseResult();
         try{
 
@@ -369,7 +376,7 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
                 throw new Exception("供应商不能为空！");
             }
 
-            if(list==null||list.size()==0)
+            if(u8ProductList==null||u8ProductList.size()==0)
             {
                 throw new Exception("列表数据不能为空！");
             }
@@ -436,7 +443,7 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
                     throw new Exception("保存表头出错！");
                 }
                 //循环插入子表信息
-                for(OmProductVM t:list)
+                for(OmProductVM t:u8ProductList)
                 {
                     if(CustomStringUtils.isBlank(t.getCinvcode()))
                     {
@@ -545,7 +552,7 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
 
                 }
                 //循环插入明细信息
-                for(OmProductVM t:listDetail)
+                for(OmProductVM t:u8MaterialList)
                 {
 
                     if(CustomStringUtils.isNotBlank(t.getCinvcodes()))
@@ -588,7 +595,7 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
                             omPoDetails.setIunitnum(unit.getIchangrate().multiply(t.getIquantity()));
                         }
 
-                        for(OmProductVM q:list)
+                        for(OmProductVM q:u8ProductList)
                         {
                             if(q.getRecordId().equals(t.getRecordId()))
                             {
@@ -699,7 +706,7 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
 
                 //循环插入合同信息
                 int row=1;
-                for(OmProductVM t:list) {
+                for(OmProductVM t:u8ProductList) {
 
                     if (CustomStringUtils.isBlank(t.getCinvcode())) {
                         throw new Exception("产品编码不能为空！");
@@ -760,7 +767,7 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
 
 
                     int izExist = 0;
-                    for (OmProductVM material : listDetail)
+                    for (OmProductVM material : u8MaterialList)
                     {
                         if(material.getRecordId().equals(t.getRecordId()))
                         {
@@ -796,7 +803,7 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
                 }
                 //循环插入合同信息
                 row=1;
-                for(OmProductVM t:listDetail) {
+                for(OmProductVM t:u8MaterialList) {
 
                     if (CustomStringUtils.isNotBlank(t.getCinvcodes())) {
                         if (CustomStringUtils.isBlank(t.getFbaseqtyn()) || t.getFbaseqtyn().compareTo(BigDecimal.ZERO) == 0) {
@@ -805,7 +812,7 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
 
                         OmMoMaterials omPoDetails = new OmMoMaterials();
                         omPoDetails.setDefaultValueForJinGong();
-                        for(OmProductVM q:list)
+                        for(OmProductVM q:u8ProductList)
                         {
                             if(q.getRecordId().equals(t.getRecordId()))
                             {
@@ -898,7 +905,7 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ResponseResult change(OmOrderMain main, List<OmOrderDetail> productList, List<OmOrderMaterial> materialList) {
+    public ResponseResult change(OmOrderMain main, List<OmOrderDetail> productList, List<OmOrderMaterial> materialList){
         try {
             ResponseResult result = new ResponseResult();
             Integer u8Id = main.getU8Id();
@@ -916,7 +923,12 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
                         System.out.println("有入库记录");
                         result.setMsg("有入库记录");
                         BigDecimal inputProductQty = product.getIreceivedqty();
-                        BigDecimal updateProductQty = product.getIquantity();
+                        BigDecimal updateProductQty = null;
+                        productList.forEach(mesProduct ->{
+                            if (mesProduct.getU8MoDetailId().equals(product.getMoid())){
+
+                            }
+                        });
                         if (updateProductQty.compareTo(inputProductQty) >= 0){
 
 
@@ -944,7 +956,7 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
             return result;
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
     }
 

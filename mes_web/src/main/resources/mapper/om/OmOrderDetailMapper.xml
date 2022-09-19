@@ -35,4 +35,87 @@
     amount, plan_start_date, plan_end_date, create_user, create_date, update_user, update_date, 
     iz_delete, delete_user, delete_date, u8_mo_detail_id
   </sql>
+
+  <!--根据主键和数据库名称更新数据-->
+  <update id="updateWithDBName">
+    update ${database}.dbo.om_order_detail
+    <set>
+      <if test="mainId != null and mainId != ''">
+        main_id = #{product.mainId},
+      </if>
+      <if test="productInvCode != null and productInvCode != ''">
+        product_inv_code = #{product.productInvCode},
+      </if>
+      <if test="productInvName != null and productInvName != ''">
+        product_inv_name = #{product.productInvName},
+      </if>
+      <if test="productInvStd != null and productInvStd != ''">
+        product_inv_std = #{product.productInvStd},
+      </if>
+      <if test="productInvUnit != null and productInvUnit != ''">
+        product_inv_unit = #{product.productInvUnit},
+      </if>
+      <if test="productQty != null">
+        product_qty = #{product.productQty},
+      </if>
+      <if test="materialPrice != null">
+        material_price = #{product.materialPrice},
+      </if>
+      <if test="materialAmount != null">
+        material_amount = #{product.materialAmount},
+      </if>
+      <if test="workPrice != null">
+        work_price = #{product.workPrice},
+      </if>
+      <if test="totalWorkAmount != null">
+        total_work_amount = #{product.totalWorkAmount},
+      </if>
+      <if test="price != null">
+        price = #{product.price},
+      </if>
+      <if test="amount != null">
+        amount = #{product.amount},
+      </if>
+      <if test="planStartDate != null">
+        plan_start_date = #{product.planStartDate},
+      </if>
+      <if test="planEndDate != null">
+        plan_end_date = #{product.planEndDate},
+      </if>
+      <if test="createUser != null and createUser != ''">
+        create_user = #{product.createUser},
+      </if>
+      <if test="createDate != null">
+        create_date = #{product.createDate},
+      </if>
+      <if test="updateUser != null and updateUser != ''">
+        update_user = #{product.updateUser},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{product.updateDate},
+      </if>
+      <if test="izDelete != null">
+        iz_delete = #{product.izDelete},
+      </if>
+      <if test="deleteUser != null and deleteUser != ''">
+        delete_user = #{product.deleteUser},
+      </if>
+      <if test="deleteDate != null">
+        delete_date = #{product.deleteDate},
+      </if>
+      <if test="u8MoDetailId != null">
+        u8_mo_detail_id = #{product.u8MoDetailId},
+      </if>
+      <if test="rowNo != null">
+        row_no = #{product.rowNo},
+      </if>
+      <if test="taxRate != null">
+        tax_rate = #{product.taxRate},
+      </if>
+      <if test="recordId != null and recordId != ''">
+        record_id = #{product.recordId},
+      </if>
+    </set>
+    where id = #{product.id}
+  </update>
 </mapper>

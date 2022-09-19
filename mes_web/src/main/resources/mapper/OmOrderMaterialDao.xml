@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace=".dao.OmOrderMaterialDao">
+
+    <resultMap type=".entity.OmOrderMaterial" id="OmOrderMaterialMap">
+        <result property="id" column="id" jdbcType=""/>
+        <result property="detailId" column="detail_id" jdbcType=""/>
+        <result property="partId" column="part_id" jdbcType=""/>
+        <result property="mainId" column="main_id" jdbcType=""/>
+        <result property="invCode" column="inv_code" jdbcType=""/>
+        <result property="invName" column="inv_name" jdbcType=""/>
+        <result property="unitMaterialPrice" column="unit_material_price" jdbcType=""/>
+        <result property="unitMaterialAmount" column="unit_material_amount" jdbcType=""/>
+        <result property="invLand" column="inv_land" jdbcType=""/>
+        <result property="invWidth" column="inv_width" jdbcType=""/>
+        <result property="invLen" column="inv_len" jdbcType=""/>
+        <result property="invExternalDiameter" column="inv_external_diameter" jdbcType=""/>
+        <result property="invInternalDiameter" column="inv_internal_diameter" jdbcType=""/>
+        <result property="invDensity" column="inv_density" jdbcType=""/>
+        <result property="invSize" column="inv_size" jdbcType=""/>
+        <result property="iqty" column="iqty" jdbcType=""/>
+        <result property="tqty" column="tqty" jdbcType=""/>
+        <result property="createUser" column="create_user" jdbcType=""/>
+        <result property="createDate" column="create_date" jdbcType=""/>
+        <result property="updateUser" column="update_user" jdbcType=""/>
+        <result property="updateDate" column="update_date" jdbcType=""/>
+        <result property="izDelete" column="iz_delete" jdbcType=""/>
+        <result property="deleteUser" column="delete_user" jdbcType=""/>
+        <result property="deleteDate" column="delete_date" jdbcType=""/>
+        <result property="itype" column="itype" jdbcType=""/>
+        <result property="u8MoMaterialId" column="u8_mo_material_id" jdbcType=""/>
+        <result property="rowNo" column="row_no" jdbcType=""/>
+        <result property="productInvStd" column="product_inv_std" jdbcType=""/>
+        <result property="productInvUnit" column="product_inv_unit" jdbcType=""/>
+        <result property="productInvCode" column="product_inv_code" jdbcType=""/>
+        <result property="productInvName" column="product_inv_name" jdbcType=""/>
+        <result property="partInvName" column="part_inv_name" jdbcType=""/>
+        <result property="partInvCode" column="part_inv_code" jdbcType=""/>
+        <result property="partQty" column="part_qty" jdbcType=""/>
+        <result property="partInvStd" column="part_inv_std" jdbcType=""/>
+        <result property="partInvUnit" column="part_inv_unit" jdbcType=""/>
+        <result property="invStd" column="inv_std" jdbcType=""/>
+        <result property="invUnit" column="inv_unit" jdbcType=""/>
+        <result property="productQty" column="product_qty" jdbcType=""/>
+        <result property="recordId" column="record_id" jdbcType="VARCHAR"/>
+        <result property="partRowId" column="part_row_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OmOrderMaterialMap">
+        select
+          id, detail_id, part_id, main_id, inv_code, inv_name, unit_material_price, unit_material_amount, inv_land, inv_width, inv_len, inv_external_diameter, inv_internal_diameter, inv_density, inv_size, iqty, tqty, create_user, create_date, update_user, update_date, iz_delete, delete_user, delete_date, itype, u8_mo_material_id, row_no, product_inv_std, product_inv_unit, product_inv_code, product_inv_name, part_inv_name, part_inv_code, part_qty, part_inv_std, part_inv_unit, inv_std, inv_unit, product_qty, record_id, part_row_id
+        from om_order_material
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="OmOrderMaterialMap">
+        select
+          id, detail_id, part_id, main_id, inv_code, inv_name, unit_material_price, unit_material_amount, inv_land, inv_width, inv_len, inv_external_diameter, inv_internal_diameter, inv_density, inv_size, iqty, tqty, create_user, create_date, update_user, update_date, iz_delete, delete_user, delete_date, itype, u8_mo_material_id, row_no, product_inv_std, product_inv_unit, product_inv_code, product_inv_name, part_inv_name, part_inv_code, part_qty, part_inv_std, part_inv_unit, inv_std, inv_unit, product_qty, record_id, part_row_id
+        from om_order_material
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="detailId != null and detailId != ''">
+                and detail_id = #{detailId}
+            </if>
+            <if test="partId != null and partId != ''">
+                and part_id = #{partId}
+            </if>
+            <if test="mainId != null and mainId != ''">
+                and main_id = #{mainId}
+            </if>
+            <if test="invCode != null and invCode != ''">
+                and inv_code = #{invCode}
+            </if>
+            <if test="invName != null and invName != ''">
+                and inv_name = #{invName}
+            </if>
+            <if test="unitMaterialPrice != null">
+                and unit_material_price = #{unitMaterialPrice}
+            </if>
+            <if test="unitMaterialAmount != null">
+                and unit_material_amount = #{unitMaterialAmount}
+            </if>
+            <if test="invLand != null and invLand != ''">
+                and inv_land = #{invLand}
+            </if>
+            <if test="invWidth != null and invWidth != ''">
+                and inv_width = #{invWidth}
+            </if>
+            <if test="invLen != null and invLen != ''">
+                and inv_len = #{invLen}
+            </if>
+            <if test="invExternalDiameter != null and invExternalDiameter != ''">
+                and inv_external_diameter = #{invExternalDiameter}
+            </if>
+            <if test="invInternalDiameter != null and invInternalDiameter != ''">
+                and inv_internal_diameter = #{invInternalDiameter}
+            </if>
+            <if test="invDensity != null and invDensity != ''">
+                and inv_density = #{invDensity}
+            </if>
+            <if test="invSize != null and invSize != ''">
+                and inv_size = #{invSize}
+            </if>
+            <if test="iqty != null">
+                and iqty = #{iqty}
+            </if>
+            <if test="tqty != null">
+                and tqty = #{tqty}
+            </if>
+            <if test="createUser != null and createUser != ''">
+                and create_user = #{createUser}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+            <if test="updateUser != null and updateUser != ''">
+                and update_user = #{updateUser}
+            </if>
+            <if test="updateDate != null">
+                and update_date = #{updateDate}
+            </if>
+            <if test="izDelete != null">
+                and iz_delete = #{izDelete}
+            </if>
+            <if test="deleteUser != null and deleteUser != ''">
+                and delete_user = #{deleteUser}
+            </if>
+            <if test="deleteDate != null">
+                and delete_date = #{deleteDate}
+            </if>
+            <if test="itype != null and itype != ''">
+                and itype = #{itype}
+            </if>
+            <if test="u8MoMaterialId != null">
+                and u8_mo_material_id = #{u8MoMaterialId}
+            </if>
+            <if test="rowNo != null">
+                and row_no = #{rowNo}
+            </if>
+            <if test="productInvStd != null and productInvStd != ''">
+                and product_inv_std = #{productInvStd}
+            </if>
+            <if test="productInvUnit != null and productInvUnit != ''">
+                and product_inv_unit = #{productInvUnit}
+            </if>
+            <if test="productInvCode != null and productInvCode != ''">
+                and product_inv_code = #{productInvCode}
+            </if>
+            <if test="productInvName != null and productInvName != ''">
+                and product_inv_name = #{productInvName}
+            </if>
+            <if test="partInvName != null and partInvName != ''">
+                and part_inv_name = #{partInvName}
+            </if>
+            <if test="partInvCode != null and partInvCode != ''">
+                and part_inv_code = #{partInvCode}
+            </if>
+            <if test="partQty != null">
+                and part_qty = #{partQty}
+            </if>
+            <if test="partInvStd != null and partInvStd != ''">
+                and part_inv_std = #{partInvStd}
+            </if>
+            <if test="partInvUnit != null and partInvUnit != ''">
+                and part_inv_unit = #{partInvUnit}
+            </if>
+            <if test="invStd != null and invStd != ''">
+                and inv_std = #{invStd}
+            </if>
+            <if test="invUnit != null and invUnit != ''">
+                and inv_unit = #{invUnit}
+            </if>
+            <if test="productQty != null and productQty != ''">
+                and product_qty = #{productQty}
+            </if>
+            <if test="recordId != null and recordId != ''">
+                and record_id = #{recordId}
+            </if>
+            <if test="partRowId != null and partRowId != ''">
+                and part_row_id = #{partRowId}
+            </if>
+        </where>
+
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from om_order_material
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="detailId != null and detailId != ''">
+                and detail_id = #{detailId}
+            </if>
+            <if test="partId != null and partId != ''">
+                and part_id = #{partId}
+            </if>
+            <if test="mainId != null and mainId != ''">
+                and main_id = #{mainId}
+            </if>
+            <if test="invCode != null and invCode != ''">
+                and inv_code = #{invCode}
+            </if>
+            <if test="invName != null and invName != ''">
+                and inv_name = #{invName}
+            </if>
+            <if test="unitMaterialPrice != null">
+                and unit_material_price = #{unitMaterialPrice}
+            </if>
+            <if test="unitMaterialAmount != null">
+                and unit_material_amount = #{unitMaterialAmount}
+            </if>
+            <if test="invLand != null and invLand != ''">
+                and inv_land = #{invLand}
+            </if>
+            <if test="invWidth != null and invWidth != ''">
+                and inv_width = #{invWidth}
+            </if>
+            <if test="invLen != null and invLen != ''">
+                and inv_len = #{invLen}
+            </if>
+            <if test="invExternalDiameter != null and invExternalDiameter != ''">
+                and inv_external_diameter = #{invExternalDiameter}
+            </if>
+            <if test="invInternalDiameter != null and invInternalDiameter != ''">
+                and inv_internal_diameter = #{invInternalDiameter}
+            </if>
+            <if test="invDensity != null and invDensity != ''">
+                and inv_density = #{invDensity}
+            </if>
+            <if test="invSize != null and invSize != ''">
+                and inv_size = #{invSize}
+            </if>
+            <if test="iqty != null">
+                and iqty = #{iqty}
+            </if>
+            <if test="tqty != null">
+                and tqty = #{tqty}
+            </if>
+            <if test="createUser != null and createUser != ''">
+                and create_user = #{createUser}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+            <if test="updateUser != null and updateUser != ''">
+                and update_user = #{updateUser}
+            </if>
+            <if test="updateDate != null">
+                and update_date = #{updateDate}
+            </if>
+            <if test="izDelete != null">
+                and iz_delete = #{izDelete}
+            </if>
+            <if test="deleteUser != null and deleteUser != ''">
+                and delete_user = #{deleteUser}
+            </if>
+            <if test="deleteDate != null">
+                and delete_date = #{deleteDate}
+            </if>
+            <if test="itype != null and itype != ''">
+                and itype = #{itype}
+            </if>
+            <if test="u8MoMaterialId != null">
+                and u8_mo_material_id = #{u8MoMaterialId}
+            </if>
+            <if test="rowNo != null">
+                and row_no = #{rowNo}
+            </if>
+            <if test="productInvStd != null and productInvStd != ''">
+                and product_inv_std = #{productInvStd}
+            </if>
+            <if test="productInvUnit != null and productInvUnit != ''">
+                and product_inv_unit = #{productInvUnit}
+            </if>
+            <if test="productInvCode != null and productInvCode != ''">
+                and product_inv_code = #{productInvCode}
+            </if>
+            <if test="productInvName != null and productInvName != ''">
+                and product_inv_name = #{productInvName}
+            </if>
+            <if test="partInvName != null and partInvName != ''">
+                and part_inv_name = #{partInvName}
+            </if>
+            <if test="partInvCode != null and partInvCode != ''">
+                and part_inv_code = #{partInvCode}
+            </if>
+            <if test="partQty != null">
+                and part_qty = #{partQty}
+            </if>
+            <if test="partInvStd != null and partInvStd != ''">
+                and part_inv_std = #{partInvStd}
+            </if>
+            <if test="partInvUnit != null and partInvUnit != ''">
+                and part_inv_unit = #{partInvUnit}
+            </if>
+            <if test="invStd != null and invStd != ''">
+                and inv_std = #{invStd}
+            </if>
+            <if test="invUnit != null and invUnit != ''">
+                and inv_unit = #{invUnit}
+            </if>
+            <if test="productQty != null and productQty != ''">
+                and product_qty = #{productQty}
+            </if>
+            <if test="recordId != null and recordId != ''">
+                and record_id = #{recordId}
+            </if>
+            <if test="partRowId != null and partRowId != ''">
+                and part_row_id = #{partRowId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into om_order_material(detail_id, part_id, main_id, inv_code, inv_name, unit_material_price, unit_material_amount, inv_land, inv_width, inv_len, inv_external_diameter, inv_internal_diameter, inv_density, inv_size, iqty, tqty, create_user, create_date, update_user, update_date, iz_delete, delete_user, delete_date, itype, u8_mo_material_id, row_no, product_inv_std, product_inv_unit, product_inv_code, product_inv_name, part_inv_name, part_inv_code, part_qty, part_inv_std, part_inv_unit, inv_std, inv_unit, product_qty, record_id, part_row_id)
+        values (#{detailId}, #{partId}, #{mainId}, #{invCode}, #{invName}, #{unitMaterialPrice}, #{unitMaterialAmount}, #{invLand}, #{invWidth}, #{invLen}, #{invExternalDiameter}, #{invInternalDiameter}, #{invDensity}, #{invSize}, #{iqty}, #{tqty}, #{createUser}, #{createDate}, #{updateUser}, #{updateDate}, #{izDelete}, #{deleteUser}, #{deleteDate}, #{itype}, #{u8MoMaterialId}, #{rowNo}, #{productInvStd}, #{productInvUnit}, #{productInvCode}, #{productInvName}, #{partInvName}, #{partInvCode}, #{partQty}, #{partInvStd}, #{partInvUnit}, #{invStd}, #{invUnit}, #{productQty}, #{recordId}, #{partRowId})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into om_order_material(detail_id, part_id, main_id, inv_code, inv_name, unit_material_price, unit_material_amount, inv_land, inv_width, inv_len, inv_external_diameter, inv_internal_diameter, inv_density, inv_size, iqty, tqty, create_user, create_date, update_user, update_date, iz_delete, delete_user, delete_date, itype, u8_mo_material_id, row_no, product_inv_std, product_inv_unit, product_inv_code, product_inv_name, part_inv_name, part_inv_code, part_qty, part_inv_std, part_inv_unit, inv_std, inv_unit, product_qty, record_id, part_row_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.detailId}, #{entity.partId}, #{entity.mainId}, #{entity.invCode}, #{entity.invName}, #{entity.unitMaterialPrice}, #{entity.unitMaterialAmount}, #{entity.invLand}, #{entity.invWidth}, #{entity.invLen}, #{entity.invExternalDiameter}, #{entity.invInternalDiameter}, #{entity.invDensity}, #{entity.invSize}, #{entity.iqty}, #{entity.tqty}, #{entity.createUser}, #{entity.createDate}, #{entity.updateUser}, #{entity.updateDate}, #{entity.izDelete}, #{entity.deleteUser}, #{entity.deleteDate}, #{entity.itype}, #{entity.u8MoMaterialId}, #{entity.rowNo}, #{entity.productInvStd}, #{entity.productInvUnit}, #{entity.productInvCode}, #{entity.productInvName}, #{entity.partInvName}, #{entity.partInvCode}, #{entity.partQty}, #{entity.partInvStd}, #{entity.partInvUnit}, #{entity.invStd}, #{entity.invUnit}, #{entity.productQty}, #{entity.recordId}, #{entity.partRowId})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into om_order_material(detail_id, part_id, main_id, inv_code, inv_name, unit_material_price, unit_material_amount, inv_land, inv_width, inv_len, inv_external_diameter, inv_internal_diameter, inv_density, inv_size, iqty, tqty, create_user, create_date, update_user, update_date, iz_delete, delete_user, delete_date, itype, u8_mo_material_id, row_no, product_inv_std, product_inv_unit, product_inv_code, product_inv_name, part_inv_name, part_inv_code, part_qty, part_inv_std, part_inv_unit, inv_std, inv_unit, product_qty, record_id, part_row_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.detailId}, #{entity.partId}, #{entity.mainId}, #{entity.invCode}, #{entity.invName}, #{entity.unitMaterialPrice}, #{entity.unitMaterialAmount}, #{entity.invLand}, #{entity.invWidth}, #{entity.invLen}, #{entity.invExternalDiameter}, #{entity.invInternalDiameter}, #{entity.invDensity}, #{entity.invSize}, #{entity.iqty}, #{entity.tqty}, #{entity.createUser}, #{entity.createDate}, #{entity.updateUser}, #{entity.updateDate}, #{entity.izDelete}, #{entity.deleteUser}, #{entity.deleteDate}, #{entity.itype}, #{entity.u8MoMaterialId}, #{entity.rowNo}, #{entity.productInvStd}, #{entity.productInvUnit}, #{entity.productInvCode}, #{entity.productInvName}, #{entity.partInvName}, #{entity.partInvCode}, #{entity.partQty}, #{entity.partInvStd}, #{entity.partInvUnit}, #{entity.invStd}, #{entity.invUnit}, #{entity.productQty}, #{entity.recordId}, #{entity.partRowId})
+        </foreach>
+        on duplicate key update
+        detail_id = values(detail_id),
+        part_id = values(part_id),
+        main_id = values(main_id),
+        inv_code = values(inv_code),
+        inv_name = values(inv_name),
+        unit_material_price = values(unit_material_price),
+        unit_material_amount = values(unit_material_amount),
+        inv_land = values(inv_land),
+        inv_width = values(inv_width),
+        inv_len = values(inv_len),
+        inv_external_diameter = values(inv_external_diameter),
+        inv_internal_diameter = values(inv_internal_diameter),
+        inv_density = values(inv_density),
+        inv_size = values(inv_size),
+        iqty = values(iqty),
+        tqty = values(tqty),
+        create_user = values(create_user),
+        create_date = values(create_date),
+        update_user = values(update_user),
+        update_date = values(update_date),
+        iz_delete = values(iz_delete),
+        delete_user = values(delete_user),
+        delete_date = values(delete_date),
+        itype = values(itype),
+        u8_mo_material_id = values(u8_mo_material_id),
+        row_no = values(row_no),
+        product_inv_std = values(product_inv_std),
+        product_inv_unit = values(product_inv_unit),
+        product_inv_code = values(product_inv_code),
+        product_inv_name = values(product_inv_name),
+        part_inv_name = values(part_inv_name),
+        part_inv_code = values(part_inv_code),
+        part_qty = values(part_qty),
+        part_inv_std = values(part_inv_std),
+        part_inv_unit = values(part_inv_unit),
+        inv_std = values(inv_std),
+        inv_unit = values(inv_unit),
+        product_qty = values(product_qty),
+        record_id = values(record_id),
+        part_row_id = values(part_row_id)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update om_order_material
+        <set>
+            <if test="detailId != null and detailId != ''">
+                detail_id = #{detailId},
+            </if>
+            <if test="partId != null and partId != ''">
+                part_id = #{partId},
+            </if>
+            <if test="mainId != null and mainId != ''">
+                main_id = #{mainId},
+            </if>
+            <if test="invCode != null and invCode != ''">
+                inv_code = #{invCode},
+            </if>
+            <if test="invName != null and invName != ''">
+                inv_name = #{invName},
+            </if>
+            <if test="unitMaterialPrice != null">
+                unit_material_price = #{unitMaterialPrice},
+            </if>
+            <if test="unitMaterialAmount != null">
+                unit_material_amount = #{unitMaterialAmount},
+            </if>
+            <if test="invLand != null and invLand != ''">
+                inv_land = #{invLand},
+            </if>
+            <if test="invWidth != null and invWidth != ''">
+                inv_width = #{invWidth},
+            </if>
+            <if test="invLen != null and invLen != ''">
+                inv_len = #{invLen},
+            </if>
+            <if test="invExternalDiameter != null and invExternalDiameter != ''">
+                inv_external_diameter = #{invExternalDiameter},
+            </if>
+            <if test="invInternalDiameter != null and invInternalDiameter != ''">
+                inv_internal_diameter = #{invInternalDiameter},
+            </if>
+            <if test="invDensity != null and invDensity != ''">
+                inv_density = #{invDensity},
+            </if>
+            <if test="invSize != null and invSize != ''">
+                inv_size = #{invSize},
+            </if>
+            <if test="iqty != null">
+                iqty = #{iqty},
+            </if>
+            <if test="tqty != null">
+                tqty = #{tqty},
+            </if>
+            <if test="createUser != null and createUser != ''">
+                create_user = #{createUser},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="updateUser != null and updateUser != ''">
+                update_user = #{updateUser},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate},
+            </if>
+            <if test="izDelete != null">
+                iz_delete = #{izDelete},
+            </if>
+            <if test="deleteUser != null and deleteUser != ''">
+                delete_user = #{deleteUser},
+            </if>
+            <if test="deleteDate != null">
+                delete_date = #{deleteDate},
+            </if>
+            <if test="itype != null and itype != ''">
+                itype = #{itype},
+            </if>
+            <if test="u8MoMaterialId != null">
+                u8_mo_material_id = #{u8MoMaterialId},
+            </if>
+            <if test="rowNo != null">
+                row_no = #{rowNo},
+            </if>
+            <if test="productInvStd != null and productInvStd != ''">
+                product_inv_std = #{productInvStd},
+            </if>
+            <if test="productInvUnit != null and productInvUnit != ''">
+                product_inv_unit = #{productInvUnit},
+            </if>
+            <if test="productInvCode != null and productInvCode != ''">
+                product_inv_code = #{productInvCode},
+            </if>
+            <if test="productInvName != null and productInvName != ''">
+                product_inv_name = #{productInvName},
+            </if>
+            <if test="partInvName != null and partInvName != ''">
+                part_inv_name = #{partInvName},
+            </if>
+            <if test="partInvCode != null and partInvCode != ''">
+                part_inv_code = #{partInvCode},
+            </if>
+            <if test="partQty != null">
+                part_qty = #{partQty},
+            </if>
+            <if test="partInvStd != null and partInvStd != ''">
+                part_inv_std = #{partInvStd},
+            </if>
+            <if test="partInvUnit != null and partInvUnit != ''">
+                part_inv_unit = #{partInvUnit},
+            </if>
+            <if test="invStd != null and invStd != ''">
+                inv_std = #{invStd},
+            </if>
+            <if test="invUnit != null and invUnit != ''">
+                inv_unit = #{invUnit},
+            </if>
+            <if test="productQty != null and productQty != ''">
+                product_qty = #{productQty},
+            </if>
+            <if test="recordId != null and recordId != ''">
+                record_id = #{recordId},
+            </if>
+            <if test="partRowId != null and partRowId != ''">
+                part_row_id = #{partRowId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from om_order_material where id = #{id}
+    </delete>
+
+</mapper>
+

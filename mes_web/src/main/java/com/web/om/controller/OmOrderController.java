@@ -7,14 +7,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.common.util.*;
 import com.modules.data.mybatis.DBTypeEnum;
 import com.modules.data.mybatis.DbContextHolder;
-import com.web.basicinfo.entity.Vendor;
 import com.web.basicinfo.service.IVendorService;
 import com.web.common.controller.BasicController;
 import com.web.om.dto.*;
 import com.web.om.entity.*;
 import com.web.om.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -395,7 +393,7 @@ public class OmOrderController extends BasicController {
                 u8Material.setDataFromMesMaterial(material);
                 u8MaterialList.add(u8Material);
             });
-            result = omMainService.audit(u8Main,u8DetailList,u8MaterialList,main);
+            result = omMainService.audit(u8Main,u8DetailList,u8MaterialList,main,productList,materialList);
             return result;
         } catch (Exception e){
             e.printStackTrace();
@@ -419,7 +417,7 @@ public class OmOrderController extends BasicController {
             return omMainService.change(main,productList,materialList);
         } catch (Exception e){
             e.printStackTrace();
-            return ResponseResult.error();
+            return ResponseResult.error(e.getMessage());
         }
 
     }
