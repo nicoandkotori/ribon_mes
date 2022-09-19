@@ -3,21 +3,30 @@ package com.web.om.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.common.util.ResponseResult;
-import com.common.util.SnowFlakeUtils;
-import com.common.util.TableResult;
+import com.common.util.*;
+import com.modules.security.util.SecurityUtil;
+import com.web.basicinfo.entity.ComputationUnit;
+import com.web.basicinfo.entity.Inventory;
+import com.web.basicinfo.entity.Vendor;
+import com.web.basicinfo.mapper.BasPartMapper;
+import com.web.basicinfo.mapper.ComputationUnitMapper;
 import com.web.basicinfo.mapper.InventoryMapper;
+import com.web.basicinfo.mapper.VendorMapper;
+import com.web.basicinfo.service.IInventoryService;
 import com.web.om.dto.*;
 import com.web.om.entity.*;
 import com.web.om.mapper.OmMoDetailsMapper;
 import com.web.om.mapper.OmMoMainMapper;
+import com.web.om.mapper.OmMoMaterialsMapper;
 import com.web.om.mapper.OmOrderMainMapper;
 import com.web.om.service.*;
+import com.web.u8system.util.U8SystemUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -39,6 +48,28 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
 
     @Autowired
     IOmOrderMaterialService materialService;
+
+    @Autowired
+    private InventoryMapper inventoryMapper;
+    @Autowired
+    private BasPartMapper basPartMapper;
+    @Autowired
+    private OmOrderMainMapper mesMainMapper;
+    @Autowired
+    private IInventoryService inventoryService;
+    @Autowired
+    private OmMoMainMapper omMoMainMapper;
+    @Autowired
+    private OmMoDetailsMapper omMoDetailsMapper;
+    @Autowired
+    private OmMoMaterialsMapper omMoMaterialsMapper;
+    @Autowired
+    private ComputationUnitMapper computationUnitMapper;
+    @Autowired
+    private VendorMapper vendorMapper;
+
+    @Autowired
+    private U8SystemUtils u8SystemUtils;
 
 
     @Value("${account.acountId}")
@@ -303,6 +334,560 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
         dataMap.put("partList",partList);
         dataMap.put("materialList",sortedMaterialList);
         result.setData(dataMap);
+        return result;
+    }
+
+    /**
+     * 审核
+     *
+     * @param omProductPo
+     * @param list        列表
+     * @param listDetail  列表细节
+     * @param mesMain     mes委外主表
+     * @return {@link ResponseResult}
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseResult audit(OmMoMain omProductPo, List<OmProductVM>  list, List<OmProductVM>  listDetail, OmOrderMain mesMain) throws Exception{
+        ResponseResult result = new ResponseResult();
+        try{
+
+            if(CustomStringUtils.isBlank(omProductPo.getDdate()))
+            {
+                throw new Exception("订单日期不能为空！");
+            }
+
+            if(CustomStringUtils.isBlank(omProductPo.getCdepcode()))
+            {
+                throw new Exception("部门不能为空！");
+            }
+            if(CustomStringUtils.isBlank(omProductPo.getCpersoncode()))
+            {
+                throw new Exception("业务员不能为空！");
+            }
+            if(CustomStringUtils.isBlank(omProductPo.getCvencode()))
+            {
+                throw new Exception("供应商不能为空！");
+            }
+
+            if(list==null||list.size()==0)
+            {
+                throw new Exception("列表数据不能为空！");
+            }
+
+
+            if(CustomStringUtils.isNotBlank(omProductPo.getMoid())) {
+                OmMoMain omMoMain=omMoMainMapper.selectById(omProductPo.getMoid());
+                if(!omMoMain.getCstate().toString().equals("0"))
+                {
+                    throw new Exception("当前数据已经审核，不允许修改！");
+                }
+
+
+                LambdaQueryWrapper<OmMoMaterials> selectM= new LambdaQueryWrapper<>();
+                selectM.apply("  modetailsid in (select modetailsid from OM_MODetails where moid='"+omProductPo.getMoid()+"' )" );
+                List<OmMoMaterials> listM = omMoMaterialsMapper.selectList(selectM);
+                if(listM!=null)
+                {
+                    for(OmMoMaterials omMoMaterials:listM)
+                    {
+                        omMoMaterialsMapper.deleteById(omMoMaterials.getMomaterialsid());
+                    }
+                }
+
+                LambdaQueryWrapper<OmMoDetails> selectD = new LambdaQueryWrapper<>();
+                selectD.eq(OmMoDetails::getMoid,omProductPo.getMoid());
+                List<OmMoDetails> listD = omMoDetailsMapper.selectList(selectD);
+                if(listD!=null)
+                {
+                    for(OmMoDetails omMoDetails:listD)
+                    {
+                        omMoDetailsMapper.deleteById(omMoDetails.getModetailsid());
+                    }
+                }
+
+
+                omMoMainMapper.deleteById(omProductPo.getMoid());
+            }
+
+
+            omProductPo.setMoid(null);
+
+            //更新   不用了，全部删掉重新保存
+            if(CustomStringUtils.isNotBlank(omProductPo.getMoid())) {
+                OmMoMain omProductPo1=omMoMainMapper.selectById(omProductPo.getMoid());
+                if(omProductPo1!=null&&omProductPo1.getCstate().compareTo(Byte.valueOf("1"))!=0)
+                {
+                    throw new Exception("请修改未审核数据！");
+                }
+                //设置供应商信息
+                Vendor vendor=vendorMapper.selectById(omProductPo.getCvencode());
+                omProductPo.setCvenaccount(vendor.getCvenaccount());
+                omProductPo.setCvenbank(vendor.getCvenbank());
+                omProductPo.setCvenperson(vendor.getCvenperson());
+                int rate=13;
+                if(!CustomStringUtils.isBlank(vendor.getCvendefine11()))
+                {
+                    rate=vendor.getCvendefine11();
+                }
+                omProductPo.setItaxrate(BigDecimal.valueOf(rate));
+                omProductPo.setCexchName(vendor.getCvenexchName());
+                int n = omMoMainMapper.updateById(omProductPo);
+                if (n<0){
+                    throw new Exception("保存表头出错！");
+                }
+                //循环插入子表信息
+                for(OmProductVM t:list)
+                {
+                    if(CustomStringUtils.isBlank(t.getCinvcode()))
+                    {
+                        throw new Exception("产品编码不能为空！");
+                    }
+                    if(CustomStringUtils.isBlank(t.getDstartdate()))
+                    {
+                        throw new Exception("计划开工日期不能为空！");
+                    }
+                    if(CustomStringUtils.isBlank(t.getDarrivedate()))
+                    {
+                        throw new Exception("计划完工日期不能为空！");
+                    }
+                    if(CustomStringUtils.isBlank(t.getIquantity()))
+                    {
+                        throw new Exception("数量不能为空！");
+                    }
+//                    if(CustomStringUtils.isBlank(t.getItaxprice()))
+//                    {
+//                        throw new Exception("单价加工费不能为空！");
+//                    }
+//                    if(t.getItaxprice().compareTo(BigDecimal.ZERO)<0)
+//                    {
+//                        throw new Exception("单价加工费不能为小于0！");
+//                    }
+                    OmMoDetails omPoMain=new OmMoDetails();
+
+                    omPoMain.setCinvcode(t.getCinvcode());
+                    omPoMain.setDstartdate(t.getDstartdate());
+                    omPoMain.setDarrivedate(t.getDarrivedate());
+                    omPoMain.setIquantity(t.getIquantity());
+                    omPoMain.setCdefine26(t.getCdefine26());
+                    omPoMain.setCdefine27(t.getCdefine27());
+                    omPoMain.setItaxprice(t.getItaxprice());
+                    omPoMain.setIpertaxrate(BigDecimal.valueOf(rate));
+                    omPoMain.setInatsum(t.getInatsum());  //本币价税合计
+                    omPoMain.setIsum(t.getInatsum());  //原币价税合计
+
+                    BigDecimal itaxrate=BigDecimal.ONE.add(( omPoMain.getIpertaxrate()).multiply(BigDecimal.valueOf(0.01)));
+
+                    omPoMain.setIunitprice(omPoMain.getItaxprice().divide(itaxrate,8,BigDecimal.ROUND_HALF_UP));  //原币无税单价
+                    omPoMain.setImoney(omPoMain.getIsum().divide(itaxrate,8,BigDecimal.ROUND_HALF_UP));  //原币无税金额
+
+                    omPoMain.setInatunitprice(omPoMain.getItaxprice().divide(itaxrate,8,BigDecimal.ROUND_HALF_UP) );  //本币无税单价
+                    omPoMain.setInatmoney(omPoMain.getIsum().divide(itaxrate,8,BigDecimal.ROUND_HALF_UP) );  //本币无税金额
+
+
+                    omPoMain.setItax(omPoMain.getIsum().subtract(omPoMain.getImoney()));  //原币税额
+                    omPoMain.setInattax(omPoMain.getIsum().subtract(omPoMain.getImoney()));  //本币税额
+
+
+
+//                    omPoMain.setInatsum(t.getInatsum());
+
+                    if(CustomStringUtils.isNotBlank(t.getModetailsid()))
+                    {
+
+//                        List<Rdrecords> listRd=rdrecordsMapper.getListByOm(t.getMainid());
+//                        if(listRd!=null)
+//                        {
+//                            for(Rdrecords rdrecords:listRd)
+//                            {
+//                                BigDecimal price=omPoMain.getTaxmakeprice()==null?BigDecimal.ZERO:omPoMain.getTaxmakeprice();
+//                                BigDecimal price1=rdrecords.getMakeprice()==null?BigDecimal.ZERO:rdrecords.getMakeprice();
+//                                if(price.compareTo(price1)!=0)
+//                                {
+//                                    rdrecords.setMakeprice(omPoMain.getTaxmakeprice()==null?BigDecimal.ZERO:omPoMain.getTaxmakeprice());
+//                                    rdrecords.setMakemny(rdrecords.getIquantity().multiply(rdrecords.getMakeprice()));
+//                                    rdrecords.setIunitcost(rdrecords.getMakeprice());
+//                                    rdrecords.setIprice(rdrecords.getMakemny());
+//                                    rdrecords.setOrgmakeprice(rdrecords.getMakeprice());
+//                                    rdrecords.setCdefine22("11");
+//                                    rdrecordsMapper.updateByPrimaryKeySelective(rdrecords);
+//                                }
+//
+//                            }
+//                        }
+
+
+                        omPoMain.setModetailsid(t.getModetailsid());
+                        omPoMain.setMoid(t.getMoid());
+                        n = omMoDetailsMapper.updateById(omPoMain);
+                        if (n<0){
+                            throw new Exception("保存表体出错！");
+                        }
+                    }
+                    else
+                    {
+                        omPoMain.setDefaultValueForJinGong();
+                        omPoMain.setMoid(omProductPo.getMoid());
+
+
+
+                        Integer u8fid = null;
+                        u8fid=u8SystemUtils.getChildId(accId,"OM_MO",10,1);
+                        u8SystemUtils.getFatherId(accId,"OM_Materials",10);
+                        omPoMain.setModetailsid(u8fid);
+
+                        t.setModetailsid(omPoMain.getModetailsid());
+                        n = omMoDetailsMapper.insert(omPoMain);
+                        if (n<0){
+                            throw new Exception("保存表体出错！");
+                        }
+
+                    }
+
+                }
+                //循环插入明细信息
+                for(OmProductVM t:listDetail)
+                {
+
+                    if(CustomStringUtils.isNotBlank(t.getCinvcodes()))
+                    {
+                        if(CustomStringUtils.isBlank(t.getFbaseqtyn()))
+                        {
+                            throw new Exception("单耗不能为空！");
+                        }
+
+                        OmMoMaterials omPoDetails=new OmMoMaterials();
+                        omPoDetails.setCinvcode(t.getCinvcodes());
+                        omPoDetails.setIquantity(t.getFqtys());
+                        omPoDetails.setIunitquantity(t.getFqtys());
+                        omPoDetails.setFbaseqtyd(BigDecimal.ONE);
+                        omPoDetails.setFbaseqtyn(t.getFbaseqtyn());
+                        omPoDetails.setCdefine22(t.getCdefine22());
+                        omPoDetails.setCdefine28(t.getCdefine28());
+                        omPoDetails.setCdefine29(t.getCdefine29());
+                        omPoDetails.setCdefine30(t.getCdefine30());
+                        omPoDetails.setCdefine31(t.getCdefine31());
+                        omPoDetails.setCdefine32(t.getCdefine32());
+//                        omPoDetails.setCdefine27(t.getCdefine27());
+//                        omPoDetails.setCdefine26(t.getCdefine26());
+                        omPoDetails.setCdefine27(t.getCdefine26());
+
+
+                        Inventory inventory = inventoryMapper.selectById(t.getCinvcodes());
+                        if (inventory == null) {
+                            throw new Exception("U8存货信息不存在，请确认数据！");
+                        }
+                        //福计量
+                        if(CustomStringUtils.isNotBlank(inventory.getCstcomunitcode()))
+                        {
+                            ComputationUnit unit = computationUnitMapper.selectById(inventory.getCstcomunitcode());
+                            if (unit == null) {
+                                throw new Exception("U8单位信息不存在，请确认数据！");
+                            }
+                            omPoDetails.setCunitid(unit.getCcomunitcode());
+                            omPoDetails.setFbasenumn(unit.getIchangrate());
+                            omPoDetails.setIunitnum(unit.getIchangrate().multiply(t.getIquantity()));
+                        }
+
+                        for(OmProductVM q:list)
+                        {
+                            if(q.getRecordId().equals(t.getRecordId()))
+                            {
+                                omPoDetails.setModetailsid(q.getModetailsid());
+                                omPoDetails.setDrequireddate(q.getDarrivedate());
+                                break;
+                            }
+                        }
+                        if(omPoDetails.getModetailsid()==null)
+                        {
+                            throw new Exception("明细没有对应主表数据！");
+                        }
+                        if(CustomStringUtils.isNotBlank(t.getMomaterialsid()))
+                        {
+
+                            omPoDetails.setMomaterialsid(t.getMomaterialsid());
+                            n = omMoMaterialsMapper.updateById(omPoDetails);
+                            if (n<0){
+                                throw new Exception("保存用料表出错！");
+                            }
+                        }
+                        else
+                        {
+
+                            omPoDetails.setDefaultValueForJinGong();
+
+                            Integer u8fid = null;
+                            u8fid=u8SystemUtils.getChildId(accId,"OM_Materials",10,1);
+
+                            //设置id
+
+                            omPoDetails.setMomaterialsid(u8fid);
+
+
+                            n = omMoMaterialsMapper.insert(omPoDetails);
+                            if (n<0){
+                                throw new Exception("保存用料表出错！");
+                            }
+                        }
+                        //更新存货密度和价格
+                        Inventory inventoryUpdate=new Inventory();
+                        inventoryUpdate.setCinvcode(t.getCinvcodes());
+                        if(CustomStringUtils.isNotBlank(t.getCinvdefine2()))
+                        {
+                            inventoryUpdate.setCinvdefine2(t.getCinvdefine2());
+                            inventoryMapper.updateById(inventoryUpdate);
+                        }
+//                        if(t.getCdefine26()!=null)
+//                        {
+//                            inventory.setIinvncost(Double.valueOf(t.getCdefine26().toString()));
+//                        }
+
+                    }
+
+
+
+
+                }
+
+
+            }
+            //新增
+            else
+            {
+                omProductPo.setDefaultValueForJinGong();
+                Integer u8fid = null;
+                u8fid= u8SystemUtils.getFatherId(accId,"OM_MO",10);
+                omProductPo.setMoid(u8fid);
+                //设置审核信息
+                omProductPo.setCstate(Byte.valueOf("1"));
+                omProductPo.setIverifystatenew(2);
+                omProductPo.setCverifier(SecurityUtil.getUser().getMyusername());
+                omProductPo.setDverifydate(DateUtil.parseStrToDate(DateUtil.getDateStr(new Date(),"yyyy-MM-dd"),"yyyy-MM-dd") );
+                omProductPo.setDverifytime(new Date());
+                //设置单号
+
+                omProductPo.setCmaker(SecurityUtil.getUser().getMyusername());
+                //设置供应商信息
+                Vendor vendor=vendorMapper.selectById(omProductPo.getCvencode());
+                omProductPo.setCvenaccount(vendor.getCvenaccount());
+                omProductPo.setCvenbank(vendor.getCvenbank());
+                omProductPo.setCvenperson(vendor.getCvenperson());
+                int rate=13;
+                if(!CustomStringUtils.isBlank(vendor.getCvendefine11()))
+                {
+                    rate=vendor.getCvendefine11();
+                }
+                omProductPo.setItaxrate(BigDecimal.valueOf(rate));
+                omProductPo.setCexchName(vendor.getCvenexchName());
+                String  sysbarcode = "||" + "ommo"+ "|" + omProductPo.getCcode();
+                omProductPo.setCsysbarcode(sysbarcode);
+                omProductPo.setCmemo(omProductPo.getCmemo());
+                //设置审核状态
+                omProductPo.setCstate(Byte.valueOf("1"));
+                omProductPo.setIverifystatenew(2);
+                omProductPo.setCverifier(SecurityUtil.getUser().getMyusername());
+                omProductPo.setDverifydate(DateUtil.parseStrToDate(DateUtil.getDateStr(new Date(),"yyyy-MM-dd"),"yyyy-MM-dd") );
+                omProductPo.setDverifytime(new Date());
+                int n = omMoMainMapper.insert(omProductPo);
+                if (n<0){
+                    throw new Exception("保存表头出错！");
+                }
+                //更新mes委外主表审核信息
+                if (mesMain != null){
+                    OmOrderMain updateMain = new OmOrderMain();
+                    updateMain.setId(mesMain.getId());
+                    updateMain.setStatusId("已审核");
+                    updateMain.setU8Id(u8fid);
+                    mesMainMapper.updateWithDbName(updateMain, ParamUtil.getParam("localDatabase").toString());
+                }
+
+                //循环插入合同信息
+                int row=1;
+                for(OmProductVM t:list) {
+
+                    if (CustomStringUtils.isBlank(t.getCinvcode())) {
+                        throw new Exception("产品编码不能为空！");
+                    }
+                    if (CustomStringUtils.isBlank(t.getDstartdate())) {
+                        throw new Exception("计划开工日期不能为空！");
+                    }
+                    if (CustomStringUtils.isBlank(t.getDarrivedate())) {
+                        throw new Exception("计划完工日期不能为空！");
+                    }
+                    if (CustomStringUtils.isBlank(t.getIquantity())) {
+                        throw new Exception("数量不能为空！");
+                    }
+                    OmMoDetails omPoMain = new OmMoDetails();
+                    omPoMain.setDefaultValueForJinGong();
+                    omPoMain.setCinvcode(t.getCinvcode());
+                    omPoMain.setMoid(omProductPo.getMoid());
+                    omPoMain.setItaxprice(t.getItaxprice()==null?BigDecimal.ZERO:t.getItaxprice());
+                    omPoMain.setIpertaxrate(BigDecimal.valueOf(rate));
+                    omPoMain.setInatsum(t.getInatsum()==null?BigDecimal.ZERO:t.getInatsum());  //本币价税合计
+                    omPoMain.setIsum(omPoMain.getInatsum());  //原币价税合计
+                    omPoMain.setDstartdate(t.getDstartdate());
+                    omPoMain.setDarrivedate(t.getDarrivedate());
+                    omPoMain.setIquantity(t.getIquantity()==null?BigDecimal.ZERO:t.getIquantity());
+                    omPoMain.setImrpqty(t.getIquantity()==null?BigDecimal.ZERO:t.getIquantity());
+                    omPoMain.setCdefine26(t.getCdefine26()==null?BigDecimal.ZERO:t.getCdefine26());
+                    omPoMain.setCdefine27(t.getCdefine27()==null?BigDecimal.ZERO:t.getCdefine27());
+                    omPoMain.setIvouchrowno(row);
+                    sysbarcode = "||" + "ommo"+ "|" + omProductPo.getCcode()+"|"+row;
+                    omPoMain.setCbsysbarcode(sysbarcode);
+                    BigDecimal itaxrate = BigDecimal.ONE.add((omPoMain.getIpertaxrate()).multiply(BigDecimal.valueOf(0.01)));
+
+                    omPoMain.setIunitprice(omPoMain.getItaxprice().divide(itaxrate, 8, BigDecimal.ROUND_HALF_UP));  //原币无税单价
+                    omPoMain.setImoney(omPoMain.getIsum().divide(itaxrate, 8, BigDecimal.ROUND_HALF_UP));  //原币无税金额
+
+                    omPoMain.setInatunitprice(omPoMain.getItaxprice().divide(itaxrate, 8, BigDecimal.ROUND_HALF_UP));  //本币无税单价
+                    omPoMain.setInatmoney(omPoMain.getIsum().divide(itaxrate,8,BigDecimal.ROUND_HALF_UP) );  //本币无税金额
+
+
+                    omPoMain.setItax(omPoMain.getIsum().subtract(omPoMain.getImoney()));  //原币税额
+                    omPoMain.setInattax(omPoMain.getIsum().subtract(omPoMain.getImoney()));  //本币税额
+
+
+                    //设置id
+
+                    u8fid = null;
+                    u8fid = u8SystemUtils.getChildId(accId, "OM_MO", 10, 1);
+                    u8SystemUtils.getFatherId(accId, "OM_Materials", 10);
+                    omPoMain.setModetailsid(u8fid);
+                    t.setRowNo(row);
+                    t.setMoid(omPoMain.getMoid());
+                    t.setModetailsid(omPoMain.getModetailsid());
+
+                    n = omMoDetailsMapper.insert(omPoMain);
+                    if (n < 0) {
+                        throw new Exception("保存表体出错！");
+                    }
+
+
+                    int izExist = 0;
+                    for (OmProductVM material : listDetail)
+                    {
+                        if(material.getRecordId().equals(t.getRecordId()))
+                        {
+                            izExist=1;
+                            break;
+                        }
+                    }
+                    if(izExist==0)
+                    {
+                        OmMoMaterials omPoDetails = new OmMoMaterials();
+                        omPoDetails.setDefaultValueForJinGong();
+                        omPoDetails.setMoid(t.getMoid());
+                        omPoDetails.setModetailsid(t.getModetailsid());
+                        omPoDetails.setDrequireddate(t.getDarrivedate());
+                        sysbarcode = "||" + "ommo"+ "|" + omProductPo.getCcode()+"|"+row+"|1";
+                        omPoDetails.setCsubsysbarcode(sysbarcode);
+
+                        u8fid = null;
+                        u8fid=u8SystemUtils.getChildId(accId,"OM_Materials",10,1);
+                        //设置id
+                        omPoDetails.setMomaterialsid(u8fid);
+                        omPoDetails.setCinvcode(t.getCinvcode());
+                        omPoDetails.setIquantity(t.getIquantity());
+                        omPoDetails.setIunitquantity(t.getIquantity());
+                        omPoDetails.setFbaseqtyd(BigDecimal.ONE);
+                        omPoDetails.setFbaseqtyn(t.getIquantity());
+                        n = omMoMaterialsMapper.insert(omPoDetails);
+                        if (n < 0) {
+                            throw new Exception("保存用料表出错！");
+                        }
+                    }
+                    row++;
+                }
+                //循环插入合同信息
+                row=1;
+                for(OmProductVM t:listDetail) {
+
+                    if (CustomStringUtils.isNotBlank(t.getCinvcodes())) {
+                        if (CustomStringUtils.isBlank(t.getFbaseqtyn()) || t.getFbaseqtyn().compareTo(BigDecimal.ZERO) == 0) {
+                            throw new Exception("单耗不能为空和0！");
+                        }
+
+                        OmMoMaterials omPoDetails = new OmMoMaterials();
+                        omPoDetails.setDefaultValueForJinGong();
+                        for(OmProductVM q:list)
+                        {
+                            if(q.getRecordId().equals(t.getRecordId()))
+                            {
+                                omPoDetails.setMoid(q.getMoid());
+                                omPoDetails.setModetailsid(q.getModetailsid());
+                                omPoDetails.setDrequireddate(q.getDarrivedate());
+                                sysbarcode = "||" + "ommo"+ "|" + omProductPo.getCcode()+"|"+q.getRowNo()+"|"+row;
+
+                                omPoDetails.setCsubsysbarcode(sysbarcode);
+
+                                break;
+                            }
+
+                        }
+                        if(omPoDetails.getMoid()==null)
+                        {
+                            throw new Exception("明细没有对应主表数据！");
+                        }
+                        u8fid = null;
+                        u8fid=u8SystemUtils.getChildId(accId,"OM_Materials",10,1);
+                        //设置id
+                        omPoDetails.setMomaterialsid(u8fid);
+                        omPoDetails.setCinvcode(t.getCinvcodes());
+                        omPoDetails.setIquantity(t.getFqtys());
+                        omPoDetails.setIunitquantity(t.getFqtys());
+                        omPoDetails.setFbaseqtyd(BigDecimal.ONE);
+                        omPoDetails.setFbaseqtyn(t.getFbaseqtyn());
+                        omPoDetails.setCdefine22(t.getCdefine22());
+                        omPoDetails.setCdefine28(t.getCdefine28());
+                        omPoDetails.setCdefine29(t.getCdefine29());
+                        omPoDetails.setCdefine30(t.getCdefine30());
+                        omPoDetails.setCdefine31(t.getCdefine31());
+                        omPoDetails.setCdefine32(t.getCdefine32());
+//                        omPoDetails.setCdefine27(t.getCdefine27());
+//                        omPoDetails.setCdefine26(t.getCdefine26());
+                        omPoDetails.setCdefine27(t.getCdefine26());
+                        omPoDetails.setIrowno(row);
+
+                        Inventory inventory = inventoryMapper.selectById(t.getCinvcodes());
+                        if (inventory == null) {
+                            throw new Exception("U8存货信息不存在，请确认数据！");
+                        }
+                        //福计量
+                        if(CustomStringUtils.isNotBlank(inventory.getCstcomunitcode()))
+                        {
+                            ComputationUnit unit = computationUnitMapper.selectById(inventory.getCstcomunitcode());
+                            if (unit == null) {
+                                throw new Exception("U8单位信息不存在，请确认数据！");
+                            }
+                            omPoDetails.setCunitid(unit.getCcomunitcode());
+                            omPoDetails.setFbasenumn(unit.getIchangrate());
+                            omPoDetails.setIunitnum(unit.getIchangrate().multiply(t.getIquantity()));
+                        }
+
+                        n = omMoMaterialsMapper.insert(omPoDetails);
+                        if (n < 0) {
+                            throw new Exception("保存用料表出错！");
+                        }
+                        //更新存货密度和价格
+                        Inventory inventoryUpdate = new Inventory();
+                        inventoryUpdate.setCinvcode(t.getCinvcodes());
+                        if (CustomStringUtils.isNotBlank(t.getCinvdefine2())) {
+                            inventoryUpdate.setCinvdefine2(t.getCinvdefine2());
+                            inventoryMapper.updateById(inventoryUpdate);
+                        }
+
+                        row++;
+                    }
+
+                }
+
+            }
+
+            result.setResult(omProductPo.getMoid());
+            result.setResult1(omProductPo.getCcode());
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new Exception(e.getMessage());
+        }
         return result;
     }
 

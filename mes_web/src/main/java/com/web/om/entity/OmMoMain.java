@@ -183,6 +183,7 @@ public class OmMoMain {
      * @param main 主要
      */
     public void setDataFromMesMain(OmOrderMain main){
+        setMoid(main.getU8Id());
         setCcode(main.getVouchCode());
         setDdate(main.getVouchDate());
         setCdefine2(main.getContractOm());

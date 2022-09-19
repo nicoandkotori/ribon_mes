@@ -990,7 +990,6 @@ public class OmMoMainServiceImpl extends ServiceImpl<OmMoMainMapper, OmMoMain> i
                 OmOrderMain mesMain = new OmOrderMain();
                 if (StringUtils.isNotBlank(mesId)){
                     mesMain.setId(mesId);
-                    mesMain.setU8Id(-1);
                     mesMain.setStatusId("未审核");
                     mesMainMapper.updateWithDbName(mesMain,ParamUtil.getParam("localDatabase").toString());
                 }

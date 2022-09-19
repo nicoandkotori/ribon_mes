@@ -69,6 +69,7 @@
             <button type="button" class="layui-btn layui-btn-sm" lay-filter="audit" lay-submit="" >审核</button>
             <button type="button" class="layui-btn layui-btn-sm" onclick="btnNotAudit()">弃审</button>
             <button type="button" class="layui-btn layui-btn-sm" onclick="FnPrint()">打印</button>
+            <button type="button" class="layui-btn layui-btn-sm" onclick="change()">变更</button>
         </div>
 
 
@@ -1491,11 +1492,7 @@
                     var data = text;
                     if (data.success == true || data.success == "true") {
                         layer.alert("弃审成功!");
-                        $('#u8Id').val("");
-                        $('#statusId').val("");
-                        $.get("/om/metalworkcommittee/getmaxcode", {}, function (text) {
-                            $("#vouchCode").val(text.result);
-                        });
+                        loadAllDataByMainId();
                     }
                     else {
                         layer.alert(data.msg);

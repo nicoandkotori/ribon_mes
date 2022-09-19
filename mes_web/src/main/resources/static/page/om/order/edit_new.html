@@ -66,9 +66,10 @@
     <form class="layui-form">
         <div class="weadmin-block">
             <button type="button" class="layui-btn layui-btn-sm" lay-filter="save" lay-submit="">保存</button>
-            <button type="button" class="layui-btn layui-btn-sm" onclick="FnCheck()">审核</button>
-            <button type="button" class="layui-btn layui-btn-sm" onclick="FnUnCheck()">弃审</button>
+            <button type="button" class="layui-btn layui-btn-sm" lay-filter="audit" lay-submit="">审核</button>
+            <button type="button" class="layui-btn layui-btn-sm" onclick="btnNotAudit()">弃审</button>
             <button type="button" class="layui-btn layui-btn-sm" onclick="FnPrint()">打印</button>
+            <button type="button" class="layui-btn layui-btn-sm" onclick="change()">变更</button>
 
         </div>
 
@@ -196,7 +197,6 @@
     var array;
     var id = GetQueryString("id");
     var productHelper = new jqGridRowHelper($('#'+PRODUCT_TABLE_ID));
-    var partHelper = new jqGridRowHelper($('#'+PART_TABLE_ID));
     var materialHelper = new jqGridRowHelper($('#'+MATERIAL_TABLE_ID));
     //选择物料的类型，包括'product'和'material'，
     var chooseInvType = '';
@@ -212,6 +212,8 @@
     var materialMaxId = 1;
     //向打开的部件窗口传递的参数
     var addPartParams;
+    //允许审核的标志，每次保存完后会设为true，每次审核完后设为false，编辑页面默认为true
+    var ableToAudit = true;
     $(function () {
         initJqgrid();
     });
@@ -252,6 +254,49 @@
             $("#venName").val(venName);
         });
 
+        /*
+         * 审核
+         */
+        form.on('submit(audit)', function (data) {
+            console.log("审核");
+            if (CurRow != "" && CurRow != undefined) {
+                $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
+            }
+            if (CurRow1 != "" && CurRow1 != undefined) {
+                $("#jqGridDetail").jqGrid('saveCell', CurRow1, CurCol1);
+            }
+            var productData = productHelper.getAllRowData();
+            var productDataStr = JSON.stringify(productData);
+            var materialData = materialHelper.getAllRowData();
+            var materialDataStr = JSON.stringify(materialData);
+            //map转成一维object数组
+            let partDataArray = convertPartDataMapToArray();
+            let partDataStr = JSON.stringify(partDataArray);
+            let mainId = $("#id").val();
+            if (!ableToAudit){
+                layer.alert("请先保存！")
+                return;
+            }
+            sendPostReq(URL_AUDIT, {
+                mainStr: JSON.stringify(data.field),
+                productStr: productDataStr,
+                partStr: partDataStr,
+                materialStr: materialDataStr
+            }, function (data) {
+                if (data.success == true || data.success == "true") {
+                    layer.msg("审核成功", {icon: 6});
+                    console.log("审核成功");
+                    ableToAudit = false;
+                    reloadAllData();
+                } else {
+                    layer.msg("保存失败!" + data.msg, {icon: 6});
+                }
+            });
+
+        })
+
+
+
 
         initData();
 
@@ -291,6 +336,7 @@
                 }, function (data) {
                     if (data.success == true || data.success == "true") {
                         layer.msg("保存成功", {icon: 6});
+                        ableToAudit = true;
                         reloadAllData();
                     } else {
                         layer.msg("更新失败!" + data.msg, {icon: 6});
@@ -1381,6 +1427,40 @@
         //清空部件数据
         partDataMap = new Map();
         initData();
+    }
+
+    /*
+     * 弃审
+     */
+    function btnNotAudit() {
+        var u8Id=$("#u8Id").val();
+        let mesId = $('#id').val();
+        if(u8Id!=""&&u8Id!=null)
+        {
+            $.ajax({
+                type: "post",
+                url: "/om/metalworkcommittee/uncheck",
+                data: { id: u8Id,mesId:mesId},
+                success: function (text) {
+                    var data = text;
+                    if (data.success == true || data.success == "true") {
+                        layer.alert("弃审成功!");
+                        reloadAllData();
+                    }
+                    else {
+                        layer.alert(data.msg);
+                    }
+
+                },
+                error: function ()
+                { }
+            });
+        }
+        else
+        {
+            layer.alert("请先保存!");
+        }
+
     }
 
 

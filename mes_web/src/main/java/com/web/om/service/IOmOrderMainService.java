@@ -61,4 +61,11 @@ public interface IOmOrderMainService extends IService<OmOrderMain> {
      * @return {@link TableResult}
      */
     TableResult<OmOrderMain> getAllMainDataById(String id);
+
+    /**
+     * 审核数据
+     *
+     * @return {@link ResponseResult}
+     */
+    ResponseResult audit(OmMoMain omProductPo, List<OmProductVM>  list, List<OmProductVM>  listDetail, OmOrderMain mesMain) throws Exception;
 }

@@ -375,11 +375,9 @@ public class OmOrderController extends BasicController {
             OmOrderMain main = JSON.parseObject(mainStr, OmOrderMain.class);
             List<OmOrderDetail> productList = JSON.parseArray(productStr,OmOrderDetail.class);
             List<OmOrderMaterial> materialList = JSON.parseArray(materialStr,OmOrderMaterial.class);
-            if (StringUtils.isNotBlank(main.getU8Id()) && main.getU8Id()>0) {
+            if ("已审核".equals(main.getStatusId())) {
                 return ResponseResult.error("已审核，请勿重复审核");
             }
-
-
             //主表转换
             OmMoMain u8Main = new OmMoMain();
             u8Main.setDataFromMesMain(main);
@@ -397,7 +395,7 @@ public class OmOrderController extends BasicController {
                 u8Material.setDataFromMesMaterial(material);
                 u8MaterialList.add(u8Material);
             });
-            result = u8MainService.save1(u8Main,u8DetailList,u8MaterialList,main);
+            result = omMainService.audit(u8Main,u8DetailList,u8MaterialList,main);
             return result;
         } catch (Exception e){
             e.printStackTrace();
