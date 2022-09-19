@@ -9,6 +9,10 @@ import lombok.experimental.Accessors;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * U8委外入库单子表
+ *
+ */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)

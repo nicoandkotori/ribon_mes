@@ -69,7 +69,7 @@
             <button type="button" class="layui-btn layui-btn-sm" lay-filter="audit" lay-submit="" >审核</button>
             <button type="button" class="layui-btn layui-btn-sm" onclick="btnNotAudit()">弃审</button>
             <button type="button" class="layui-btn layui-btn-sm" onclick="FnPrint()">打印</button>
-            <button type="button" class="layui-btn layui-btn-sm" onclick="change()">变更</button>
+
         </div>
 
 
@@ -273,16 +273,14 @@
             if (CurRow1 != "" && CurRow1 != undefined) {
                 $("#jqGridDetail").jqGrid('saveCell', CurRow1, CurCol1);
             }
-            var productData = productHelper.getAllRowData();
-            var productDataStr = JSON.stringify(productData);
-            var materialData = materialHelper.getAllRowData();
-            var materialDataStr = JSON.stringify(materialData);
+            let productData = productHelper.getAllRowData();
+            let productDataStr = JSON.stringify(productData);
+            let materialData = materialHelper.getAllRowData();
+            let materialDataStr = JSON.stringify(materialData);
             //map转成一维object数组
             let partDataArray = convertPartDataMapToArray();
             let partDataStr = JSON.stringify(partDataArray);
             let mainId = $("#id").val();
-            <!--DATE: 2022/9/16-->
-            <!--mijiahao TODO:123 -->
             //订单主表ID为空，则保存
             if (mainId === ""){
                 sendPostReq("/om/order/save", {

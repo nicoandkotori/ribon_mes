@@ -13,6 +13,7 @@ const DEBUG_MODEL = false;
 const DEFAULT_TAX_TATE = 13.00;
 
 const URL_BASE_ORDER = "/om/order/";
+const URL_BASE_COMMITTEE = "/om/order/metalworkcommittee";
 //分页查询mes委外订单url
 const URL_GET_MES_ORDER = URL_BASE_ORDER+"getmainlistbypage";
 //分页查询mes委外订单子表url
@@ -34,7 +35,9 @@ const URL_GET_ALL_MAIN_DATA_BY_ID = URL_BASE_ORDER+"get_all_main_data_by_id"
 //审核数据
 const URL_AUDIT = URL_BASE_ORDER+"audit"
 //弃审
-const URL_NOT_AUDIT = URL_BASE_ORDER+"uncheck"
+const URL_NOT_AUDIT = URL_BASE_COMMITTEE+"uncheck"
+//变更
+const URL_CHANGE = URL_BASE_ORDER+"change"
 
 
 /*

@@ -138,6 +138,7 @@
         <button type="button" class="layui-btn layui-btn-sm" onclick="edit()">编辑</button>
         <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="btnDelete()">作废</button>
         <button type="button" class="layui-btn layui-btn-sm" onclick="FnPrint()" id="FnPrint" >打印</button>
+        <button type="button" class="layui-btn layui-btn-sm" onclick="change()">变更</button>
 
     </div>
 </div>
@@ -359,6 +360,19 @@
             layui.miniTab.openNewTabByIframe({
                 href: "page/om/order/edit_new.html?id=" + rowid,
                 title: "编辑金工委外订单（新）",
+            });
+
+        } else {
+            layer.alert("请先选择行再操作！");
+        }
+    }
+
+    function change() {
+        var rowid = $(SELECTOR_MAIN_TABLE_ID).getGridParam("selrow");
+        if (rowid != null && rowid != '') {
+            layui.miniTab.openNewTabByIframe({
+                href: "page/om/order/change.html?id=" + rowid,
+                title: "变更委外订单",
             });
 
         } else {

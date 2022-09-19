@@ -9,6 +9,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+/**
+ * U8委外出库单子表
+ *
+ */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)

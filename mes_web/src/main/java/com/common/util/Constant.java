@@ -12,5 +12,5 @@ public class Constant {
      * 加密密文
      */
     public static final String JWT_SECRET = "3d990d2276917dfac04467df11fff26d";
-    public static final int JWT_TTL = 60 * 60 * 1000;  //millisecond
+    public static final int JWT_TTL = 10 * 60 * 60 * 1000;  //millisecond
 }

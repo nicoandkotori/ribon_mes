@@ -681,12 +681,6 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
                 String  sysbarcode = "||" + "ommo"+ "|" + omProductPo.getCcode();
                 omProductPo.setCsysbarcode(sysbarcode);
                 omProductPo.setCmemo(omProductPo.getCmemo());
-                //设置审核状态
-                omProductPo.setCstate(Byte.valueOf("1"));
-                omProductPo.setIverifystatenew(2);
-                omProductPo.setCverifier(SecurityUtil.getUser().getMyusername());
-                omProductPo.setDverifydate(DateUtil.parseStrToDate(DateUtil.getDateStr(new Date(),"yyyy-MM-dd"),"yyyy-MM-dd") );
-                omProductPo.setDverifytime(new Date());
                 int n = omMoMainMapper.insert(omProductPo);
                 if (n<0){
                     throw new Exception("保存表头出错！");
@@ -697,7 +691,10 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
                     updateMain.setId(mesMain.getId());
                     updateMain.setStatusId("已审核");
                     updateMain.setU8Id(u8fid);
-                    mesMainMapper.updateWithDbName(updateMain, ParamUtil.getParam("localDatabase").toString());
+                    Integer updateNum = mesMainMapper.updateWithDbName(updateMain, ParamUtil.getParam("localDatabase").toString());
+                    if (updateNum < 1){
+                        throw  new Exception("更新mes记录审核状态失败！");
+                    }
                 }
 
                 //循环插入合同信息
@@ -886,9 +883,116 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
             result.setResult1(omProductPo.getCcode());
         }catch (Exception e){
             e.printStackTrace();
-            throw new Exception(e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
         return result;
+    }
+
+    /**
+     * 变更
+     *
+     * @param main         主表
+     * @param productList  产品列表
+     * @param materialList 材料列表
+     * @return {@link ResponseResult}
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseResult change(OmOrderMain main, List<OmOrderDetail> productList, List<OmOrderMaterial> materialList) {
+        try {
+            ResponseResult result = new ResponseResult();
+            Integer u8Id = main.getU8Id();
+            //先校验是否有产品入库
+            LambdaQueryWrapper<OmMoDetails> selectD = new LambdaQueryWrapper<>();
+            selectD.eq(OmMoDetails::getMoid,u8Id);
+            List<OmMoDetails> listD = omMoDetailsMapper.selectList(selectD);
+            if(listD!=null)
+            {
+                for(OmMoDetails product:listD)
+                {
+                    if(product.getIreceivedqty()!=null&&product.getIreceivedqty().compareTo(BigDecimal.ZERO)>0)
+                    {
+                        //有入库记录后，判断是产品数量是否小于入库数量
+                        System.out.println("有入库记录");
+                        result.setMsg("有入库记录");
+                        BigDecimal inputProductQty = product.getIreceivedqty();
+                        BigDecimal updateProductQty = product.getIquantity();
+                        if (updateProductQty.compareTo(inputProductQty) >= 0){
+
+
+                            validateMaterialOutput(main,productList, materialList);
+                            //校验是否有相应的材料出库记录
+                            /**
+                             * DATE: 2022/9/19
+                             * mijiahao TODO: 校验是否有相应的材料出库记录
+                             */
+                        } else {
+                            //不允许变更
+                            throw new Exception("产品数量是小于入库数量，不允许变更！");
+                        }
+
+
+                    } else {
+                        //没有入库记录，校验是有材料出库记录
+
+                        System.out.println("没有入库记录");
+                        result.setMsg("没有入库记录");
+                    }
+
+                }
+            }
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 校验材料出库记录
+     *
+     * @return boolean
+     */
+    boolean validateMaterialOutput(OmOrderMain main, List<OmOrderDetail> productList, List<OmOrderMaterial> materialList) throws Exception{
+        LambdaQueryWrapper<OmMoMaterials> selectM= new LambdaQueryWrapper<>();
+        selectM.apply("  modetailsid in (select modetailsid from OM_MODetails where moid='"+main.getU8Id()+"' )" );
+        List<OmMoMaterials> listM = omMoMaterialsMapper.selectList(selectM);
+        if(listM!=null)
+        {
+            for(OmMoMaterials material:listM)
+            {
+                if(material.getIsendqty()!=null&&material.getIsendqty().compareTo(BigDecimal.ZERO)>0)
+                {
+                    //有出库记录，变更的总量是否小于出库总量？
+                    BigDecimal outputMaterialQty = material.getIsendqty();
+                    BigDecimal updateMaterialQty = material.getIquantity();
+                    if (updateMaterialQty.compareTo(outputMaterialQty) >= 0){
+                        //允许变更
+                        System.out.println("允许变更");
+                    } else {
+                        //不允许变更
+                        System.out.println("不允许变更");
+                        throw new Exception("材料变更总量小于已有总量，不允许变更");
+                    }
+                } else {
+                    //没有出库记录，允许变更
+                    System.out.println("没有出库记录，允许变更");
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 更改数据
+     *
+     * @param main         主要
+     * @param productList  产品列表
+     * @param materialList 材料清单
+     * @return boolean
+     */
+    boolean changeData(OmOrderMain main, List<OmOrderDetail> productList, List<OmOrderMaterial> materialList){
+        return true;
     }
 
 }

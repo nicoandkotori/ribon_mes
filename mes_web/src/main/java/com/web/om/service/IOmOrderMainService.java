@@ -40,10 +40,9 @@ public interface IOmOrderMainService extends IService<OmOrderMain> {
      * @return {@link ResponseResult}
      */
     ResponseResult updateToMes(OmOrderMain main,
-                             List<OmOrderDetail> productList,
-                             List<OmOrderPart> partList,
-                             List<OmOrderMaterial> materialList);
-
+                               List<OmOrderDetail> productList,
+                               List<OmOrderPart> partList,
+                               List<OmOrderMaterial> materialList);
 
 
     /**
@@ -67,5 +66,21 @@ public interface IOmOrderMainService extends IService<OmOrderMain> {
      *
      * @return {@link ResponseResult}
      */
-    ResponseResult audit(OmMoMain omProductPo, List<OmProductVM>  list, List<OmProductVM>  listDetail, OmOrderMain mesMain) throws Exception;
+    ResponseResult audit(OmMoMain omProductPo, List<OmProductVM> list, List<OmProductVM> listDetail, OmOrderMain mesMain) throws Exception;
+
+
+    /**
+     * 变更
+     *
+     * @param main         主表
+     * @param productList  产品列表
+     * @param materialList 材料列表
+     * @return {@link ResponseResult}
+     */
+    ResponseResult change(OmOrderMain main,
+                           List<OmOrderDetail> productList,
+                           List<OmOrderMaterial> materialList);
 }
+
+
+

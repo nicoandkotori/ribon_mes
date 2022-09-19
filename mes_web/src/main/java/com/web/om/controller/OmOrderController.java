@@ -404,6 +404,26 @@ public class OmOrderController extends BasicController {
 
     }
 
+    /**
+     * 变更
+     *
+     * @return {@link ResponseResult}
+     */
+    @PostMapping("change")
+    public ResponseResult change(String mainStr,String productStr,String materialStr){
+        try {
+            DbContextHolder.setDbType(DBTypeEnum.db2);
+            OmOrderMain main = JSON.parseObject(mainStr, OmOrderMain.class);
+            List<OmOrderDetail> productList = JSON.parseArray(productStr,OmOrderDetail.class);
+            List<OmOrderMaterial> materialList = JSON.parseArray(materialStr,OmOrderMaterial.class);
+            return omMainService.change(main,productList,materialList);
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseResult.error();
+        }
+
+    }
+
 
 
 
