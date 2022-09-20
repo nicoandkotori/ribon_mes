@@ -219,16 +219,18 @@ public class BomServiceImpl extends ServiceImpl<BomMapper, Bom> implements IBomS
                 Inventory inventory=new Inventory();
                 inventory.setCinvcode(main.getInvCode());
                 inventory.setCinvdefine3(main.getCinvdefine3());
-                if(main.getCinvdefine3().equals("金工")||main.getCinvdefine3().equals("外协")||main.getCinvdefine3().equals("钣金委外")||main.getCinvdefine3().equals("剪料转委外")||main.getCinvdefine3().equals("冲件转委外"))
+                if(main.getCinvdefine3().equals("金工")||main.getCinvdefine3().equals("外协"))
                 {
                     inventory.setBproxyforeign(true);
                     inventory.setBpurchase(false);
                     inventory.setBself(false);
 
-                    inventory.setBproductbill(false);
+                    inventory.setBproductbill(true);
                     inventory.setBbommain(true);
-                    inventory.setIplandefault(Short.valueOf("2"));
+                    inventory.setBbomsub(true);
                     inventory.setBcomsume(true);
+                    inventory.setBproducing(true);
+                    inventory.setIplandefault(Short.valueOf("2"));
                     int n= inventoryMapper.updateById(inventory);
                     if(n<=0)
                     {
@@ -236,7 +238,7 @@ public class BomServiceImpl extends ServiceImpl<BomMapper, Bom> implements IBomS
                     }
 
                 }
-                else if(main.getCinvdefine3().equals("外购"))
+                else if(main.getCinvdefine3().equals("外购")||main.getCinvdefine3().equals("原材料"))
                 {
                     inventory.setBpurchase(true);
                     inventory.setBproxyforeign(false);
@@ -244,38 +246,35 @@ public class BomServiceImpl extends ServiceImpl<BomMapper, Bom> implements IBomS
 
                     inventory.setBproductbill(false);
                     inventory.setBbommain(false);
+                    inventory.setBbomsub(true);
                     inventory.setIplandefault(Short.valueOf("3"));
                     inventory.setBcomsume(true);
+                    inventory.setBproducing(false);
                     int n= inventoryMapper.updateById(inventory);
                     if(n<=0)
                     {
                         throw new  Exception("更新存货档案出错！");
                     }
                 }
-                else if(main.getCinvdefine3().equals("安装")||main.getCinvdefine3().equals("剪料")||main.getCinvdefine3().equals("锯料")||main.getCinvdefine3().equals("冲件")||main.getCinvdefine3().equals("自制激光"))
+
+                else
                 {
-                    inventory.setBself(true);
                     inventory.setBpurchase(false);
                     inventory.setBproxyforeign(false);
+                    inventory.setBself(true);
 
                     inventory.setBproductbill(true);
                     inventory.setBbommain(true);
+                    inventory.setBbomsub(true);
                     inventory.setIplandefault(Short.valueOf("1"));
                     inventory.setBcomsume(true);
+                    inventory.setBproducing(true);
                     int n= inventoryMapper.updateById(inventory);
                     if(n<=0)
                     {
                         throw new  Exception("更新存货档案出错！");
                     }
-                }
-                else
-                {
-                    //只更新加工类型
-                    int n= inventoryMapper.updateById(inventory);
-                    if(n<=0)
-                    {
-                        throw new  Exception("更新存货档案出错！");
-                    }
+
                 }
 
 
@@ -285,6 +284,16 @@ public class BomServiceImpl extends ServiceImpl<BomMapper, Bom> implements IBomS
                 Inventory inventory=new Inventory();
                 inventory.setCinvcode(main.getInvCode());
                 inventory.setCinvdefine3("");
+                inventory.setBpurchase(false);
+                inventory.setBproxyforeign(false);
+                inventory.setBself(true);
+
+                inventory.setBproductbill(true);
+                inventory.setBbommain(true);
+                inventory.setBbomsub(true);
+                inventory.setIplandefault(Short.valueOf("1"));
+                inventory.setBcomsume(true);
+                inventory.setBproducing(true);
                 //只更新加工类型
                 int n= inventoryMapper.updateById(inventory);
                 if(n<=0)
@@ -468,17 +477,19 @@ public class BomServiceImpl extends ServiceImpl<BomMapper, Bom> implements IBomS
                         inventory.setBpurchase(false);
                         inventory.setBself(false);
 
-                        inventory.setBproductbill(false);
+                        inventory.setBproductbill(true);
                         inventory.setBbommain(true);
-                        inventory.setIplandefault(Short.valueOf("2"));
+                        inventory.setBbomsub(true);
                         inventory.setBcomsume(true);
+                        inventory.setBproducing(true);
+                        inventory.setIplandefault(Short.valueOf("2"));
                         int n= inventoryMapper.updateById(inventory);
                         if(n<=0)
                         {
                             throw new  Exception("更新存货档案出错！");
                         }
                     }
-                    else if(bomDTO.getCinvdefine3().equals("外购"))
+                    else if(bomDTO.getCinvdefine3().equals("外购")||bomDTO.getCinvdefine3().equals("原材料"))
                     {
                         inventory.setBpurchase(true);
                         inventory.setBproxyforeign(false);
@@ -486,37 +497,35 @@ public class BomServiceImpl extends ServiceImpl<BomMapper, Bom> implements IBomS
 
                         inventory.setBproductbill(false);
                         inventory.setBbommain(false);
+                        inventory.setBbomsub(true);
                         inventory.setIplandefault(Short.valueOf("3"));
                         inventory.setBcomsume(true);
+                        inventory.setBproducing(false);
                         int n= inventoryMapper.updateById(inventory);
                         if(n<=0)
                         {
                             throw new  Exception("更新存货档案出错！");
                         }
                     }
-                    else if(bomDTO.getCinvdefine3().equals("安装")||bomDTO.getCinvdefine3().equals("剪料")||bomDTO.getCinvdefine3().equals("锯料")||bomDTO.getCinvdefine3().equals("冲件")||bomDTO.getCinvdefine3().equals("自制激光"))
+
+                    else
                     {
-                        inventory.setBself(true);
                         inventory.setBpurchase(false);
                         inventory.setBproxyforeign(false);
+                        inventory.setBself(true);
 
                         inventory.setBproductbill(true);
                         inventory.setBbommain(true);
+                        inventory.setBbomsub(true);
                         inventory.setIplandefault(Short.valueOf("1"));
+                        inventory.setBcomsume(true);
+                        inventory.setBproducing(true);
                         int n= inventoryMapper.updateById(inventory);
                         if(n<=0)
                         {
                             throw new  Exception("更新存货档案出错！");
                         }
-                    }
-                    else
-                    {
-                        //只更新加工类型
-                        int n= inventoryMapper.updateById(inventory);
-                        if(n<=0)
-                        {
-                            throw new  Exception("更新存货档案出错！");
-                        }
+
                     }
 
 
@@ -526,6 +535,16 @@ public class BomServiceImpl extends ServiceImpl<BomMapper, Bom> implements IBomS
                     Inventory inventory=new Inventory();
                     inventory.setCinvcode(bomDTO.getInvCode());
                     inventory.setCinvdefine3("");
+                    inventory.setBpurchase(false);
+                    inventory.setBproxyforeign(false);
+                    inventory.setBself(true);
+
+                    inventory.setBproductbill(true);
+                    inventory.setBbommain(true);
+                    inventory.setBbomsub(true);
+                    inventory.setIplandefault(Short.valueOf("1"));
+                    inventory.setBcomsume(true);
+                    inventory.setBproducing(true);
                     //只更新加工类型
                     int n= inventoryMapper.updateById(inventory);
                     if(n<=0)

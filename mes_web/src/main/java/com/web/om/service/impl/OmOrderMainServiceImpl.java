@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.common.util.*;
+import com.modules.data.mybatis.DBTypeEnum;
+import com.modules.data.mybatis.DbContextHolder;
 import com.modules.security.util.SecurityUtil;
 import com.web.basicinfo.entity.ComputationUnit;
 import com.web.basicinfo.entity.Inventory;
@@ -15,10 +17,7 @@ import com.web.basicinfo.mapper.VendorMapper;
 import com.web.basicinfo.service.IInventoryService;
 import com.web.om.dto.*;
 import com.web.om.entity.*;
-import com.web.om.mapper.OmMoDetailsMapper;
-import com.web.om.mapper.OmMoMainMapper;
-import com.web.om.mapper.OmMoMaterialsMapper;
-import com.web.om.mapper.OmOrderMainMapper;
+import com.web.om.mapper.*;
 import com.web.om.service.*;
 import com.web.u8system.util.U8SystemUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +40,12 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
     private OmOrderMainMapper omOrderMainMapper;
 
     @Autowired
+    private OmOrderDetailMapper mesProductMapper;
+
+    @Autowired
+    private OmOrderMaterialMapper mesMaterialMapper;
+
+    @Autowired
     IOmOrderDetailService productService;
 
     @Autowired
@@ -53,8 +58,7 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
     private InventoryMapper inventoryMapper;
     @Autowired
     private BasPartMapper basPartMapper;
-    @Autowired
-    private OmOrderMainMapper mesMainMapper;
+
     @Autowired
     private IInventoryService inventoryService;
     @Autowired
@@ -252,20 +256,19 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
     /**
      * 通过id作废委外订单
      *
-     * @param id id
+     * @param mesId id
      * @return {@link ResponseResult}
      */
     @Override
     @Transactional (rollbackFor = Exception.class)
-    public ResponseResult deleteMainById(String id) {
-        //删除订单
+    public ResponseResult deleteMainById(String mesId) {
         try {
-            OmOrderMain main = this.getById(id);
-            main.setDeleteInfo();
-            this.updateById(main);
+            OmOrderMain mesMain = this.getById(mesId);
+            mesMain.setDeleteInfo();
+            this.updateById(mesMain);
             //删除产品表
             LambdaQueryWrapper<OmOrderDetail> productWrapper = new LambdaQueryWrapper<OmOrderDetail>();
-            productWrapper.eq(OmOrderDetail::getMainId,id);
+            productWrapper.eq(OmOrderDetail::getMainId, mesId);
             productWrapper.eq(OmOrderDetail::getIzDelete,0);
             List<OmOrderDetail> productList = productService.list(productWrapper);
             productList.forEach( product ->{
@@ -274,7 +277,7 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
             });
             //删除部件表
             LambdaQueryWrapper<OmOrderPart> partWrapper = new LambdaQueryWrapper<OmOrderPart>();
-            partWrapper.eq(OmOrderPart::getMainId,id);
+            partWrapper.eq(OmOrderPart::getMainId, mesId);
             partWrapper.eq(OmOrderPart::getIzDelete,0);
             List<OmOrderPart> partList = partService.list(partWrapper);
             partList.forEach( part ->{
@@ -283,7 +286,7 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
             });
             //删除材料表
             LambdaQueryWrapper<OmOrderMaterial> materialWrapper = new LambdaQueryWrapper<>();
-            materialWrapper.eq(OmOrderMaterial::getMainId,id);
+            materialWrapper.eq(OmOrderMaterial::getMainId, mesId);
             materialWrapper.eq(OmOrderMaterial::getIzDelete,0);
             List<OmOrderMaterial> materialList = materialService.list(materialWrapper);
             materialList.forEach( material ->{
@@ -629,7 +632,6 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
 
                             omPoDetails.setMomaterialsid(u8fid);
 
-
                             n = omMoMaterialsMapper.insert(omPoDetails);
                             if (n<0){
                                 throw new Exception("保存用料表出错！");
@@ -698,7 +700,7 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
                     updateMain.setId(mesMain.getId());
                     updateMain.setStatusId("已审核");
                     updateMain.setU8Id(u8fid);
-                    Integer updateNum = mesMainMapper.updateWithDbName(updateMain, ParamUtil.getParam("localDatabase").toString());
+                    Integer updateNum = omOrderMainMapper.updateWithDbName(updateMain, ParamUtil.getParam("localDatabase").toString());
                     if (updateNum < 1){
                         throw  new Exception("更新mes记录审核状态失败！");
                     }
@@ -759,12 +761,15 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
                     t.setRowNo(row);
                     t.setMoid(omPoMain.getMoid());
                     t.setModetailsid(omPoMain.getModetailsid());
-
                     n = omMoDetailsMapper.insert(omPoMain);
                     if (n < 0) {
                         throw new Exception("保存表体出错！");
                     }
-
+                    String mesProductId = t.getCfree3();
+                    OmOrderDetail product = new OmOrderDetail();
+                    product.setId(mesProductId);
+                    product.setU8MoDetailId(omPoMain.getMoid());
+                    mesProductMapper.updateWithDBName(product,ParamUtil.getParam("localDatabase").toString());
 
                     int izExist = 0;
                     for (OmProductVM material : u8MaterialList)
@@ -817,6 +822,7 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
                             if(q.getRecordId().equals(t.getRecordId()))
                             {
                                 omPoDetails.setMoid(q.getMoid());
+
                                 omPoDetails.setModetailsid(q.getModetailsid());
                                 omPoDetails.setDrequireddate(q.getDarrivedate());
                                 sysbarcode = "||" + "ommo"+ "|" + omProductPo.getCcode()+"|"+q.getRowNo()+"|"+row;
@@ -878,7 +884,11 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
                             inventoryUpdate.setCinvdefine2(t.getCinvdefine2());
                             inventoryMapper.updateById(inventoryUpdate);
                         }
-
+                        String mesId = t.getCfree1();
+                        OmOrderMaterial mesMaterial = new OmOrderMaterial();
+                        mesMaterial.setId(mesId);
+                        mesMaterial.setU8MoMaterialId(omPoDetails.getMoid());
+                        mesMaterialMapper.updateWithDBName(mesMaterial,ParamUtil.getParam("localDatabase").toString());
                         row++;
                     }
 
@@ -917,39 +927,27 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
             {
                 for(OmMoDetails product:listD)
                 {
-                    if(product.getIreceivedqty()!=null&&product.getIreceivedqty().compareTo(BigDecimal.ZERO)>0)
-                    {
-                        //有入库记录后，判断是产品数量是否小于入库数量
-                        System.out.println("有入库记录");
-                        result.setMsg("有入库记录");
-                        BigDecimal inputProductQty = product.getIreceivedqty();
-                        BigDecimal updateProductQty = null;
-                        productList.forEach(mesProduct ->{
-                            if (mesProduct.getU8MoDetailId().equals(product.getMoid())){
-
-                            }
-                        });
-                        if (updateProductQty.compareTo(inputProductQty) >= 0){
-
-
-                            validateMaterialOutput(main,productList, materialList);
-                            //校验是否有相应的材料出库记录
-                            /**
-                             * DATE: 2022/9/19
-                             * mijiahao TODO: 校验是否有相应的材料出库记录
-                             */
-                        } else {
-                            //不允许变更
-                            throw new Exception("产品数量是小于入库数量，不允许变更！");
+                    BigDecimal inputProductQty = product.getIreceivedqty() == null? BigDecimal.ZERO : product.getIreceivedqty();
+                    //有入库记录后，判断是产品数量是否小于入库数量
+                    BigDecimal updateProductQty = null;
+                    for (int i = 0;i<productList.size();i++){
+                        OmOrderDetail mesProduct = productList.get(i);
+                        if (mesProduct.getU8MoDetailId().equals(product.getMoid())){
+                            updateProductQty = mesProduct.getProductQty();
+                            break;
                         }
-
-
-                    } else {
-                        //没有入库记录，校验是有材料出库记录
-
-                        System.out.println("没有入库记录");
-                        result.setMsg("没有入库记录");
                     }
+                    if (updateProductQty == null){
+                        throw new Exception("保存完后请先审核！");
+                    }
+                    if (updateProductQty.compareTo(inputProductQty) >= 0){
+                        validateMaterialOutput(main,productList, materialList);
+                        //校验是否有相应的材料出库记录
+                    } else {
+                        //不允许变更
+                        throw new Exception("产品数量是小于入库数量，不允许变更！");
+                    }
+
 
                 }
             }
@@ -971,24 +969,24 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
         List<OmMoMaterials> listM = omMoMaterialsMapper.selectList(selectM);
         if(listM!=null)
         {
-            for(OmMoMaterials material:listM)
+            for(OmMoMaterials u8Material:listM)
             {
-                if(material.getIsendqty()!=null&&material.getIsendqty().compareTo(BigDecimal.ZERO)>0)
-                {
-                    //有出库记录，变更的总量是否小于出库总量？
-                    BigDecimal outputMaterialQty = material.getIsendqty();
-                    BigDecimal updateMaterialQty = material.getIquantity();
-                    if (updateMaterialQty.compareTo(outputMaterialQty) >= 0){
-                        //允许变更
-                        System.out.println("允许变更");
-                    } else {
-                        //不允许变更
-                        System.out.println("不允许变更");
-                        throw new Exception("材料变更总量小于已有总量，不允许变更");
+                BigDecimal outputMaterialQty = u8Material.getIsendqty() == null? BigDecimal.ZERO : u8Material.getIsendqty();
+                //有出库记录，变更的总量是否小于出库总量？
+
+                BigDecimal updateMaterialQty = null;
+                for (int i = 0;i<materialList.size();i++){
+                    OmOrderMaterial mesMaterial = materialList.get(i);
+                    if (mesMaterial.getU8MoMaterialId().equals(u8Material.getMoid())){
+                        updateMaterialQty = mesMaterial.getTqty();
                     }
+                }
+                if (updateMaterialQty.compareTo(outputMaterialQty) >= 0){
+                    //允许变更，修改数据
+                    changeData(main,productList,materialList);
                 } else {
-                    //没有出库记录，允许变更
-                    System.out.println("没有出库记录，允许变更");
+                    //不允许变更
+                    throw new Exception("材料变更总量小于已有总量，不允许变更");
                 }
             }
         }
@@ -998,13 +996,137 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
     /**
      * 更改数据
      *
-     * @param main         主要
-     * @param productList  产品列表
-     * @param materialList 材料清单
+     * @param main         主表
+     * @param productList  要更新的产品列表
+     * @param materialList 要更新的材料列表
      * @return boolean
      */
-    boolean changeData(OmOrderMain main, List<OmOrderDetail> productList, List<OmOrderMaterial> materialList){
-        return true;
+    void changeData(OmOrderMain main, List<OmOrderDetail> productList, List<OmOrderMaterial> materialList) throws Exception{
+        productList.forEach(product->{
+            materialList.forEach(material -> {
+                BigDecimal productQty = product.getProductQty();
+                BigDecimal materialTqty = material.getTqty();
+                //更新u8产品数量
+                OmMoDetails u8Product = new OmMoDetails();
+                LambdaQueryWrapper<OmMoDetails> u8ProductWrapper = new LambdaQueryWrapper<>();
+                u8ProductWrapper.eq(OmMoDetails::getMoid,product.getU8MoDetailId());
+                u8Product.setIquantity(productQty);
+                int u8ProductUpdateNum = omMoDetailsMapper.update(u8Product,u8ProductWrapper);
+                //更新u8材料总量
+                OmMoMaterials u8Material = new OmMoMaterials();
+                LambdaQueryWrapper<OmMoMaterials> u8MaterialWrapper = new LambdaQueryWrapper<>();
+                u8MaterialWrapper.eq(OmMoMaterials::getMoid,material.getU8MoMaterialId());
+                u8Material.setIquantity(materialTqty);
+                int u8MaterialUpdateNum = omMoMaterialsMapper.update(u8Material,u8MaterialWrapper);
+                //更新mes产品数量
+                OmOrderDetail mesProduct = new OmOrderDetail();
+                mesProduct.setId(product.getId());
+                mesProduct.setProductQty(productQty);
+                int mesProductUpdateNum = mesProductMapper.updateWithDBName(mesProduct,ParamUtil.getParam("localDatabase").toString());
+                //更新mes材料总量
+                OmOrderMaterial mesMaterial = new OmOrderMaterial();
+                mesMaterial.setId(material.getId());
+                mesMaterial.setTqty(materialTqty);
+                int mesMaterialUpdateNum = mesMaterialMapper.updateWithDBName(mesMaterial,ParamUtil.getParam("localDatabase").toString());
+                try {
+                    if ( u8MaterialUpdateNum == 0 || u8ProductUpdateNum ==0 || mesMaterialUpdateNum ==0 || mesProductUpdateNum ==0) {
+                        throw new Exception("数据变更失败");
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException(e.getMessage());
+                }
+            });
+        });
+    }
+
+    /**
+     * 弃审（新）
+     * @param id
+
+     * @return
+     * @throws Exception
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseResult unCheck(Integer id,String mesId) throws Exception{
+        ResponseResult result = new ResponseResult();
+        try{
+            OmMoMain omProductPo= omMoMainMapper.selectById(id);
+            if(omProductPo!=null)
+            {
+                if(!omProductPo.getCstate().toString().equals("1"))
+                {
+                    result.setSuccess(false);
+                    result.setMsg("数据不为已审核，不允许弃审！");
+                    return result;
+                }
+
+
+                LambdaQueryWrapper<OmMoMaterials> selectM= new LambdaQueryWrapper<>();
+                selectM.apply("  modetailsid in (select modetailsid from OM_MODetails where moid='"+id+"' )" );
+                List<OmMoMaterials> listM = omMoMaterialsMapper.selectList(selectM);
+                if(listM!=null)
+                {
+                    for(OmMoMaterials omMoMaterials:listM)
+                    {
+                        if(omMoMaterials.getIsendqty()!=null&&omMoMaterials.getIsendqty().compareTo(BigDecimal.ZERO)>0)
+                        {
+                            result.setSuccess(false);
+                            result.setMsg("单据已经存在出库物料，不允许弃审！");
+                            return result;
+                        }
+                    }
+                }
+
+                LambdaQueryWrapper<OmMoDetails> selectD = new LambdaQueryWrapper<>();
+                selectD.eq(OmMoDetails::getMoid,id);
+                List<OmMoDetails> listD = omMoDetailsMapper.selectList(selectD);
+                if(listD!=null)
+                {
+                    for(OmMoDetails omMoDetails:listD)
+                    {
+                        if(omMoDetails.getIreceivedqty()!=null&&omMoDetails.getIreceivedqty().compareTo(BigDecimal.ZERO)>0)
+                        {
+                            result.setSuccess(false);
+                            result.setMsg("单据已经存在入库数据，不允许弃审！");
+                            return result;
+                        }
+                    }
+                }
+
+
+
+                OmMoMain m= new OmMoMain();
+                m.setMoid(id);
+                m.setCstate(Byte.valueOf("0"));
+                m.setCverifier(null);
+                m.setDverifytime(null);
+                m.setDverifydate(null);
+                int n=omMoMainMapper.updateUnCheck(m);
+                OmOrderMain mesMain = new OmOrderMain();
+                if (StringUtils.isNotBlank(mesId)){
+                    mesMain.setId(mesId);
+                    mesMain.setStatusId("未审核");
+                    omOrderMainMapper.updateWithDbName(mesMain,ParamUtil.getParam("localDatabase").toString());
+                }
+                if(n<=0)
+                {
+                    result.setSuccess(false);
+                    result.setMsg("审核失败！");
+                    return result;
+                }
+            }
+            else
+            {
+                result.setSuccess(false);
+                result.setMsg("数据不存在！");
+                return result;
+            }
+
+
+        }catch (Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+        return result;
     }
 
 }

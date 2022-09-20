@@ -36,7 +36,7 @@ public class MpsNetdemandServiceImpl extends ServiceImpl<U8MpsNetdemandMapper, U
     }
     @Override
     public List<U8MpsNetdemand> getPrintProduct(U8MpsNetdemand query)throws Exception {
-        return u8MpsNetdemandMapper.getPrintProduct(query);
+        return u8MpsNetdemandMapper.getPrintProduct(query, ParamUtil.getParam("localDatabase").toString());
     }
 
 

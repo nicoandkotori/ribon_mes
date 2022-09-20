@@ -255,6 +255,20 @@ public class InventoryServiceImpl extends ServiceImpl<InventoryMapper, Inventory
                     detail.setBproductbill(true);
                 }
 
+                //存货代码2开头的单独设置属性
+                if(detail.getCinvccode().startsWith("2"))
+                {
+                    detail.setBpurchase(false);
+                    detail.setBsale(true);
+                    detail.setBself(true);
+                    detail.setBproxyforeign(false);
+                    detail.setBcomsume(true);
+                    detail.setBproducing(true);
+                    detail.setIplandefault(Short.valueOf("1"));
+                    detail.setBbommain(true);
+                    detail.setBbomsub(true);
+                    detail.setBproductbill(true);
+                }
 
                 //插入存货自定义项目表
               /*  InventoryExtradefine inventoryExtradefine=new InventoryExtradefine();

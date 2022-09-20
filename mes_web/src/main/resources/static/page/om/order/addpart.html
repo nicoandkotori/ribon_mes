@@ -192,7 +192,7 @@
 
             },
             ondblClickRow: function (rowid, iRow, iCol, e) {
-                console.log(partHelper.getRowDataById(rowid));
+                consoleLog(partHelper.getRowDataById(rowid));
                 if (iCol == 3 || iCol == 4) {
                     //选择自建
                     chooseInvType = 'part';
@@ -204,7 +204,7 @@
                 CurCol = iCol;
             },
             afterSaveCell: function (rowid, name, val, iRow, iCol) {
-                console.log("保存单元格name:"+name);
+                consoleLog("保存单元格name:"+name);
                 switch (name){
                     case PART_QTY:
                         setQty(rowid);
@@ -277,7 +277,7 @@
             },
             ondblClickRow: function (rowid, iRow, iCol, e) {
                 //iCol==6||
-                console.log(rowid);
+                consoleLog(rowid);
                 if (iCol == 12 || iCol == 13) {
                     //选择自建
                     chooseInvType = 'material';
@@ -293,7 +293,7 @@
                    if (CurRow1 != "" || CurRow1 != undefined) {
                        $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
                    }
-                console.log("保存单元格name:"+name);
+                consoleLog("保存单元格name:"+name);
                 if (name == INV_CODE) {
                     setInventory(rowid, "2");
                 } else if (name == UNIT_MATERIAL_PRICE || name == INV_LAND || name == INV_LEN || name == INV_WIDTH || name == INV_EXTERNAL_DIAMETER || name == INV_INTERNAL_DIAMETER || name == INV_DENSITY) {
@@ -323,8 +323,8 @@
      */
     function initData(){
         let params = parent.addPartParams;
-        console.log("部件窗口接收的参数↓");
-        console.log(params);
+        consoleLog("部件窗口接收的参数↓");
+        consoleLog(params);
         let selectedRowData = params.productData;
         recordId = selectedRowData.recordId;
         setProductionInfo(selectedRowData);
@@ -346,11 +346,10 @@
         partHelper.addRowData()
     }
 
-    <!--DATE: 2022/9/13-->
-    <!--mijiahao TODO:逻辑待优化 -->
+
     //修改数量后，同步更新其它字段
     function setQty(rowid) {
-        console.log("修改了数量");
+        consoleLog("修改了数量");
         let partObj = new omMesPart();
         partObj.setEntity(partHelper.getRowDataById(rowid));
         //循环子表更新数量
@@ -368,8 +367,8 @@
                 productMaterialObj.setPartQty(partQty);
                 //计算材料表总量
                 productMaterialObj.setTqty((partQty * iqty).toFixed(2));
-                console.log("修改数量-同步更新材料表数量↓");
-                console.log(productMaterialObj);
+                consoleLog("修改数量-同步更新材料表数量↓");
+                consoleLog(productMaterialObj);
                 materialHelper.setRowDataById(ids[i],productMaterialObj);
             }
 
@@ -379,7 +378,7 @@
 
     //修改单耗后同步修改总量
     function afterUpdatingIqty(rowid) {
-        console.log("修改单耗后同步修改总量");
+        consoleLog("修改单耗后同步修改总量");
         let materialObj = new omMesMaterial();
         materialObj.setEntity(materialHelper.getRowDataById(rowid));
         //数量
@@ -387,7 +386,7 @@
         //单耗
         let iqty = getStringDecimal(materialObj.getIqty());
         materialObj.setTqty((productQty * iqty).toFixed(2));
-        console.log(materialObj);
+        consoleLog(materialObj);
         materialHelper.setRowDataById(rowid,materialObj);
 
     }
@@ -396,7 +395,7 @@
      * 设置存货信息
      */
     function setInventory(rowid, itype) {
-        console.log("设置存货信息");
+        consoleLog("设置存货信息");
         if (itype == "1") {
             var rowData = partHelper.getRowDataById(rowid);
             let partObj = new omMesPart();
@@ -428,8 +427,7 @@
                                 let materialObj = new omMesMaterial();
                                 materialObj.setEntity(materialHelper.getRowDataById(rowid));
                                 for (var i = 0; i < data["mDatas"].length; i++) {
-                                    <!--DATE: 2022/9/13-->
-                                    <!--mijiahao TODO:这块的业务逻辑是什么 -->
+
                                     materialObj.setMaterialInfoFromU8Data(data["mDatas"]);
                                     materialRowIndex++;
                                     materialHelper.addRowData(materialRowIndex,data["mDatas"][i])
@@ -473,7 +471,7 @@
 
     //设置下料尺寸
     function setSize(rowid) {
-        console.log("设置下料尺寸！");
+        consoleLog("设置下料尺寸！");
         let rowData = materialHelper.getRowDataById(rowid);
         let materialObj = new omMesMaterial();
         materialObj.setEntity(rowData);
@@ -566,8 +564,8 @@
         materialObj.setUnitMaterialAmount(unitMaterialAmount);
         materialObj.setIqty(iqty)
         materialObj.setTqty((iqty * productQty).toFixed(2));
-        console.log("设置下料尺寸-材料表字段更新-下料尺寸,材料单价,单耗，总量↓");
-        console.log(materialObj);
+        consoleLog("设置下料尺寸-材料表字段更新-下料尺寸,材料单价,单耗，总量↓");
+        consoleLog(materialObj);
         materialHelper.setRowDataById(rowid,materialObj)
         
 
@@ -626,7 +624,7 @@
      * 材料表增行事件
      */
     function addMaterialRowEvent(){
-        console.log("材料表增行函数");
+        consoleLog("材料表增行函数");
         partHelper.saveCell(CurRow,CurCol);
         let partRowData = partHelper.getSelectedRowData();
         if (partRowData === undefined){
@@ -638,8 +636,8 @@
         productMaterialRowData.setEntity(partRowData);
         //设置产品信息
         productMaterialRowData.setProductInfo(getProductionInfo());
-        console.log("材料表增行↓");
-        console.log(productMaterialRowData);
+        consoleLog("材料表增行↓");
+        consoleLog(productMaterialRowData);
         addMaterialRow(productMaterialRowData);
     }
 

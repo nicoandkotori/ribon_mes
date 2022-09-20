@@ -21,4 +21,6 @@ public interface ITestSoListService extends IService<TestSoList> {
     ResponseResult delete(TestSoList m) throws Exception;
 
     ResponseResult saveU8(List<TestSoList> list) throws Exception;
+    ResponseResult updateSufaceWay(List<TestSoList> list) throws Exception;
+
 }

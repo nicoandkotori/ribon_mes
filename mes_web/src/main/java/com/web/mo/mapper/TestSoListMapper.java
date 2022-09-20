@@ -35,5 +35,6 @@ public interface TestSoListMapper extends BaseMapper<TestSoList> {
     int updateyQty1(@Param("main")TestSoList record,@Param("database") String database);
 
 
+    int updateSufaceWay(@Param("main")TestSoList record);
 
 }

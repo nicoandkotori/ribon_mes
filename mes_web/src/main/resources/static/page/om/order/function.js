@@ -24,4 +24,13 @@ function getNumberDecimal(num){
     return result;
 }
 
+/*
+ * 控制台输出
+ */
+function consoleLog(msg){
+    if (DEBUG_MODEL){
+        console.log(msg);
+    }
+}
+
 

@@ -25,6 +25,8 @@ public class OmOrderDetail extends BaseEntity {
 
     private String productInvCode;
 
+    private String taxRate ;
+
     private String productInvName;
 
     private String productInvStd;

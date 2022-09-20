@@ -29,6 +29,7 @@ public class OmMoMaterials {
 
     private BigDecimal isendqty;
 
+    //mes中对应记录的ID
     private String cfree1;
 
     private String cfree2;

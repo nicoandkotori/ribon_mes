@@ -214,7 +214,7 @@
                 if(rowid!=null&&rowid!=""&&rowid!=undefined)
                 {
                     let selectedRow = mainHelper.getRowDataById(rowid);
-                    console.log(selectedRow);
+                    consoleLog(selectedRow);
                     $.ajax({
                         type: "post",
                         url: URL_GET_MES_DETAIL,
@@ -391,7 +391,7 @@
         layer.confirm('确定作废数据？', function(index) {
             sendPostReq(URL_DELETE_MES_ORDER_BY_ID, {id: rowId}, function (data) {
                 $(SELECTOR_MAIN_TABLE_ID).trigger("reloadGrid");
-                layer.alert("作废成功！");
+                layer.alert(data.msg);
             });
         });
     }

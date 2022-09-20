@@ -31,6 +31,10 @@ public class OaInventoryApplyServiceImpl extends ServiceImpl<OaInventoryApplyMap
     private OaInventoryApplyDetailMapper oaInventoryApplyDetailMapper;
     @Autowired
     private InventoryMapper inventoryMapper;
+
+    @Autowired
+    private InventoryClassMapper inventoryClassMapper;
+
     @Autowired
     private InventorySubMapper inventorySubMapper;
     @Autowired
@@ -79,7 +83,19 @@ public class OaInventoryApplyServiceImpl extends ServiceImpl<OaInventoryApplyMap
 
                     Inventory inventory=new Inventory();
                     inventory.setDefaultValue();
-
+                    //物料分类编码为空，根据名称查询
+                    if(CustomStringUtils.isBlank(q.getField0022()))
+                    {
+                        //存貨编码取大类最大值递增
+                        LambdaQueryWrapper<InventoryClass> selectInvClass=new LambdaQueryWrapper<>();
+                        selectInvClass.eq(InventoryClass::getCInvCName, q.getField0011());
+                        selectInvClass.orderByDesc(InventoryClass::getCInvCCode);
+                        List<InventoryClass> listInvClass=inventoryClassMapper.selectList(selectInvClass);
+                        if(listInvClass!=null&&listInvClass.size()>0)
+                        {
+                            q.setField0022(listInvClass.get(0).getCInvCCode());
+                        }
+                    }
 
                     //存貨编码取大类最大值递增
                     LambdaQueryWrapper<Inventory> selectInv=new LambdaQueryWrapper<>();
@@ -122,7 +138,8 @@ public class OaInventoryApplyServiceImpl extends ServiceImpl<OaInventoryApplyMap
                     inventory.setCinvdefine7(q.getField0010());
                     //技术部图名
                     inventory.setCinvdefine9(q.getField0008());
-
+                    //分类
+                    inventory.setCinvdefine1(q.getClassName());
                     //品牌
                     inventory.setCaddress(q.getField0024());
 

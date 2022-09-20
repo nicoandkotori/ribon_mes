@@ -14,5 +14,11 @@ public interface OaSaleContractMapper  extends BaseMapper<OaSaleContract> {
 
     List<OaSaleContract> getListBySync(@Param("main") OaSaleContract mainDTO, @Param("database") String database);
     List<OaSaleContract> getListBySyncEdit(@Param("main") OaSaleContract mainDTO, @Param("database") String database);
+    List<OaSaleContract> getListBySyncEditMain(@Param("main") OaSaleContract mainDTO, @Param("database") String database);
+
+
+    List<OaSaleContract> getListTrialContractBySync(@Param("main") OaSaleContract mainDTO, @Param("database") String database);
+    List<OaSaleContract> getListTrialContractBySyncEdit(@Param("main") OaSaleContract mainDTO, @Param("database") String database);
+
 
 }

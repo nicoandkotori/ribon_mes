@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.common.util.*;
-import com.modules.data.mybatis.DBTypeEnum;
-import com.modules.data.mybatis.DbContextHolder;
 import com.modules.security.util.SecurityUtil;
 import com.web.basicinfo.entity.ComputationUnit;
 import com.web.basicinfo.entity.Inventory;
@@ -15,7 +13,6 @@ import com.web.basicinfo.mapper.ComputationUnitMapper;
 import com.web.basicinfo.mapper.InventoryMapper;
 import com.web.basicinfo.mapper.VendorMapper;
 import com.web.basicinfo.service.IInventoryService;
-import com.web.om.dto.OmOrderPartDTO;
 import com.web.om.dto.OmProductVM;
 import com.web.om.entity.*;
 import com.web.om.mapper.OmMoDetailsMapper;
@@ -23,7 +20,6 @@ import com.web.om.mapper.OmMoMainMapper;
 import com.web.om.mapper.OmMoMaterialsMapper;
 import com.web.om.mapper.OmOrderMainMapper;
 import com.web.om.service.IOmMoMainService;
-import com.web.om.service.IOmOrderMainService;
 import com.web.u8system.util.U8SystemUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,8 +39,6 @@ public class OmMoMainServiceImpl extends ServiceImpl<OmMoMainMapper, OmMoMain> i
     private InventoryMapper inventoryMapper;
     @Autowired
     private BasPartMapper basPartMapper;
-    @Autowired
-    private OmOrderMainMapper mesMainMapper;
     @Autowired
     private IInventoryService inventoryService;
     @Autowired
@@ -171,7 +165,7 @@ public class OmMoMainServiceImpl extends ServiceImpl<OmMoMainMapper, OmMoMain> i
      * @throws Exception
      */
     @Transactional(rollbackFor = Exception.class)
-    public ResponseResult save1(OmMoMain omProductPo, List<OmProductVM>  list, List<OmProductVM>  listDetail, OmOrderMain mesMain) throws Exception{
+    public ResponseResult save1(OmMoMain omProductPo, List<OmProductVM>  list,  List<OmProductVM>  listDetail) throws Exception{
         ResponseResult result = new ResponseResult();
         try{
 
@@ -367,6 +361,12 @@ public class OmMoMainServiceImpl extends ServiceImpl<OmMoMainMapper, OmMoMain> i
 
                     }
 
+
+
+
+
+
+
                 }
                 //循环插入明细信息
                 for(OmProductVM t:listDetail)
@@ -378,6 +378,10 @@ public class OmMoMainServiceImpl extends ServiceImpl<OmMoMainMapper, OmMoMain> i
                         {
                             throw new Exception("单耗不能为空！");
                         }
+
+
+
+
 
                         OmMoMaterials omPoDetails=new OmMoMaterials();
                         omPoDetails.setCinvcode(t.getCinvcodes());
@@ -481,12 +485,7 @@ public class OmMoMainServiceImpl extends ServiceImpl<OmMoMainMapper, OmMoMain> i
                 Integer u8fid = null;
                 u8fid= u8SystemUtils.getFatherId(accId,"OM_MO",10);
                 omProductPo.setMoid(u8fid);
-                //设置审核信息
-                omProductPo.setCstate(Byte.valueOf("1"));
-                omProductPo.setIverifystatenew(2);
-                omProductPo.setCverifier(SecurityUtil.getUser().getMyusername());
-                omProductPo.setDverifydate(DateUtil.parseStrToDate(DateUtil.getDateStr(new Date(),"yyyy-MM-dd"),"yyyy-MM-dd") );
-                omProductPo.setDverifytime(new Date());
+
                 //设置单号
 
                 omProductPo.setCmaker(SecurityUtil.getUser().getMyusername());
@@ -509,15 +508,6 @@ public class OmMoMainServiceImpl extends ServiceImpl<OmMoMainMapper, OmMoMain> i
                 if (n<0){
                     throw new Exception("保存表头出错！");
                 }
-                //更新mes委外主表审核信息
-                if (mesMain != null){
-                    OmOrderMain updateMain = new OmOrderMain();
-                    updateMain.setId(mesMain.getId());
-                    updateMain.setStatusId("已审核");
-                    updateMain.setU8Id(u8fid);
-                    mesMainMapper.updateWithDbName(updateMain, ParamUtil.getParam("localDatabase").toString());
-                }
-
                 //循环插入合同信息
                 int row=1;
                 for(OmProductVM t:list) {
@@ -573,7 +563,6 @@ public class OmMoMainServiceImpl extends ServiceImpl<OmMoMainMapper, OmMoMain> i
                     t.setRowNo(row);
                     t.setMoid(omPoMain.getMoid());
                     t.setModetailsid(omPoMain.getModetailsid());
-
                     n = omMoDetailsMapper.insert(omPoMain);
                     if (n < 0) {
                         throw new Exception("保存表体出错！");
@@ -620,7 +609,7 @@ public class OmMoMainServiceImpl extends ServiceImpl<OmMoMainMapper, OmMoMain> i
                 for(OmProductVM t:listDetail) {
 
                     if (CustomStringUtils.isNotBlank(t.getCinvcodes())) {
-                        if (CustomStringUtils.isBlank(t.getFbaseqtyn()) || t.getFbaseqtyn().compareTo(BigDecimal.ZERO) == 0) {
+                        if (CustomStringUtils.isBlank(t.getFbaseqtyn()) && t.getFbaseqtyn().compareTo(BigDecimal.ZERO) == 0) {
                             throw new Exception("单耗不能为空和0！");
                         }
 
@@ -703,22 +692,13 @@ public class OmMoMainServiceImpl extends ServiceImpl<OmMoMainMapper, OmMoMain> i
             result.setResult(omProductPo.getMoid());
             result.setResult1(omProductPo.getCcode());
         }catch (Exception e){
-            e.printStackTrace();
             throw new RuntimeException(e.getMessage());
         }
         return result;
     }
 
-    @Override
-    public ResponseResult saveToMes(OmMoMain main, List<OmProductVM> list, List<OmProductVM> listDetail, List<OmOrderPartDTO> partList) {
-        ResponseResult result = new ResponseResult();
-        //保存产品表ID，key是recordId（产品表表示），value是产品表ID
-        Map<String,String> productIdMap = new HashMap<>();
-        //保存部件表ID，key是partId，value是部件表ID
-        Map<String,String> partIdMap = new HashMap<>();
 
-        return result;
-    }
+
 
 
     /**
@@ -932,7 +912,7 @@ public class OmMoMainServiceImpl extends ServiceImpl<OmMoMainMapper, OmMoMain> i
      * @throws Exception
      */
     @Transactional(rollbackFor = Exception.class)
-    public ResponseResult unCheck(Integer id,String mesId) throws Exception{
+    public ResponseResult unCheck(Integer id) throws Exception{
         ResponseResult result = new ResponseResult();
         try{
             OmMoMain omProductPo= omMoMainMapper.selectById(id);
@@ -987,12 +967,6 @@ public class OmMoMainServiceImpl extends ServiceImpl<OmMoMainMapper, OmMoMain> i
                 m.setDverifytime(null);
                 m.setDverifydate(null);
                 int n=omMoMainMapper.updateUnCheck(m);
-                OmOrderMain mesMain = new OmOrderMain();
-                if (StringUtils.isNotBlank(mesId)){
-                    mesMain.setId(mesId);
-                    mesMain.setStatusId("未审核");
-                    mesMainMapper.updateWithDbName(mesMain,ParamUtil.getParam("localDatabase").toString());
-                }
                 if(n<=0)
                 {
                     result.setSuccess(false);

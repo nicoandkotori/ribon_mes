@@ -13,7 +13,7 @@ public interface U8MpsNetdemandMapper  extends BaseMapper<U8MpsNetdemand> {
     List<U8MpsNetdemand> getList(IPage<U8MpsNetdemand> page, @Param("main") U8MpsNetdemand mainDTO);
     List<U8MpsNetdemand> getListForPrint(IPage<U8MpsNetdemand> page, @Param("main") U8MpsNetdemand mainDTO, @Param("database") String database);
 
-    List<U8MpsNetdemand> getPrintProduct(@Param("main") U8MpsNetdemand record);
+    List<U8MpsNetdemand> getPrintProduct(@Param("main") U8MpsNetdemand record, @Param("database") String database);
 
 
 }

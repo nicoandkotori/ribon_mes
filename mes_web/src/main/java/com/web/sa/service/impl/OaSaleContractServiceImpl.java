@@ -1,11 +1,13 @@
 package com.web.sa.service.impl;
 
 import cn.hutool.core.date.DateTime;
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.common.util.*;
 import com.modules.data.mybatis.DBTypeEnum;
 import com.modules.data.mybatis.DbContextHolder;
+import com.task.Scheduler;
 import com.util.ConnectString;
 import com.web.basicinfo.entity.*;
 import com.web.basicinfo.mapper.*;
@@ -17,6 +19,8 @@ import com.web.system.entity.MenuClient;
 import com.web.u8system.entity.U8Common;
 import com.web.u8system.mapper.U8CommonMapper;
 import com.web.u8system.util.U8SystemUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -76,6 +80,11 @@ public class OaSaleContractServiceImpl extends ServiceImpl<OaSaleContractMapper,
     private OrderProductionScheduleMapper orderProductionScheduleMapper;
     @Value("${account.acountId}")
     private String accId;
+
+
+    private static final Logger log = LoggerFactory.getLogger(Scheduler.class);
+
+
     /**
      * 同步销售合同
      * @return
@@ -107,6 +116,38 @@ public class OaSaleContractServiceImpl extends ServiceImpl<OaSaleContractMapper,
     {
         syncSaleContractDelete();
     }
+
+    /**
+     * 同步销售合同（试制合同）
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void syncSaleTrialContractData()
+    {
+        syncSaleTrialContract();
+    }
+    /**
+     * 同步销售合同（试制合同）
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void syncSaleTrialContractDataEdit()
+    {
+        syncSaleTrialContractEdit();
+    }
+
+    /**
+     * 同步销售合同  删除的情况
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void syncSaleTrialContractDataDelete()
+    {
+        syncSaleTrialContractDelete();
+    }
     /**
      * 同步销售合同修改的情况
      * @return
@@ -123,6 +164,7 @@ public class OaSaleContractServiceImpl extends ServiceImpl<OaSaleContractMapper,
             List<OaSaleContract> listSyncMain=oaSaleContractMapper.getListByMainSync(new OaSaleContract(),ParamUtil.getParam("oaDatabase").toString());
             if(listSyncMain!=null)
             {
+
                 //根据id去重
                 List<OaSaleContract> newList= listSyncMain.stream()
                         .collect(
@@ -355,7 +397,7 @@ public class OaSaleContractServiceImpl extends ServiceImpl<OaSaleContractMapper,
 
 
                     for(OaSaleContract detail:list) {
-
+                        log.info("(同步订单)存货信息："+ JSON.toJSONString(detail) + DateUtil.getDateStr(new Date(), "yyyy-MM-dd hh:mm:ss"));
                         //region 存货编码插入  合同号的编码
                         //合同号+行号  =编码，判断是否存在
                         Inventory inventory = inventoryMapper.selectById(q.getField0006() + "-" + detail.getField0103());
@@ -1160,7 +1202,8 @@ public class OaSaleContractServiceImpl extends ServiceImpl<OaSaleContractMapper,
 
                                     LambdaQueryWrapper<SoDetails> selectDetail=new LambdaQueryWrapper<>();
                                     selectDetail.eq(SoDetails::getId, soMain.getId());
-                                    selectDetail.eq(SoDetails::getCinvcode, oaSaleContractContrastDetail.getField0018());
+                                    selectDetail.apply(" cdefine30!='' ");
+                                    selectDetail.like(SoDetails::getCdefine30, oaSaleContractContrastDetail.getId());
                                     List<SoDetails> listDetail=soDetailsMapper.selectList(selectDetail);
                                     //新增
                                     if(listDetail==null||listDetail.size()==0) {
@@ -1440,7 +1483,7 @@ public class OaSaleContractServiceImpl extends ServiceImpl<OaSaleContractMapper,
         try{
             //查询要删除的数据
             LambdaQueryWrapper<SoDetails> selectSoDetail=new LambdaQueryWrapper<>();
-            selectSoDetail.apply(" and  cdefine30!='' and cdefine30 like 'child-%' and REPLACE(cDefine30,'child-','')  not in (select cast(id as varchar(36)) from  "+ParamUtil.getParam("oaDatabase").toString()+".dbo.formson_0111)");
+            selectSoDetail.apply(" and  cdefine30!='' and cdefine30 like 'child-%' and REPLACE(cDefine30,'child-','')  not in (select cast(id as varchar(36)) from  "+ParamUtil.getParam("oaDatabase").toString()+".dbo.formson_0111 where  field0018 !='')");
             List<SoDetails> listSoDetail=soDetailsMapper.selectList(selectSoDetail);
             if(listSoDetail!=null&&listSoDetail.size()>0) {
                 for(SoDetails detail:listSoDetail)
@@ -1484,6 +1527,378 @@ public class OaSaleContractServiceImpl extends ServiceImpl<OaSaleContractMapper,
         }
         return result;
     }
+
+
+
+
+
+
+    /**
+     * 同步销售合同  试制合同
+     * @return
+     */
+//    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseResult syncSaleTrialContract() {
+        ResponseResult result = new ResponseResult();
+        int row=1;
+        try{
+
+            //同步订单子件数据
+        List<OaSaleContract> listSync=oaSaleContractMapper.getListTrialContractBySync(new OaSaleContract(),ParamUtil.getParam("oaDatabase").toString());
+            if(listSync!=null)
+            {
+                //需要同步的订单信息
+                for(OaSaleContract q:listSync)
+                {
+
+                    if(CustomStringUtils.isBlank(q.getCustName()))
+                    {
+                        continue;
+                    }
+
+                    LambdaQueryWrapper<Customer> selectCust=new LambdaQueryWrapper<>();
+                    selectCust.eq(Customer::getCcusname, q.getCustName());
+                    List<Customer> listCust=customerMapper.selectList(selectCust);
+                    if(listCust==null||listCust.size()==0)
+                    {
+                        continue;
+                    }
+                    Customer customer=listCust.get(0);
+
+                    //如果销售订单号已经存在的，报错或者退出
+                    LambdaQueryWrapper<SoMain> selectSo=new LambdaQueryWrapper<>();
+                    selectSo.eq(SoMain::getCsocode, q.getTrialCode());
+                    List<SoMain> listSo=soMainMapper.selectList(selectSo);
+                    SoMain soMain=new SoMain();
+                    if(listSo==null||listSo.size()==0)
+                    {
+                        //表头订单数据插入
+                        Integer soId=u8SystemUtils.getFatherId(accId,"Somain",10);
+
+                        soMain.setDefaultValue();
+                        soMain.setId(soId);
+                        //整机试制默认03
+                        soMain.setCstcode("03");
+                        LambdaQueryWrapper<Person> selectPerson=new LambdaQueryWrapper<>();
+                        selectPerson.eq(Person::getCpersonname, q.getPersonName());
+                        List<Person> listPerson=personMapper.selectList(selectPerson);
+                        if(listPerson!=null&&listPerson.size()>0)
+                        {
+                            soMain.setCpersoncode(listPerson.get(0).getCpersoncode());
+                        }
+
+
+                        soMain.setDdate(DateUtil.parseStrToDate(DateUtil.getDateStr(q.getStartDate(),"yyyy-MM-dd"),"yyyy-MM-dd"));
+//                        soMain.setDdate(DateUtil.parseStrToDate(DateUtil.getDateStr(new Date(),"yyyy-MM-dd"),"yyyy-MM-dd"));
+
+
+                        soMain.setCsocode(q.getTrialCode());
+                        soMain.setCcuscode(customer.getCcuscode());
+                        String depCode="112";
+                        String depName="销售部";
+
+                        if(listPerson!=null&&listPerson.size()>0) {
+                            Person person = personMapper.selectById(listPerson.get(0).getCpersoncode());
+                            if (person != null) {
+                                Department department = departmentMapper.selectById(person.getCdepcode());
+                                if (department != null) {
+                                    depCode = department.getCdepcode();
+                                    depName = department.getCdepname();
+                                }
+
+                            }
+                        }
+                        soMain.setCdepcode(depCode);
+                        soMain.setCdefine3(depName);
+                        soMain.setCcusoaddress(customer.getCcusoaddress());
+                        soMain.setCcusname(customer.getCcusname());
+                        soMain.setDpremodatebt(q.getField0056());
+                        soMain.setDpredatebt(q.getField0057());
+                        soMain.setCinvoicecompany(customer.getCinvoicecompany());
+                        String  sysbarcode = "||" + "SA17" + soMain.getCsocode();
+                        soMain.setCmaker(q.getCreateUser()==null?"demo":q.getCreateUser());
+                        soMain.setCsysbarcode(sysbarcode);
+                        soMain.setDverifydate(DateUtil.parseStrToDate(DateUtil.getDateStr(new Date(),"yyyy-MM-dd"),"yyyy-MM-dd"));
+                        soMain.setDverifysystime(new Date());
+                        soMain.setCverifier(q.getCreateUser()==null?"demo":q.getCreateUser());
+                        soMain.setCdefine1(q.getContractCode());
+
+                        soMainMapper.insert(soMain);
+                    }
+                    else
+                    {
+                        soMain=listSo.get(0);
+                    }
+
+
+
+                    Integer sodId=u8SystemUtils.getChildId(accId,"Somain",10,1);
+                    SoDetails soDetails=new SoDetails();
+                    soDetails.setDefaultValue();
+                    soDetails.setIsosid(sodId);
+                    soDetails.setId(soMain.getId());
+                    soDetails.setCsocode(soMain.getCsocode());
+                    soDetails.setCinvcode(q.getInvCode());
+                    Inventory inventory=inventoryMapper.selectById(soDetails.getCinvcode());
+
+                    soDetails.setCinvname(inventory.getCinvname());
+                    soDetails.setIquantity(q.getQty());
+                    soDetails.setItaxunitprice(BigDecimal.ZERO);
+                    soDetails.setIsum(BigDecimal.ZERO);
+                    soDetails.setIunitprice(BigDecimal.ZERO);  //原币无税单价
+                    soDetails.setImoney(BigDecimal.ZERO);  //原币无税金额
+                    soDetails.setItax(BigDecimal.ZERO);
+                    soDetails.setInatunitprice(soDetails.getIunitprice());
+                    soDetails.setInatmoney(soDetails.getImoney());
+                    soDetails.setInattax(soDetails.getItax());
+                    soDetails.setInatsum(soDetails.getIsum());
+
+
+                    LambdaQueryWrapper<SoDetails> mCount=new LambdaQueryWrapper<>();
+                    mCount.eq(SoDetails::getId, soMain.getId());
+                    mCount.orderByDesc(SoDetails::getIrowno);
+                    List<SoDetails> listCount=soDetailsMapper.selectList(mCount);
+                    if(listCount!=null&&listCount.size()>0)
+                    {
+                        soDetails.setIrowno(listCount.get(0).getIrowno()+1);
+                    }
+                    else
+                    {
+                        soDetails.setIrowno(1);
+                    }
+
+                    soDetails.setBsaleprice(false);
+                    String  csysbarcode = "||" + "SA17|" + soMain.getCsocode()+"|"+String.valueOf(soDetails.getIrowno());
+                    soDetails.setCbsysbarcode(csysbarcode);
+                    soDetails.setCdefine22(soMain.getCdefine1());
+
+                    soDetails.setDpremodate(q.getField0056());
+                    soDetails.setDpredate(q.getField0057());
+                    soDetails.setCmemo(q.getRemark());
+                    //记录OA表的id，这个是子件用other-
+                    soDetails.setCdefine30("other-"+q.getContrastId());
+                    soDetailsMapper.insert(soDetails);
+
+
+                    //更新存货信息到oa
+                    //设置U8订单号
+                    OaSaleContractContrastDetail oaSaleContractContrast=new OaSaleContractContrastDetail();
+                    oaSaleContractContrast.setId(q.getContrastId());
+                    oaSaleContractContrast.setField0046(soDetails.getIsosid().toString());
+                    oaSaleContractContrastDetailMapper.updateSoCode(oaSaleContractContrast,ParamUtil.getParam("oaDatabase").toString());
+
+                    row++;
+                }
+            }
+
+
+        }catch (Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+        return result;
+    }
+
+
+
+
+    /**
+     * 同步销售合同  试制合同   编辑
+     * @return
+     */
+//    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseResult syncSaleTrialContractEdit() {
+        ResponseResult result = new ResponseResult();
+        int row=1;
+        try{
+
+            //同步订单数据  编辑
+            List<OaSaleContract> listSync=oaSaleContractMapper.getListTrialContractBySyncEdit(new OaSaleContract(),ParamUtil.getParam("oaDatabase").toString());
+            if(listSync!=null) {
+
+                //查询需要同步的数据
+                for (OaSaleContract detail : listSync) {
+
+                    //查询订单主表
+                    LambdaQueryWrapper<SoMain> selectSo=new LambdaQueryWrapper<>();
+                    selectSo.eq(SoMain::getCsocode, detail.getTrialCode());
+                    List<SoMain> listSo=soMainMapper.selectList(selectSo);
+                    if(listSo!=null&&listSo.size()>0)
+                    {
+                        SoMain soMain=listSo.get(0);
+                        //查询主存货
+                        LambdaQueryWrapper<SoDetails> selectDetail=new LambdaQueryWrapper<>();
+                        selectDetail.eq(SoDetails::getId, soMain.getId());
+                        selectDetail.eq(SoDetails::getCinvcode, detail.getInvCode());
+                        List<SoDetails> listDetail=soDetailsMapper.selectList(selectDetail);
+                        //新增
+                        if(listDetail==null||listDetail.size()==0) {
+
+                            Integer sodId=u8SystemUtils.getChildId(accId,"Somain",10,1);
+                            SoDetails soDetails=new SoDetails();
+                            soDetails.setDefaultValue();
+                            soDetails.setIsosid(sodId);
+                            soDetails.setId(soMain.getId());
+                            soDetails.setCsocode(soMain.getCsocode());
+                            soDetails.setCinvcode(detail.getInvCode());
+
+                            Inventory inventory=inventoryMapper.selectById(detail.getInvCode());
+
+                            soDetails.setCinvname(inventory.getCinvname());
+                            soDetails.setIquantity(detail.getQty());
+                            soDetails.setItaxunitprice(BigDecimal.ZERO);
+                            soDetails.setIsum(BigDecimal.ZERO);
+                            soDetails.setIunitprice(BigDecimal.ZERO);  //原币无税单价
+                            soDetails.setImoney(BigDecimal.ZERO);  //原币无税金额
+                            soDetails.setItax(BigDecimal.ZERO);
+                            soDetails.setInatunitprice(soDetails.getIunitprice());
+                            soDetails.setInatmoney(soDetails.getImoney());
+                            soDetails.setInattax(soDetails.getItax());
+                            soDetails.setInatsum(soDetails.getIsum());
+
+
+                            LambdaQueryWrapper<SoDetails> mCount=new LambdaQueryWrapper<>();
+                            mCount.eq(SoDetails::getId, soMain.getId());
+                            mCount.orderByDesc(SoDetails::getIrowno);
+                            List<SoDetails> listCount=soDetailsMapper.selectList(mCount);
+                            if(listCount!=null&&listCount.size()>0)
+                            {
+                                soDetails.setIrowno(listCount.get(0).getIrowno()+1);
+                            }
+                            else
+                            {
+                                soDetails.setIrowno(1);
+                            }
+
+                            soDetails.setBsaleprice(false);
+                            String  csysbarcode = "||" + "SA17|" + soMain.getCsocode()+"|"+String.valueOf(soDetails.getIrowno());
+                            soDetails.setCbsysbarcode(csysbarcode);
+
+
+                            soDetails.setCdefine22(soMain.getCdefine1());
+                            soDetails.setDpremodate(detail.getField0056());
+                            soDetails.setDpredate(detail.getField0057());
+                            soDetails.setCmemo(detail.getRemark());
+                            //记录OA表的id，这个是子件用other-
+                            soDetails.setCdefine30("other-"+detail.getContrastId());
+                            soDetailsMapper.insert(soDetails);
+
+
+                            //更新存货信息到oa
+                            //设置U8订单号
+                            OaSaleContractContrastDetail oaSaleContractContrast=new OaSaleContractContrastDetail();
+                            oaSaleContractContrast.setId(detail.getContrastId());
+                            oaSaleContractContrast.setField0046(soDetails.getIsosid().toString());
+                            oaSaleContractContrastDetailMapper.updateSoCode(oaSaleContractContrast,ParamUtil.getParam("oaDatabase").toString());
+
+
+
+                        }
+                        //修改
+                        else
+                        {
+
+                            SoDetails soDetails=listDetail.get(0);
+
+                            Inventory inventory=inventoryMapper.selectById(detail.getInvCode());
+
+                            soDetails.setCinvcode(detail.getInvCode());
+                            soDetails.setCinvname(inventory.getCinvname());
+                            soDetails.setIquantity(detail.getQty());
+                            soDetails.setDpremodate(detail.getField0056());
+                            soDetails.setDpredate(detail.getField0057());
+
+                            soDetailsMapper.updateById(soDetails);
+
+
+                            //更新存货信息到oa
+                            //设置U8订单号
+                            OaSaleContractContrastDetail oaSaleContractContrast=new OaSaleContractContrastDetail();
+                            oaSaleContractContrast.setId(detail.getContrastId());
+                            oaSaleContractContrast.setField0046(soDetails.getIsosid().toString());
+                            oaSaleContractContrastDetailMapper.updateSoCode(oaSaleContractContrast,ParamUtil.getParam("oaDatabase").toString());
+
+                        }
+
+                    }
+
+
+
+
+                }
+
+            }
+
+        }catch (Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+        return result;
+    }
+
+
+
+
+
+    /**
+     * 同步销售合同  试制合同 删除的情况
+     * @return
+     */
+//    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseResult syncSaleTrialContractDelete() {
+        ResponseResult result = new ResponseResult();
+        int row=1;
+        try{
+            //查询要删除的数据
+            LambdaQueryWrapper<SoDetails> selectSoDetail=new LambdaQueryWrapper<>();
+            selectSoDetail.apply(" and  cdefine30!='' and cdefine30 like 'other-%' and REPLACE(cDefine30,'other-','')  not in (select cast(id as varchar(36)) from  "+ParamUtil.getParam("oaDatabase").toString()+".dbo.formson_0111)");
+            List<SoDetails> listSoDetail=soDetailsMapper.selectList(selectSoDetail);
+            if(listSoDetail!=null&&listSoDetail.size()>0) {
+                for(SoDetails detail:listSoDetail)
+                {
+
+                    //查询要删除的数据
+                    LambdaQueryWrapper<SoDetails> select=new LambdaQueryWrapper<>();
+                    select.eq(SoDetails::getAutoid,detail.getAutoid());
+                    select.apply("  iSOsID  not in (select iSOsID from  DispatchLists where iSOsID is not null) and  isosid not in (select SoDId from  mps_netdemand where SoDId is not null) ");
+                    List<SoDetails> listExist=soDetailsMapper.selectList(select);
+                    //表示不存在,可以直接删除
+                    if(listExist!=null&&listExist.size()>0)
+                    {
+                        //删除
+                        soDetailsMapper.deleteById(detail.getAutoid());
+                    }
+                    //存在，只能更新作废人
+                    else
+                    {
+                        //作废
+                        detail.setCscloser("demo");
+                        detail.setDbclosedate(new Date());
+                        detail.setDbclosesystime(new Date());
+                        detail.setCdefine30(detail.getCdefine30().replace("other-","o-"));
+                        soDetailsMapper.updateById(detail);
+                    }
+
+
+                    //删除主表
+                    LambdaQueryWrapper<SoDetails> selectCount=new LambdaQueryWrapper<>();
+                    selectCount.eq(SoDetails::getId,detail.getId());
+                    List<SoDetails> listCount=soDetailsMapper.selectList(selectCount);
+                    if(listCount==null||listCount.size()==0)
+                    {
+                        soMainMapper.deleteById(detail.getId());
+                    }
+                }
+
+            }
+
+        }catch (Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+        return result;
+    }
+
 
 
 }

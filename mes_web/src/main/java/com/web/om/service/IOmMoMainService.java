@@ -27,13 +27,11 @@ public interface IOmMoMainService extends IService<OmMoMain> {
     Map<String, Object>  getDetailList1(OmProductVM query) throws Exception;
     Map<String, Object> getHistoryByCinvcode1(OmProductVM query) throws Exception;
 
-    ResponseResult save1(OmMoMain main, List<OmProductVM> list, List<OmProductVM>  listDetail, OmOrderMain mesMain) throws Exception;
-
-    ResponseResult saveToMes(OmMoMain main,List<OmProductVM> list, List<OmProductVM>  listDetail, List<OmOrderPartDTO> partList);
+    ResponseResult save1(OmMoMain main, List<OmProductVM> list, List<OmProductVM>  listDetail) throws Exception;
 
     ResponseResult deleteByDetailMainId(Integer id,Integer mainid,Integer subid) throws Exception;
     ResponseResult deleteByDetailSubId(Integer id,Integer mainid,Integer subid) throws Exception;
     ResponseResult delete(Integer id) throws Exception;
     ResponseResult check(Integer id) throws Exception;
-    ResponseResult unCheck(Integer u8Id,String mesId) throws Exception;
+    ResponseResult unCheck(Integer u8Id) throws Exception;
 }

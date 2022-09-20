@@ -16,5 +16,9 @@ public interface IOaSaleContractService extends IService<OaSaleContract> {
     void syncSaleContractDataEdit()throws Exception;
     void syncSaleContractDataDelete()throws Exception;
 
+    void syncSaleTrialContractData()throws Exception;
+    void syncSaleTrialContractDataEdit()throws Exception;
+    void syncSaleTrialContractDataDelete()throws Exception;
+
 
 }

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>参照销售订单</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" href="../../../lib/layui-v2.6.3/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../css/public.css" media="all">
+
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="../../../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+    <script src="../../../js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+    <!--jquery-->
+    <script src="../../../lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
+    <script src='../../../js/Common.js'></script>
+    <script src='../../../js/print.js'></script>
+    <script src='../../../js/LodopFuncs.js'></script>
+</head>
+
+<body class="fine_body_color"  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<form class="layui-form layui-form-pane" action="">
+    <div class="fine_form_tool">
+        <div class="layui-row">
+            <div class="layui-col-xs4">
+                <button type="button" class="layui-btn layui-btn-sm  layui-btn-normal" lay-filter="save" lay-submit=""> <i class="layui-icon"></i>确认</button>
+            </div>
+        </div>
+    </div>
+    <div class="layuimini-main">
+        <div class="layui-form-item">
+            <div class="layui-inline " >
+                <div class="layui-input-inline"  style="width: 120px">
+                    需求日期
+                </div>
+
+            </div>
+
+            <div class="layui-inline " >
+                <div class="layui-input-inline" >
+
+                    <input type="text" id="dueDate" name="dueDate"  lay-verify="required"
+                           class="layui-input weadmin-input-sm">
+                </div>
+
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline ">
+                <div class="layui-input-inline" style="width: 120px">
+                    喷砂
+                    <input type="checkbox"  id="izPs" name="izPs" lay-filter="switchTest1"  lay-skin="switch"  lay-text="是|否">
+
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline ">
+                <div class="layui-input-inline" style="width: 120px">
+                    拉丝
+                    <input type="checkbox"  id="izLs" name="izLs" lay-filter="switchTest"  lay-skin="switch"  lay-text="是|否">
+
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline ">
+                <div class="layui-input-inline" style="width: 120px">
+                    其他
+                    <input type="checkbox"  id="izOther" name="izOther" lay-filter="switchTest2"  lay-skin="switch"  lay-text="是|否">
+
+                </div>
+
+            </div>
+            <div class="layui-inline "   id="surfaceWayForm" style="display: none">
+
+                <div class="layui-input-inline" style="width: 320px">
+                    <input type="text"  id="surfaceWay2" name="surfaceWay2" lay-verify="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+</form>
+
+
+<script>
+    var strSurfaceWay = GetQueryString("surfaceWay");
+    var strSurfaceWay1 = GetQueryString("surfaceWay1");
+    var strSurfaceWay2 = GetQueryString("surfaceWay2");
+
+    var strStartDate = GetQueryString("startDate");
+    var strDueDate = GetQueryString("dueDate");
+    layui.use(['form', 'table', 'miniTab', 'urlParam', 'soulTable'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table,
+            miniTab = layui.miniTab,
+            laydate = layui.laydate,
+            soulTable = layui.soulTable,
+            urlParam = layui.urlParam;
+
+        laydate.render({
+            elem: '#dueDate'
+            ,value: new Date(strDueDate)
+            ,theme: 'molv'
+        });
+
+        miniTab.listen();
+        var token = sessionStorage.getItem("mestoken");
+
+
+        if(strSurfaceWay!=null&&strSurfaceWay!=""&&strSurfaceWay!="null")
+        {
+
+            $("#izLs").prop("checked", true);
+        }
+        if(strSurfaceWay1!=null&&strSurfaceWay1!=""&&strSurfaceWay1!="null")
+        {
+            $("#izPs").prop("checked", true);
+        }
+        if(strSurfaceWay2!=null&&strSurfaceWay2!=""&&strSurfaceWay2!="null")
+        {
+            $("#izOther").prop("checked", true);
+            $("#surfaceWay2").val(strSurfaceWay2);
+            document.getElementById("surfaceWayForm").style.display="";//显示
+        }
+
+
+
+        form.render("checkbox");
+        form.on('switch(switchTest2)', function(data){
+            if(data.elem.checked==true){
+                document.getElementById("surfaceWayForm").style.display="";//显示
+                $("#surfaceWay2").val("其他");
+
+
+            }else{
+                document.getElementById("surfaceWayForm").style.display="none"//显示
+                $("#surfaceWay2").val("");
+
+            }
+        });
+
+
+
+        //保存
+        form.on('submit(save)', function (data) {
+
+            if($("#dueDate").val()=="")
+            {
+                layer.msg("请选择需求日期！");
+                return;
+            }
+
+            var date2=new Date($("#dueDate").val());
+            var date1=new Date(strStartDate);
+            if(date1>date2)
+            {
+                layer.msg("需求日期不能小于下单日期"+strStartDate+"！");
+                return;
+            }
+
+            // if(document.getElementById("surfaceWayForm").style.display!="none")
+            // {
+            //     if( $("#surfaceWay2").val()=="")
+            //     {
+            //         layer.msg("请填写其他类型的表面处理方式！");
+            //         return;
+            //     }
+            //
+            // }
+            var surfaceWay="";
+            var surfaceWay1="";
+            var surfaceWay2="";
+            var izSave=0;
+            if($("#izLs")[0].checked=="true"||$("#izLs")[0].checked==true)
+            {
+                surfaceWay="拉丝";
+                izSave=1;
+            }
+            if($("#izPs")[0].checked=="true"||$("#izPs")[0].checked==true)
+            {
+                surfaceWay1="喷砂";
+                izSave=1;
+            }
+            if($("#izOther")[0].checked=="true"||$("#izOther")[0].checked==true)
+            {
+                if( $("#surfaceWay2").val()=="")
+                {
+                    layer.msg("请填写其他类型的表面处理方式！");
+                    return;
+                }
+                surfaceWay2=$("#surfaceWay2").val();
+                izSave=1;
+            }
+
+            if(izSave==0)
+            {
+                layer.msg("请选择表面处理方式！");
+                return;
+            }
+
+
+            parent.surfaceWay=surfaceWay;
+            parent.surfaceWay1=surfaceWay1;
+            parent.surfaceWay2=surfaceWay2;
+            parent.dueDate=$("#dueDate").val();
+            parent.izPrint=1;
+            closeIndex();
+            // sendPostReq('/mo/pend/savebox', {
+            //     mData: JSON.stringify(data),
+            //     memo:$("#memo").val(),
+            //     orderCode:$("#orderCode").val(),
+            //     custName:$("#custName").val()
+            // }, function (result) {
+            //
+            //     closeIndex();
+            // });
+        });
+
+    });
+
+    function closeIndex(){
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    }
+
+</script>
+
+</body>
+</html>

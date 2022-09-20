@@ -291,7 +291,7 @@
                 }, function (data) {
                     if (data.success == true || data.success == "true") {
                         layer.msg("保存成功", {icon: 6});
-                        console.log("保存成功");
+                        consoleLog("保存成功");
                         $("#id").val(data.result);
                         ableToAudit = true;
                         loadAllDataByMainId();
@@ -301,7 +301,7 @@
                 });
             } else {
                 //更新
-                console.log("更新数据");
+                consoleLog("更新数据");
                 sendPostReq(URL_UPDATE_MES_MAIN_BY_ID, {
                     mainStr: JSON.stringify(data.field),
                     productStr: productDataStr,
@@ -329,7 +329,7 @@
          * 审核
          */
         form.on('submit(audit)', function (data) {
-            console.log("审核");
+            consoleLog("审核");
             if (CurRow != "" && CurRow != undefined) {
                 $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
             }
@@ -356,7 +356,7 @@
             }, function (data) {
                 if (data.success == true || data.success == "true") {
                     layer.msg("审核成功", {icon: 6});
-                    console.log("审核成功");
+                    consoleLog("审核成功");
                     ableToAudit = false;
                     //$("#id").val(data.result);
                     loadAllDataByMainId();
@@ -414,7 +414,7 @@
             datatype: "local",
             colModel: [
                 {name: "momaterialsid", hidden: true},
-                {name: "modetailsid", key: true, hidden: true},
+                {name: U8_MO_DETAIL_ID, key: true, hidden: true},
                 {name: ID, hidden: true},
                 // {name: RECORD_ID, hidden: true},
                 {label:"产品表行标识",name: RECORD_ID,width: 80,sortable: false, editable: true, align: "center"},
@@ -543,7 +543,7 @@
 
                 if (partDataArray != null && partDataArray != undefined){
                     //不打印这行，for里的length读不出数据
-                    console.log(partDataArray.length);
+                    consoleLog(partDataArray.length);
                     for ( var i = 0; i < partDataArray.length; i++){
                         $("#"+subgrid_table_id).jqGrid('addRowData', i + 1,partDataArray[i]);
                     }
@@ -614,7 +614,7 @@
                 if (name == PRODUCT_INV_CODE) {
                     SetInventory(rowid, "1");
                 } else if (name == PRODUCT_QTY) {
-                    console.log("修改了数量！");
+                    consoleLog("修改了数量！");
                      updateProductQty(rowid);
                 } else if (name == WORK_PRICE || name == MATERIAL_AMOUNT) {
                      updatePrice(rowid);
@@ -629,7 +629,7 @@
 
             },
             beforeEditCell: function (rowid, cellname, value, iRow, iCol) {
-                console.log("开始编辑单元格");
+                consoleLog("开始编辑单元格");
                 CurRow = iRow;
                 CurCol = iCol;
 
@@ -647,7 +647,7 @@
             mtype: "GET",
             datatype: "local",
             colModel: [
-                {name: "momaterialsid", key: true, hidden: true},
+                {name: U8_MO_MATERIAL_ID, key: true, hidden: true},
                 {name: ID, hidden: true},
                 {label:'产品表行标识',name: RECORD_ID, hidden: INDEX_HIDDEN,width: 80},
                 {label:"部件表行表示",name: PART_ROW_ID, hidden: INDEX_HIDDEN,width: 80},
@@ -719,10 +719,7 @@
 
             },
             afterSaveCell: function (rowid, name, val, iRow, iCol) {
-                console.log("保存单元格name:"+name);
-                   if (CurRow != "" && CurRow != undefined) {
-                       $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
-                   }
+                consoleLog("保存单元格name:"+name);
                 if (name == INV_CODE) {
                      SetInventory(rowid, "2");
                 } else if (name == UNIT_MATERIAL_PRICE ||  name == UNIT_MATERIAL_AMOUNT ||name == INV_LAND || name == INV_LEN || name == INV_WIDTH || name == INV_EXTERNAL_DIAMETER || name == INV_INTERNAL_DIAMETER || name == INV_DENSITY ) {
@@ -731,9 +728,11 @@
                     //更新下料尺寸
                     updateInvSize(rowid);
                 } else if (name == IQTY) {
-                    <!--DATE: 2022/9/14-->
-                    <!--mijiahao TODO:更新单耗后？ -->
-                     afterUpdatingIqty(rowid);
+                    //手动修改单耗后
+                    //更新单件材料费
+                    updateUnitMaterialAmount(rowid);
+                    //更新总量
+                    updateTqty(rowid);
                 }
 
             },
@@ -776,7 +775,7 @@
      * 产品表增行
      */
     function addProductRow(rowData){
-        console.log("产品表增行");
+        consoleLog("产品表增行");
         let productObj = new omMesProduct();
         productObj.setEntity(rowData);
         productObj.setTaxRate(DEFAULT_TAX_TATE);
@@ -786,17 +785,17 @@
     }
 
 
-    //修改单耗后同步修改总量
-    function afterUpdatingIqty(rowid) {
-        console.log("修改单耗后同步修改总量");
+    //更新总量
+    function updateTqty(rowid) {
+        consoleLog("修改单耗后同步修改总量");
         let materialObj = new omMesMaterial();
         materialObj.setEntity(materialHelper.getRowDataById(rowid));
         //数量
-        let productQty = getStringDecimal(materialObj.getProductQty());
+        let productQty = getNumberDecimal(materialObj.getProductQty());
         //单耗
-        let iqty = getStringDecimal(materialObj.getIqty());
+        let iqty = getNumberDecimal(materialObj.getIqty());
         materialObj.setTqty((productQty * iqty).toFixed(2));
-        console.log(materialObj);
+        consoleLog(materialObj);
         materialHelper.setRowDataById(rowid,materialObj);
 
     }
@@ -854,7 +853,7 @@
         //根据选择物料类型来为产品表或材料表赋值，不算优雅的设计，但受限于框架没有更好的实现方式
         switch (chooseInvType) {
             case 'product':
-                console.log("选择产品信息");
+                consoleLog("选择产品信息");
                 productHelper.saveCell(CurRow,CurCol);
                 materialHelper.saveCell(CurRow1,CurCol1);
                 let mesProduct = new omMesProduct();
@@ -869,7 +868,7 @@
                 partIdArray.forEach(function (id) {
                     let rowData = materialHelper.getRowDataById(id);
                     if (rowData.recordId === selectedProductRowData.recordId){
-                        materialHelper.setSelectedRowData(mesProduct);
+                        materialHelper.setRowDataById(id,mesProduct);
                     }
                 })
                 break;
@@ -910,7 +909,7 @@
      * 添加部件点击事件
      */
     function addPart(){
-        console.log("打开添加部件窗口");
+        consoleLog("打开添加部件窗口");
         productHelper.saveCell(CurRow,CurCol);
         let id = productHelper.getSelectedRowId();
         if (id === undefined){
@@ -955,17 +954,17 @@
         productHelper.setSelectedRowData(product)
         //部件表赋值
         let partTableId = getPartTableId(productHelper.getSelectedRowId());
-        console.log("增加部件表-部件赋值-部件表id："+partTableId);
+        consoleLog("增加部件表-部件赋值-部件表id："+partTableId);
         partDataMap.set(partTableId,partArray);
         array = partArray;
         let productObj = new omMesProduct();
         productObj.setEntity(product);
         //合计该产品下所有材料的材料单价和单件材料费
         sumMaterialPriceToProduct(productObj.getRecordId())
-        console.log("增加部件表-带回材料表数据↓");
-        console.log(materialArray);
+        consoleLog("增加部件表-带回材料表数据↓");
+        consoleLog(materialArray);
         //删除材料表中partRowId已存在的记录
-        console.log("增加部件表-删除材料表中partRowId已存在的记录");
+        consoleLog("增加部件表-删除材料表中partRowId已存在的记录");
         //先删除
         materialArray.forEach(function (newMaterial){
             let allOldMaterial = materialHelper.getAllRowData();
@@ -989,11 +988,10 @@
         return tableId;
     }
 
-    <!--DATE: 2022/9/12-->
-    <!--mijiahao TODO:没懂 -->
+
     //设置存货信息
     function SetInventory(rowid, itype) {
-        console.log("设置存货信息");
+        consoleLog("设置存货信息");
         if (itype == "1") {
             var rowData = $("#jqGrid").jqGrid('getRowData', rowid);
             let productObj = new omMesProduct();
@@ -1020,8 +1018,7 @@
 //                                    $("#jqGridDetail").jqGrid("delRowData", ids[i]);
                             }
                         }
-                        <!--DATE: 2022/9/13-->
-                        <!--mijiahao TODO:不涉及字段操作，没问题，但待修改 -->
+
                         if (izExist == false) {
                             if (data["mDatas"] != null && data["mDatas"] != "") {
                                 var gridData = $("#jqGridDetail").jqGrid("getRowData");
@@ -1076,7 +1073,7 @@
      * 更新产品表合计字段
      */
     function updateAmount(rowId){
-        console.log("更新产品表合计字段");
+        consoleLog("更新产品表合计字段");
         let productRow = productHelper.getRowDataById(rowId);
         let productObj = new omMesProduct();
         productObj.setEntity(productRow);
@@ -1103,15 +1100,15 @@
             let productMaterialObj = new omMesMaterial();
             productMaterialObj.setEntity(productMaterialRow);
             if (productMaterialObj.getRecordId() === product.getRecordId()) {
-                //数量初始化
+                //获得产品数量
                 let materialQty = getStringDecimal(productQty);
-                //单耗初始化
-                let iqty = getStringDecimal(0);
+                //获得材料的单耗
+                let iqty = getStringDecimal(productMaterialObj.getIqty());
                 //同步材料表数量
                 productMaterialObj.setProductQty(materialQty);
                 //计算材料表总量
                 productMaterialObj.setTqty((materialQty * iqty).toFixed(2));
-                console.log(productMaterialObj);
+                consoleLog(productMaterialObj);
                 materialHelper.setRowDataById(ids[i],productMaterialObj);
             }
 
@@ -1198,7 +1195,7 @@
      * 更新单耗字段
      */
     function updateIqty(rowId){
-        console.log("更新单耗字段");
+        consoleLog("更新单耗字段");
         let rowData = materialHelper.getRowDataById(rowId);
         let materialObj = new omMesMaterial();
         materialObj.setEntity(rowData);
@@ -1249,12 +1246,16 @@
         materialObj.setIqty(iqty);
         materialHelper.setRowDataById(rowId,materialObj);
         updateUnitMaterialAmount(rowId);
+        updateTqty(rowId);
     }
+
+
 
     /*
      * 更新单件材料费
      */
     function updateUnitMaterialAmount(rowid){
+        consoleLog("更新单件材料费");
         let rowData = materialHelper.getRowDataById(rowid);
         let materialObj = new omMesMaterial();
         materialObj.setEntity(rowData);
@@ -1263,16 +1264,16 @@
         let unitMaterialAmount = (unitMaterialPrice * iqty).toFixed(2);
         materialObj.setUnitMaterialAmount(unitMaterialAmount);
         materialHelper.setRowDataById(rowid,materialObj);
+        //循环子表合计材料单价和单件材料费
+        sumMaterialPriceToProduct(materialObj.getRecordId());
     }
 
     //设置下料尺寸
     function updateInvSize(rowid) {
-        console.log("设置下料尺寸！");
+        consoleLog("设置下料尺寸！");
         let rowData = materialHelper.getRowDataById(rowid);
         let materialObj = new omMesMaterial();
         materialObj.setEntity(rowData);
-        //数量
-        let productQty = getStringDecimal(materialObj.getProductQty());
         var strSize = "";
         //厚度
         let invLand = getStringDecimal(materialObj.getInvLand());
@@ -1311,59 +1312,8 @@
             }
             strSize = strSize + "内φ" + materialObj.getInvExternalDiameter();
         }
-        //密度
-        let density = getStringDecimal(materialObj.getInvDensity());
-
-        var iqty = ((invLen * invWidth + 3.1415926 / 4 * (externalDiameter * externalDiameter - internalDiameter * internalDiameter)) * invLand / 1000000 * density).toFixed(2) - 0;
-        let query = new U8QueryDTO(materialObj);
-        $.ajax({
-            type: "get",
-            async: false,
-            url: "/basicinfo/inventory/getbyid",
-            data: query,
-            success: function (data) {
-                if (data != null && data != "") {
-
-                    if ((iqty == null || iqty == 0 || iqty == "0")) {
-                        if (data.cinvdefine1 == "A" || data.cinvdefine1 == "a") {
-                            iqty = parseFloat((invLand * invLen * invWidth * density / 1000000).toFixed(3));
-                        } else if (data.cinvdefine1 == "B" || data.cinvdefine1 == "b") {
-                            iqty = parseFloat((invLen * density * (externalDiameter * externalDiameter - internalDiameter * internalDiameter) * 3.1415926 / 4 / 1000000).toFixed(3));
-
-                        } else if (data.cinvdefine1 == "C" || data.cinvdefine1 == "c") {
-                            iqty = parseFloat((invLen / 1000).toFixed(3));
-                        } else if (data.cinvdefine1 == "D" || data.cinvdefine1 == "d") {
-                            iqty = parseFloat((invLen * invWidth / 1000000).toFixed(3));
-                        } else if (data.cinvdefine1 == "E" || data.cinvdefine1 == "e") {
-                            iqty = parseFloat((invLen / 1000).toFixed(3));
-                        } else if (data.cinvdefine1 == "F" || data.cinvdefine1 == "f") {
-                            iqty = parseFloat((invLand / 1000 * invLen / 1000 * invWidth / 1000 * 1).toFixed(3));
-                        } else if (data.cinvdefine1 == "G" || data.cinvdefine1 == "g") {
-                            iqty = parseFloat((invLen / 1000 * 1).toFixed(3));
-                        }
-
-                    }
-
-                }
-
-
-            },
-        });
-
-
-        //材料单价
-        let unitMaterialPrice = getStringDecimal(materialObj.getUnitMaterialPrice());
-
-        //单件材料费
-        var unitMaterialAmount = ((iqty - 0) * (unitMaterialPrice - 0)).toFixed(2);
         materialObj.setInvSize(strSize);
-        materialObj.setUnitMaterialAmount(unitMaterialAmount);
-        materialObj.setIqty(iqty)
-        materialObj.setTqty((iqty * productQty).toFixed(2));
         materialHelper.setRowDataById(rowid,materialObj)
-        //循环子表合计材料单价和单件材料费
-        sumMaterialPriceToProduct(materialObj.getRecordId());
-
     }
 
     /*
@@ -1411,7 +1361,7 @@
      * 清空所有数据
      */
     function clearAllData(){
-        console.log("重新加载所有数据");
+        consoleLog("重新加载所有数据");
         productMaxId = 1;
         materialMaxId = 1;
         partMaxId = 1;
@@ -1433,13 +1383,13 @@
      * 根据主表ID加载所有数据
      */
     function loadAllDataByMainId(){
-        console.log("根据主表ID加载所有数据");
+        consoleLog("根据主表ID加载所有数据");
         clearAllData();
         let id = $("#id").val();
         sendGetReq(URL_GET_ALL_MAIN_DATA_BY_ID, {id: id}, function (result) {
             let data = result.data;
             if (data != null){
-                console.log("初始化数据-主表赋值");
+                consoleLog("初始化数据-主表赋值");
                 $("form").setForm(data.main);
                 layui.form.render();
                 let productList = data.productList;
@@ -1484,7 +1434,7 @@
         {
             $.ajax({
                 type: "post",
-                url: "/om/metalworkcommittee/uncheck",
+                url: URL_NOT_AUDIT,
                 data: { id: u8Id,mesId:mesId},
                 success: function (text) {
                     var data = text;
@@ -1493,7 +1443,7 @@
                         loadAllDataByMainId();
                     }
                     else {
-                        layer.alert(data.msg);
+                        layer.msg(data.msg);
                     }
 
                 },

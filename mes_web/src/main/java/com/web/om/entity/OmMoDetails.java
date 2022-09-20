@@ -96,6 +96,7 @@ public class OmMoDetails {
 
     private String citemname;
 
+    //mes中对应记录的ID
     private String cfree3;
 
     private String cfree4;
@@ -138,9 +139,9 @@ public class OmMoDetails {
 
     private String cdefine33;
 
-    private Integer cdefine34;
+    private String cdefine34;
 
-    private Integer cdefine35;
+    private String cdefine35;
 
     private Date cdefine36;
 

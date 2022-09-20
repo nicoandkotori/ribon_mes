@@ -1,5 +1,5 @@
 ﻿//打印生产任务单
-function PrPrintProduct(list) {
+function PrPrintProduct(list,surfaceWay,surfaceWay1,surfaceWay2,dueDate) {
 
     if(list!=null )
     {
@@ -19,18 +19,95 @@ function PrPrintProduct(list) {
         LODOP.ADD_PRINT_TEXT(77,18,237,32,"下单日期："+isNullValues(list[0].startdate));
         LODOP.SET_PRINT_STYLEA(0,"FontSize",11);
         LODOP.SET_PRINT_STYLEA(0,"ItemType",1);
-        LODOP.ADD_PRINT_TEXT(77,398,331,32,"任务单号："+isNullValues(list[0].plancode));
+        LODOP.ADD_PRINT_TEXT(77,287,252,32,"任务单号："+isNullValues(list[0].plancode));
         LODOP.SET_PRINT_STYLEA(0,"FontSize",11);
         LODOP.SET_PRINT_STYLEA(0,"ItemType",1);
         LODOP.ADD_PRINT_TEXT(100,18,275,32,"合 同 号："+isNullValues(list[0].cdefine1));
         LODOP.SET_PRINT_STYLEA(0,"FontSize",11);
         LODOP.SET_PRINT_STYLEA(0,"ItemType",1);
-        LODOP.ADD_PRINT_TEXT(100,398,331,32,"需求日期："+isNullValues(list[0].duedate));
+        LODOP.ADD_PRINT_TEXT(100,287,252,32,"需求日期："+isNullValues(dueDate));
         LODOP.SET_PRINT_STYLEA(0,"FontSize",11);
         LODOP.SET_PRINT_STYLEA(0,"ItemType",1);
         LODOP.ADD_PRINT_TEXT(126,19,750,32,"备    注："+isNullValues(list[0].cmemo));
         LODOP.SET_PRINT_STYLEA(0,"FontSize",11);
         LODOP.SET_PRINT_STYLEA(0,"ItemType",1);
+
+
+
+        LODOP.ADD_PRINT_TEXT(75,570,150,32,"表面处理方式");
+        LODOP.SET_PRINT_STYLEA(0,"FontSize",11);
+        LODOP.SET_PRINT_STYLEA(0,"ItemType",1);
+        var str="";
+        if(surfaceWay!="")
+        {
+            str=surfaceWay;
+        }
+        if(surfaceWay1!="")
+        {
+            if(str=="")
+            {
+                str=surfaceWay1;
+            }
+            else {
+                str=str+','+surfaceWay1;
+            }
+
+
+        }
+        if(surfaceWay2!="")
+        {
+            if(str=="")
+            {
+                str=surfaceWay2;
+            }
+            else {
+                str=str+','+surfaceWay2;
+            }
+
+
+        }
+        LODOP.ADD_PRINT_RECT(97,528,13,14,0,1);
+        if(surfaceWay1!="")
+        {
+            LODOP.ADD_PRINT_TEXT(98,528,62,32,"√ 喷砂");
+
+        }
+        else {
+            LODOP.ADD_PRINT_TEXT(98,528,62,32,"  喷砂");
+        }
+        LODOP.SET_PRINT_STYLEA(0,"FontSize",11);
+        LODOP.SET_PRINT_STYLEA(0,"ItemType",1);
+
+        LODOP.ADD_PRINT_RECT(98,592,13,14,0,1);
+        if(surfaceWay!="")
+        {
+            LODOP.ADD_PRINT_TEXT(98,591,78,32,"√ 拉丝");
+
+        }
+        else {
+            LODOP.ADD_PRINT_TEXT(98,591,78,32,"  拉丝");
+
+        }
+        LODOP.SET_PRINT_STYLEA(0,"FontSize",11);
+        LODOP.SET_PRINT_STYLEA(0,"ItemType",1);
+
+
+
+        LODOP.ADD_PRINT_RECT(98,656,13,14,0,1);
+        if(surfaceWay2!="")
+        {
+            LODOP.ADD_PRINT_TEXT(98,654,78,32,"√ 其他");
+        }
+        else {
+            LODOP.ADD_PRINT_TEXT(98,654,78,32,"  其他");
+        }
+
+        LODOP.SET_PRINT_STYLEA(0,"FontSize",11);
+        LODOP.SET_PRINT_STYLEA(0,"ItemType",1);
+
+        LODOP.ADD_PRINT_RECT(68,519,199,54,0,4);
+
+
         LODOP.ADD_PRINT_TABLE(150,16,780,1000,CreateProductTable(list));
         var lenth=0;
         if(list!=null)
@@ -50,12 +127,11 @@ function PrPrintProduct(list) {
 
 
 
-
         LODOP.SET_PRINT_MODE("FULL_WIDTH_FOR_OVERFLOW",true);
 
-        // LODOP.PRINT_DESIGN();
+        LODOP.PRINT_DESIGN();
 
-        LODOP.PREVIEW();
+        // LODOP.PREVIEW();
     }
 
 }
@@ -247,11 +323,72 @@ function  CreateDeviceTable(result) {
     th=th+"<tr style='height:37px' ><td  align='center' bgcolor='#a9a9a9'>序号</td><td  align='center' bgcolor='#a9a9a9'>子件编码</td><td align='center' bgcolor='#a9a9a9'>子件代码</td><td  align='center' bgcolor='#a9a9a9'>子件名称</td><td align='center' bgcolor='#a9a9a9'>规格型号</td><td  align='center' bgcolor='#a9a9a9'>单位</td><td  align='center' bgcolor='#a9a9a9'>单耗</td><td align='center' bgcolor='#a9a9a9'>总量</td> <td  align='center' bgcolor='#a9a9a9'>库存量</td><td  align='center' bgcolor='#a9a9a9'>在途量</td><td  align='center' bgcolor='#a9a9a9'>可用量</td><td  align='center' bgcolor='#a9a9a9'>加工类型</td><td  align='center' bgcolor='#a9a9a9'>下料尺寸</td><td align='center' bgcolor='#a9a9a9'>材料名称</td><td  align='center' bgcolor='#a9a9a9'>材料规格</td><td  align='center' bgcolor='#a9a9a9'>部件名称</td><td  align='center' bgcolor='#a9a9a9'>生产备注</td><td  align='center' bgcolor='#a9a9a9'>说明</td></tr>";
     th=th+" </thead>  ";
 
-    var td="";
-    //表格数据加载
+    var data=[];
+    var productInvCode="";
     for (var i = 0; i <result.length; i++) {
-        td = td+"<tr style='height:37px'><td style='width:30px;' align='center'>"+(i+1)+"</td><td style='width:120px;word-wrap:break-word;word-break:break-all;'  align='center'>" + isNullValues(result[i].psCode) + "</td><td style='width:110px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].invAddCode) +"</td><td style='width:155px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].invName) + "</td><td  style='width:100px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].invStd) + "</td><td style='width:27px;word-wrap:break-word;word-break:break-all;'  align='center'>" + isNullValues(result[i].invUnit) + "</td><td style='width:27px;word-wrap:break-word;word-break:break-all;'  align='center'>" + isNullValues(result[i].qty) + "</td><td style='width:42px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].qtys) + "</td> <td style='width:45px;word-wrap:break-word;word-break:break-all;'  align='center'>" + isNullValues(result[i].curQty) + "</td><td style='width:40px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].poQty) + "</td><td style='width:40px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].kyQty) + "</td><td style='width:55px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].proType) + "</td><td style='width:155px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].matSize) + "</td><td style='width:140px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].minvName) + "</td><td style='width:110px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].minvStd) + "</td><td style='width:120px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].partName) + "</td><td  style='width:110px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].memo) + "</td><td style='width:30px;word-wrap:break-word;word-break:break-all;' align='center'></td></tr>"
+        if(productInvCode=="")
+        {
+
+            productInvCode=result[i].productInvCode;
+            var m={
+                psCode:result[i].productInvCode,
+                invName:result[i].productInvName,
+                qty:result[i].soQty,
+            };
+            data.push(m);
+        }
+        else
+        {
+            if(productInvCode!=result[i].productInvCode)
+            {
+                productInvCode=result[i].productInvCode;
+                var m={
+                    psCode:result[i].productInvCode,
+                    invName:result[i].productInvName,
+                    qty:result[i].soQty,
+                };
+                data.push(m);
+            }
+
+        }
+
     }
+    var td="";
+
+
+    if(data.length<2)
+    {
+        //表格数据加载
+        for (var i = 0; i <result.length; i++) {
+            td = td+"<tr style='height:37px'><td style='width:30px;' align='center'>"+(i+1)+"</td><td style='width:120px;word-wrap:break-word;word-break:break-all;'  align='center'>" + isNullValues(result[i].psCode) + "</td><td style='width:110px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].invAddCode) +"</td><td style='width:155px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].invName) + "</td><td  style='width:100px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].invStd) + "</td><td style='width:27px;word-wrap:break-word;word-break:break-all;'  align='center'>" + isNullValues(result[i].invUnit) + "</td><td style='width:27px;word-wrap:break-word;word-break:break-all;'  align='center'>" + isNullValues(result[i].qty) + "</td><td style='width:42px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].qtys) + "</td> <td style='width:45px;word-wrap:break-word;word-break:break-all;'  align='center'>" + isNullValues(result[i].curQty) + "</td><td style='width:40px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].poQty) + "</td><td style='width:40px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].kyQty) + "</td><td style='width:55px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].proType) + "</td><td style='width:155px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].matSize) + "</td><td style='width:140px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].minvName) + "</td><td style='width:110px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].minvStd) + "</td><td style='width:120px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].partName) + "</td><td  style='width:110px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].memo) + "</td><td style='width:30px;word-wrap:break-word;word-break:break-all;' align='center'></td></tr>"
+        }
+    }
+    else
+    {
+        var productInvCode="";
+        //表格数据加载
+        for (var i = 0; i <result.length; i++) {
+            if(productInvCode=="")
+            {
+                productInvCode=result[i].productInvCode;
+
+                td = td+"<tr style='height:37px'><td></td><td style='word-wrap:break-word;word-break:break-all;'  align='center' colspan='2'>" + isNullValues(result[i].productInvCode) + "</td><td style='word-wrap:break-word;word-break:break-all;' align='center' colspan='4'>" + isNullValues(result[i].productInvName) + "</td> <td  align='center'>" + isNullValues(result[i].soQty) + "</td> <td ></td><td ></td><td ></td><td></td><td></td><td></td><td></td><td></td><td ></td></tr>"
+            }
+            else
+            {
+                if(productInvCode!=result[i].productInvCode)
+                {
+                    productInvCode=result[i].productInvCode;
+                    td = td+"<tr style='height:37px'><td></td><td style='word-wrap:break-word;word-break:break-all;'  align='center' colspan='2'>" + isNullValues(result[i].productInvCode) + "</td><td style='word-wrap:break-word;word-break:break-all;' align='center' colspan='4'>" + isNullValues(result[i].productInvName) + "</td>  <td  align='center'>" + isNullValues(result[i].soQty) + "</td> <td ></td><td ></td><td ></td><td></td><td></td><td></td><td></td><td></td><td ></td></tr>"
+                }
+
+            }
+
+            td = td+"<tr style='height:37px'><td style='width:30px;' align='center'>"+(i+1)+"</td><td style='width:120px;word-wrap:break-word;word-break:break-all;'  align='center'>" + isNullValues(result[i].psCode) + "</td><td style='width:110px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].invAddCode) +"</td><td style='width:155px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].invName) + "</td><td  style='width:100px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].invStd) + "</td><td style='width:27px;word-wrap:break-word;word-break:break-all;'  align='center'>" + isNullValues(result[i].invUnit) + "</td><td style='width:27px;word-wrap:break-word;word-break:break-all;'  align='center'>" + isNullValues(result[i].qty) + "</td><td style='width:42px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].qtys) + "</td> <td style='width:45px;word-wrap:break-word;word-break:break-all;'  align='center'>" + isNullValues(result[i].curQty) + "</td><td style='width:40px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].poQty) + "</td><td style='width:40px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].kyQty) + "</td><td style='width:55px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].proType) + "</td><td style='width:155px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].matSize) + "</td><td style='width:140px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].minvName) + "</td><td style='width:110px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].minvStd) + "</td><td style='width:120px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].partName) + "</td><td  style='width:110px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].memo) + "</td><td style='width:30px;word-wrap:break-word;word-break:break-all;' align='center'></td></tr>"
+        }
+    }
+
+
 
 
     //尾部的总页数

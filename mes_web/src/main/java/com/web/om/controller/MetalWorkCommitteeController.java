@@ -304,7 +304,7 @@ public class MetalWorkCommitteeController extends BasicController {
             }
             List<OmProductVM> list = JSON.parseArray(mDatas, OmProductVM.class);
             List<OmProductVM> listDetail = JSON.parseArray(mDataDetail, OmProductVM.class);
-            result=omMainService.save1(m,list,listDetail,null);
+            result=omMainService.save1(m,list,listDetail);
         }catch (Exception e){
             result.setSuccess(false);
             result.setMsg(e.getMessage());
@@ -362,11 +362,11 @@ public class MetalWorkCommitteeController extends BasicController {
      */
     @RequestMapping(value = "/uncheck")
     @ResponseBody
-    public ResponseResult unCheck(Integer id,String mesId){
+    public ResponseResult unCheck(Integer id){
         ResponseResult result = new ResponseResult();
         try{
             DbContextHolder.setDbType(DBTypeEnum.db2);
-            result=  omMainService.unCheck(id,mesId);
+            result=  omMainService.unCheck(id);
 
         }catch (Exception e){
             result.setSuccess(false);

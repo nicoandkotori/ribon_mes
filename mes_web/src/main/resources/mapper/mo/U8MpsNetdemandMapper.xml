@@ -81,6 +81,10 @@
     <result column="cCusAbbName" jdbcType="VARCHAR" property="ccusabbname" />
     <result column="cdefine1" jdbcType="VARCHAR" property="cdefine1" />
 
+
+    <result column="surface_way" jdbcType="VARCHAR" property="surfaceWay" />
+    <result column="surface_way1" jdbcType="VARCHAR" property="surfaceWay1" />
+    <result column="surface_way2" jdbcType="VARCHAR" property="surfaceWay2" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -118,7 +122,7 @@
       AND inv.cInvName like '%' + #{main.cinvname} + '%'
     </if>
     <if test="main.plancode != null   and main.plancode != '' ">
-      AND t2.PlanCode like '%' + #{main.plancode} + '%'
+      AND t2.PlanCode = #{main.plancode}
     </if>
     <if test="main.ccusname != null   and main.ccusname != '' ">
       AND cu.cCusName like '%' + #{main.ccusname} + '%'
@@ -153,7 +157,7 @@
       AND inv.cInvName like '%' + #{main.cinvname} + '%'
     </if>
     <if test="main.plancode != null   and main.plancode != '' ">
-      AND t2.PlanCode like '%' + #{main.plancode} + '%'
+      AND t2.PlanCode = #{main.plancode}
     </if>
     <if test="main.ccusname != null   and main.ccusname != '' ">
       AND cu.cCusName like '%' + #{main.ccusname} + '%'
@@ -168,7 +172,8 @@
       AND t2.CreateDate  &lt; #{main.dateEnd,jdbcType=TIMESTAMP}
     </if>
     )t
-
+    left join (select order_no,max(surface_way) surface_way,max(surface_way1) surface_way1,max(surface_way2) surface_way2
+                from ${database}.dbo.production_test_so_list group by  order_no) t1 on t.PlanCode=t1.order_no
 
     order by startDate desc,PlanCode
 

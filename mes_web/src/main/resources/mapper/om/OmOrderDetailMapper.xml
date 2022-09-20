@@ -40,79 +40,79 @@
   <update id="updateWithDBName">
     update ${database}.dbo.om_order_detail
     <set>
-      <if test="mainId != null and mainId != ''">
+      <if test="product.mainId != null and product.mainId != ''">
         main_id = #{product.mainId},
       </if>
-      <if test="productInvCode != null and productInvCode != ''">
+      <if test="product.productInvCode != null and product.productInvCode != ''">
         product_inv_code = #{product.productInvCode},
       </if>
-      <if test="productInvName != null and productInvName != ''">
+      <if test="product.productInvName != null and product.productInvName != ''">
         product_inv_name = #{product.productInvName},
       </if>
-      <if test="productInvStd != null and productInvStd != ''">
+      <if test="product.productInvStd != null and product.productInvStd != ''">
         product_inv_std = #{product.productInvStd},
       </if>
-      <if test="productInvUnit != null and productInvUnit != ''">
+      <if test="product.productInvUnit != null and product.productInvUnit != ''">
         product_inv_unit = #{product.productInvUnit},
       </if>
-      <if test="productQty != null">
+      <if test="product.productQty != null">
         product_qty = #{product.productQty},
       </if>
-      <if test="materialPrice != null">
+      <if test="product.materialPrice != null">
         material_price = #{product.materialPrice},
       </if>
-      <if test="materialAmount != null">
+      <if test="product.materialAmount != null">
         material_amount = #{product.materialAmount},
       </if>
-      <if test="workPrice != null">
+      <if test="product.workPrice != null">
         work_price = #{product.workPrice},
       </if>
-      <if test="totalWorkAmount != null">
+      <if test="product.totalWorkAmount != null">
         total_work_amount = #{product.totalWorkAmount},
       </if>
-      <if test="price != null">
+      <if test="product.price != null">
         price = #{product.price},
       </if>
-      <if test="amount != null">
+      <if test="product.amount != null">
         amount = #{product.amount},
       </if>
-      <if test="planStartDate != null">
+      <if test="product.planStartDate != null">
         plan_start_date = #{product.planStartDate},
       </if>
-      <if test="planEndDate != null">
+      <if test="product.planEndDate != null">
         plan_end_date = #{product.planEndDate},
       </if>
-      <if test="createUser != null and createUser != ''">
+      <if test="product.createUser != null and product.createUser != ''">
         create_user = #{product.createUser},
       </if>
-      <if test="createDate != null">
+      <if test="product.createDate != null">
         create_date = #{product.createDate},
       </if>
-      <if test="updateUser != null and updateUser != ''">
+      <if test="product.updateUser != null and product.updateUser != ''">
         update_user = #{product.updateUser},
       </if>
-      <if test="updateDate != null">
+      <if test="product.updateDate != null">
         update_date = #{product.updateDate},
       </if>
-      <if test="izDelete != null">
+      <if test="product.izDelete != null">
         iz_delete = #{product.izDelete},
       </if>
-      <if test="deleteUser != null and deleteUser != ''">
+      <if test="product.deleteUser != null and product.deleteUser != ''">
         delete_user = #{product.deleteUser},
       </if>
-      <if test="deleteDate != null">
+      <if test="product.deleteDate != null">
         delete_date = #{product.deleteDate},
       </if>
-      <if test="u8MoDetailId != null">
+      <if test="product.u8MoDetailId != null">
         u8_mo_detail_id = #{product.u8MoDetailId},
       </if>
-      <if test="rowNo != null">
+      <if test="product.rowNo != null">
         row_no = #{product.rowNo},
       </if>
-      <if test="taxRate != null">
+      <if test="product.taxRate != null">
         tax_rate = #{product.taxRate},
       </if>
-      <if test="recordId != null and recordId != ''">
+      <if test="product.recordId != null and product.recordId != ''">
         record_id = #{product.recordId},
       </if>
     </set>

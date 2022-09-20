@@ -86,7 +86,9 @@ public class TestSoList {
 
     private Date checkDate;
 
-
+    private String surfaceWay;
+    private String surfaceWay1;
+    private String surfaceWay2;
     @TableField(exist = false)
     private String invUnit;
     @TableField(exist = false)

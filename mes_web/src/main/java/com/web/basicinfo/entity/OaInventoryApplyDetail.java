@@ -66,6 +66,10 @@ public class OaInventoryApplyDetail extends Model<OaInventoryApplyDetail> {
     private String izForeign;
     @TableField(exist = false)
     private String izSale;
+    @TableField(exist = false)
+    private String className;
+
+
 
 
 }

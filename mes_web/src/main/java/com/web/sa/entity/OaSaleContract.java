@@ -142,8 +142,20 @@ public class OaSaleContract extends Model<OaSaleContract> {
     @TableField(exist = false)
     private String designUser;
 
+    @TableField(exist = false)
+    private String contractCode;
+    @TableField(exist = false)
+    private String custName;
+    @TableField(exist = false)
+    private String invCode;
+    @TableField(exist = false)
+    private BigDecimal qty;
 
+    @TableField(exist = false)
+    private String unit;
 
+    @TableField(exist = false)
+    private String trialCode;
 
 
 }

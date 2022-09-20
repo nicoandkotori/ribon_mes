@@ -7,7 +7,8 @@ const SELECTOR_PART_TABLE_ID = "#"+PART_TABLE_ID;
 const MATERIAL_TABLE_ID = "jqGridDetail";
 const SELECTOR_MATERIAL_TABLE_ID = "#"+MATERIAL_TABLE_ID;
 //行标识隐藏flag
-const INDEX_HIDDEN = false;
+const INDEX_HIDDEN = true;
+//调试模式，关闭和打开控制台输出
 const DEBUG_MODEL = false;
 //默认税率
 const DEFAULT_TAX_TATE = 13.00;
@@ -35,7 +36,7 @@ const URL_GET_ALL_MAIN_DATA_BY_ID = URL_BASE_ORDER+"get_all_main_data_by_id"
 //审核数据
 const URL_AUDIT = URL_BASE_ORDER+"audit"
 //弃审
-const URL_NOT_AUDIT = URL_BASE_COMMITTEE+"uncheck"
+const URL_NOT_AUDIT = URL_BASE_ORDER+"uncheck"
 //变更
 const URL_CHANGE = URL_BASE_ORDER+"change"
 
@@ -107,6 +108,7 @@ const PLAN_START_DATE = "planStartDate";
 //计划完工日期
 const PLAN_END_DATE = "planEndDate";
 const ROW_NO = "rowNo";
+const U8_MO_DETAIL_ID = "u8MoDetailId"
 
 /*
  * 部件表字段

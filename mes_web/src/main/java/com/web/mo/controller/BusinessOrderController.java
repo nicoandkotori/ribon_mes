@@ -177,7 +177,7 @@ public class BusinessOrderController  extends BasicController {
                     //设置账套数据
                     query.setU8DB(u8DB);
                     List<TestSoList> list1=testSoListService.getDetailList(query);
-                    if(list1!=null)
+                    if(list1!=null&&list1.size()>0)
                     {
                         listAll.addAll(list1);
                     }
@@ -218,7 +218,7 @@ public class BusinessOrderController  extends BasicController {
                         .collect(
                                 Collectors.collectingAndThen(
                                         Collectors.toCollection(() -> new TreeSet<>(
-                                                Comparator.comparing(o -> o.getOrderNo()+","+o.getProductInvCode())
+                                                Comparator.comparing(o -> o.getOrderNo()+","+o.getProductInvCode()+","+o.getSoQty())
                                         )), ArrayList::new
                                 )
                         );
@@ -291,11 +291,49 @@ public class BusinessOrderController  extends BasicController {
     //获取需要打印的数据,生产任务单
     @RequestMapping(value = "/getprintproduct")
     @ResponseBody
-    public List<U8MpsNetdemand> getprintproduct(String orderNo){
+    public List<U8MpsNetdemand> getprintproduct(String orderNo,String surfaceWay,String surfaceWay1,String surfaceWay2){
         try {
             DbContextHolder.setDbType(DBTypeEnum.db2);
             U8MpsNetdemand query= new U8MpsNetdemand();
             query.setPlancode(orderNo);
+            //设置账套数据
+            List<U8MpsNetdemand> list=mpsNetdemandService.getPrintProduct(query);
+
+
+            //有一个不为空的则更新表面处理方式
+            if(CustomStringUtils.isNotBlank(surfaceWay)||CustomStringUtils.isNotBlank(surfaceWay1)||CustomStringUtils.isNotBlank(surfaceWay2))
+            {
+                DbContextHolder.setDbType(DBTypeEnum.db1);
+                List<TestSoList> listUpdate=new ArrayList<>();
+                TestSoList q=new TestSoList();
+                q.setOrderNo(orderNo);
+                q.setSurfaceWay(surfaceWay);
+                q.setSurfaceWay1(surfaceWay1);
+                q.setSurfaceWay2(surfaceWay2);
+                listUpdate.add(q);
+                testSoListService.updateSufaceWay(listUpdate);
+            }
+
+            return list;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+
+
+    //获取需要打印的数据,生产任务单
+    @RequestMapping(value = "/getprintproductcheck")
+    @ResponseBody
+    public List<U8MpsNetdemand> getprintproductcheck(String orderNo,String invCode){
+        try {
+            DbContextHolder.setDbType(DBTypeEnum.db2);
+            U8MpsNetdemand query= new U8MpsNetdemand();
+            query.setPlancode(orderNo);
+            query.setCinvcode(invCode);
             //设置账套数据
             List<U8MpsNetdemand> list=mpsNetdemandService.getPrintProduct(query);
             return list;
@@ -307,15 +345,16 @@ public class BusinessOrderController  extends BasicController {
 
     }
 
-
     //获取需要打印的数据,生产任务单  批量打印
     @RequestMapping(value = "/getprintproductbatch")
     @ResponseBody
-    public List<U8MpsNetdemand> getprintproductbatch(String queryStr){
+    public List<U8MpsNetdemand> getprintproductbatch(String queryStr,String surfaceWay,String surfaceWay1,String surfaceWay2){
         try {
             DbContextHolder.setDbType(DBTypeEnum.db2);
             List<U8MpsNetdemand> listReturn=new ArrayList<>();
             List<U8MpsNetdemand> listQuery= JSON.parseArray(queryStr,U8MpsNetdemand.class);
+
+            List<TestSoList> listUpdate=new ArrayList<>();
             if(listQuery!=null)
             {
                 //查询出批量的需要打印的数据
@@ -323,20 +362,38 @@ public class BusinessOrderController  extends BasicController {
                 {
                     U8MpsNetdemand query= new U8MpsNetdemand();
                     query.setPlancode(m.getPlancode());
+                    query.setCinvcode(m.getCinvcode());
                     //设置账套数据
                     List<U8MpsNetdemand> list=mpsNetdemandService.getPrintProduct(query);
                     if(list!=null)
                     {
                         listReturn.addAll(list);
                     }
+
+                    TestSoList q=new TestSoList();
+                    q.setOrderNo(m.getPlancode());
+                    q.setProductInvCode(m.getCinvcode());
+                    q.setSurfaceWay(surfaceWay);
+                    q.setSurfaceWay1(surfaceWay1);
+                    q.setSurfaceWay2(surfaceWay2);
+                    listUpdate.add(q);
                 }
             }
             //批量的任务单号和备注清空
-            if(listReturn.size()>0)
+            if(listReturn.size()>1)
             {
                 listReturn.get(0).setPlancode("");
                 listReturn.get(0).setCmemo("");
             }
+
+
+            //有一个不为空的则更新表面处理方式
+            if(CustomStringUtils.isNotBlank(surfaceWay)||CustomStringUtils.isNotBlank(surfaceWay1)||CustomStringUtils.isNotBlank(surfaceWay2))
+            {
+                DbContextHolder.setDbType(DBTypeEnum.db1);
+                testSoListService.updateSufaceWay(listUpdate);
+            }
+
             return listReturn;
 
         } catch (Exception e) {

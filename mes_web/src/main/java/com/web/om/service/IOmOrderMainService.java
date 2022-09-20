@@ -48,10 +48,10 @@ public interface IOmOrderMainService extends IService<OmOrderMain> {
     /**
      * 通过id作废委外订单
      *
-     * @param id id
+     * @param mesId id
      * @return {@link TableResult}<{@link OmOrderMain}>
      */
-    ResponseResult deleteMainById(String id);
+    ResponseResult deleteMainById(String mesId);
 
     /**
      * 得到所有主要数据通过id
@@ -80,6 +80,16 @@ public interface IOmOrderMainService extends IService<OmOrderMain> {
     ResponseResult change(OmOrderMain main,
                            List<OmOrderDetail> productList,
                            List<OmOrderMaterial> materialList) ;
+
+    /**
+     * 弃审
+     *
+     * @param id    id
+     * @param mesId mes id
+     * @return {@link ResponseResult}
+     * @throws Exception 异常
+     */
+    public ResponseResult unCheck(Integer id,String mesId) throws Exception;
 }
 
 

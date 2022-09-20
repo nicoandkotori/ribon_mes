@@ -81,12 +81,12 @@
   </select>
 
   <select id="getDetail" resultType="com.web.st.dto.DeviceListDTO">
-    select id, unit, orderNo, invCode, orderQty, invName, invStd, matSize, proType, fromNo, outQty,
+    select id, unit, orderNo, invCode, orderQty, invName, invStd, proType, fromNo, outQty,
     orderQty - case when outQty is null then 0 else outQty end as unOutQty,
     (select sum(iQuantity) from CurrentStock where cWhCode = '01' and cInvCode = t.invCode) as curQty
     from (
     select MAX(matsort.id) id, ComputationUnit.cComunitName unit,matsort.order_no orderNo, matsort.ps_code invCode,case when SUM(qtys) is null then 0 else SUM(qtys) end orderQty,
-    Inventory.cInvName invName,Inventory.cInvStd invStd,mat_size matSize, case when pro_type is null then '' else pro_type end proType, matsort.from_no fromNo,
+    Inventory.cInvName invName,Inventory.cInvStd invStd, case when pro_type is null then '' else pro_type end proType, matsort.from_no fromNo,
     (select sum(iQuantity) from Rdrecords11 where cmocode = matsort.order_no and cInvCode = matsort.ps_code) as outQty
     from ribon_mes.dbo.production_test_so_list matsort left join Inventory Inventory
     on Inventory.cinvcode=matsort.ps_code left join ComputationUnit ComputationUnit
@@ -94,7 +94,7 @@
     on MatSort.order_no=ppo.PlanCode where qtys>0 and case when iz_delete is null then 0 else iz_delete end = 0 and
     (pro_type='金工' or pro_type='外购'  or pro_type='半成品' or (case when pro_type is null then '' else pro_type end = '' and Inventory.bPurchase = 1))
     and matsort.order_no=#{orderNo} and Inventory.i_id = #{barcode}
-    group by ComputationUnit.cComunitName,order_no,ps_code,Inventory.cInvName,Inventory.cInvStd,mat_size,
+    group by ComputationUnit.cComunitName,order_no,ps_code,Inventory.cInvName,Inventory.cInvStd,
     case when pro_type is null then '' else pro_type end,matsort.from_no) t
     where orderQty - case when outQty is null then 0 else outQty end > 0
   </select>

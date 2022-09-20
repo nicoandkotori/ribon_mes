@@ -279,4 +279,24 @@ public class TestSoListServiceImpl extends ServiceImpl<TestSoListMapper, TestSoL
         }
         return result;
     }
+
+
+
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseResult updateSufaceWay(List<TestSoList> list) throws Exception{
+        ResponseResult result = new ResponseResult();
+        try{
+
+            for(TestSoList m: list)
+            {
+                testSoListMapper.updateSufaceWay(m);
+            }
+
+        }catch (Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+        return result;
+    }
+
+
 }

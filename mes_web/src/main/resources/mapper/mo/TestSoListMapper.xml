@@ -195,4 +195,17 @@
     yqty=COALESCE(yqty,0)+COALESCE(#{main.adQty,jdbcType=DECIMAL},0)
     where  id  = #{main.id,jdbcType=VARCHAR}
   </update>
+
+  <update id="updateSufaceWay" parameterType="com.web.mo.entity.TestSoList" >
+    update  production_test_so_list
+    set
+    surface_way=#{main.surfaceWay, jdbcType=VARCHAR},
+    surface_way1=#{main.surfaceWay1, jdbcType=VARCHAR},
+    surface_way2=#{main.surfaceWay2, jdbcType=VARCHAR}
+    where   order_no  = #{main.orderNo,jdbcType=VARCHAR}
+    <if test="main.productInvCode != null   and main.productInvCode != '' ">
+      AND product_inv_code  = #{main.productInvCode,jdbcType=VARCHAR}
+    </if>
+  </update>
+
 </mapper>

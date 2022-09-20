@@ -31,13 +31,15 @@
     <result column="izPo" jdbcType="VARCHAR" property="izPo" />
     <result column="izForeign" jdbcType="VARCHAR" property="izForeign" />
     <result column="izSale" jdbcType="VARCHAR" property="izSale" />
+    <result column="className" jdbcType="VARCHAR" property="className" />
   </resultMap>
 
 <!--  1、判断财务审核人不为空或者审核日期不为空的，可以同步-->
 <!--  2、需要判断是否已经同步-->
   <select id="getListBySync" parameterType="com.web.basicinfo.entity.OaInventoryApplyDetail" resultMap="BaseResultMap">
     select   t.*,biaomian.SHOWVALUE surface_method,typeclass.SHOWVALUE mclass,
-    izzz.SHOWVALUE izSelf ,izwg.SHOWVALUE izPo ,izww.SHOWVALUE izForeign ,izss.SHOWVALUE izSale
+    izzz.SHOWVALUE izSelf ,izwg.SHOWVALUE izPo ,izww.SHOWVALUE izForeign ,izss.SHOWVALUE izSale,
+    class.SHOWVALUE className
     from   ${database}.dbo.formson_0097 t
     left join  ${database}.dbo.formmain_0096 t1 on t.formmain_id=t1.id
     left join  ${database}.dbo.CTP_ENUM_ITEM biaomian  on biaomian.id=t.field0026
@@ -46,6 +48,7 @@
     left join  ${database}.dbo.CTP_ENUM_ITEM izwg on izwg.id=t1.field0030
     left join  ${database}.dbo.CTP_ENUM_ITEM izww on izww.id=t1.field0031
     left join  ${database}.dbo.CTP_ENUM_ITEM izss on izss.id=t1.field0032
+    left join  ${database}.dbo.CTP_ENUM_ITEM class on class.id=t.field0033
     where (t1.field0020!='' or t1.field0021 is  not null)  and COALESCE(t.field0015,'')=''
     and COALESCE(t.field0006,'')!=''
   </select>

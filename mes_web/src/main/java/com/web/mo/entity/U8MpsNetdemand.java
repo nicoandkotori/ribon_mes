@@ -172,5 +172,11 @@ public class U8MpsNetdemand {
     private String cdefine1;
 
 
+    @TableField(exist = false)
+    private String surfaceWay2;
+    @TableField(exist = false)
+    private String surfaceWay;
+    @TableField(exist = false)
+    private String surfaceWay1;
 
 }

@@ -67,7 +67,8 @@ public class OmProductVM {
     private String cdefine30;//宽
     private String cdefine31;//外径
     private String cdefine32;//内径
-    private String cdefine33;//mes中材料记录ID
+    private String cfree3;//mes中产品记录ID
+    private String cfree1;//mes中材料记录ID
     private String cinvdefine2;//密度   //---
     private String cdefine22;//下料尺寸
     private BigDecimal fbaseqtyn;//单耗     //---
@@ -93,7 +94,7 @@ public class OmProductVM {
         setCdefine30(material.getInvWidth());
         setCdefine31(material.getInvExternalDiameter());
         setCdefine32(material.getInvInternalDiameter());
-        setCdefine33(material.getId());
+        setCfree1(material.getId());
         setFbaseqtyn(material.getIqty());
         setFqtys(material.getTqty());
         setIquantity(new BigDecimal(material.getProductQty()));
@@ -112,6 +113,7 @@ public class OmProductVM {
         setIquantity(product.getProductQty());
         setCdefine26(product.getMaterialPrice());
         setCdefine27(product.getMaterialAmount());
+        setCfree3(product.getId());
         setItaxprice(product.getWorkPrice());
         setInatsum(product.getTotalWorkAmount());
         setTolpic(product.getPrice());

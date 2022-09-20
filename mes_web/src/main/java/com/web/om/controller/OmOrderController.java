@@ -11,6 +11,7 @@ import com.web.basicinfo.service.IVendorService;
 import com.web.common.controller.BasicController;
 import com.web.om.dto.*;
 import com.web.om.entity.*;
+import com.web.om.mapper.OmMoMainMapper;
 import com.web.om.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +43,9 @@ public class OmOrderController extends BasicController {
 
     @Autowired
     private IOmMoMainService u8MainService;
+
+    @Autowired
+    private OmMoMainMapper u8MainMapper;
 
     /**
      * 查询最大的单据号
@@ -349,10 +353,16 @@ public class OmOrderController extends BasicController {
     @PostMapping("delete_main_by_id")
     public ResponseResult deleteMainById(String id){
         try {
-            /**
-             * DATE: 2022/9/15
-             * mijiahao TODO: 作废前还要判断有没有审核
-             */
+            OmOrderMain mesMain = omMainService.getById(id);
+            Integer u8Id =  mesMain.getU8Id();
+            DbContextHolder.setDbType(DBTypeEnum.db2);
+            OmMoMain u8Main= u8MainMapper.selectById(u8Id);
+            DbContextHolder.setDbType(DBTypeEnum.db1);
+            if(u8Main!=null) {
+                if (!u8Main.getCstate().toString().equals("0")) {
+                    return ResponseResult.error("数据已审核，不允许作废！");
+                }
+            }
             return omMainService.deleteMainById(id);
         } catch (Exception e){
             e.printStackTrace();
@@ -420,6 +430,27 @@ public class OmOrderController extends BasicController {
             return ResponseResult.error(e.getMessage());
         }
 
+    }
+
+    /**
+     * 弃审
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "uncheck")
+    @ResponseBody
+    public ResponseResult unCheck(Integer id,String mesId){
+        ResponseResult result = new ResponseResult();
+        try{
+            DbContextHolder.setDbType(DBTypeEnum.db2);
+            result=  omMainService.unCheck(id,mesId);
+
+        }catch (Exception e){
+            result.setSuccess(false);
+            result.setMsg(e.getMessage());
+            e.printStackTrace();
+        }
+        return result;
     }
 
 

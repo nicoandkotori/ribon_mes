@@ -50,7 +50,7 @@
   </select>
 
   <select id="getDetail" resultType="com.web.st.dto.OutsourceOrderDTO">
-    select t.MODetailsID, t.cInvCode, t.cInvName, t.cInvStd,
+    select top 1 t.MODetailsID, t.cInvCode, t.cInvName, t.cInvStd,
     t.iQuantity - case when t.inQty is null then 0 else t.inQty end as uninqty
     from (
     select d.MODetailsID, d.cInvCode, inv.cInvName, inv.cInvStd, d.iQuantity,
