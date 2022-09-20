@@ -31,9 +31,9 @@
     <script src='../../../static/Scripts/jqgrid/js/jquery.jqGrid.js'></script>
     <script src='../../../static/Scripts/Print.js'></script>
     <script src='../../../static/Scripts/lodop/LodopFuncs.js'></script>
-    <script src="constConfig.js"></script>
-    <script src="function.js"></script>
-    <script src="jqGridRowHelper.js"></script>
+    <script src="ConstConfig.js"></script>
+    <script src="Function.js"></script>
+    <script src="JqGridRowHelper.js"></script>
 </head>
 <style type="text/css">
 
@@ -155,8 +155,8 @@
     var CurRow1;
     var CurCol1;
     var cht, cwd;
-    var mainHelper = new jqGridRowHelper($(SELECTOR_MAIN_TABLE_ID));
-    var productHelper = new jqGridRowHelper($(SELECTOR_PRODUCT_TABLE_ID));
+    var mainHelper = new JqGridRowHelper($(SELECTOR_MAIN_TABLE_ID));
+    var productHelper = new JqGridRowHelper($(SELECTOR_PRODUCT_TABLE_ID));
     $(function () {
         initJqgrid();
     });

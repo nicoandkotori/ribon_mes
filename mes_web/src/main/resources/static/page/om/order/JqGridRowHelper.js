@@ -3,7 +3,7 @@
  * jqGrid表格行操作工具
  * @author mijiahao
  */
-class jqGridRowHelper {
+class JqGridRowHelper {
 
     /*
      * 传入table的DOM对象

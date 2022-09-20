@@ -46,12 +46,12 @@
     <!--easyui-->
     <script src="../../../static/Scripts/easyui-1.7.0/jquery.easyui.min.js"></script>
     <script src="../../../static/Scripts/easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
-    <script src="constConfig.js"></script>
-    <script src="jqGridRowHelper.js"></script>
+    <script src="ConstConfig.js"></script>
+    <script src="JqGridRowHelper.js"></script>
     <script src="entity/OmMesProduct.js"></script>
     <script src="entity/OmMesPart.js"></script>
     <script src="entity/OmMesMaterial.js"></script>
-    <script src="function.js"></script>
+    <script src="Function.js"></script>
     <script src="dto/U8QueryDTO.js"></script>
     <style>
         .layui-select, .layui-input {
@@ -135,8 +135,8 @@
     var rowNum = 1;
     var partRowId;
     var recordId;
-    var partHelper = new jqGridRowHelper($('#'+PART_TABLE_ID));
-    var materialHelper = new jqGridRowHelper($('#'+MATERIAL_TABLE_ID));
+    var partHelper = new JqGridRowHelper($('#'+PART_TABLE_ID));
+    var materialHelper = new JqGridRowHelper($('#'+MATERIAL_TABLE_ID));
     var materialRowIndex = 0;
     //选择物料的种类，为'part'或'material'
     var chooseInvType;
