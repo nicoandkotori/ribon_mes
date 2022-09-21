@@ -199,7 +199,7 @@ function FnPrint() {
     console.debug("打印")
     /**
      * DATE: 2022/9/21
-     * mijiahao TODO: 打印需要完善
+     * mijiahao TODO: 打印待完善
      */
     var id = $("#u8Id").val();
     if (id != null && id != "") {

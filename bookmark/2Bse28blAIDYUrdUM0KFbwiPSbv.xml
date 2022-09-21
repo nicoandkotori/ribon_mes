@@ -1022,8 +1022,9 @@
     <select>
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="BRANCH:master" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:origin/master" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </select>
   </component>
@@ -1051,91 +1052,120 @@
         <item name="dbo: schema" type="2865ee2e:MsImplModel$Schema" />
         <item name="Family of 26 表 (host: 架构 dbo)" type="28178dcc:BaseModel$BaseNamingIdentifyingFamily" />
       </path>
-      <path>
-        <item name="Root Group" type="25e4ec8d:DvRootDsGroup" />
-        <item name="ribon_mes@121.4.180.106: DSN" type="27e358d6:DataSourceNode" />
-        <item name="ribon_mes: database" type="ccb7ac2a:MsImplModel$Database" />
-        <item name="dbo: schema" type="2865ee2e:MsImplModel$Schema" />
-        <item name="Family of 26 表 (host: 架构 dbo)" type="28178dcc:BaseModel$BaseNamingIdentifyingFamily" />
-        <item name="sys_menu: table" type="63ab2ba1:MsImplModel$Table" />
-      </path>
-      <path>
-        <item name="Root Group" type="25e4ec8d:DvRootDsGroup" />
-        <item name="生产环境ribon_mes@192.168.1.251: DSN" type="27e358d6:DataSourceNode" />
-      </path>
-      <path>
-        <item name="Root Group" type="25e4ec8d:DvRootDsGroup" />
-        <item name="生产环境ribon_mes@192.168.1.251: DSN" type="27e358d6:DataSourceNode" />
-        <item name="ribon_mes: database" type="ccb7ac2a:MsImplModel$Database" />
-      </path>
-      <path>
-        <item name="Root Group" type="25e4ec8d:DvRootDsGroup" />
-        <item name="生产环境ribon_mes@192.168.1.251: DSN" type="27e358d6:DataSourceNode" />
-        <item name="ribon_mes: database" type="ccb7ac2a:MsImplModel$Database" />
-        <item name="dbo: schema" type="2865ee2e:MsImplModel$Schema" />
-      </path>
-      <path>
-        <item name="Root Group" type="25e4ec8d:DvRootDsGroup" />
-        <item name="生产环境ribon_mes@192.168.1.251: DSN" type="27e358d6:DataSourceNode" />
-        <item name="ribon_mes: database" type="ccb7ac2a:MsImplModel$Database" />
-        <item name="dbo: schema" type="2865ee2e:MsImplModel$Schema" />
-        <item name="Family of 26 表 (host: 架构 dbo)" type="28178dcc:BaseModel$BaseNamingIdentifyingFamily" />
-      </path>
     </expand>
     <select />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="-1">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/static/Scripts/Print.js">
+        <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/dto/OmProductVM.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="13500">
-              <caret line="500" column="47" selection-start-line="500" selection-start-column="47" selection-end-line="500" selection-end-column="47" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/ar/controller/CostSimReportController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="13770">
-              <caret line="529" column="16" selection-start-line="529" selection-start-column="16" selection-end-line="529" selection-end-column="51" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/controller/OmOrderController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="10530">
-              <caret line="410" column="38" selection-start-line="410" selection-start-column="38" selection-end-line="410" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/impl/OmOrderMainServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="118">
-              <caret line="922" column="6" selection-start-line="922" selection-start-column="6" selection-end-line="922" selection-end-column="6" />
-              <folding>
-                <element signature="e#2368#2389#1" expanded="true" />
-                <element signature="e#6397#6412#0" expanded="true" />
-                <element signature="e#6921#6934#0" expanded="true" />
-                <element signature="e#10351#10366#0" expanded="true" />
-                <element signature="e#10832#10845#0" expanded="true" />
-                <element signature="e#12187#12202#0" expanded="true" />
-                <element signature="e#12493#12506#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="1701">
+              <caret line="69" column="37" selection-start-line="69" selection-start-column="37" selection-end-line="69" selection-end-column="37" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.idea/vcs.xml">
+        <entry file="file://$PROJECT_DIR$/bookmark/2Bse28blAIDYUrdUM0KFbwiPSbv.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="27">
+              <caret line="1" selection-start-line="1" selection-end-line="1004" selection-end-column="14" />
+              <folding>
+                <element signature="n#component#0;n#project#0;n#!!top" />
+                <element signature="e#65874#65880#0" expanded="true" />
+                <element signature="e#65887#65893#0" expanded="true" />
+                <element signature="e#66595#66601#0" expanded="true" />
+                <element signature="e#66601#66607#0" expanded="true" />
+                <element signature="e#66608#66613#0" expanded="true" />
+                <element signature="e#66613#66618#0" expanded="true" />
+                <element signature="e#108409#108415#0" expanded="true" />
+                <element signature="e#108420#108426#0" expanded="true" />
+                <element signature="e#108607#108613#0" expanded="true" />
+                <element signature="e#108630#108636#0" expanded="true" />
+                <element signature="e#108817#108823#0" expanded="true" />
+                <element signature="e#108836#108842#0" expanded="true" />
+                <element signature="e#109023#109029#0" expanded="true" />
+                <element signature="e#109042#109048#0" expanded="true" />
+                <element signature="e#109229#109235#0" expanded="true" />
+                <element signature="e#109243#109249#0" expanded="true" />
+                <element signature="e#109430#109436#0" expanded="true" />
+                <element signature="e#109450#109456#0" expanded="true" />
+                <element signature="e#109637#109643#0" expanded="true" />
+                <element signature="e#109650#109656#0" expanded="true" />
+                <element signature="e#109837#109843#0" expanded="true" />
+                <element signature="e#109849#109855#0" expanded="true" />
+                <element signature="e#110036#110042#0" expanded="true" />
+                <element signature="e#110060#110066#0" expanded="true" />
+                <element signature="e#110247#110253#0" expanded="true" />
+                <element signature="e#110265#110271#0" expanded="true" />
+                <element signature="e#110452#110458#0" expanded="true" />
+                <element signature="e#110465#110471#0" expanded="true" />
+                <element signature="e#110675#110681#0" expanded="true" />
+                <element signature="e#110691#110697#0" expanded="true" />
+                <element signature="e#111093#111099#0" expanded="true" />
+                <element signature="e#111104#111110#0" expanded="true" />
+                <element signature="e#111291#111297#0" expanded="true" />
+                <element signature="e#111301#111307#0" expanded="true" />
+                <element signature="e#111488#111494#0" expanded="true" />
+                <element signature="e#111499#111505#0" expanded="true" />
+                <element signature="e#111686#111692#0" expanded="true" />
+                <element signature="e#111692#111698#0" expanded="true" />
+                <element signature="e#111977#111983#0" expanded="true" />
+                <element signature="e#111984#111990#0" expanded="true" />
+                <element signature="e#112390#112396#0" expanded="true" />
+                <element signature="e#112409#112415#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/Function.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/ConstConfig.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
-              <caret line="5" column="14" lean-forward="true" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+              <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/edit_new.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="16443">
+              <caret line="609" selection-start-line="609" selection-end-line="609" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/change.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="19332">
+              <caret line="716" column="13" selection-start-line="716" selection-start-column="13" selection-end-line="716" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/JqGridRowHelper.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="5" column="21" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/ColModelConfig.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3294">
+              <caret line="122" column="6" selection-start-line="122" selection-start-column="6" selection-end-line="122" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -1143,43 +1173,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/application.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/task/Scheduler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="567">
-              <caret line="37" column="27" selection-start-line="37" selection-start-column="27" selection-end-line="37" selection-end-column="27" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/index_new.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3915">
-              <caret line="145" selection-start-line="145" selection-end-line="145" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/application-prod.properties">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/application-dev.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="945">
-              <caret line="35" selection-start-line="35" selection-end-line="35" />
+            <state relative-caret-position="81">
+              <caret line="3" column="27" selection-start-line="3" selection-start-column="27" selection-end-line="3" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -1191,16 +1186,13 @@
       <summary usageCount="1" lastUsed="1661757285922" />
     </fileType>
     <fileType name="DIFF">
-      <summary usageCount="6" lastUsed="1663722989468" />
-    </fileType>
-    <fileType name="Database Element">
-      <summary usageCount="9" lastUsed="1663634663217" />
+      <summary usageCount="5" lastUsed="1663762299341" />
     </fileType>
     <fileType name="HTML">
-      <summary usageCount="141" lastUsed="1663758668508" />
+      <summary usageCount="127" lastUsed="1663762280149" />
     </fileType>
     <fileType name="JAVA">
-      <summary usageCount="274" lastUsed="1663758667755" />
+      <summary usageCount="147" lastUsed="1663762280069" />
     </fileType>
     <fileType name="JSON">
       <summary usageCount="3" lastUsed="1662961332607" />
@@ -1212,64 +1204,71 @@
       <summary usageCount="1" lastUsed="1661848325331" />
     </fileType>
     <fileType name="JavaScript">
-      <summary usageCount="137" lastUsed="1663758666860" />
+      <summary usageCount="114" lastUsed="1663762280204" />
     </fileType>
     <fileType name="Markdown">
-      <summary usageCount="7" lastUsed="1663727404396" />
-    </fileType>
-    <fileType name="PLAIN_TEXT">
-      <summary usageCount="1" lastUsed="1663575108342" />
+      <summary usageCount="1" lastUsed="1663296957601" />
     </fileType>
     <fileType name="Properties">
-      <summary usageCount="38" lastUsed="1663758668786" />
-    </fileType>
-    <fileType name="SQL">
-      <summary usageCount="1" lastUsed="1663573792701" />
+      <summary usageCount="12" lastUsed="1663762280211" />
     </fileType>
     <fileType name="TypeScript">
-      <summary usageCount="3" lastUsed="1663729112801" />
+      <summary usageCount="2" lastUsed="1662690455425" />
     </fileType>
     <fileType name="UML">
-      <summary usageCount="1" lastUsed="1662000125463" />
+      <summary usageCount="7" lastUsed="1662996449091" />
     </fileType>
     <fileType name="XML">
-      <summary usageCount="69" lastUsed="1663758752354" />
+      <summary usageCount="47" lastUsed="1663762280084" />
     </fileType>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>选择产品信息</find>
-      <find>回调</find>
-      <find>uncheck</find>
-      <find>save1</find>
-      <find>getCstate</find>
-      <find>已审核，请勿</find>
-      <find>&quot;#jqGrid&quot;</find>
-      <find>lombok</find>
-      <find>弃审</find>
-      <find>添加部件</find>
+      <find>addpar</find>
+      <find>ir</find>
+      <find>btnAdd</find>
+      <find>初始化</find>
+      <find>partMaxId</find>
+      <find>materialMaxId</find>
+      <find>productMaxId</find>
+      <find>addpart</find>
+      <find>PRICE</find>
+      <find>.push</find>
+      <find>新</find>
+      <find>flag</find>
+      <find>保存</find>
+      <find>产品表增行</find>
+      <find>reloadAllData</find>
+      <find>omProductPo</find>
+      <find>新增</find>
+      <find>已审核</find>
+      <find>loadAllDataByMainId</find>
+      <find>#{</find>
+      <find>u8ProductList</find>
+      <find>colModel</find>
+      <find>afterSaveCell</find>
+      <find>审核</find>
       <find>getPartTableId</find>
-      <find>编辑</find>
-      <find>加工费</find>
-      <find>iSu</find>
-      <find>console.log</find>
-      <find>不含税</find>
-      <find>costsimreport</find>
-      <find>导出</find>
-      <find>exportBtn</find>
-      <find>export</find>
-      <find>wb</find>
-      <find>FnPrint</find>
-      <find>form</find>
-      <find>baseUrl</find>
-      <find>consoleLog</find>
-      <find>合计</find>
-      <find>form.on</find>
-      <find>序号</find>
-      <find>getdetaillist</find>
-      <find>Cvenp</find>
+      <find>irowid</find>
+      <find>点击按钮产品表增行事件</find>
+      <find>删行</find>
+      <find>回调</find>
+      <find>ondblClickRow</find>
     </findStrings>
     <replaceStrings>
+      <replace>partRowIndex</replace>
+      <replace>jqGridDetail</replace>
+      <replace>part_table</replace>
+      <replace>contractOm</replace>
+      <replace>venCode</replace>
+      <replace>transportWay</replace>
+      <replace>invCode</replace>
+      <replace>invStd</replace>
+      <replace>&quot;invUnit&quot;</replace>
+      <replace>vouchCode</replace>
+      <replace>&quot;invCode&quot;</replace>
+      <replace>materialPrice</replace>
+      <replace>unitMaterialPrice</replace>
       <replace>remark</replace>
       <replace>CurRow != &quot;&quot; &amp;&amp; CurRow != undefined</replace>
       <replace>PRODUCT_QTY</replace>
@@ -1285,89 +1284,69 @@
       <replace>density</replace>
       <replace>iqty</replace>
       <replace>productQty</replace>
-      <replace>totalUnitMaterialPrice</replace>
-      <replace>materialRow</replace>
-      <replace>price</replace>
-      <replace>amount</replace>
-      <replace>mijiahao</replace>
-      <replace>personName</replace>
-      <replace>SELECTOR_PRODUCT_TABLE_ID</replace>
-      <replace>productInvCode</replace>
-      <replace>partHelper</replace>
-      <replace>SELECTOR_MAIN_TABLE_ID</replace>
-      <replace>editable: false</replace>
-      <replace>and product.</replace>
-      <replace>and material.</replace>
-      <replace>consoleLog</replace>
-      <replace>console.debug</replace>
+      <replace>#{material.</replace>
+      <replace>#{product.</replace>
     </replaceStrings>
     <dirStrings>
       <dir>D:\IDEAProjects\ribon_mes\mes_web\src\main\resources\static\page\om\metalworkcommittee</dir>
-      <dir>D:\IDEAProjects\ribon_mes\mes_web\src\main\java\com\web\om\controller</dir>
-      <dir>D:\IDEAProjects\ribon_mes\mes_web\src\main\java\com\web\om\service</dir>
-      <dir>D:\IDEAProjects\ribon_mes\mes_web\src\main\java\com\web\om\service\impl</dir>
-      <dir>D:\IDEAProjects\ribon_mes\mes_web\src\main\java\com\task</dir>
       <dir>D:\IDEAProjects\ribon_mes\mes_web\src\main\resources\static\page\om\order</dir>
-      <dir>D:\IDEAProjects\ribon_mes\mes_web\src\main\java\com\web\om\dto</dir>
-      <dir>D:\IDEAProjects\ribon_mes\mes_web\src\main\resources\static\components</dir>
-      <dir>D:\IDEAProjects\ribon_mes\mes_web\src\main\resources\static\page\om\order\function</dir>
     </dirStrings>
   </component>
   <component name="GitSEFilterConfiguration">{
 }</component>
   <component name="IdeDocumentHistory">
     <changedPaths>
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/omMesProductMaterial.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/addpart.html" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add_bak.html" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/omMesMaterial.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/function.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/DTO.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/u8QueryDTO.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add_new.html" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/index.html" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/js_init_class/OmOrderMaterial.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/omMesPart.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/omMesMaterial.js" />
       <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/index.html" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmOrderMaterial.java" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/common/util/TableResult.java" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/jqGridRowHelper.js" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/dto/pageFindDTO.js" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/entity/omU8Main.js" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/entity/OmU8Main.js" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmMoMain.java" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/static/js/admin.js" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/common/util/ResponseResult.java" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/entity/OmMesProduct.js" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/mapper/OmOrderMainMapper.java" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/mapper/om/OmOrderMainMapper.xml" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/components/readme.md" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/st/entity/RdRecords11.java" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/st/entity/RdRecords01.java" />
-      <option value="$PROJECT_DIR$/bookmark/2Bse28blAIDYUrdUM0KFbwiPSbv.xml" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/application-test.properties" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/application-dev.properties" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/common/util/Constant.java" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmMoMaterials.java" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmMoDetails.java" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/dto/OmProductVM.java" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/mapper/om/OmOrderDetailMapper.xml" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmOrderDetail.java" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/mapper/om/OmOrderMaterialMapper.xml" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/IOmOrderMainService.java" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/impl/OmOrderMainServiceImpl.java" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/impl/OmMoMainServiceImpl.java" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/IOmMoMainService.java" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/controller/MetalWorkCommitteeController.java" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/constConfig.js" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/function.js" />
-      <option value="$PROJECT_DIR$/mes_web/pom.xml" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/Function.js" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/add_new.html" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/edit_new.html" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/addpart.html" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/function/UpdateField.js" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/function/CallBack.js" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/components/choiceinventory.html" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/util/JqGridRowHelper.js" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/application.properties" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/change.html" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/ar/controller/CostSimReportController.java" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/ConstConfig.js" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/function/Other.js" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/controller/OmOrderController.java" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/index_new.html" />
-      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/task/Scheduler.java" />
       <option value="$PROJECT_DIR$/.idea/vcs.xml" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add.html" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmMoDetails.java" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmMoMaterials.java" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/jqGridRowHelper.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/static/js/admin.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/components/readme.md" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/entity/OmMesMaterial.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmOrderMaterial.java" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmOrderPart.java" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmOrderDetail.java" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/dto/OmOrderPartDTO.java" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/dto/OmOrderProductDTO.java" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/entity/OmMesPart.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/index_new.html" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/entity/OmMesProduct.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/addpart.html" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/impl/OmMoMainServiceImpl.java" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmMoMain.java" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/IOmOrderMainService.java" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/mapper/OmOrderMaterialMapper.java" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/mapper/om/OmOrderMaterialMapper.xml" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/mapper/OmOrderDetailMapper.java" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/mapper/om/OmOrderDetailMapper.xml" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/controller/OmOrderController.java" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/impl/OmOrderMainServiceImpl.java" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/java/com/web/om/dto/OmProductVM.java" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/entity/test.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/application.properties" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/JqGridRowHelper.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/ColModelConfig.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/change.html" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/function.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/edit_new.html" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/constConfig.js" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/add_new.html" />
+      <option value="$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/Function.js" />
+      <option value="$PROJECT_DIR$/bookmark/2Bse28blAIDYUrdUM0KFbwiPSbv.xml" />
     </changedPaths>
   </component>
   <component name="IgnoredFileRootStore">
@@ -1379,10 +1358,10 @@
   </component>
   <component name="LanguageUsageStatistics">
     <language id="HTML">
-      <summary usageCount="141" lastUsage="1663758668508" />
+      <summary usageCount="41" lastUsage="1662962177691" />
     </language>
     <language id="JAVA">
-      <summary usageCount="274" lastUsage="1663758667755" />
+      <summary usageCount="33" lastUsage="1662949111125" />
     </language>
     <language id="JSON">
       <summary usageCount="3" lastUsage="1662961332607" />
@@ -1394,45 +1373,21 @@
       <summary usageCount="1" lastUsage="1661848325331" />
     </language>
     <language id="JavaScript">
-      <summary usageCount="137" lastUsage="1663758666860" />
-    </language>
-    <language id="Markdown">
-      <summary usageCount="7" lastUsage="1663727404396" />
+      <summary usageCount="57" lastUsage="1662973728312" />
     </language>
     <language id="Properties">
-      <summary usageCount="38" lastUsage="1663758668786" />
-    </language>
-    <language id="SQL">
-      <summary usageCount="1" lastUsage="1663573792701" />
-    </language>
-    <language id="TEXT">
-      <summary usageCount="1" lastUsage="1663575108342" />
+      <summary usageCount="6" lastUsage="1662684903213" />
     </language>
     <language id="TypeScript">
-      <summary usageCount="3" lastUsage="1663729112801" />
+      <summary usageCount="2" lastUsage="1662690455425" />
     </language>
     <language id="XML">
-      <summary usageCount="69" lastUsage="1663758752354" />
+      <summary usageCount="12" lastUsage="1662944970909" />
     </language>
   </component>
   <component name="MavenProjectNavigator">
     <treeState>
-      <expand>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="mes_web" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="mes_web" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="生命周期" type="58874e2:MavenProjectsStructure$LifecycleNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="mes_web" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="依赖项" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
-        </path>
-      </expand>
+      <expand />
       <select />
     </treeState>
   </component>
@@ -1445,11 +1400,6 @@
             <path>
               <item name="ribon_mes" type="b2602c69:ProjectViewProjectNode" />
               <item name="ribon_mes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ribon_mes" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ribon_mes" type="462c0819:PsiDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ribon_mes" type="b2602c69:ProjectViewProjectNode" />
@@ -1499,7 +1449,30 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="task" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ribon_mes" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ribon_mes" type="462c0819:PsiDirectoryNode" />
+              <item name="mes_web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="om" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ribon_mes" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ribon_mes" type="462c0819:PsiDirectoryNode" />
+              <item name="mes_web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="om" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ribon_mes" type="b2602c69:ProjectViewProjectNode" />
@@ -1511,7 +1484,74 @@
             </path>
             <path>
               <item name="ribon_mes" type="b2602c69:ProjectViewProjectNode" />
-              <item name="外部库" type="cb654da1:ExternalLibrariesNode" />
+              <item name="ribon_mes" type="462c0819:PsiDirectoryNode" />
+              <item name="mes_web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="mapper" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ribon_mes" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ribon_mes" type="462c0819:PsiDirectoryNode" />
+              <item name="mes_web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="mapper" type="462c0819:PsiDirectoryNode" />
+              <item name="om" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ribon_mes" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ribon_mes" type="462c0819:PsiDirectoryNode" />
+              <item name="mes_web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ribon_mes" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ribon_mes" type="462c0819:PsiDirectoryNode" />
+              <item name="mes_web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ribon_mes" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ribon_mes" type="462c0819:PsiDirectoryNode" />
+              <item name="mes_web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="page" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ribon_mes" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ribon_mes" type="462c0819:PsiDirectoryNode" />
+              <item name="mes_web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="page" type="462c0819:PsiDirectoryNode" />
+              <item name="om" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ribon_mes" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ribon_mes" type="462c0819:PsiDirectoryNode" />
+              <item name="mes_web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="page" type="462c0819:PsiDirectoryNode" />
+              <item name="om" type="462c0819:PsiDirectoryNode" />
+              <item name="order" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ribon_mes" type="b2602c69:ProjectViewProjectNode" />
@@ -1520,7 +1560,7 @@
             <path>
               <item name="ribon_mes" type="b2602c69:ProjectViewProjectNode" />
               <item name="临时文件和控制台" type="b85a3e1f:ScratchTreeStructureProvider$MyProjectNode" />
-              <item name="临时文件" type="783a8411:ScratchTreeStructureProvider$MyRootNode" />
+              <item name="扩展" type="783a8411:ScratchTreeStructureProvider$MyRootNode" />
             </path>
           </expand>
           <select />
@@ -1535,29 +1575,18 @@
       <element setting="Spring Boot.MesWebApplication" executorId="JRebel Debug" />
     </history>
   </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
-  </component>
   <component name="TerminalArrangementManager">
     <option name="myTabStates">
       <TerminalTabState tabName="C:\Window…rshell.exe" currentWorkingDirectory="D:\IDEAProjects\ribon_mes\" commandHistoryFileName="ribon_mes-history" />
     </option>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="323536000" />
+    <option name="totallyTimeSpent" value="213940000" />
   </component>
-  <component name="TodoView">
+  <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
+      <todo-filter name="mijiahao" />
     </todo-panel>
     <todo-panel id="all">
       <are-packages-shown value="true" />
@@ -1569,377 +1598,256 @@
     <editor active="true" />
     <layout>
       <window_info id="Pull Requests" />
-      <window_info id="Structure" order="0" side_tool="true" />
-      <window_info id="JRebel" order="1" side_tool="true" weight="0.22190127" />
+      <window_info id="Structure" order="0" sideWeight="0.4992857" side_tool="true" weight="0.18093488" />
+      <window_info id="JRebel" order="1" side_tool="true" weight="0.20614496" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info id="Learn" order="3" />
-      <window_info content_ui="combo" id="Project" order="4" visible="true" weight="0.22930765" />
-      <window_info anchor="bottom" id="Version Control" order="0" visible="true" weight="0.36201924" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3139423" />
-      <window_info anchor="bottom" id="Run" order="2" show_stripe_button="false" weight="0.31778845" />
-      <window_info anchor="bottom" id="SVN Repositories" order="3" weight="0.33028847" />
-      <window_info anchor="bottom" id="JRebel Console" order="4" side_tool="true" />
-      <window_info anchor="bottom" id="Database Changes" order="5" />
-      <window_info anchor="bottom" id="SVN Properties" order="6" weight="0.33028847" />
-      <window_info anchor="bottom" id="Endpoints" order="7" />
-      <window_info anchor="bottom" id="Sequence Diagram" order="8" />
-      <window_info anchor="bottom" id="依赖" order="9" />
-      <window_info anchor="bottom" id="Profiler" order="10" />
-      <window_info anchor="bottom" id="Build" order="11" weight="0.28924417" />
-      <window_info anchor="bottom" id="TODO" order="12" weight="0.06637597" />
-      <window_info anchor="bottom" id="Messages" order="13" weight="0.28701922" />
-      <window_info anchor="bottom" id="Java Enterprise" order="14" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Inspection" order="15" weight="0.4" />
-      <window_info anchor="bottom" id="Problems View" order="16" weight="0.03701923" />
-      <window_info anchor="bottom" id="Spring" order="17" />
-      <window_info anchor="bottom" id="Terminal" order="18" weight="0.36201924" />
-      <window_info anchor="bottom" id="Services" order="19" weight="0.32994187" />
-      <window_info anchor="bottom" id="Problems" order="20" weight="0.32740384" />
-      <window_info anchor="bottom" id="SQL Generator" order="21" weight="0.34544572" />
-      <window_info anchor="bottom" id="重复项" order="22" weight="0.32994187" />
-      <window_info anchor="bottom" id="Debug" order="23" show_stripe_button="false" weight="0.39278847" />
-      <window_info anchor="right" id="Key Promoter X" order="0" />
-      <window_info anchor="right" id="Maven" order="1" weight="0.2438834" />
-      <window_info active="true" anchor="right" x="1720" y="133" width="200" height="907" id="JRebel Setup Guide" order="2" side_tool="true" type="FLOATING" />
-      <window_info anchor="right" id="Bean Validation" order="3" show_stripe_button="false" />
-      <window_info anchor="right" id="Notifications" order="4" weight="0.25026262" />
-      <window_info anchor="right" id="Database" order="5" weight="0.23240545" />
-      <window_info anchor="right" id="Bookmarks" order="6" visible="true" weight="0.1887038" />
-      <window_info anchor="right" id="Hierarchy" order="7" weight="0.33009452" />
-    </layout>
-    <layout-to-restore>
-      <window_info id="Pull Requests" />
-      <window_info id="Structure" order="0" side_tool="true" />
-      <window_info id="JRebel" order="1" side_tool="true" weight="0.22190127" />
-      <window_info id="Web" order="2" side_tool="true" />
-      <window_info id="Learn" order="3" />
-      <window_info content_ui="combo" id="Project" order="4" visible="true" weight="0.18881303" />
-      <window_info anchor="bottom" id="Version Control" order="0" weight="0.20881782" />
-      <window_info anchor="bottom" id="Find" order="1" show_stripe_button="false" weight="0.21947674" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.4229651" />
-      <window_info anchor="bottom" id="SVN Repositories" order="3" weight="0.33028847" />
-      <window_info anchor="bottom" id="JRebel Console" order="4" side_tool="true" />
-      <window_info anchor="bottom" id="Database Changes" order="5" />
-      <window_info anchor="bottom" id="SVN Properties" order="6" weight="0.33028847" />
-      <window_info anchor="bottom" id="Endpoints" order="7" />
-      <window_info anchor="bottom" id="Sequence Diagram" order="8" />
-      <window_info anchor="bottom" id="依赖" order="9" />
-      <window_info anchor="bottom" id="Profiler" order="10" />
-      <window_info anchor="bottom" id="Build" order="11" weight="0.30281007" />
-      <window_info anchor="bottom" id="TODO" order="12" weight="0.27955428" />
-      <window_info anchor="bottom" id="Messages" order="13" />
-      <window_info anchor="bottom" id="Java Enterprise" order="14" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Inspection" order="15" weight="0.4" />
-      <window_info anchor="bottom" id="Problems View" order="16" weight="0.0373062" />
-      <window_info anchor="bottom" id="Spring" order="17" />
-      <window_info anchor="bottom" id="Terminal" order="18" weight="0.33028847" />
-      <window_info anchor="bottom" id="Services" order="19" weight="0.32994187" />
-      <window_info anchor="bottom" id="Problems" order="20" />
-      <window_info anchor="bottom" id="SQL Generator" order="21" weight="0.34544572" />
-      <window_info anchor="bottom" id="重复项" order="22" weight="0.32994187" />
-      <window_info anchor="bottom" id="Debug" order="23" visible="true" weight="0.35707363" />
+      <window_info content_ui="combo" id="Project" order="4" sideWeight="0.5007143" visible="true" weight="0.22410202" />
+      <window_info anchor="bottom" id="Version Control" order="0" visible="true" weight="0.30432692" />
+      <window_info anchor="bottom" id="Find" order="1" show_stripe_button="false" weight="0.51298076" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" show_stripe_button="false" weight="0.21778846" />
+      <window_info anchor="bottom" id="SVN Repositories" order="4" weight="0.33028847" />
+      <window_info anchor="bottom" id="JRebel Console" order="5" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" order="6" />
+      <window_info anchor="bottom" id="SVN Properties" order="7" weight="0.33028847" />
+      <window_info anchor="bottom" id="Endpoints" order="8" />
+      <window_info anchor="bottom" id="Sequence Diagram" order="9" weight="0.2010659" />
+      <window_info anchor="bottom" id="依赖" order="10" />
+      <window_info anchor="bottom" id="Profiler" order="11" />
+      <window_info anchor="bottom" id="Build" order="12" weight="0.33028847" />
+      <window_info anchor="bottom" id="TODO" order="13" weight="0.31734496" />
+      <window_info anchor="bottom" id="Messages" order="14" />
+      <window_info anchor="bottom" id="Java Enterprise" order="15" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Inspection" order="16" weight="0.4" />
+      <window_info anchor="bottom" id="Problems View" order="17" weight="0.5915698" />
+      <window_info anchor="bottom" id="Spring" order="18" />
+      <window_info anchor="bottom" id="Terminal" order="19" weight="0.33028847" />
+      <window_info anchor="bottom" id="Services" order="20" />
+      <window_info anchor="bottom" id="Problems" order="21" />
+      <window_info anchor="bottom" id="Dependency Viewer" order="22" weight="0.32994187" />
+      <window_info anchor="bottom" id="重复项" order="23" weight="0.32994187" />
       <window_info anchor="right" id="Key Promoter X" order="0" />
       <window_info anchor="right" id="Maven" order="1" />
-      <window_info active="true" anchor="right" x="1720" y="133" width="200" height="907" id="JRebel Setup Guide" order="2" side_tool="true" type="FLOATING" />
-      <window_info anchor="right" id="Bean Validation" order="3" show_stripe_button="false" />
-      <window_info anchor="right" id="Notifications" order="4" weight="0.25026262" />
-      <window_info anchor="right" id="Database" order="5" weight="0.23240545" />
-      <window_info anchor="right" id="Bookmarks" order="6" visible="true" weight="0.18881303" />
-      <window_info anchor="right" id="Hierarchy" order="7" weight="0.33009452" />
-    </layout-to-restore>
+      <window_info anchor="right" id="Database" order="2" weight="0.24960957" />
+      <window_info anchor="right" id="JRebel Setup Guide" order="3" side_tool="true" />
+      <window_info anchor="right" id="Bean Validation" order="4" show_stripe_button="false" />
+      <window_info anchor="right" id="Notifications" order="5" weight="0.25" />
+      <window_info anchor="right" id="Bookmarks" order="6" visible="true" weight="0.17933369" />
+    </layout>
     <recentWindows>
-      <value>Project</value>
       <value>Version Control</value>
+      <value>Find</value>
+      <value>Project</value>
       <value>Bookmarks</value>
       <value>Debug</value>
-      <value>Run</value>
-      <value>Maven</value>
-      <value>Terminal</value>
-      <value>Messages</value>
-      <value>Problems View</value>
-      <value>Find</value>
-      <value>Problems</value>
       <value>Build</value>
-      <value>TODO</value>
-      <value>JRebel Setup Guide</value>
       <value>Database</value>
-      <value>SQL Generator</value>
+      <value>TODO</value>
+      <value>Sequence Diagram</value>
+      <value>Structure</value>
+      <value>Dependency Viewer</value>
       <value>JRebel</value>
-      <value>Notifications</value>
-      <value>Services</value>
-      <value>Hierarchy</value>
+      <value>Problems View</value>
       <value>SVN Repositories</value>
+      <value>Terminal</value>
       <value>SVN Properties</value>
     </recentWindows>
   </component>
   <component name="WindowStateProjectService">
-    <state x="799" y="413" key="#VCS_历史记录缓存设置" timestamp="1663407311488">
+    <state x="452" y="94" key="#Getter_模板" timestamp="1663258828682">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="799" y="413" key="#VCS_历史记录缓存设置/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663407311488" />
-    <state x="805" y="381" key="#com.intellij.codeInsight.template.impl.EditVariableDialog" timestamp="1663227424394">
+    <state x="452" y="94" key="#Getter_模板/0.0.1920.1040@0.0.1920.1040" timestamp="1663258828682" />
+    <state x="424" y="309" key="#SQL_方言" timestamp="1663596035586">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="805" y="381" key="#com.intellij.codeInsight.template.impl.EditVariableDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663227424394" />
-    <state x="144" y="208" width="816" height="756" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1663574110980">
+    <state x="424" y="309" key="#SQL_方言/0.0.1920.1040@0.0.1920.1040" timestamp="1663596035586" />
+    <state x="799" y="413" key="#VCS_历史记录缓存设置" timestamp="1663171758182">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="559" y="160" width="816" height="717" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663547809956" />
-    <state x="144" y="208" width="816" height="756" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1663574110980" />
-    <state x="718" y="125" key="#com.intellij.ide.util.MemberChooser" timestamp="1663553888975">
+    <state x="799" y="413" key="#VCS_历史记录缓存设置/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1661750356438" />
+    <state x="799" y="413" key="#VCS_历史记录缓存设置/0.0.1920.1040@0.0.1920.1040" timestamp="1663171758182" />
+    <state x="805" y="381" key="#com.intellij.codeInsight.template.impl.EditVariableDialog" timestamp="1661996428362">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="718" y="125" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663397391910" />
-    <state x="718" y="125" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1663553888975" />
-    <state x="614" y="259" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1663664635982">
+    <state x="805" y="381" key="#com.intellij.codeInsight.template.impl.EditVariableDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1661996428362" />
+    <state x="559" y="160" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1662684888308">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="614" y="259" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1663664635982" />
-    <state x="798" y="323" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1663065205559">
+    <state x="559" y="160" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662684888308" />
+    <state x="718" y="125" key="#com.intellij.ide.util.MemberChooser" timestamp="1663480062571">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="798" y="323" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663065205559" />
-    <state x="631" y="205" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1663070353937">
+    <state x="718" y="125" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662703778648" />
+    <state x="718" y="125" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1663480062571" />
+    <state x="631" y="205" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1662961007134">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="631" y="205" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663070353937" />
-    <state x="673" y="288" key="#xdebugger.evaluate" timestamp="1663660917307">
+    <state x="631" y="205" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662961007134" />
+    <state x="293" y="30" width="796" height="955" key="CommitChangelistDialog2" timestamp="1663696507818">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="662" y="203" key="#xdebugger.evaluate/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663401206671" />
-    <state x="673" y="288" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1663660917307" />
-    <state x="293" y="30" width="1112" height="955" key="CommitChangelistDialog2" timestamp="1663745613630">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="293" y="30" width="1106" height="1002" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663407513416" />
-    <state x="293" y="30" width="1112" height="955" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1663745613630" />
-    <state width="958" height="497" key="DebuggerActiveHint" timestamp="1663642230216">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="958" height="497" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1663642230216" />
-    <state x="70" y="93" key="DiffContextDialog" timestamp="1663669707897">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="70" y="93" key="DiffContextDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663236435562" />
-    <state x="70" y="93" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1663669707897" />
-    <state x="687" y="198" key="FileChooserDialogImpl" timestamp="1662974501699">
+    <state x="293" y="30" width="1106" height="1002" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662961721568" />
+    <state x="293" y="30" width="796" height="955" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1663696507818" />
+    <state x="687" y="198" key="FileChooserDialogImpl" timestamp="1662988181436">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="687" y="198" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662974501699" />
+    <state x="687" y="198" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1662988181436" />
     <state x="624" y="308" key="Github.ShareDialog" timestamp="1661762972965">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="624" y="308" key="Github.ShareDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1661762972965" />
-    <state width="1867" height="295" key="GridCell.Tab.0.bottom" timestamp="1663751541769">
+    <state width="1867" height="191" key="GridCell.Tab.0.bottom" timestamp="1663718858391">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1850" height="337" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663407537974" />
-    <state width="1867" height="295" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1663751541769" />
-    <state width="1867" height="295" key="GridCell.Tab.0.center" timestamp="1663751541769">
+    <state width="1850" height="157" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662947244001" />
+    <state width="1867" height="191" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1663718858391" />
+    <state width="1867" height="191" key="GridCell.Tab.0.center" timestamp="1663718858391">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1850" height="337" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663407537974" />
-    <state width="1867" height="295" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1663751541769" />
-    <state width="1867" height="295" key="GridCell.Tab.0.left" timestamp="1663751541769">
+    <state width="1850" height="157" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662947244001" />
+    <state width="1867" height="191" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1663718858391" />
+    <state width="1867" height="191" key="GridCell.Tab.0.left" timestamp="1663718858391">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1850" height="337" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663407537974" />
-    <state width="1867" height="295" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1663751541769" />
-    <state width="1867" height="295" key="GridCell.Tab.0.right" timestamp="1663751541769">
+    <state width="1850" height="157" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662947244001" />
+    <state width="1867" height="191" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1663718858391" />
+    <state width="1867" height="191" key="GridCell.Tab.0.right" timestamp="1663718858391">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1850" height="337" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663407537974" />
-    <state width="1867" height="295" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1663751541769" />
-    <state width="1867" height="373" key="GridCell.Tab.1.bottom" timestamp="1663751541764">
+    <state width="1850" height="157" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662947244001" />
+    <state width="1867" height="191" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1663718858391" />
+    <state width="1867" height="191" key="GridCell.Tab.1.bottom" timestamp="1663718858391">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1850" height="336" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663559509733" />
-    <state width="1867" height="373" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1663751541764" />
-    <state width="1867" height="373" key="GridCell.Tab.1.center" timestamp="1663751541763">
+    <state width="1850" height="157" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662947244002" />
+    <state width="1867" height="191" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1663718858391" />
+    <state width="1867" height="191" key="GridCell.Tab.1.center" timestamp="1663718858391">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1850" height="336" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663559509733" />
-    <state width="1867" height="373" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1663751541763" />
-    <state width="1867" height="373" key="GridCell.Tab.1.left" timestamp="1663751541763">
+    <state width="1850" height="157" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662947244002" />
+    <state width="1867" height="191" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1663718858391" />
+    <state width="1867" height="191" key="GridCell.Tab.1.left" timestamp="1663718858391">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1850" height="336" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663559509733" />
-    <state width="1867" height="373" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1663751541763" />
-    <state width="1867" height="373" key="GridCell.Tab.1.right" timestamp="1663751541763">
+    <state width="1850" height="157" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662947244002" />
+    <state width="1867" height="191" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1663718858391" />
+    <state width="1867" height="191" key="GridCell.Tab.1.right" timestamp="1663718858391">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1850" height="336" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663559509733" />
-    <state width="1867" height="373" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1663751541763" />
-    <state width="1867" height="373" key="GridCell.Tab.2.bottom" timestamp="1663751541764">
+    <state width="1850" height="157" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662947244002" />
+    <state width="1867" height="191" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1663718858391" />
+    <state width="1867" height="191" key="GridCell.Tab.2.bottom" timestamp="1663718858391">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1850" height="337" key="GridCell.Tab.2.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663407537975" />
-    <state width="1867" height="373" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1663751541764" />
-    <state width="1867" height="373" key="GridCell.Tab.2.center" timestamp="1663751541764">
+    <state width="1850" height="157" key="GridCell.Tab.2.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662947244002" />
+    <state width="1867" height="191" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1663718858391" />
+    <state width="1867" height="191" key="GridCell.Tab.2.center" timestamp="1663718858391">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1850" height="337" key="GridCell.Tab.2.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663407537974" />
-    <state width="1867" height="373" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1663751541764" />
-    <state width="1867" height="373" key="GridCell.Tab.2.left" timestamp="1663751541764">
+    <state width="1850" height="157" key="GridCell.Tab.2.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662947244002" />
+    <state width="1867" height="191" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1663718858391" />
+    <state width="1867" height="191" key="GridCell.Tab.2.left" timestamp="1663718858391">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1850" height="337" key="GridCell.Tab.2.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663407537974" />
-    <state width="1867" height="373" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1663751541764" />
-    <state width="1867" height="373" key="GridCell.Tab.2.right" timestamp="1663751541764">
+    <state width="1850" height="157" key="GridCell.Tab.2.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662947244002" />
+    <state width="1867" height="191" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1663718858391" />
+    <state width="1867" height="191" key="GridCell.Tab.2.right" timestamp="1663718858391">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1850" height="337" key="GridCell.Tab.2.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663407537974" />
-    <state width="1867" height="373" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1663751541764" />
-    <state width="311" height="578" key="HiddenNamespacesPopup" timestamp="1663547826746">
+    <state width="1850" height="157" key="GridCell.Tab.2.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662947244002" />
+    <state width="1867" height="191" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1663718858391" />
+    <state width="311" height="560" key="HiddenNamespacesPopup" timestamp="1663595706430">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="311" height="578" key="HiddenNamespacesPopup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663547826746" />
-    <state x="59" y="96" key="MergeDialog" timestamp="1663721615916">
+    <state width="311" height="560" key="HiddenNamespacesPopup/0.0.1920.1040@0.0.1920.1040" timestamp="1663595706430" />
+    <state x="184" y="82" key="MergeDialog" timestamp="1663762251835">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="8" y="107" key="MergeDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663548079018" />
-    <state x="59" y="96" key="MergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1663721615916" />
-    <state x="113" y="125" key="MultipleFileMergeDialog" timestamp="1663722549588">
+    <state x="184" y="82" key="MergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1663762251835" />
+    <state x="84" y="0" key="SettingsEditor" timestamp="1663760730801">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="113" y="125" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1663722549588" />
-    <state x="302" y="0" key="SettingsEditor" timestamp="1663740318044">
+    <state x="302" y="141" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662974541120" />
+    <state x="84" y="0" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1663760730801" />
+    <state width="623" height="929" key="SwitcherDM" timestamp="1663480969818">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="302" y="141" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663406165295" />
-    <state x="302" y="0" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1663740318044" />
-    <state width="623" height="929" key="SwitcherDM" timestamp="1663743659480">
+    <state width="623" height="929" key="SwitcherDM/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662974204597" />
+    <state width="623" height="929" key="SwitcherDM/0.0.1920.1040@0.0.1920.1040" timestamp="1663480969818" />
+    <state x="807" y="414" key="VCS.ChangelistChooser" timestamp="1663631706345">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="623" height="929" key="SwitcherDM/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663407480571" />
-    <state width="623" height="929" key="SwitcherDM/0.0.1920.1040@0.0.1920.1040" timestamp="1663743659480" />
-    <state x="693" y="425" key="VCS.ChangelistChooser" timestamp="1663722676816">
+    <state x="807" y="414" key="VCS.ChangelistChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1663631706345" />
+    <state x="787" y="377" key="VCS.EditChangelistDialog" timestamp="1663171240637">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="693" y="425" key="VCS.ChangelistChooser/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663236425700" />
-    <state x="693" y="425" key="VCS.ChangelistChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1663722676816" />
-    <state x="794" y="377" key="VCS.EditChangelistDialog" timestamp="1663745257590">
+    <state x="787" y="377" key="VCS.EditChangelistDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1663171240637" />
+    <state x="452" y="186" key="Vcs.Push.Dialog.v2" timestamp="1663760868987">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="794" y="377" key="VCS.EditChangelistDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663236364990" />
-    <state x="794" y="377" key="VCS.EditChangelistDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1663745257590" />
-    <state x="124" y="133" width="1720" height="840" key="VCS.FileHistoryDialog" timestamp="1663661608848">
+    <state x="452" y="186" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662717414306" />
+    <state x="452" y="186" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1663760868987" />
+    <state x="107" y="100" width="1720" height="840" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1663693713201">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="124" y="133" width="1720" height="840" key="VCS.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1663661608848" />
-    <state x="452" y="186" key="Vcs.Push.Dialog.v2" timestamp="1663670304334">
+    <state x="107" y="100" width="1720" height="840" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662973027675" />
+    <state x="107" y="100" width="1720" height="840" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1663693713201" />
+    <state x="762" y="330" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1663762186633">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="452" y="186" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663407520783" />
-    <state x="452" y="186" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1663670304334" />
-    <state x="608" y="165" key="com.intellij.database.actions.ddl.ModifyObjectAction$1" timestamp="1663573932227">
+    <state x="762" y="330" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662945218369" />
+    <state x="762" y="330" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1663762186633" />
+    <state x="1942" y="0" width="1066" height="933" maximized="true" key="dock-window-1" timestamp="1662988233043">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="608" y="165" key="com.intellij.database.actions.ddl.ModifyObjectAction$1/0.0.1920.1040@0.0.1920.1040" timestamp="1663573932227" />
-    <state x="281" y="89" key="com.intellij.database.dbimport.ImportDialog.multi" timestamp="1663574741488">
+    <state x="1942" y="0" width="1066" height="933" maximized="true" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662971744544" />
+    <state x="692" y="86" width="673" height="712" key="find.popup" timestamp="1663296866191">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="281" y="89" key="com.intellij.database.dbimport.ImportDialog.multi/0.0.1920.1040@0.0.1920.1040" timestamp="1663574741488" />
-    <state x="689" y="219" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1663573944761">
+    <state x="692" y="86" width="673" height="712" key="find.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662961328278" />
+    <state x="692" y="86" width="673" height="712" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1663296866191" />
+    <state x="680" y="382" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1663762130647">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="689" y="219" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1663573944761" />
-    <state x="107" y="100" width="1720" height="840" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1663741029203">
+    <state x="680" y="382" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1663762130647" />
+    <state x="833" y="391" key="org.jetbrains.idea.svn.history.SvnEditCommitMessageDialog" timestamp="1663171869404">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="107" y="100" width="1720" height="840" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663381303240" />
-    <state x="107" y="100" width="1720" height="840" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1663741029203" />
-    <state x="107" y="100" width="1720" height="840" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog" timestamp="1663381303240">
+    <state x="833" y="391" key="org.jetbrains.idea.svn.history.SvnEditCommitMessageDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1663171869404" />
+    <state x="679" y="287" key="refactoring.ChangeSignatureDialog" timestamp="1663597116573">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="107" y="100" width="1720" height="840" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663381303240" />
-    <state x="557" y="210" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1663406658516">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="557" y="210" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663406658516" />
-    <state x="762" y="330" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1663746123428">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="762" y="330" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663548052414" />
-    <state x="762" y="330" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1663746123428" />
-    <state x="310" y="405" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1663646929883">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="310" y="405" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1040@0.0.1920.1040" timestamp="1663646929883" />
-    <state x="22" y="0" width="1066" height="933" key="dock-window-1" timestamp="1663553278981">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="1942" y="0" width="1066" height="933" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663549195602" />
-    <state x="22" y="0" width="1066" height="933" key="dock-window-1/0.0.1920.1040@0.0.1920.1040" timestamp="1663553278981" />
-    <state x="692" y="86" width="788" height="712" key="find.popup" timestamp="1663731523559">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="692" y="86" width="673" height="712" key="find.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663117462700" />
-    <state x="692" y="86" width="788" height="712" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1663731523559" />
-    <state x="826" y="345" key="org.jetbrains.idea.svn.history.SvnEditCommitMessageDialog" timestamp="1663407345096">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="826" y="345" key="org.jetbrains.idea.svn.history.SvnEditCommitMessageDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663407345096" />
-    <state x="1098" y="228" key="refactoring.ChangeSignatureDialog" timestamp="1663659930105">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="1098" y="228" key="refactoring.ChangeSignatureDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1663659930105" />
+    <state x="679" y="287" key="refactoring.ChangeSignatureDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1663597116573" />
     <state x="514" y="16" key="scopes" timestamp="1661994386080">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="514" y="16" key="scopes/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1661994386080" />
-    <state x="546" y="0" width="840" height="1040" key="search.everywhere.popup" timestamp="1663743152497">
+    <state x="546" y="0" width="840" height="1040" key="search.everywhere.popup" timestamp="1663482770275">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="546" y="0" width="840" height="1040" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663548485277" />
-    <state x="546" y="0" width="840" height="1040" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1663743152497" />
-    <state x="764" y="387" key="svn.passwordDialog" timestamp="1663406216019">
+    <state x="546" y="0" width="840" height="1040" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1662961332630" />
+    <state x="546" y="0" width="840" height="1040" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1663482770275" />
+    <state x="764" y="387" key="svn.passwordDialog" timestamp="1663171747670">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="764" y="387" key="svn.passwordDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663406216019" />
+    <state x="764" y="387" key="svn.passwordDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1661995872293" />
+    <state x="764" y="387" key="svn.passwordDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1663171747670" />
     <state x="807" y="324" key="svn.propertyDialog" timestamp="1661762576362">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="807" y="324" key="svn.propertyDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1661762576362" />
-    <state x="749" y="259" key="svn.repositoryBrowser" timestamp="1663236796508">
+    <state x="749" y="259" key="svn.repositoryBrowser" timestamp="1661995879704">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="749" y="259" key="svn.repositoryBrowser/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1663236796508" />
+    <state x="749" y="259" key="svn.repositoryBrowser/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1661995879704" />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="breakpointLogExpression">
       <expression>
-        <expression-string>&quot;有出库记录&quot;</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>&quot;修改材料数量大于原本数量，允许变更&quot;</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>&quot;没有材料出库记录，允许变更&quot;</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>&quot;没有菜了出库记录，允许变更&quot;</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>&quot;没有产品入库记录&quot;</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>&quot;修改产品数量大于等于入库数量&quot;</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>&quot;有产品入库记录&quot;</expression-string>
+        <expression-string>&quot;有入库记录&quot;</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -1958,520 +1866,379 @@
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>&quot;新增产品数据：&quot;+omProductPo.toString()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>&quot;审核_新增材料数据:&quot;+omPoDetails.toString()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>omPoDetails</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>&quot;不允许变更&quot;</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>&quot;允许变更&quot;</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>&quot;有入库记录&quot;</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>&quot;&quot;</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-    </expressions>
-    <expressions id="evaluateExpression">
-      <expression>
-        <expression-string>u8Main.getCstate().toString().equals(&quot;0&quot;)</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>u8Main.getCstate()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>ParamUtil.getParam(&quot;localDataBase&quot;)</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>product.getIreceivedqty()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>outputMaterialQty</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>q.getMoid()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>t.getMoid()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>product.getMoid()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>mesProduct.getU8MoDetailId()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>product.getCfree3()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>omPoMain</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>t.getIquantity()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>unit.getIchangrate().multiply(t.getIquantity())</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>unit.getIchangrate()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>(unit.getIchangrate()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>productIdMap.get(material.getRecordId())</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>material.getRecordId()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/mapper/om/OmOrderMaterialMapper.xml">
+    <entry file="jar://$USER_HOME$/.m2/repository/com/baomidou/mybatis-plus-extension/3.1.2/mybatis-plus-extension-3.1.2-sources.jar!/com/baomidou/mybatisplus/extension/service/IService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1215">
-          <caret line="45" column="44" selection-start-line="45" selection-start-column="44" selection-end-line="45" selection-end-column="44" />
+        <state relative-caret-position="290">
+          <caret line="168" column="6" selection-start-line="168" selection-start-column="6" selection-end-line="168" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/mapper/om/OmOrderDetailMapper.xml">
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/edit.html" />
+    <entry file="file://$PROJECT_DIR$/.idea/vcs.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3051">
-          <caret line="113" column="11" selection-start-line="113" selection-start-column="11" selection-end-line="113" selection-end-column="11" />
+        <state relative-caret-position="135">
+          <caret line="5" column="14" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmOrderMaterial.java">
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/static/js/admin.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="144" column="23" selection-start-line="144" selection-start-column="23" selection-end-line="144" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="471">
+          <caret line="376" column="45" selection-start-line="376" selection-start-column="45" selection-end-line="376" selection-end-column="45" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://F:/maven-repo/repository/com/baomidou/mybatis-plus-core/3.1.2/mybatis-plus-core-3.1.2-sources.jar!/com/baomidou/mybatisplus/core/mapper/BaseMapper.java">
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/components/readme.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/js/jqGridTableHelper.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="124" column="8" selection-start-line="124" selection-start-column="8" selection-end-line="124" selection-end-column="8" />
+        <state relative-caret-position="173">
+          <caret line="50" column="4" selection-start-line="50" selection-start-column="4" selection-end-line="50" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/entity/OmMesMaterial.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="250" column="4" selection-start-line="250" selection-start-column="4" selection-end-line="250" selection-end-column="4" />
+        <state relative-caret-position="270">
+          <caret line="46" column="8" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/IOmOrderMainService.java">
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmOrderMain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="27" column="26" lean-forward="true" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/IOmMoMainService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="35" column="39" selection-start-line="35" selection-start-column="39" selection-end-line="35" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/mapper/OmOrderDetailDao.xml" />
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/src.zip!/com/sun/corba/se/impl/protocol/giopmsgheaders/IORAddressingInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="35" column="19" selection-start-line="35" selection-start-column="19" selection-end-line="35" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6075">
-          <caret line="225" selection-start-line="225" selection-end-line="229" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/common/util/EncryptUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/sa/entity/SoDetails.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmMoMaterials.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://F:/maven-repo/repository/org/projectlombok/lombok/1.18.10/lombok-1.18.10-sources.jar!/lombok/Data.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="23" column="7" lean-forward="true" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1269">
-          <caret line="47" column="38" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/sa/entity/OaSaleContract.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bookmark/2Bse28blAIDYUrdUM0KFbwiPSbv.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-297">
-          <caret line="1" selection-start-line="1" selection-end-line="952" selection-end-column="13" />
-          <folding>
-            <element signature="n#component#0;n#project#0;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/Function.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/readme.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SHOW_PREVIEW" is_vertical_split="false">
-          <first_editor />
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/dto/pageFindDTO.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmMoDetails.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5104">
+        <state relative-caret-position="176">
           <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/impl/OmMoMainServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmOrderPart.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="292" column="49" selection-start-line="292" selection-start-column="49" selection-end-line="292" selection-end-column="49" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#deleteByDetailMainId#0;class#OmMoMainServiceImpl#0" />
-            <element signature="method#deleteByDetailSubId#0;class#OmMoMainServiceImpl#0" />
-            <element signature="method#check#0;class#OmMoMainServiceImpl#0" />
-          </folding>
+        <state relative-caret-position="403">
+          <caret line="22" column="29" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/dto/OmProductVM.java">
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/dto/OmOrderPartDTO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="49" column="23" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
+        <state relative-caret-position="316">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/edit_new.html">
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/dto/OmOrderProductDTO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6980">
-          <caret line="615" column="21" selection-start-line="615" selection-start-column="21" selection-end-line="615" selection-end-column="21" />
+        <state relative-caret-position="162">
+          <caret line="10" column="46" lean-forward="true" selection-start-line="10" selection-start-column="46" selection-end-line="10" selection-end-column="46" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/addpart.html">
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/common/util/ResponseResult.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8659">
-          <caret line="641" column="21" selection-start-line="641" selection-start-column="21" selection-end-line="641" selection-end-column="21" />
+        <state relative-caret-position="269">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/common/util/TableResult.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="17166" column="4" selection-start-line="17166" selection-start-column="4" selection-end-line="17166" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/function/CallBack.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-850">
-          <caret line="50" column="25" selection-start-line="50" selection-start-column="25" selection-end-line="50" selection-end-column="25" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="n#!!block;n#addPartCallBack#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/entity/OmMesProduct.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="116" column="4" selection-start-line="116" selection-start-column="4" selection-end-line="116" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/components/choiceinventory.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1742">
-          <caret line="275" column="21" selection-start-line="275" selection-start-column="21" selection-end-line="275" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="1334" column="4" selection-start-line="1334" selection-start-column="4" selection-end-line="1365" selection-end-column="5" />
-          <folding>
-            <element signature="e#51505#52402#0" />
-          </folding>
+        <state relative-caret-position="269">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmOrderDetail.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="41" column="23" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
+        <state relative-caret-position="-1596">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/function/UpdateField.js">
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/entity/OmMesPart.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4315">
-          <caret line="76" column="12" selection-start-line="76" selection-start-column="12" selection-end-line="76" selection-end-column="12" />
+        <state relative-caret-position="270">
+          <caret line="10" column="27" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="n#!!block;n#productAfterSaveCell#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/util/JqGridRowHelper.js">
+    <entry file="jar://F:/jdk1.8.0_181/src.zip!/java/lang/RuntimeException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1614">
-          <caret line="40" column="34" lean-forward="true" selection-start-line="40" selection-start-column="34" selection-end-line="40" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/ColModelConfig.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/ar/costsimreport/indexmetal.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="114" column="112" selection-start-line="114" selection-start-column="60" selection-end-line="114" selection-end-column="112" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/change.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="79" column="34" lean-forward="true" selection-start-line="79" selection-start-column="34" selection-end-line="79" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/ConstConfig.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/common/controller/BasicController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-724">
-          <caret line="174" column="19" selection-start-line="174" selection-start-column="19" selection-end-line="174" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/add_new.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="73" column="80" selection-start-line="73" selection-start-column="80" selection-end-line="73" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/function/Other.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="209" column="62" selection-start-line="209" selection-start-column="49" selection-end-line="209" selection-end-column="62" />
+        <state relative-caret-position="1249">
+          <caret line="94" column="11" selection-start-line="94" selection-start-column="11" selection-end-line="94" selection-end-column="11" />
           <folding>
-            <element signature="n#!!block;n#getStringDecimal#0" />
-            <element signature="n#!!block;n#getNumberDecimal#0" />
+            <element signature="e#3078#3079#0" expanded="true" />
+            <element signature="e#3106#3107#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmOrderMaterial.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="39" column="19" selection-start-line="39" selection-start-column="19" selection-end-line="39" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/addpart.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16389">
+          <caret line="607" column="46" selection-start-line="607" selection-start-column="46" selection-end-line="607" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/entity/OmMesProduct.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3159">
+          <caret line="120" column="4" selection-start-line="120" selection-start-column="4" selection-end-line="120" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/util/BaseEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2970">
+          <caret line="114" column="16" selection-start-line="114" selection-start-column="16" selection-end-line="114" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/index_new.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9180">
+          <caret line="340" column="8" selection-start-line="340" selection-start-column="8" selection-end-line="340" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/metalworkcommittee/add.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13689">
+          <caret line="507" column="42" selection-start-line="507" selection-start-column="37" selection-end-line="507" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/impl/OmMoMainServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15849">
+          <caret line="618" column="22" selection-start-line="618" selection-start-column="22" selection-end-line="618" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/controller/MetalWorkCommitteeController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3348">
-          <caret line="147" column="43" selection-start-line="147" selection-start-column="30" selection-end-line="147" selection-end-column="43" />
+        <state relative-caret-position="9315">
+          <caret line="368" column="40" selection-start-line="368" selection-start-column="40" selection-end-line="368" selection-end-column="40" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/static/Scripts/Print.js">
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmMoMain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13500">
-          <caret line="500" column="47" selection-start-line="500" selection-start-column="47" selection-end-line="500" selection-end-column="47" />
+        <state relative-caret-position="189">
+          <caret line="16" column="21" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/ar/controller/CostSimReportController.java">
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/application-dev.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13770">
-          <caret line="529" column="16" selection-start-line="529" selection-start-column="16" selection-end-line="529" selection-end-column="51" />
+        <state relative-caret-position="-567" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/application-test.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-324" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmMoDetails.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="61">
+          <caret line="49" column="48" selection-start-line="49" selection-start-column="48" selection-end-line="49" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/mapper/OmOrderMaterialDao.xml" />
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/mapper/OmOrderDetailDao.xml" />
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/entity/OmMoMaterials.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="610">
+          <caret line="191" selection-start-line="191" selection-end-line="191" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/IOmOrderMainService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2268">
+          <caret line="91" column="75" selection-start-line="91" selection-start-column="75" selection-end-line="91" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/impl/OmOrderMainServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11367">
+          <caret line="448" column="33" selection-start-line="448" selection-start-column="33" selection-end-line="448" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/mapper/om/OmOrderMaterialMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1215">
+          <caret line="45" column="27" selection-start-line="45" selection-start-column="11" selection-end-line="45" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/mapper/om/OmOrderDetailMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1026">
+          <caret line="38" column="20" selection-start-line="38" selection-start-column="20" selection-end-line="38" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/mapper/OmOrderDetailMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/mapper/OmOrderMaterialMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="18" column="28" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/mapper/om/OmOrderMainMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3132">
+          <caret line="116" column="44" selection-start-line="116" selection-start-column="15" selection-end-line="116" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/controller/OmOrderController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="10530">
-          <caret line="410" column="38" selection-start-line="410" selection-start-column="38" selection-end-line="410" selection-end-column="38" />
+          <caret line="406" column="26" selection-start-line="406" selection-start-column="26" selection-end-line="406" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/service/impl/OmOrderMainServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/entity/test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="922" column="6" selection-start-line="922" selection-start-column="6" selection-end-line="922" selection-end-column="6" />
-          <folding>
-            <element signature="e#2368#2389#1" expanded="true" />
-            <element signature="e#6397#6412#0" expanded="true" />
-            <element signature="e#6921#6934#0" expanded="true" />
-            <element signature="e#10351#10366#0" expanded="true" />
-            <element signature="e#10832#10845#0" expanded="true" />
-            <element signature="e#12187#12202#0" expanded="true" />
-            <element signature="e#12493#12506#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="108">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/jqGridColHelper.js" />
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/add_new.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-676">
+          <caret line="617" selection-start-line="617" selection-end-line="617" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/web/om/dto/OmProductVM.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1701">
+          <caret line="69" column="37" selection-start-line="69" selection-start-column="37" selection-end-line="69" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/Function.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/edit_new.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16443">
+          <caret line="609" selection-start-line="609" selection-end-line="609" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/change.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19332">
+          <caret line="716" column="13" selection-start-line="716" selection-start-column="13" selection-end-line="716" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/JqGridRowHelper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="5" column="21" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/ColModelConfig.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3294">
+          <caret line="122" column="6" selection-start-line="122" selection-start-column="6" selection-end-line="122" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+        <state relative-caret-position="81">
+          <caret line="3" column="27" selection-start-line="3" selection-start-column="27" selection-end-line="3" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/java/com/task/Scheduler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="37" column="27" selection-start-line="37" selection-start-column="27" selection-end-line="37" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/index_new.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3915">
-          <caret line="145" selection-start-line="145" selection-end-line="145" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/application-prod.properties">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/application-dev.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="945">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/vcs.xml">
+    <entry file="file://$PROJECT_DIR$/mes_web/src/main/resources/static/page/om/order/ConstConfig.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
-          <caret line="5" column="14" lean-forward="true" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+          <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bookmark/2Bse28blAIDYUrdUM0KFbwiPSbv.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="1" selection-start-line="1" selection-end-line="1004" selection-end-column="14" />
+          <folding>
+            <element signature="n#component#0;n#project#0;n#!!top" />
+            <element signature="e#65874#65880#0" expanded="true" />
+            <element signature="e#65887#65893#0" expanded="true" />
+            <element signature="e#66595#66601#0" expanded="true" />
+            <element signature="e#66601#66607#0" expanded="true" />
+            <element signature="e#66608#66613#0" expanded="true" />
+            <element signature="e#66613#66618#0" expanded="true" />
+            <element signature="e#108409#108415#0" expanded="true" />
+            <element signature="e#108420#108426#0" expanded="true" />
+            <element signature="e#108607#108613#0" expanded="true" />
+            <element signature="e#108630#108636#0" expanded="true" />
+            <element signature="e#108817#108823#0" expanded="true" />
+            <element signature="e#108836#108842#0" expanded="true" />
+            <element signature="e#109023#109029#0" expanded="true" />
+            <element signature="e#109042#109048#0" expanded="true" />
+            <element signature="e#109229#109235#0" expanded="true" />
+            <element signature="e#109243#109249#0" expanded="true" />
+            <element signature="e#109430#109436#0" expanded="true" />
+            <element signature="e#109450#109456#0" expanded="true" />
+            <element signature="e#109637#109643#0" expanded="true" />
+            <element signature="e#109650#109656#0" expanded="true" />
+            <element signature="e#109837#109843#0" expanded="true" />
+            <element signature="e#109849#109855#0" expanded="true" />
+            <element signature="e#110036#110042#0" expanded="true" />
+            <element signature="e#110060#110066#0" expanded="true" />
+            <element signature="e#110247#110253#0" expanded="true" />
+            <element signature="e#110265#110271#0" expanded="true" />
+            <element signature="e#110452#110458#0" expanded="true" />
+            <element signature="e#110465#110471#0" expanded="true" />
+            <element signature="e#110675#110681#0" expanded="true" />
+            <element signature="e#110691#110697#0" expanded="true" />
+            <element signature="e#111093#111099#0" expanded="true" />
+            <element signature="e#111104#111110#0" expanded="true" />
+            <element signature="e#111291#111297#0" expanded="true" />
+            <element signature="e#111301#111307#0" expanded="true" />
+            <element signature="e#111488#111494#0" expanded="true" />
+            <element signature="e#111499#111505#0" expanded="true" />
+            <element signature="e#111686#111692#0" expanded="true" />
+            <element signature="e#111692#111698#0" expanded="true" />
+            <element signature="e#111977#111983#0" expanded="true" />
+            <element signature="e#111984#111990#0" expanded="true" />
+            <element signature="e#112390#112396#0" expanded="true" />
+            <element signature="e#112409#112415#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2481,41 +2248,13 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
-          <last-edited>mes_web:jar</last-edited>
         </settings>
       </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>Spring</last-edited>
-        </settings>
-      </state>
+      <state key="FacetStructureConfigurable.UI" />
       <state key="GlobalLibrariesConfigurable.UI" />
       <state key="JdkListConfigurable.UI" />
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>mes_web</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.34406623" />
-                <option value="0.6" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>Maven: com.fasterxml.jackson.core:jackson-databind:2.10.0</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.34406623" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
+      <state key="ModuleStructureConfigurable.UI" />
+      <state key="ProjectLibrariesConfigurable.UI" />
       <state key="ScopeChooserConfigurable.UI">
         <settings>
           <last-edited>金工委外</last-edited>
