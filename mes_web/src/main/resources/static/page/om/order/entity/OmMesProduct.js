@@ -2,7 +2,7 @@
  * mes产品表类
  * @author mijiahao
  */
-class omMesProduct {
+class OmMesProduct {
 
     constructor() {
         //

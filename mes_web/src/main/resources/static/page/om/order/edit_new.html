@@ -214,8 +214,8 @@
     var materialMaxId = 1;
     //向打开的部件窗口传递的参数
     var addPartParams;
-    //允许审核的标志，每次保存完后会设为true，每次审核完后设为false，编辑页面默认为true
-    var ableToAudit = true;
+    //允许审核的标志，每次保存完后会设为true，每次审核完后设为false，编辑页面默认为false
+    var ableToAudit = false;
     $(function () {
         initJqgrid();
     });
@@ -374,11 +374,11 @@
                 //为每条产品设置对应的部件记录
                 let allProductRow = productHelper.getAllRowData();
                 allProductRow.forEach(function (productRow) {
-                    let productObj = new omMesProduct();
+                    let productObj = new OmMesProduct();
                     productObj.setEntity(productRow);
                     let partTableId = getPartTableId(productObj.getRowId());
                     let partArray = [];
-                    let partObj = new omMesPart();
+                    let partObj = new OmMesPart();
                     //找出部件记录中部件ID和产品ID相同的记录
                     partList.forEach(function (part) {
                         partObj.setEntity(part)

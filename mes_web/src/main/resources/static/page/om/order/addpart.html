@@ -352,13 +352,13 @@
     //修改数量后，同步更新其它字段
     function setQty(rowid) {
         console.debug("修改了数量");
-        let partObj = new omMesPart();
+        let partObj = new OmMesPart();
         partObj.setEntity(partHelper.getRowDataById(rowid));
         //循环子表更新数量
         let ids = materialHelper.getAllRowsId();
         for (let i = 0; i < ids.length; i++) {
             let productMaterialRow = materialHelper.getRowDataById(ids[i]);
-            let productMaterialObj = new omMesMaterial();
+            let productMaterialObj = new OmMesMaterial();
             productMaterialObj.setEntity(productMaterialRow);
             if (productMaterialObj.getRecordId() === partObj.getRecordId()) {
                 //数量初始化
@@ -381,7 +381,7 @@
     //修改单耗后同步修改总量
     function afterUpdatingIqty(rowid) {
         console.debug("修改单耗后同步修改总量");
-        let materialObj = new omMesMaterial();
+        let materialObj = new OmMesMaterial();
         materialObj.setEntity(materialHelper.getRowDataById(rowid));
         //数量
         let productQty = getStringDecimal(materialObj.getPartQty());
@@ -400,7 +400,7 @@
         console.debug("设置存货信息");
         if (itype == "1") {
             var rowData = partHelper.getRowDataById(rowid);
-            let partObj = new omMesPart();
+            let partObj = new OmMesPart();
             partObj.setEntity(partHelper.getRowDataById(rowid));
             let query = new U8QueryDTO(partObj);
             $.ajax({
@@ -414,7 +414,7 @@
                         partHelper.setRowDataById(rowid,data["mData"])
                         var ids = materialHelper.getAllRowsId();
                         var izExist = false;
-                        let materialObj = new omMesMaterial();
+                        let materialObj = new OmMesMaterial();
                         for (var i = 0; i < ids.length; i++) {
                             materialObj.setEntity(materialHelper.getRowDataById(ids[i]))
                             if (materialObj.getRecordId() == partObj.getRecordId()) {
@@ -426,7 +426,7 @@
                         }
                         if (izExist == false) {
                             if (data["mDatas"] != null && data["mDatas"] != "") {
-                                let materialObj = new omMesMaterial();
+                                let materialObj = new OmMesMaterial();
                                 materialObj.setEntity(materialHelper.getRowDataById(rowid));
                                 for (var i = 0; i < data["mDatas"].length; i++) {
 
@@ -455,12 +455,12 @@
                 success: function (data) {
                     if (data != null && data != "") {
                         data.cdefine26 = parseFloat(data.iinvncost - 0).toFixed(2);
-                        let materialObj = new omMesMaterial();
+                        let materialObj = new OmMesMaterial();
                         materialObj.setEntity(materialHelper.getRowDataById(rowid));
                         materialObj.setMaterialInfoFromU8Data(data);
                         materialHelper.setRowDataById(rowid,materialObj);
                     } else {
-                        materialHelper.setRowDataById(rowid,new omMesMaterial());
+                        materialHelper.setRowDataById(rowid,new OmMesMaterial());
                     }
 
                 },
@@ -475,7 +475,7 @@
     function setSize(rowid) {
         console.debug("设置下料尺寸！");
         let rowData = materialHelper.getRowDataById(rowid);
-        let materialObj = new omMesMaterial();
+        let materialObj = new OmMesMaterial();
         materialObj.setEntity(rowData);
         //数量
         let productQty = getStringDecimal(materialObj.getProductQty());
@@ -602,10 +602,10 @@
             return;
         }
         let ableToDelete = true;
-        let partObj = new omMesPart();
+        let partObj = new OmMesPart();
         partObj.setEntity(selectedPart);
         let allMaterial = materialHelper.getAllRowData();
-        let materialObj = new omMesMaterial();
+        let materialObj = new OmMesMaterial();
         //寻找该部件记录下是否有产品记录
         allMaterial.forEach(function (material) {
             materialObj.setEntity(material);
@@ -633,7 +633,7 @@
             return;
         }
 
-        let productMaterialRowData = new omMesMaterial();
+        let productMaterialRowData = new OmMesMaterial();
         //设置部件信息
         productMaterialRowData.setEntity(partRowData);
         //设置产品信息
@@ -742,7 +742,7 @@
         switch (chooseInvType) {
             case 'part':
                 partHelper.saveCell(CurRow,CurCol);
-                let part = new omMesPart();
+                let part = new OmMesPart();
                 part.setEntity(partHelper.getSelectedRowData());
                 part.setDataFromU8Data(u8Data);
                 partHelper.setSelectedRowData(part);
@@ -751,7 +751,7 @@
             case 'material':
                 materialHelper.saveCell(CurRow1,CurCol1);
                 let selectedMaterialRow = materialHelper.getSelectedRowData();
-                let materialObj = new omMesMaterial();
+                let materialObj = new OmMesMaterial();
                 materialObj.setEntity(selectedMaterialRow);
                 var iprice=0;
                 $.ajax({

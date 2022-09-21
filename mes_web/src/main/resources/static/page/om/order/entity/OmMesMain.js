@@ -1,7 +1,7 @@
 /*
  * 主表entity
  */
-class omMesMain {
+class OmMesMain {
     constructor(){
         this.id = "";
         this.vouchCode = "";

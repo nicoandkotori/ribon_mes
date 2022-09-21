@@ -2,7 +2,7 @@
  * 材料表entity
  * @author mijiahao
  */
-class omMesMaterial {
+class OmMesMaterial {
 
 
     constructor() {

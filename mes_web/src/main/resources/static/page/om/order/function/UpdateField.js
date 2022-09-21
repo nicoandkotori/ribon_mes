@@ -1,5 +1,5 @@
 /*
- * 存放和字段更新有关的函数
+ * 存放与字段计算有关的函数
  */
 
 /*
@@ -9,7 +9,7 @@ function productAfterSaveCell(rowid, name, val, iRow, iCol) {
     //同步更新所有开始日期
     if (name == PLAN_START_DATE) {
         var ids = productHelper.getAllRowsId();
-        let productObj = new omMesProduct();
+        let productObj = getEmptyMesProduct();
         for (var i = 0; i < ids.length; i++) {
             productObj.setEntity(productHelper.getRowDataById(ids[i]));
             productObj.setPlanStartDate(val);
@@ -20,7 +20,7 @@ function productAfterSaveCell(rowid, name, val, iRow, iCol) {
     //同步更新所有结束日期
     if (name == PLAN_END_DATE) {
         let ids = productHelper.getAllRowsId();
-        let productObj = new omMesProduct();
+        let productObj = getEmptyMesProduct();
         for (var i = 0; i < ids.length; i++) {
             productObj.setEntity(productHelper.getRowDataById(ids[i]));
             productObj.setPlanEndDate(val);
@@ -79,8 +79,7 @@ function materialAfterSaveCell(rowid, name, val, iRow, iCol) {
 function updateAmount(rowId){
     console.debug("更新产品表合计字段");
     let productRow = productHelper.getRowDataById(rowId);
-    let productObj = new omMesProduct();
-    productObj.setEntity(productRow);
+    let productObj = getMesProductWithData(productRow);
     let price = getStringDecimal(productObj.getPrice());
     let productQty = getStringDecimal(productObj.getProductQty());
     productObj.setEntity(productRow);
@@ -90,13 +89,12 @@ function updateAmount(rowId){
 
 //修改数量后，同步更新该产品下材料的数量字段
 function updateMaterialProductQty(rowid) {
-    let product = new omMesProduct();
-    product.setEntity(productHelper.getRowDataById(rowid));
+    let product = getMesProductWithData(productHelper.getRowDataById(rowid));
     let productQty = getStringDecimal(product.getProductQty());
     let ids = materialHelper.getAllRowsId();
     for (let i = 0; i < ids.length; i++) {
         let productMaterialRow = materialHelper.getRowDataById(ids[i]);
-        let productMaterialObj = new omMesMaterial();
+        let productMaterialObj = getEmptyMesMaterial();
         productMaterialObj.setEntity(productMaterialRow);
         if (productMaterialObj.getRecordId() === product.getRecordId()) {
             //获得产品数量
@@ -120,8 +118,7 @@ function updateMaterialProductQty(rowid) {
  */
 function updateTotalWorkAmount(rowId){
     let productRow = productHelper.getRowDataById(rowId);
-    let productObj = new omMesProduct();
-    productObj.setEntity(productRow);
+    let productObj = getMesProductWithData(productRow);
     let productQty = getNumberDecimal(productObj.getProductQty());
     let workPrice = getNumberDecimal(productObj.getWorkPrice());
     let totalWorkAmount =( productQty * workPrice).toFixed(2);
@@ -140,7 +137,7 @@ function sumMaterialPriceToProduct(recordId){
     //查询对应的产品记录
     var idsMain = productHelper.getAllRowsId();
     var rowMainId = "";
-    var rowMain = new omMesProduct();
+    var rowMain = getEmptyMesProduct();
     for (let i = 0; i < idsMain.length; i++) {
         var rowData1 = $("#jqGrid").getRowData(idsMain[i]);
         if (rowData1.recordId == recordId) {
@@ -152,7 +149,7 @@ function sumMaterialPriceToProduct(recordId){
     //循环子表合计材料单价和单件材料费
     var totalUnitMaterialPrice = 0, totalUnitMaterialAmount = 0;
     var ids = materialHelper.getAllRowsId();
-    let materialObjForTotalPrice = new omMesMaterial();
+    let materialObjForTotalPrice = getEmptyMesMaterial();
     for (var i = 0; i < ids.length; i++) {
         let materialRow = materialHelper.getRowDataById(ids[i]);
         materialObjForTotalPrice.setEntity(materialRow);
@@ -181,8 +178,7 @@ function sumMaterialPriceToProduct(recordId){
  */
 function updatePrice(rowId){
     let productRow = productHelper.getRowDataById(rowId);
-    let productObj = new omMesProduct();
-    productObj.setEntity(productRow);
+    let productObj = getMesProductWithData(productRow);
     let materialAmount = getNumberDecimal(productObj.getMaterialAmount());
     let workPrice = getNumberDecimal(productObj.getWorkPrice());
     productObj.setPrice(materialAmount+workPrice)
@@ -196,8 +192,7 @@ function updatePrice(rowId){
 function updateIqty(rowId){
     console.debug("更新单耗字段");
     let rowData = materialHelper.getRowDataById(rowId);
-    let materialObj = new omMesMaterial();
-    materialObj.setEntity(rowData);
+    let materialObj = getMesMaterialWithData(rowData);
     //长
     let invLen = getStringDecimal(materialObj.getInvLen());
     //厚
@@ -254,8 +249,7 @@ function updateIqty(rowId){
 function updateUnitMaterialAmount(rowid){
     console.debug("更新单件材料费");
     let rowData = materialHelper.getRowDataById(rowid);
-    let materialObj = new omMesMaterial();
-    materialObj.setEntity(rowData);
+    let materialObj = getMesMaterialWithData(rowData);
     let unitMaterialPrice = getNumberDecimal(materialObj.getUnitMaterialPrice());
     let iqty = getNumberDecimal(materialObj.getIqty());
     let unitMaterialAmount = (unitMaterialPrice * iqty).toFixed(2);
@@ -269,8 +263,7 @@ function updateUnitMaterialAmount(rowid){
 function updateInvSize(rowid) {
     console.debug("设置下料尺寸！");
     let rowData = materialHelper.getRowDataById(rowid);
-    let materialObj = new omMesMaterial();
-    materialObj.setEntity(rowData);
+    let materialObj = getMesMaterialWithData(rowData);
     var strSize = "";
     //厚度
     let invLand = getStringDecimal(materialObj.getInvLand());
@@ -316,8 +309,7 @@ function updateInvSize(rowid) {
 //更新总量
 function updateTqty(rowid) {
     console.debug("修改单耗后同步修改总量");
-    let materialObj = new omMesMaterial();
-    materialObj.setEntity(materialHelper.getRowDataById(rowid));
+    let materialObj = getMesMaterialWithData(materialHelper.getRowDataById(rowid));
     //数量
     let productQty = getNumberDecimal(materialObj.getProductQty());
     //单耗
@@ -333,7 +325,7 @@ function SetInventory(rowid, itype) {
     console.debug("设置存货信息");
     if (itype == "1") {
         var rowData = $("#jqGrid").jqGrid('getRowData', rowid);
-        let productObj = new omMesProduct();
+        let productObj = getEmptyMesProduct();
         productObj.setEntity(productHelper.getRowDataById(rowid));
         let query = new U8QueryDTO(productObj);
         $.ajax({
@@ -347,7 +339,7 @@ function SetInventory(rowid, itype) {
                     productHelper.setRowDataById(rowid,data["mData"])
                     var ids = materialHelper.getAllRowsId();
                     var izExist = false;
-                    let materialObj = new omMesMaterial();
+                    let materialObj = getEmptyMesMaterial();
                     for (var i = 0; i < ids.length; i++) {
                         materialObj.setEntity(materialHelper.getRowDataById(ids[i]))
                         if (materialObj.getRecordId() == productObj.getRecordId()) {
@@ -389,12 +381,12 @@ function SetInventory(rowid, itype) {
             success: function (data) {
                 if (data != null && data != "") {
                     data.cdefine26 = parseFloat(data.iinvncost - 0).toFixed(2);
-                    let materialObj = new omMesMaterial();
+                    let materialObj = getEmptyMesMaterial();
                     materialObj.setEntity(materialHelper.getRowDataById(rowid));
                     materialObj.setMaterialInfoFromU8Data(data);
                     materialHelper.setRowDataById(rowid,materialObj);
                 } else {
-                    materialHelper.setRowDataById(rowid,new omMesMaterial());
+                    materialHelper.setRowDataById(rowid,getEmptyMesMaterial());
                 }
 
             },

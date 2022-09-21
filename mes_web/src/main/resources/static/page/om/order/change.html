@@ -401,11 +401,11 @@
                 //为每条产品设置对应的部件记录
                 let allProductRow = productHelper.getAllRowData();
                 allProductRow.forEach(function (productRow) {
-                    let productObj = new omMesProduct();
+                    let productObj = new OmMesProduct();
                     productObj.setEntity(productRow);
                     let partTableId = getPartTableId(productObj.getRowId());
                     let partArray = [];
-                    let partObj = new omMesPart();
+                    let partObj = new OmMesPart();
                     //找出部件记录中部件ID和产品ID相同的记录
                     partList.forEach(function (part) {
                         partObj.setEntity(part)
@@ -715,7 +715,7 @@
      * 点击按钮产品表增行事件
      */
     function btnProductRowEvent() {
-        let productObj = new omMesProduct();
+        let productObj = new OmMesProduct();
         productObj.setPlanStartDate(planStartDate);
         productObj.setPlanEndDate(planEndDate);
         productObj.setRecordId("r"+productMaxId);
@@ -728,7 +728,7 @@
      */
     function addProductRow(rowData){
         console.debug("产品表增行");
-        let productObj = new omMesProduct();
+        let productObj = new OmMesProduct();
         productObj.setEntity(rowData);
         productObj.setTaxRate(DEFAULT_TAX_TATE);
         productObj.setRowId(productMaxId);
@@ -748,7 +748,7 @@
         if (productSelectedRowData === undefined){
             return;
         }
-        let materialObj = new omMesMaterial();
+        let materialObj = new OmMesMaterial();
         materialObj.setEntity(productSelectedRowData);
         addMaterialRow(materialObj);
     }
@@ -795,7 +795,7 @@
             case 'product':
                 productHelper.saveCell(CurRow,CurCol);
                 materialHelper.saveCell(CurRow1,CurCol1);
-                let mesProduct = new omMesProduct();
+                let mesProduct = new OmMesProduct();
                 mesProduct.setEntity(productHelper.getSelectedRowData());
                 //获取产品表选中行数据
                 mesProduct.setDataFromU8Data(u8Data);
@@ -814,7 +814,7 @@
             case 'material':
                 materialHelper.saveCell(CurRow1,CurCol1);
                 let selectedMaterialRow = materialHelper.getSelectedRowData();
-                let materialObj = new omMesMaterial();
+                let materialObj = new OmMesMaterial();
                 materialObj.setEntity(selectedMaterialRow);
                 var iprice=0;
                 $.ajax({
@@ -902,7 +902,7 @@
         console.debug("增加部件表-部件赋值-部件表id："+partTableId);
         partDataMap.set(partTableId,partArray);
         array = partArray;
-        let productObj = new omMesProduct();
+        let productObj = new OmMesProduct();
         productObj.setEntity(product);
         //合计该产品下所有材料的材料单价和单件材料费
         sumMaterialPriceToProduct(productObj.getRecordId())

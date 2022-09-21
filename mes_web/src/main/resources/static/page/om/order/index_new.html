@@ -355,7 +355,7 @@
             if (selectedData === undefined){
                 return;
             }
-            let mainObj = new omMesMain();
+            let mainObj = new OmMesMain();
             mainObj.setEntity(selectedData);
             window.location.href = encodeURI(URL_EXPORT+"?mesId="+mainObj.getId());
         });

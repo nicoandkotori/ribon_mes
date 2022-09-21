@@ -18,7 +18,7 @@ function addPartCallBack(product,partArray,materialArray,otherParams){
     console.debug("增加部件表-部件赋值-部件表id："+partTableId);
     partDataMap.set(partTableId,partArray);
     array = partArray;
-    let productObj = new omMesProduct();
+    let productObj = new OmMesProduct();
     productObj.setEntity(product);
     //合计该产品下所有材料的材料单价和单件材料费
     sumMaterialPriceToProduct(productObj.getRecordId())
@@ -51,7 +51,7 @@ function chooseInventoryCallBack(u8Data){
             console.debug("选择产品信息");
             productHelper.saveCell(CurRow,CurCol);
             materialHelper.saveCell(CurRow1,CurCol1);
-            let mesProduct = new omMesProduct();
+            let mesProduct = new OmMesProduct();
             mesProduct.setEntity(productHelper.getSelectedRowData());
             //获取产品表选中行数据
             mesProduct.setDataFromU8Data(u8Data);
@@ -70,7 +70,7 @@ function chooseInventoryCallBack(u8Data){
         case 'material':
             materialHelper.saveCell(CurRow1,CurCol1);
             let selectedMaterialRow = materialHelper.getSelectedRowData();
-            let materialObj = new omMesMaterial();
+            let materialObj = new OmMesMaterial();
             materialObj.setEntity(selectedMaterialRow);
             var iprice=0;
             $.ajax({

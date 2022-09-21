@@ -1,7 +1,7 @@
 /*
  * mes部件表类
  */
-class omMesPart {
+class OmMesPart {
 
     constructor(){
         this.id = "";

@@ -391,6 +391,9 @@ public class OmOrderController extends BasicController {
             if ("已审核".equals(main.getStatusId())) {
                 return ResponseResult.error("已审核，请勿重复审核");
             }
+            if (StringUtils.isBlank(main.getU8Id())){
+
+            }
             //主表转换
             OmMoMain u8Main = new OmMoMain();
             u8Main.setDataFromMesMain(main);

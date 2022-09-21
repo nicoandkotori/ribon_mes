@@ -69,7 +69,7 @@ function addPart(){
  * 点击按钮产品表增行事件
  */
 function btnAddProductRow() {
-    let productObj = new omMesProduct();
+    let productObj = new OmMesProduct();
     productObj.setPlanStartDate(planStartDate);
     productObj.setPlanEndDate(planEndDate);
     productObj.setRecordId("r"+productMaxId);
@@ -82,7 +82,7 @@ function btnAddProductRow() {
  */
 function addProductRow(rowData){
     console.debug("产品表增行");
-    let productObj = new omMesProduct();
+    let productObj = new OmMesProduct();
     productObj.setEntity(rowData);
     productObj.setTaxRate(DEFAULT_TAX_TATE);
     productObj.setRowId(productMaxId);
@@ -101,7 +101,7 @@ function btnAddMaterialRowEvent(){
     if (productSelectedRowData === undefined){
         return;
     }
-    let materialObj = new omMesMaterial();
+    let materialObj = new OmMesMaterial();
     materialObj.setEntity(productSelectedRowData);
     addMaterialRow(materialObj);
 }
@@ -168,11 +168,10 @@ function getPartTableId(rowId){
 }
 
 /*
- * 获取空MesProduct对象
+ * 获取空MesProduct对象，封装成函数后，以后可以根据常量配置动态返回实体类，类似于工厂模式
  */
 function getEmptyMesProduct(){
-    let productObj = new OmMesProduct();
-    return productObj;
+    return new OmMesProduct();
 }
 
 /*
@@ -182,6 +181,22 @@ function getMesProductWithData(data){
     let productObj = getEmptyMesProduct();
     productObj.setEntity(data);
     return productObj;
+}
+
+/*
+ * 获取空MesMaterial对象，封装成函数后，以后可以根据常量配置动态返回实体类，类似于工厂模式
+ */
+function getEmptyMesMaterial(){
+    return new OmMesMaterial();
+}
+
+/*
+ * 获取有数据的MesMaterial对象
+ */
+function getMesMaterialWithData(data){
+    let materialObj = getEmptyMesMaterial();
+    materialObj.setEntity(data);
+    return materialObj;
 }
 
 /*
