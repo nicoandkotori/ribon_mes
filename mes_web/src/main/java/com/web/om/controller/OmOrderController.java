@@ -13,9 +13,13 @@ import com.web.om.dto.*;
 import com.web.om.entity.*;
 import com.web.om.mapper.OmMoMainMapper;
 import com.web.om.service.*;
+import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
 import java.util.*;
 
 
@@ -27,16 +31,16 @@ import java.util.*;
 public class OmOrderController extends BasicController {
 
     @Autowired
-    private IOmOrderMainService omMainService;
+    private IOmOrderMainService mesMainService;
 
     @Autowired
     private IVendorService vendorService;
 
     @Autowired
-    private IOmOrderDetailService detailService;
+    private IOmOrderDetailService mesProductService;
 
     @Autowired
-    private IOmOrderMaterialService materialService;
+    private IOmOrderMaterialService mesMaterialService;
 
     @Autowired
     private IOmOrderPartService partService;
@@ -46,6 +50,7 @@ public class OmOrderController extends BasicController {
 
     @Autowired
     private OmMoMainMapper u8MainMapper;
+
 
     /**
      * 查询最大的单据号
@@ -62,7 +67,7 @@ public class OmOrderController extends BasicController {
             select.select(OmOrderMain::getVouchCode)
                     .like(OmOrderMain::getVouchCode, head);
             select.orderByDesc(OmOrderMain::getVouchCode);
-            List<OmOrderMain> mainList = omMainService.list(select);
+            List<OmOrderMain> mainList = mesMainService.list(select);
             if(mainList.size() > 0){
                 String maxCode = mainList.get(0).getVenCode();
                 if (CustomStringUtils.isNotBlank(maxCode)) {
@@ -101,7 +106,7 @@ public class OmOrderController extends BasicController {
             if(data == null){
                 data = new OmOrderMainDTO();
             }
-            resultPage =  omMainService.getMainList(data,page1);
+            resultPage =  mesMainService.getMainList(data,page1);
 
         }catch(Exception e){
 
@@ -127,7 +132,7 @@ public class OmOrderController extends BasicController {
             if (CustomStringUtils.isBlank(id)) {
                 throw new Exception("参数异常");
             }
-            OmOrderMain main =omMainService.getById(id);
+            OmOrderMain main = mesMainService.getById(id);
             return ResponseResult.success(main);
         } catch (Exception e) {
             e.printStackTrace();
@@ -143,7 +148,7 @@ public class OmOrderController extends BasicController {
     @GetMapping("get_all_main_data_by_id")
     public TableResult<OmOrderMain> getAllMainDataById(String id){
         try {
-            return omMainService.getAllMainDataById(id);
+            return mesMainService.getAllMainDataById(id);
         } catch (Exception e){
             e.printStackTrace();
             return TableResult.error(e.getMessage());
@@ -162,7 +167,7 @@ public class OmOrderController extends BasicController {
             LambdaQueryWrapper<OmOrderDetail> wrapper = new LambdaQueryWrapper<>();
             wrapper.eq(StringUtils.isNotBlank(mainId),OmOrderDetail::getMainId,mainId);
             wrapper.eq(OmOrderDetail::getIzDelete,0);
-            List<OmOrderDetail> mainList = detailService.list(wrapper);
+            List<OmOrderDetail> mainList = mesProductService.list(wrapper);
             return TableResult.success(mainList);
         } catch (Exception e){
             e.printStackTrace();
@@ -246,7 +251,7 @@ public class OmOrderController extends BasicController {
             IPage<OmOrderMaterial> iPage = new Page<>(page,limit);
             omOrderMaterial.setIzDelete(0);
             wrapper.setEntity(omOrderMaterial);
-            IPage<OmOrderMaterial> resultPage = materialService.page(iPage,wrapper);
+            IPage<OmOrderMaterial> resultPage = mesMaterialService.page(iPage,wrapper);
             List<OmOrderMaterial> resultList = resultPage.getRecords();
             if (resultList.size()<1){
                 return TableResult.error("查询不到数据");
@@ -270,7 +275,7 @@ public class OmOrderController extends BasicController {
             LambdaQueryWrapper<OmOrderMaterial> wrapper = new LambdaQueryWrapper<>();
             wrapper.eq(StringUtils.isNotBlank(mainId),OmOrderMaterial::getMainId,mainId);
             wrapper.eq(OmOrderMaterial::getIzDelete,0);
-            List<OmOrderMaterial> mainList = materialService.list(wrapper);
+            List<OmOrderMaterial> mainList = mesMaterialService.list(wrapper);
             return TableResult.success(mainList);
         } catch (Exception e){
             e.printStackTrace();
@@ -292,7 +297,7 @@ public class OmOrderController extends BasicController {
             {
                 OmOrderMainDTO m=new OmOrderMainDTO();
                 m.setId(id);
-                list=omMainService.getDetailList(m);
+                list= mesMainService.getDetailList(m);
 
             }
         }catch (Exception e){
@@ -316,7 +321,7 @@ public class OmOrderController extends BasicController {
                 partList = JSON.parseArray(partStr,OmOrderPart.class);
             }
             List<OmOrderMaterial> materialList = JSON.parseArray(materialStr,OmOrderMaterial.class);
-            return omMainService.saveToMes(main,productList,partList,materialList);
+            return mesMainService.saveToMes(main,productList,partList,materialList);
         } catch (Exception e){
             e.printStackTrace();
             return ResponseResult.error(e.getMessage());
@@ -338,7 +343,7 @@ public class OmOrderController extends BasicController {
                 partList = JSON.parseArray(partStr,OmOrderPart.class);
             }
             List<OmOrderMaterial> materialList = JSON.parseArray(materialStr,OmOrderMaterial.class);
-            return omMainService.updateToMes(main,productList,partList,materialList);
+            return mesMainService.updateToMes(main,productList,partList,materialList);
         } catch (Exception e){
             e.printStackTrace();
             return ResponseResult.error(e.getMessage());
@@ -353,7 +358,7 @@ public class OmOrderController extends BasicController {
     @PostMapping("delete_main_by_id")
     public ResponseResult deleteMainById(String id){
         try {
-            OmOrderMain mesMain = omMainService.getById(id);
+            OmOrderMain mesMain = mesMainService.getById(id);
             Integer u8Id =  mesMain.getU8Id();
             DbContextHolder.setDbType(DBTypeEnum.db2);
             OmMoMain u8Main= u8MainMapper.selectById(u8Id);
@@ -363,7 +368,7 @@ public class OmOrderController extends BasicController {
                     return ResponseResult.error("数据已审核，不允许作废！");
                 }
             }
-            return omMainService.deleteMainById(id);
+            return mesMainService.deleteMainById(id);
         } catch (Exception e){
             e.printStackTrace();
             return ResponseResult.error(e.getMessage());
@@ -403,7 +408,7 @@ public class OmOrderController extends BasicController {
                 u8Material.setDataFromMesMaterial(material);
                 u8MaterialList.add(u8Material);
             });
-            result = omMainService.audit(u8Main,u8DetailList,u8MaterialList,main,productList,materialList);
+            result = mesMainService.audit(u8Main,u8DetailList,u8MaterialList,main,productList,materialList);
             return result;
         } catch (Exception e){
             e.printStackTrace();
@@ -424,7 +429,7 @@ public class OmOrderController extends BasicController {
             OmOrderMain main = JSON.parseObject(mainStr, OmOrderMain.class);
             List<OmOrderDetail> productList = JSON.parseArray(productStr,OmOrderDetail.class);
             List<OmOrderMaterial> materialList = JSON.parseArray(materialStr,OmOrderMaterial.class);
-            return omMainService.change(main,productList,materialList);
+            return mesMainService.change(main,productList,materialList);
         } catch (Exception e){
             e.printStackTrace();
             return ResponseResult.error(e.getMessage());
@@ -443,7 +448,7 @@ public class OmOrderController extends BasicController {
         ResponseResult result = new ResponseResult();
         try{
             DbContextHolder.setDbType(DBTypeEnum.db2);
-            result=  omMainService.unCheck(id,mesId);
+            result=  mesMainService.unCheck(id,mesId);
 
         }catch (Exception e){
             result.setSuccess(false);
@@ -452,6 +457,200 @@ public class OmOrderController extends BasicController {
         }
         return result;
     }
+
+    @GetMapping("export")
+    public void export(String mesId, HttpServletResponse response){
+        try {
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            // 第一步，创建一个webbook，对应一个Excel文件
+            HSSFWorkbook wb = new HSSFWorkbook();
+
+            // 第二步，在webbook中添加一个sheet,对应Excel文件中的sheet
+            HSSFSheet sheet = wb.createSheet("sheet1");
+            // 第三步，在sheet中添加表头第0行,注意老版本poi对Excel的行数列数有限制short
+            // 1.生成字体对象 (表头)
+            HSSFFont fonttitle = wb.createFont();
+            fonttitle.setFontHeightInPoints((short) 12);
+            fonttitle.setFontName("宋体");
+
+            // 2.生成样式对象 (表头)
+            HSSFCellStyle styletitle = wb.createCellStyle();
+            styletitle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+            styletitle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
+            styletitle.setFont(fonttitle); // 调用字体样式对象
+            styletitle.setWrapText(true);
+            // 样式 表单
+            HSSFFont fonttxt = wb.createFont();
+            fonttxt.setFontHeightInPoints((short) 12);
+            fonttxt.setFontName("宋体");
+
+            HSSFCellStyle styletxt = wb.createCellStyle();
+            styletxt.setAlignment(HSSFCellStyle.ALIGN_LEFT);
+            styletxt.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
+            styletxt.setFont(fonttxt); // 调用字体样式对象
+            styletxt.setWrapText(false);
+
+            HSSFCellStyle styletxtheader = wb.createCellStyle();
+            styletxtheader.setBorderTop(BorderStyle.THIN);
+            styletxtheader.setBorderLeft(BorderStyle.THIN);
+            styletxtheader.setBorderRight(BorderStyle.THIN);
+            styletxtheader.setBorderBottom(BorderStyle.THIN);
+            styletxtheader.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+            styletxtheader.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
+            styletxtheader.setFont(fonttxt); // 调用字体样式对象
+            styletxtheader.setWrapText(false);
+
+            HSSFCellStyle styletxtleft = wb.createCellStyle();
+            styletxtleft.setBorderTop(BorderStyle.THIN);
+            styletxtleft.setBorderLeft(BorderStyle.THIN);
+            styletxtleft.setBorderRight(BorderStyle.THIN);
+            styletxtleft.setBorderBottom(BorderStyle.THIN);
+            styletxtleft.setAlignment(HSSFCellStyle.ALIGN_LEFT);
+            styletxtleft.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
+            styletxtleft.setFont(fonttxt); // 调用字体样式对象
+            styletxtleft.setWrapText(false);
+
+            HSSFFont fonttextcenterdecimal = wb.createFont();
+            fonttextcenterdecimal.setFontHeightInPoints((short) 12);
+            fonttextcenterdecimal.setFontName("宋体");
+
+            HSSFCellStyle stylecelltextcenterdecimal = (HSSFCellStyle)wb.createCellStyle();
+            stylecelltextcenterdecimal.setBorderTop(BorderStyle.THIN);
+            stylecelltextcenterdecimal.setBorderLeft(BorderStyle.THIN);
+            stylecelltextcenterdecimal.setBorderRight(BorderStyle.THIN);
+            stylecelltextcenterdecimal.setBorderBottom(BorderStyle.THIN);
+            stylecelltextcenterdecimal.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
+            stylecelltextcenterdecimal.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
+            stylecelltextcenterdecimal.setFont(fonttextcenterdecimal);
+            stylecelltextcenterdecimal.setDataFormat(HSSFDataFormat.getBuiltinFormat("G/通用格式"));
+
+            HSSFRow row = null;
+            //设置列宽
+            sheet.setColumnWidth(0, 40 * 21 * 5);
+            sheet.setColumnWidth(1, 40 * 20 * 5);
+            sheet.setColumnWidth(2, 40 * 20 * 5);
+            sheet.setColumnWidth(3, 40 * 20 * 5);
+            sheet.setColumnWidth(4, 40 * 20 * 5);
+            sheet.setColumnWidth(5, 40 * 20 * 5);
+            sheet.setColumnWidth(6, 40 * 20 * 5);
+            sheet.setColumnWidth(7, 40 * 20 * 5);
+            sheet.setColumnWidth(8, 40 * 20 * 5);
+            sheet.setColumnWidth(9, 40 * 20 * 5);
+            sheet.setColumnWidth(10, 40 * 20 * 5);
+            sheet.setColumnWidth(11, 40 * 20 * 5);
+            sheet.setColumnWidth(12, 40 * 20 * 5);
+            sheet.setColumnWidth(13, 40 * 20 * 5);
+            sheet.setColumnWidth(14, 40 * 20 * 5);
+            sheet.setColumnWidth(15, 40 * 20 * 5);
+            sheet.setColumnWidth(16, 40 * 20 * 5);
+            sheet.setColumnWidth(17, 40 * 20 * 5);
+            String [] headerArr = {
+                    "序号",
+                    "业务类型",
+                    "订单编号",
+                    "订单日期",
+                    "供应商",
+                    "存货编码",
+                    "存货名称",
+                    "规格型号",
+                    "主计量",
+                    "数量",
+                    "原币单价",
+                    "原币含税单价",
+                    "计划开工日期",
+                    "计划完工日期",
+                    "销售合同号",
+                    "累计入库数",
+                    "单据状态",
+                    "入库状态",
+            };
+
+            int rowId = 0;
+            row = instanceRow(sheet, rowId, 20);
+            for (int i=0; i<headerArr.length; i++){
+                SetValue(rowId, i, sheet, row, styletxtheader, headerArr[i]);
+            }
+            rowId++;
+
+            OmOrderMain mesMain = mesMainService.getById(mesId);
+            if (mesMain == null){
+                throw new Exception("无此订单！");
+            }
+            LambdaQueryWrapper<OmOrderDetail> wrapper = new LambdaQueryWrapper<>();
+            wrapper.eq(OmOrderDetail::getMainId,mesId);
+            wrapper.eq(OmOrderDetail::getIzDelete,0);
+            List<OmOrderDetail> productList = mesProductService.list(wrapper);
+
+
+            for (OmOrderDetail product : productList){
+                int colId = 0;
+                row = instanceRow(sheet, rowId, 20);
+                SetValue(rowId, colId, sheet, row, styletxtleft, rowId);
+                colId++;
+                SetValue(rowId, colId, sheet, row, styletxtleft, "委外加工");
+                colId++;
+                SetValue(rowId, colId, sheet, row, styletxtleft, mesMain.getVouchCode());
+                colId++;
+                SetValue(rowId, colId, sheet, row, styletxtleft, mesMain.getVouchDate());
+                colId++;
+                SetValue(rowId, colId, sheet, row, styletxtleft, mesMain.getVenName());
+                colId++;
+                SetValue(rowId, colId, sheet, row, styletxtleft, product.getProductInvCode());
+                colId++;
+                SetValue(rowId, colId, sheet, row, styletxtleft, product.getProductInvName());
+                colId++;
+                SetValue(rowId, colId, sheet, row, styletxtleft, product.getProductInvStd());
+                colId++;
+                SetValue(rowId, colId, sheet, row, styletxtleft, product.getProductInvUnit());
+                colId++;
+                SetValue(rowId, colId, sheet, row, styletxtleft, product.getProductQty());
+                colId++;
+                //原币单价-----
+                SetValue(rowId, colId, sheet, row, styletxtleft, "原币单价");
+                colId++;
+                SetValue(rowId, colId, sheet, row, styletxtleft, product.getAmount());
+                colId++;
+                SetValue(rowId, colId, sheet, row, styletxtleft, product.getPlanStartDate());
+                colId++;
+                SetValue(rowId, colId, sheet, row, styletxtleft, product.getPlanEndDate());
+                colId++;
+                SetValue(rowId, colId, sheet, row, styletxtleft, mesMain.getContractSale());
+                colId++;
+                //累计入库数-----
+                SetValue(rowId, colId, sheet, row, styletxtleft, "累计入库数");
+                colId++;
+                //单据状态-----
+                SetValue(rowId, colId, sheet, row, styletxtleft, "单据状态");
+                colId++;
+                //入库状态
+                SetValue(rowId, colId, sheet, row, styletxtleft, "入库状态");
+                colId++;
+                rowId++;
+            }
+
+            wb.write(out);
+            byte[] fileNameByte = null;
+
+            String pdtname = "委外订单";
+
+            fileNameByte = (pdtname + ".xls").getBytes("GBK");
+
+            String filename = new String(fileNameByte, "ISO8859-1");
+
+            byte[] bytes = out.toByteArray();
+
+            response.setContentType("application/x-msdownload");
+            response.setContentLength(bytes.length);
+            response.setHeader("Content-Disposition", "attachment;filename=" + filename);
+            response.getOutputStream().write(bytes);
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+
 
 
 

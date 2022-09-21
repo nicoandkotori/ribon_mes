@@ -50,10 +50,12 @@
     <script src="entity/OmMesProduct.js"></script>
     <script src="entity/OmMesPart.js"></script>
     <script src="entity/OmMesMaterial.js"></script>
-    <script src="Function.js"></script>
-    <script src="JqGridRowHelper.js"></script>
+    <script src="util/JqGridRowHelper.js"></script>
     <script src="dto/U8QueryDTO.js"></script>
     <script src="ColModelConfig.js"></script>
+    <script src="./function/CallBack.js"></script>
+    <script src="./function/UpdateField.js"></script>
+    <script src="./function/Other.js"></script>
     <style>
         .layui-select, .layui-input {
             height: 24px;
@@ -173,7 +175,7 @@
 <div class="weadmin-body-table">
     <button type="button" class="layui-btn layui-btn-sm" onclick="btnAddProductRow()">增行</button>
     <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="deleteProductRow()">删行</button>
-    <button type="button" class="layui-btn layui-btn-sm" onclick="addPart()">添加部件</button>
+    <button type="button" class="layui-btn layui-btn-sm" onclick="addPart()">编辑部件</button>
     <table id="jqGrid"></table>
     <button type="button" class="layui-btn layui-btn-sm" onclick="btnAddMaterialRowEvent()">增行</button>
     <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="btnDeleteMaterialRow()">删行</button>
@@ -292,7 +294,7 @@
                 }, function (data) {
                     if (data.success == true || data.success == "true") {
                         layer.msg("保存成功", {icon: 6});
-                        consoleLog("保存成功");
+                        console.debug("保存成功");
                         $("#id").val(data.result);
                         ableToAudit = true;
                         loadAllDataByMainId();
@@ -302,7 +304,7 @@
                 });
             } else {
                 //更新
-                consoleLog("更新数据");
+                console.debug("更新数据");
                 sendPostReq(URL_UPDATE_MES_MAIN_BY_ID, {
                     mainStr: JSON.stringify(data.field),
                     productStr: productDataStr,
@@ -330,7 +332,7 @@
          * 审核
          */
         form.on('submit(audit)', function (data) {
-            consoleLog("审核");
+            console.debug("审核");
             if (CurRow != "" && CurRow != undefined) {
                 $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
             }
@@ -357,7 +359,7 @@
             }, function (data) {
                 if (data.success == true || data.success == "true") {
                     layer.msg("审核成功", {icon: 6});
-                    consoleLog("审核成功");
+                    console.debug("审核成功");
                     ableToAudit = false;
                     //$("#id").val(data.result);
                     loadAllDataByMainId();
@@ -452,7 +454,7 @@
 
                 if (partDataArray != null && partDataArray != undefined){
                     //不打印这行，for里的length读不出数据
-                    consoleLog(partDataArray.length);
+                    console.debug(partDataArray.length);
                     for ( var i = 0; i < partDataArray.length; i++){
                         $("#"+subgrid_table_id).jqGrid('addRowData', i + 1,partDataArray[i]);
                     }
@@ -503,7 +505,7 @@
 
             },
             beforeEditCell: function (rowid, cellname, value, iRow, iCol) {
-                consoleLog("开始编辑单元格");
+                console.debug("开始编辑单元格");
                 CurRow = iRow;
                 CurCol = iCol;
 
@@ -616,21 +618,11 @@
 
 
 
-
-    /*
-     * 获取部件表ID
-     */
-    function getPartTableId(rowId){
-        let tableId = "jqGrid_"+rowId+"_t";
-        return tableId;
-    }
-
-
     /*
      * 清空所有数据
      */
     function clearAllData(){
-        consoleLog("重新加载所有数据");
+        console.debug("重新加载所有数据");
         productMaxId = 1;
         materialMaxId = 1;
         partMaxId = 1;
@@ -652,13 +644,13 @@
      * 根据主表ID加载所有数据
      */
     function loadAllDataByMainId(){
-        consoleLog("根据主表ID加载所有数据");
+        console.debug("根据主表ID加载所有数据");
         clearAllData();
         let id = $("#id").val();
         sendGetReq(URL_GET_ALL_MAIN_DATA_BY_ID, {id: id}, function (result) {
             let data = result.data;
             if (data != null){
-                consoleLog("初始化数据-主表赋值");
+                console.debug("初始化数据-主表赋值");
                 $("form").setForm(data.main);
                 layui.form.render();
                 let productList = data.productList;

@@ -215,8 +215,8 @@
 
             },
             ondblClickRow: function (rowid, iRow, iCol, e) {
-                console.log("选择物料信息↓");
-                console.log(getSelectedRowData("jqGrid"));
+                console.debug("选择物料信息↓");
+                console.debug(getSelectedRowData("jqGrid"));
                 parent.chooseInventoryCallBack(getSelectedRowData("jqGrid"));
                 closePage();
             }
@@ -273,7 +273,7 @@
      */
     var getSelectedRowData = (tableId)=>{
         let id = getSelectedRowId(tableId);
-        console.log("rowid:"+id);
+        console.debug("rowid:"+id);
         return $("#"+tableId).getRowData(id);
     }
 

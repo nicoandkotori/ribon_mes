@@ -246,7 +246,15 @@ function PrPrintDevice(url, id,name) {
                 LODOP.SET_PRINT_STYLEA(0,"FontSize",13);
                 LODOP.SET_PRINT_STYLEA(0,"ItemType",1);
                 LODOP.SET_PRINT_STYLEA(0,"Horient",2);
-                LODOP.ADD_PRINT_TABLE(67,24,1600,1500,CreateDeviceTable(result));
+                if(name.indexOf('设备总清单')!=-1){
+                    LODOP.ADD_PRINT_TABLE(67,24,1600,1500,CreateDeviceTableAll(result));
+
+                }
+                else {
+                    LODOP.ADD_PRINT_TABLE(67,24,1600,1500,CreateDeviceTable(result));
+
+                }
+
                 LODOP.SET_PRINT_STYLEA(0,"TableHeightScope",1);
 
 
@@ -290,7 +298,17 @@ function PrPrintDeviceBatch(url, id,name) {
                 LODOP.SET_PRINT_STYLEA(0,"FontSize",13);
                 LODOP.SET_PRINT_STYLEA(0,"ItemType",1);
                 LODOP.SET_PRINT_STYLEA(0,"Horient",2);
-                LODOP.ADD_PRINT_TABLE(67,24,1600,1500,CreateDeviceTable(result));
+                if(name.indexOf('设备总清单')!=-1){
+                    LODOP.ADD_PRINT_TABLE(67,24,1600,1500,CreateDeviceTableAll(result));
+
+                }
+                else {
+                    LODOP.ADD_PRINT_TABLE(67,24,1600,1500,CreateDeviceTable(result));
+
+                }
+
+
+
                 LODOP.SET_PRINT_STYLEA(0,"TableHeightScope",1);
 
 
@@ -311,6 +329,35 @@ function PrPrintDeviceBatch(url, id,name) {
 
 
 function  CreateDeviceTable(result) {
+
+    // var  aa= "<table style='border-collapse:collapse;border:solid 1px'> <thead><tr><td>头Lodop语句<td></tr></thead> <tbody><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td></tr><tr><td>PREVIEW<td></tr><tr><td>PRINT<td></tr><tr><td>PRINT_INIT<td></tr><tr><td>PRINT_SETUP<td></tr><tr><td>ADD_PRINT_HTM<td></tr></tbody> <tfoot><tr><td>尾Lodop语句<td></tr></tfoot></table>";
+
+
+    var css =" <style> table,td,th {border: 1px solid black;border-style: solid;border-collapse: collapse;font-size: 13px;}</style><table border=1>";
+    //第一行
+    var th = " <thead><tr style='height:37px'><td  align='center' colspan=2 bgcolor='#a9a9a9'>图号</td><td  align='left' colspan=2>"+result[0].productInvCode+"</td><td  align='center' bgcolor='#a9a9a9'>合同号</td> <td  align='left' colspan=3>"+isNullValues(result[0].conNo)+"</td><td  align='center' bgcolor='#a9a9a9' >数量</td><td  align='left' colspan=5>"+result[0].soQty+"</td><td  align='center' colspan=2></td><td  align='center'></td><td  align='center'></td></tr>"
+    //第二行
+    th = th+" <tr style='height:37px'><td  align='center' colspan=2 bgcolor='#a9a9a9'>产品名称</td><td  align='left' colspan=2>"+result[0].productInvName+"</td><td  align='center' bgcolor='#a9a9a9'>订单号</td> <td  align='left' colspan=3>"+result[0].orderNo+"</td><td  align='center'  bgcolor='#a9a9a9'>客户名称</td><td  align='left' colspan=5>"+isNullValues(result[0].custName)+"</td><td  align='center' colspan=2></td><td  align='center'></td><td  align='center'></td></tr>"
+    th=th+"<tr style='height:37px' ><td  align='center' bgcolor='#a9a9a9'>序号</td><td  align='center' bgcolor='#a9a9a9'>子件编码</td><td align='center' bgcolor='#a9a9a9'>子件代码</td><td  align='center' bgcolor='#a9a9a9'>子件名称</td><td align='center' bgcolor='#a9a9a9'>规格型号</td><td  align='center' bgcolor='#a9a9a9'>单位</td><td  align='center' bgcolor='#a9a9a9'>单耗</td><td align='center' bgcolor='#a9a9a9'>总量</td> <td  align='center' bgcolor='#a9a9a9'>库存量</td><td  align='center' bgcolor='#a9a9a9'>在途量</td><td  align='center' bgcolor='#a9a9a9'>可用量</td><td  align='center' bgcolor='#a9a9a9'>加工类型</td><td  align='center' bgcolor='#a9a9a9'>下料尺寸</td><td align='center' bgcolor='#a9a9a9'>材料名称</td><td  align='center' bgcolor='#a9a9a9'>材料规格</td><td  align='center' bgcolor='#a9a9a9'>部件名称</td><td  align='center' bgcolor='#a9a9a9'>生产备注</td><td  align='center' bgcolor='#a9a9a9'>说明</td></tr>";
+    th=th+" </thead>  ";
+
+
+    var td="";
+//表格数据加载
+    for (var i = 0; i <result.length; i++) {
+        td = td+"<tr style='height:37px'><td style='width:30px;' align='center'>"+(i+1)+"</td><td style='width:120px;word-wrap:break-word;word-break:break-all;'  align='center'>" + isNullValues(result[i].psCode) + "</td><td style='width:110px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].invAddCode) +"</td><td style='width:155px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].invName) + "</td><td  style='width:100px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].invStd) + "</td><td style='width:27px;word-wrap:break-word;word-break:break-all;'  align='center'>" + isNullValues(result[i].invUnit) + "</td><td style='width:27px;word-wrap:break-word;word-break:break-all;'  align='center'>" + isNullValues(result[i].qty) + "</td><td style='width:42px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].qtys) + "</td> <td style='width:45px;word-wrap:break-word;word-break:break-all;'  align='center'>" + isNullValues(result[i].curQty) + "</td><td style='width:40px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].poQty) + "</td><td style='width:40px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].kyQty) + "</td><td style='width:55px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].proType) + "</td><td style='width:155px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].matSize) + "</td><td style='width:140px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].minvName) + "</td><td style='width:110px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].minvStd) + "</td><td style='width:120px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].partName) + "</td><td  style='width:110px;word-wrap:break-word;word-break:break-all;' align='center'>" + isNullValues(result[i].memo) + "</td><td style='width:30px;word-wrap:break-word;word-break:break-all;' align='center'></td></tr>"
+    }
+
+
+
+    //尾部的总页数
+    var tf="<tfoot><TD  colspan=9 tdata='pageNO' format='#' align='left'> <p align='center'><b>第<font color='#0000FF'>#</font>页</b></p> </TD> <TD  colspan=9  tdata='pageCount' format='#' align='right'> <p align='center'><b>总<font color='#0000FF'>##</font>页</b></TD></tfoot>";
+
+    var txt = css +th+ td+tf+"</table>";
+    return txt;
+
+}
+function  CreateDeviceTableAll(result) {
 
     // var  aa= "<table style='border-collapse:collapse;border:solid 1px'> <thead><tr><td>头Lodop语句<td></tr></thead> <tbody><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td><tr><td>PRINT_DESIGN<td></tr><tr><td>PREVIEW<td></tr><tr><td>PRINT<td></tr><tr><td>PRINT_INIT<td></tr><tr><td>PRINT_SETUP<td></tr><tr><td>ADD_PRINT_HTM<td></tr></tbody> <tfoot><tr><td>尾Lodop语句<td></tr></tfoot></table>";
 
@@ -398,7 +445,6 @@ function  CreateDeviceTable(result) {
     return txt;
 
 }
-
 
 function isNullValues(str) {
     if(str == null){

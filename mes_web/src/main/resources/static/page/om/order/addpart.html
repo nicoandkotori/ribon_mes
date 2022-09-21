@@ -47,12 +47,14 @@
     <script src="../../../static/Scripts/easyui-1.7.0/jquery.easyui.min.js"></script>
     <script src="../../../static/Scripts/easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
     <script src="ConstConfig.js"></script>
-    <script src="JqGridRowHelper.js"></script>
+    <script src="util/JqGridRowHelper.js"></script>
     <script src="entity/OmMesProduct.js"></script>
     <script src="entity/OmMesPart.js"></script>
     <script src="entity/OmMesMaterial.js"></script>
-    <script src="Function.js"></script>
     <script src="dto/U8QueryDTO.js"></script>
+    <script src="./function/CallBack.js"></script>
+    <script src="./function/UpdateField.js"></script>
+    <script src="./function/Other.js"></script>
     <style>
         .layui-select, .layui-input {
             height: 24px;
@@ -192,7 +194,7 @@
 
             },
             ondblClickRow: function (rowid, iRow, iCol, e) {
-                consoleLog(partHelper.getRowDataById(rowid));
+                console.debug(partHelper.getRowDataById(rowid));
                 if (iCol == 3 || iCol == 4) {
                     //选择自建
                     chooseInvType = 'part';
@@ -204,7 +206,7 @@
                 CurCol = iCol;
             },
             afterSaveCell: function (rowid, name, val, iRow, iCol) {
-                consoleLog("保存单元格name:"+name);
+                console.debug("保存单元格name:"+name);
                 switch (name){
                     case PART_QTY:
                         setQty(rowid);
@@ -277,7 +279,7 @@
             },
             ondblClickRow: function (rowid, iRow, iCol, e) {
                 //iCol==6||
-                consoleLog(rowid);
+                console.debug(rowid);
                 if (iCol == 12 || iCol == 13) {
                     //选择自建
                     chooseInvType = 'material';
@@ -293,7 +295,7 @@
                    if (CurRow1 != "" || CurRow1 != undefined) {
                        $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
                    }
-                consoleLog("保存单元格name:"+name);
+                console.debug("保存单元格name:"+name);
                 if (name == INV_CODE) {
                     setInventory(rowid, "2");
                 } else if (name == UNIT_MATERIAL_PRICE || name == INV_LAND || name == INV_LEN || name == INV_WIDTH || name == INV_EXTERNAL_DIAMETER || name == INV_INTERNAL_DIAMETER || name == INV_DENSITY) {
@@ -323,8 +325,8 @@
      */
     function initData(){
         let params = parent.addPartParams;
-        consoleLog("部件窗口接收的参数↓");
-        consoleLog(params);
+        console.debug("部件窗口接收的参数↓");
+        console.debug(params);
         let selectedRowData = params.productData;
         recordId = selectedRowData.recordId;
         setProductionInfo(selectedRowData);
@@ -349,7 +351,7 @@
 
     //修改数量后，同步更新其它字段
     function setQty(rowid) {
-        consoleLog("修改了数量");
+        console.debug("修改了数量");
         let partObj = new omMesPart();
         partObj.setEntity(partHelper.getRowDataById(rowid));
         //循环子表更新数量
@@ -367,8 +369,8 @@
                 productMaterialObj.setPartQty(partQty);
                 //计算材料表总量
                 productMaterialObj.setTqty((partQty * iqty).toFixed(2));
-                consoleLog("修改数量-同步更新材料表数量↓");
-                consoleLog(productMaterialObj);
+                console.debug("修改数量-同步更新材料表数量↓");
+                console.debug(productMaterialObj);
                 materialHelper.setRowDataById(ids[i],productMaterialObj);
             }
 
@@ -378,7 +380,7 @@
 
     //修改单耗后同步修改总量
     function afterUpdatingIqty(rowid) {
-        consoleLog("修改单耗后同步修改总量");
+        console.debug("修改单耗后同步修改总量");
         let materialObj = new omMesMaterial();
         materialObj.setEntity(materialHelper.getRowDataById(rowid));
         //数量
@@ -386,7 +388,7 @@
         //单耗
         let iqty = getStringDecimal(materialObj.getIqty());
         materialObj.setTqty((productQty * iqty).toFixed(2));
-        consoleLog(materialObj);
+        console.debug(materialObj);
         materialHelper.setRowDataById(rowid,materialObj);
 
     }
@@ -395,7 +397,7 @@
      * 设置存货信息
      */
     function setInventory(rowid, itype) {
-        consoleLog("设置存货信息");
+        console.debug("设置存货信息");
         if (itype == "1") {
             var rowData = partHelper.getRowDataById(rowid);
             let partObj = new omMesPart();
@@ -471,7 +473,7 @@
 
     //设置下料尺寸
     function setSize(rowid) {
-        consoleLog("设置下料尺寸！");
+        console.debug("设置下料尺寸！");
         let rowData = materialHelper.getRowDataById(rowid);
         let materialObj = new omMesMaterial();
         materialObj.setEntity(rowData);
@@ -564,8 +566,8 @@
         materialObj.setUnitMaterialAmount(unitMaterialAmount);
         materialObj.setIqty(iqty)
         materialObj.setTqty((iqty * productQty).toFixed(2));
-        consoleLog("设置下料尺寸-材料表字段更新-下料尺寸,材料单价,单耗，总量↓");
-        consoleLog(materialObj);
+        console.debug("设置下料尺寸-材料表字段更新-下料尺寸,材料单价,单耗，总量↓");
+        console.debug(materialObj);
         materialHelper.setRowDataById(rowid,materialObj)
         
 
@@ -624,7 +626,7 @@
      * 材料表增行事件
      */
     function addMaterialRowEvent(){
-        consoleLog("材料表增行函数");
+        console.debug("材料表增行函数");
         partHelper.saveCell(CurRow,CurCol);
         let partRowData = partHelper.getSelectedRowData();
         if (partRowData === undefined){
@@ -636,8 +638,8 @@
         productMaterialRowData.setEntity(partRowData);
         //设置产品信息
         productMaterialRowData.setProductInfo(getProductionInfo());
-        consoleLog("材料表增行↓");
-        consoleLog(productMaterialRowData);
+        console.debug("材料表增行↓");
+        console.debug(productMaterialRowData);
         addMaterialRow(productMaterialRowData);
     }
 

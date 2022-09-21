@@ -3,7 +3,7 @@
  * jqGrid表格行操作工具
  * @author mijiahao
  */
-class jqGridRowHelper {
+class JqGridRowHelper {
 
     /*
      * 传入table的DOM对象
@@ -39,7 +39,7 @@ class jqGridRowHelper {
         let selectedRowId = this.table.getGridParam("selrow");
         if (selectedRowId == null){
             layer.alert("请先选择行！");
-            console.log("请先选择行！");
+            console.debug("请先选择行！");
             return ;
         }
         return selectedRowId;
@@ -67,7 +67,7 @@ class jqGridRowHelper {
      * 保存单元格
      */
     saveCell(row,col){
-        console.log("保存单元格-row:"+row+" col:"+col);
+        console.debug("保存单元格-row:"+row+" col:"+col);
         this.table.jqGrid('saveCell', row, col);
     }
 

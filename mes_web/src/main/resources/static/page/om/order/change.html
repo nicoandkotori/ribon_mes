@@ -50,11 +50,13 @@
     <script src="entity/OmMesProduct.js"></script>
     <script src="entity/OmMesPart.js"></script>
     <script src="entity/OmMesMaterial.js"></script>
-    <script src="Function.js"></script>
-    <script src="JqGridRowHelper.js"></script>
+    <script src="util/JqGridRowHelper.js"></script>
     <script src="dto/U8QueryDTO.js"></script>
     <script src="dto/pageFindDTO.js"></script>
     <script src="ColModelConfig.js"></script>
+    <script src="./function/CallBack.js"></script>
+    <script src="./function/UpdateField.js"></script>
+    <script src="./function/Other.js"></script>
     <style>
         .layui-select, .layui-input {
             height: 24px;
@@ -171,7 +173,7 @@
 <div class="weadmin-body-table">
     <button type="button" class="layui-btn layui-btn-sm" onclick="btnProductRowEvent()">增行</button>
     <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="deleteProductRow()">删行</button>
-    <button type="button" class="layui-btn layui-btn-sm" onclick="addPart()">添加部件</button>
+    <button type="button" class="layui-btn layui-btn-sm" onclick="addPart()">编辑部件</button>
     <table id="jqGrid"></table>
     <button type="button" class="layui-btn layui-btn-sm" onclick="btnAddMaterialRowEvent()">增行</button>
     <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="btnDeleteMaterialRow()">删行</button>
@@ -256,7 +258,7 @@
          * 审核
          */
         form.on('submit(audit)', function (data) {
-            consoleLog("审核");
+            console.debug("审核");
             if (CurRow != "" && CurRow != undefined) {
                 $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
             }
@@ -283,7 +285,7 @@
             }, function (data) {
                 if (data.success == true || data.success == "true") {
                     layer.msg("审核成功", {icon: 6});
-                    consoleLog("审核成功");
+                    console.debug("审核成功");
                     ableToAudit = false;
                     reloadAllData();
                 } else {
@@ -296,7 +298,7 @@
          * 变更
          */
         form.on('submit(change)', function (data) {
-            consoleLog("变更");
+            console.debug("变更");
             if (CurRow != "" && CurRow != undefined) {
                 $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
             }
@@ -315,7 +317,7 @@
             },function (data) {
                 if (data.success == true || data.success == "true") {
                     layer.msg("变更成功", {icon: 6});
-                    consoleLog("变更成功");
+                    console.debug("变更成功");
                 } else {
                     layer.msg("保存失败!" + data.msg, {icon: 6});
                 }
@@ -386,7 +388,7 @@
         sendGetReq(URL_GET_ALL_MAIN_DATA_BY_ID, {id: id}, function (result) {
             let data = result.data;
             if (data != null){
-                consoleLog("初始化数据-主表赋值");
+                console.debug("初始化数据-主表赋值");
                 $("form").setForm(data.main);
                 layui.form.render();
                 let productList = data.productList;
@@ -417,7 +419,7 @@
                 materialList.forEach(function (material) {
                     addMaterialRow(material);
                 })
-                consoleLog(data);
+                console.debug(data);
             }
         });
 
@@ -519,7 +521,7 @@
                 var subgrid_table_id, pager_id;
 
                 subgrid_table_id = subgrid_id + "_t";
-                consoleLog("加载部件表："+subgrid_table_id);
+                console.debug("加载部件表："+subgrid_table_id);
                 pager_id = "p_" + subgrid_table_id;
                 $("#" + subgrid_id).html("<table id='" + subgrid_table_id + "' class='scroll'></table><div id='" + pager_id + "' class='scroll'></div>");
                 var rwdata = $("#jqGrid").getRowData(row_id);
@@ -561,7 +563,7 @@
 
                 if (partDataArray != null && partDataArray != undefined){
                     //不打印这行，for里的length读不出数据
-                    consoleLog(partDataArray.length);
+                    console.debug(partDataArray.length);
                     for ( var i = 0; i < partDataArray.length; i++){
                         $("#"+subgrid_table_id).jqGrid('addRowData', i + 1,partDataArray[i]);
                     }
@@ -725,7 +727,7 @@
      * 产品表增行
      */
     function addProductRow(rowData){
-        consoleLog("产品表增行");
+        console.debug("产品表增行");
         let productObj = new omMesProduct();
         productObj.setEntity(rowData);
         productObj.setTaxRate(DEFAULT_TAX_TATE);
@@ -739,7 +741,7 @@
      * 点击材料表增行按钮事件
      */
     function btnMaterialRowEvent(){
-        consoleLog("点击材料表增行按钮事件");
+        console.debug("点击材料表增行按钮事件");
         productHelper.saveCell(CurRow,CurCol);
         //获取产品表选中行数据
         let productSelectedRowData = productHelper.getSelectedRowData();
@@ -897,17 +899,17 @@
         productHelper.setSelectedRowData(product)
         //部件表赋值
         let partTableId = getPartTableId(productHelper.getSelectedRowId());
-        consoleLog("增加部件表-部件赋值-部件表id："+partTableId);
+        console.debug("增加部件表-部件赋值-部件表id："+partTableId);
         partDataMap.set(partTableId,partArray);
         array = partArray;
         let productObj = new omMesProduct();
         productObj.setEntity(product);
         //合计该产品下所有材料的材料单价和单件材料费
         sumMaterialPriceToProduct(productObj.getRecordId())
-        consoleLog("增加部件表-带回材料表数据↓");
-        consoleLog(materialArray);
+        console.debug("增加部件表-带回材料表数据↓");
+        console.debug(materialArray);
         //先删除材料表中partRowId已存在的记录
-        consoleLog("增加部件表-删除材料表中partRowId已存在的记录");
+        console.debug("增加部件表-删除材料表中partRowId已存在的记录");
         materialArray.forEach(function (newMaterial){
             let allOldMaterial = materialHelper.getAllRowData();
             allOldMaterial.forEach(function (oldMaterial) {
@@ -960,7 +962,7 @@
      * 点击删行按钮材料表删行
      */
     function btnDeleteMaterialRow(){
-        consoleLog("材料表删行");
+        console.debug("材料表删行");
         //保存正在编辑的单元格
         materialHelper.saveCell(CurRow1,CurCol1);
         let selectedRowId = materialHelper.getSelectedRowId();
@@ -980,7 +982,7 @@
      * 重新加载所有数据
      */
     function reloadAllData(){
-        consoleLog("重新加载所有数据");
+        console.debug("重新加载所有数据");
         productMaxId = 1;
         materialMaxId = 1;
         partMaxId = 1;

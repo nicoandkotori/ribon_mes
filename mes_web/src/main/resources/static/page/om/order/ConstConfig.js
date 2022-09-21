@@ -8,8 +8,6 @@ const MATERIAL_TABLE_ID = "jqGridDetail";
 const SELECTOR_MATERIAL_TABLE_ID = "#"+MATERIAL_TABLE_ID;
 //行标识隐藏flag
 const INDEX_HIDDEN = true;
-//调试模式，关闭和打开控制台输出
-const DEBUG_MODEL = false;
 //默认税率
 const DEFAULT_TAX_TATE = 13.00;
 
@@ -39,6 +37,8 @@ const URL_AUDIT = URL_BASE_ORDER+"audit"
 const URL_NOT_AUDIT = URL_BASE_ORDER+"uncheck"
 //变更
 const URL_CHANGE = URL_BASE_ORDER+"change"
+//导出excel
+const URL_EXPORT = URL_BASE_ORDER + "export"
 
 
 /*
