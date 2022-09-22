@@ -346,7 +346,7 @@ public class OmOrderController extends BasicController {
             DbContextHolder.setDbType(DBTypeEnum.db2);
             OmMoMain u8Main= u8MainService.getById(main.getU8Id());
             if (u8Main != null){
-                if (!u8Main.getCstate().toString().equals("1")){
+                if (!u8Main.getCstate().toString().equals("0")){
                     throw new Exception("已审核，不允许编辑");
                 }
             }

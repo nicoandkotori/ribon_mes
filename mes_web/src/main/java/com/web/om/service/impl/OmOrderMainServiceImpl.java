@@ -1047,15 +1047,40 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
                         }
                     }
                 }
-
-
+                //批量删除材料
+                LambdaQueryWrapper<OmMoMaterials> materialWrapper = new LambdaQueryWrapper<>();
+                materialWrapper.eq(OmMoMaterials::getMoid,id);
+                List<OmMoMaterials> u8MaterialList = omMoMaterialsMapper.selectList(materialWrapper);
+                if (u8MaterialList.size() == 0){
+                    throw new Exception("无过审的材料记录！");
+                }
+                List<Integer> deleteU8MaterialIdList = new ArrayList<>();
+                u8MaterialList.forEach(material->{
+                    deleteU8MaterialIdList.add(material.getMomaterialsid());
+                });
+                if (omMoMaterialsMapper.deleteBatchIds(deleteU8MaterialIdList) <= 0){
+                    throw new Exception("删除过审材料记录失败！");
+                };
+                //批量删除产品
+                LambdaQueryWrapper<OmMoDetails> detailWrapper = new LambdaQueryWrapper<>();
+                detailWrapper.eq(OmMoDetails::getMoid,id);
+                List<OmMoDetails> u8ProductList = omMoDetailsMapper.selectList(detailWrapper);
+                if (u8ProductList.size() == 0){
+                    throw new Exception("无过审的产品数据！");
+                }
+                List<Integer> deleteU8ProductIdList = new ArrayList<>();
+                u8ProductList.forEach(product->{
+                    deleteU8ProductIdList.add(product.getModetailsid());
+                });
+                if (omMoDetailsMapper.deleteBatchIds(deleteU8ProductIdList) <=0){
+                    throw new Exception("删除过审产品记录失败！");
+                };
+                //删除主表
                 OmMoMain m = new OmMoMain();
                 m.setMoid(id);
-                m.setCstate(Byte.valueOf("0"));
-                m.setCverifier(null);
-                m.setDverifytime(null);
-                m.setDverifydate(null);
-                int n = omMoMainMapper.updateUnCheck(m);
+                if (omMoMainMapper.deleteById(m.getMoid()) <= 0){
+                    throw new Exception("弃审失败！");
+                };
                 OmOrderMain mesMain = new OmOrderMain();
                 if (StringUtils.isNotBlank(mesId)) {
                     mesMain.setId(mesId);
@@ -1066,11 +1091,6 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
                      * mijiahao TODO: 还要删除
                      */
                     omOrderMainMapper.updateWithDbName(mesMain, ParamUtil.getParam("localDatabase").toString());
-                }
-                if (n <= 0) {
-                    result.setSuccess(false);
-                    result.setMsg("审核失败！");
-                    return result;
                 }
             } else {
                 result.setSuccess(false);

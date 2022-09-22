@@ -696,7 +696,7 @@
                 success: function (text) {
                     var data = text;
                     if (data.success == true || data.success == "true") {
-                        layer.alert("弃审成功!");
+                        layer.msg("弃审成功!");
                         loadAllDataByMainId();
                     }
                     else {
