@@ -158,7 +158,7 @@ public class OmOrderController extends BasicController {
             e.printStackTrace();
             return TableResult.error(e.getMessage());
         }
-        
+
     }
 
     /**
@@ -233,7 +233,7 @@ public class OmOrderController extends BasicController {
         }
 
     }
-    
+
     /**
      * 分页等于查询材料
      *
@@ -404,7 +404,7 @@ public class OmOrderController extends BasicController {
             Integer u8Id = main.getU8Id();
             if (u8Id != null) {
                 if (u8Id >= 0 ){
-                    throw new Exception("已审核，不允许审核");
+                    return ResponseResult.error("已审核，不允许审核");
                 }
             }
 
@@ -449,10 +449,10 @@ public class OmOrderController extends BasicController {
             List<OmOrderDetail> productList = JSON.parseArray(productStr,OmOrderDetail.class);
             List<OmOrderMaterial> materialList = JSON.parseArray(materialStr,OmOrderMaterial.class);
             if (productList.size() == 0){
-                throw new Exception("产品列表不能为空");
+                return ResponseResult.error("产品列表不能为空");
             }
             if (materialList.size() == 0) {
-                throw new Exception("材料列表不能为空");
+                return ResponseResult.error("材料列表不能为空");
             }
             return mesMainService.change(main,productList,materialList);
         } catch (Exception e){

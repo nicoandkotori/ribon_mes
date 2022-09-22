@@ -880,7 +880,7 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
             ResponseResult result = new ResponseResult();
             Integer u8Id = main.getU8Id();
             if (u8Id == null || u8Id <= 0) {
-                throw new Exception("请先审核！");
+                return ResponseResult.error("请先审核！");
             }
             //先校验是否有产品入库
             LambdaQueryWrapper<OmMoDetails> selectD = new LambdaQueryWrapper<>();
