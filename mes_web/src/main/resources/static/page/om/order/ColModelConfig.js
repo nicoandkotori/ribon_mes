@@ -16,7 +16,7 @@ const PRODUCT_COL_MODEL = [
     {label: "单件价格", name: PRICE, width: 60, sortable: false, editable: true, align: "center"},
     {label: "合计", name: AMOUNT, width: 70, sortable: false, editable: false, align: "center"},
     {label: "税率", name: TAX_RATE, width: 70, sortable: false, editable: true, align: "center"},
-    {label: "不含税单价", name: WORK_PRICE_WITHOUT_TAX,hidden: true ,width: 70, sortable: false, editable: true, align: "center"},
+    {label: "不含税单价", name: WORK_PRICE_WITHOUT_TAX,hidden: false ,width: 70, sortable: false, editable: false, align: "center"},
     {name: ROW_ID, hidden: true},
     {name: MAIN_ID, hidden: true},
     {

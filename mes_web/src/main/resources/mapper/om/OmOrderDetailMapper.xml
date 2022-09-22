@@ -115,6 +115,9 @@
       <if test="product.recordId != null and product.recordId != ''">
         record_id = #{product.recordId},
       </if>
+      <if test="product.workPriceWithoutTax != null and product.workPriceWithoutTax != ''">
+        workPriceWithoutTax = #{workPriceWithoutTax},
+      </if>
     </set>
     where id = #{product.id}
   </update>

@@ -171,12 +171,8 @@
     </form>
 </div>
 <div class="weadmin-body-table">
-    <button type="button" class="layui-btn layui-btn-sm" onclick="btnProductRowEvent()">增行</button>
-    <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="deleteProductRow()">删行</button>
-    <button type="button" class="layui-btn layui-btn-sm" onclick="addPart()">编辑部件</button>
+
     <table id="jqGrid"></table>
-    <button type="button" class="layui-btn layui-btn-sm" onclick="btnAddMaterialRowEvent()">增行</button>
-    <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="btnDeleteMaterialRow()">删行</button>
     <table id="jqGridDetail"></table>
 
 </div>
@@ -338,45 +334,6 @@
         });
 
 
-        //监听提交
-        form.on('submit(save)', function (data) {
-
-            if (CurRow != "" && CurRow != undefined) {
-                $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
-            }
-            if (CurRow1 != "" && CurRow1 != undefined) {
-                $("#jqGridDetail").jqGrid('saveCell', CurRow1, CurCol1);
-            }
-
-            var productData = productHelper.getAllRowData();
-            var productDataStr = JSON.stringify(productData);
-            var materialData = materialHelper.getAllRowData();
-            var materialDataStr = JSON.stringify(materialData);
-            //map转成一维object数组
-            let partDataArray = convertPartDataMapToArray();
-            let partDataStr = JSON.stringify(partDataArray);
-            var flag = true;
-            if (flag) {
-                sendPostReq(URL_UPDATE_MES_MAIN_BY_ID, {
-                    mainStr: JSON.stringify(data.field),
-                    productStr: productDataStr,
-                    partStr: partDataStr,
-                    materialStr: materialDataStr
-                }, function (data) {
-                    if (data.success == true || data.success == "true") {
-                        layer.msg("保存成功", {icon: 6});
-                        ableToAudit = true;
-                        reloadAllData();
-                    } else {
-                        layer.msg("更新失败!" + data.msg, {icon: 6});
-                    }
-
-
-                });
-            }
-
-
-        });
     });
 
 
@@ -711,138 +668,8 @@
 
 
 
-    /*
-     * 点击按钮产品表增行事件
-     */
-    function btnProductRowEvent() {
-        let productObj = new OmMesProduct();
-        productObj.setPlanStartDate(planStartDate);
-        productObj.setPlanEndDate(planEndDate);
-        productObj.setRecordId("r"+productMaxId);
-        productHelper.saveCell(CurRow,CurCol);
-        addProductRow(productObj);
-    }
-
-    /*
-     * 产品表增行
-     */
-    function addProductRow(rowData){
-        console.debug("产品表增行");
-        let productObj = new OmMesProduct();
-        productObj.setEntity(rowData);
-        productObj.setTaxRate(DEFAULT_TAX_TATE);
-        productObj.setRowId(productMaxId);
-        productHelper.addRowData(productMaxId,productObj);
-        productMaxId++;
-    }
 
 
-    /*
-     * 点击材料表增行按钮事件
-     */
-    function btnMaterialRowEvent(){
-        console.debug("点击材料表增行按钮事件");
-        productHelper.saveCell(CurRow,CurCol);
-        //获取产品表选中行数据
-        let productSelectedRowData = productHelper.getSelectedRowData();
-        if (productSelectedRowData === undefined){
-            return;
-        }
-        let materialObj = new OmMesMaterial();
-        materialObj.setEntity(productSelectedRowData);
-        addMaterialRow(materialObj);
-    }
-
-    /*
-     * 材料表增行
-     */
-    function addMaterialRow(rowData){
-        rowData.rowId = materialMaxId;
-        materialHelper.addRowData(materialMaxId,rowData);
-        materialMaxId++;
-    }
-
-
-    //产品编码
-    function choice(rowid) {
-        if (rowid != null && rowid != '') {
-            WeAdminShow('选择产品', '/components/choiceinventory.html?');
-        } else {
-            layer.alert("请先选择行再操作！");
-        }
-    }
-
-    /*
-   * 将partDataMap转换成array
-   */
-    function convertPartDataMapToArray(){
-        let partDataArray = [];
-        for ([key,value] of partDataMap){
-            let array = value;
-            array.forEach(function (row){
-                partDataArray.push(row);
-            })
-        }
-        return partDataArray;
-    }
-
-    /*
-     * 选择产品信息回调函数
-     */
-    function chooseInventoryCallBack(u8Data){
-        //根据选择物料类型来为产品表或材料表赋值，不算优雅的设计，但受限于框架没有更好的实现方式
-        switch (chooseInvType) {
-            case 'product':
-                productHelper.saveCell(CurRow,CurCol);
-                materialHelper.saveCell(CurRow1,CurCol1);
-                let mesProduct = new OmMesProduct();
-                mesProduct.setEntity(productHelper.getSelectedRowData());
-                //获取产品表选中行数据
-                mesProduct.setDataFromU8Data(u8Data);
-                //设置产品表当前行数据
-                productHelper.setSelectedRowData(mesProduct);
-                //同步设置材料表相关联的行数据
-                let selectedProductRowData = productHelper.getSelectedRowData();
-                let partIdArray = materialHelper.getAllRowsId();
-                partIdArray.forEach(function (id) {
-                    let rowData = materialHelper.getRowDataById(id);
-                    if (rowData.recordId === selectedProductRowData.recordId){
-                        materialHelper.setRowDataById(id,mesProduct);
-                    }
-                })
-                break;
-            case 'material':
-                materialHelper.saveCell(CurRow1,CurCol1);
-                let selectedMaterialRow = materialHelper.getSelectedRowData();
-                let materialObj = new OmMesMaterial();
-                materialObj.setEntity(selectedMaterialRow);
-                var iprice=0;
-                $.ajax({
-                    type: "post",
-                    async: false,
-                    dataType: "json",
-                    url: "/basicinfo/inventory/getprice",
-                    data: {cinvcode:u8Data.cinvcode},
-                    success: function (data) {
-                        iprice=parseFloat(data- 0).toFixed(2);
-                        u8Data.cdefine26 = iprice;
-                        //转换u8字段
-                        materialObj.setMaterialInfoFromU8Data(u8Data);
-                        //选中记录赋值
-                        materialHelper.setSelectedRowData(materialObj);
-                        sumMaterialPriceToProduct(materialObj.getRecordId())
-
-                    },
-
-                });
-
-                break;
-            default:
-                break
-        }
-
-
-    }
 
     /*
      * 设置行数据
@@ -851,130 +678,7 @@
         $("#"+tableId).setRowData(rowId,rowData);
     }
 
-    /*
-     * 添加部件点击事件
-     */
-    function addPart(){
-        productHelper.saveCell(CurRow,CurCol);
-        let id = productHelper.getSelectedRowId();
-        if (id === undefined){
-            return;
-        }
-        //产品信息
-        let productData = productHelper.getSelectedRowData();
-        //当前产品的部件信息
-        let partList = partDataMap.get(getPartTableId(id));
-        //当前产品部件的材料信息
-        let materialList = [];
-        if (partList != null){
-            partList.forEach(function (part) {
-                let partRowId = part.partRowId;
-                let allMaterial = materialHelper.getAllRowData();
-                allMaterial.forEach(function (material) {
-                    if (partRowId === material.partRowId){
-                        materialList.push(material);
-                    }
-                })
-            })
-        }
 
-        let param = {
-            productData:productData,
-            partList:partList,
-            materialList:materialList
-        }
-        addPartParams = param;
-        WeAdminShow('添加部件','./addpart.html');
-    }
-
-    /*
-     * 增加部件表回调函数
-     * @param product,产品表记录信息
-     * @param partArray,部件记录数组
-     * @param materialArray,材料记录数组
-     * @param otherParams,其它参数
-     */
-    function addPartCallBack(product,partArray,materialArray,otherParams){
-        //产品表赋值
-        productHelper.setSelectedRowData(product)
-        //部件表赋值
-        let partTableId = getPartTableId(productHelper.getSelectedRowId());
-        console.debug("增加部件表-部件赋值-部件表id："+partTableId);
-        partDataMap.set(partTableId,partArray);
-        array = partArray;
-        let productObj = new OmMesProduct();
-        productObj.setEntity(product);
-        //合计该产品下所有材料的材料单价和单件材料费
-        sumMaterialPriceToProduct(productObj.getRecordId())
-        console.debug("增加部件表-带回材料表数据↓");
-        console.debug(materialArray);
-        //先删除材料表中partRowId已存在的记录
-        console.debug("增加部件表-删除材料表中partRowId已存在的记录");
-        materialArray.forEach(function (newMaterial){
-            let allOldMaterial = materialHelper.getAllRowData();
-            allOldMaterial.forEach(function (oldMaterial) {
-                if (newMaterial.partRowId === oldMaterial.partRowId){
-                    materialHelper.deleteRowById(oldMaterial.rowId)
-                }
-            })
-        })
-        //再增行
-        materialArray.forEach(function (material) {
-            addMaterialRow(material);
-        })
-    }
-
-    /*
-     * 获取部件表ID
-     */
-    function getPartTableId(rowId){
-        return "jqGrid_"+rowId+"_t";
-    }
-
-
-    /*
-     * 产品表删行
-     */
-    function deleteProductRow(){
-        //保存正在编辑的单元格
-        productHelper.saveCell(CurRow,CurRow);
-        let selectedProductData = productHelper.getSelectedRowData();
-        if (selectedProductData === undefined){
-            return;
-        }
-        let ableToDelete = true;
-        let dataArray = materialHelper.getAllRowData();
-        dataArray.forEach(function (material) {
-            if (material.recordId === selectedProductData.recordId){
-                layer.alert("请先删除该产品下的材料表记录");
-                ableToDelete = false;
-                return;
-            }
-        })
-        if (ableToDelete){
-            productHelper.deleteSelectedRow();
-            productMaxId--;
-        }
-
-    }
-
-    /*
-     * 点击删行按钮材料表删行
-     */
-    function btnDeleteMaterialRow(){
-        console.debug("材料表删行");
-        //保存正在编辑的单元格
-        materialHelper.saveCell(CurRow1,CurCol1);
-        let selectedRowId = materialHelper.getSelectedRowId();
-        if (selectedRowId === undefined){
-            return;
-        }
-        let selectedRowData = materialHelper.getRowDataById(selectedRowId);
-        materialHelper.deleteSelectedRow();
-        materialMaxId--;
-        //循环子表合计材料单价和单件材料费
-        sumMaterialPriceToProduct(selectedRowData.recordId);
-    }
 
 
 
@@ -1001,39 +705,7 @@
         initData();
     }
 
-    /*
-     * 弃审
-     */
-    function btnNotAudit() {
-        var u8Id=$("#u8Id").val();
-        let mesId = $('#id').val();
-        if(u8Id!=""&&u8Id!=null)
-        {
-            $.ajax({
-                type: "post",
-                url: "/om/metalworkcommittee/uncheck",
-                data: { id: u8Id,mesId:mesId},
-                success: function (text) {
-                    var data = text;
-                    if (data.success == true || data.success == "true") {
-                        layer.alert("弃审成功!");
-                        reloadAllData();
-                    }
-                    else {
-                        layer.alert(data.msg);
-                    }
 
-                },
-                error: function ()
-                { }
-            });
-        }
-        else
-        {
-            layer.alert("请先保存!");
-        }
-
-    }
 
 
 

@@ -37,6 +37,8 @@ public class OmOrderDetail extends BaseEntity {
 
     private BigDecimal materialPrice;
 
+    private BigDecimal workPriceWithoutTax;
+
     private BigDecimal materialAmount;
 
     private BigDecimal workPrice;

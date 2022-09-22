@@ -1,5 +1,5 @@
 /*
- * 材料表entity
+ * 材料表entity,新增字段需要constructor,getter,setter,setEntity
  * @author mijiahao
  */
 class OmMesMaterial {

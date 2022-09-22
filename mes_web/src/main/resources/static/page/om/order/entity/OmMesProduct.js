@@ -1,5 +1,5 @@
 /*
- * mes产品表类
+ * mes产品表类,新增字段需要修改constructor,getter,setter,setEntity
  * @author mijiahao
  */
 class OmMesProduct {
@@ -35,6 +35,8 @@ class OmMesProduct {
         //
         this.amount = "";
         //
+        this.workPriceWithoutTax = "";
+        //
         this.planStartDate = "";
         //
         this.planEndDate = "";
@@ -48,6 +50,13 @@ class OmMesProduct {
     }
 
 
+    setWorkPriceWithoutTax(value){
+        this.workPriceWithoutTax = value;
+    }
+
+    getWorkPriceWithoutTax(){
+        return this.workPriceWithoutTax;
+    }
 
     setRowId(value){
         this.rowId = value;
@@ -269,6 +278,8 @@ class OmMesProduct {
         this.setPlanStartDate(data.planStartDate);
         //计划完工日期
         this.setPlanEndDate(data.planEndDate);
+        //不含税单价
+        this.setWorkPriceWithoutTax(data.workPriceWithoutTax);
         this.setU8MoDetailId(data.u8MoDetailId);
         this.setRowNo(data.rowNo);
     }

@@ -142,4 +142,17 @@ public class DateUtil {
         calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) + afterDay);
         return calendar.getTime();
     }
+
+
+    /**
+     * 将日期转换为年月日格式，返回String
+     *
+     * @param date 日期
+     * @return {@link String}
+     */
+    public static String getYyyyMmDdStrDate(Date date){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String dateString = format.format(date);
+        return dateString;
+    }
 }

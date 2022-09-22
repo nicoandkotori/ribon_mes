@@ -1,5 +1,6 @@
 /*
- * 主表entity
+ * 主表entity，新增字段需要修改constructor,getter,setter,setEntity
+ * @author mijiahao
  */
 class OmMesMain {
     constructor(){

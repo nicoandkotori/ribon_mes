@@ -110,6 +110,9 @@ public class OmProductVM {
         setCinvname(product.getProductInvName());
         setCinvstd(product.getProductInvStd());
         setCcomunitname(product.getProductInvUnit());
+        if (product.getProductQty() == null){
+            throw new RuntimeException("产品数量不能为空！");
+        }
         setIquantity(product.getProductQty());
         setCdefine26(product.getMaterialPrice());
         setCdefine27(product.getMaterialAmount());

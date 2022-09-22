@@ -94,4 +94,6 @@ public class OmOrderMain extends BaseEntity {
     public void setDeleteDate(Date deleteDate) {
         this.deleteDate = deleteDate;
     }
+
+
 }

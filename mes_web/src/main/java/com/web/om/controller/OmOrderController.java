@@ -11,15 +11,18 @@ import com.web.basicinfo.service.IVendorService;
 import com.web.common.controller.BasicController;
 import com.web.om.dto.*;
 import com.web.om.entity.*;
+import com.web.om.mapper.OmMoDetailsMapper;
 import com.web.om.mapper.OmMoMainMapper;
 import com.web.om.service.*;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
+import java.math.BigDecimal;
 import java.util.*;
 
 
@@ -51,6 +54,8 @@ public class OmOrderController extends BasicController {
     @Autowired
     private OmMoMainMapper u8MainMapper;
 
+    @Autowired
+    private OmMoDetailsMapper u8ProductMapper;
 
     /**
      * 查询最大的单据号
@@ -337,6 +342,16 @@ public class OmOrderController extends BasicController {
     public ResponseResult update(String mainStr,String productStr,String partStr,String materialStr){
         try {
             OmOrderMain main = JSON.parseObject(mainStr, OmOrderMain.class);
+            //已审核订单不允许编辑
+            DbContextHolder.setDbType(DBTypeEnum.db2);
+            OmMoMain u8Main= u8MainService.getById(main.getU8Id());
+            if (u8Main != null){
+                if (!u8Main.getCstate().toString().equals("1")){
+                    throw new Exception("已审核，不允许编辑");
+                }
+            }
+
+            DbContextHolder.setDbType(DBTypeEnum.db1);
             List<OmOrderDetail> productList = JSON.parseArray(productStr,OmOrderDetail.class);
             List<OmOrderPart> partList = null;
             if (partStr != null){
@@ -386,14 +401,15 @@ public class OmOrderController extends BasicController {
             ResponseResult result = null;
             DbContextHolder.setDbType(DBTypeEnum.db2);
             OmOrderMain main = JSON.parseObject(mainStr, OmOrderMain.class);
+            Integer u8Id = main.getU8Id();
+            if (u8Id != null) {
+                if (u8Id >= 0 ){
+                    throw new Exception("已审核，不允许审核");
+                }
+            }
+
             List<OmOrderDetail> productList = JSON.parseArray(productStr,OmOrderDetail.class);
             List<OmOrderMaterial> materialList = JSON.parseArray(materialStr,OmOrderMaterial.class);
-            if ("已审核".equals(main.getStatusId())) {
-                return ResponseResult.error("已审核，请勿重复审核");
-            }
-            if (StringUtils.isBlank(main.getU8Id())){
-
-            }
             //主表转换
             OmMoMain u8Main = new OmMoMain();
             u8Main.setDataFromMesMain(main);
@@ -432,6 +448,12 @@ public class OmOrderController extends BasicController {
             OmOrderMain main = JSON.parseObject(mainStr, OmOrderMain.class);
             List<OmOrderDetail> productList = JSON.parseArray(productStr,OmOrderDetail.class);
             List<OmOrderMaterial> materialList = JSON.parseArray(materialStr,OmOrderMaterial.class);
+            if (productList.size() == 0){
+                throw new Exception("产品列表不能为空");
+            }
+            if (materialList.size() == 0) {
+                throw new Exception("材料列表不能为空");
+            }
             return mesMainService.change(main,productList,materialList);
         } catch (Exception e){
             e.printStackTrace();
@@ -594,7 +616,7 @@ public class OmOrderController extends BasicController {
                 colId++;
                 SetValue(rowId, colId, sheet, row, styletxtleft, mesMain.getVouchCode());
                 colId++;
-                SetValue(rowId, colId, sheet, row, styletxtleft, mesMain.getVouchDate());
+                SetValue(rowId, colId, sheet, row, styletxtleft, DateUtil.getYyyyMmDdStrDate(mesMain.getVouchDate()));
                 colId++;
                 SetValue(rowId, colId, sheet, row, styletxtleft, mesMain.getVenName());
                 colId++;
@@ -609,24 +631,35 @@ public class OmOrderController extends BasicController {
                 SetValue(rowId, colId, sheet, row, styletxtleft, product.getProductQty());
                 colId++;
                 //原币单价-----
-                SetValue(rowId, colId, sheet, row, styletxtleft, "原币单价");
+                SetValue(rowId, colId, sheet, row, styletxtleft, product.getWorkPriceWithoutTax());
                 colId++;
                 SetValue(rowId, colId, sheet, row, styletxtleft, product.getAmount());
                 colId++;
-                SetValue(rowId, colId, sheet, row, styletxtleft, product.getPlanStartDate());
+                SetValue(rowId, colId, sheet, row, styletxtleft, DateUtil.getYyyyMmDdStrDate(product.getPlanStartDate()));
                 colId++;
-                SetValue(rowId, colId, sheet, row, styletxtleft, product.getPlanEndDate());
+                SetValue(rowId, colId, sheet, row, styletxtleft, DateUtil.getYyyyMmDdStrDate(product.getPlanEndDate()));
                 colId++;
                 SetValue(rowId, colId, sheet, row, styletxtleft, mesMain.getContractSale());
                 colId++;
+                BigDecimal inputNum = new BigDecimal(0);
+                String inputStatus = "未入库";
+                LambdaQueryWrapper<OmMoDetails> selectD = new LambdaQueryWrapper<>();
+                selectD.eq(OmMoDetails::getModetailsid,product.getU8MoDetailId());
+                DbContextHolder.setDbType(DBTypeEnum.db2);
+                List<OmMoDetails> u8ProductList = u8ProductMapper.selectList(selectD);
+                if (u8ProductList.size() != 0){
+                    OmMoDetails u8Product = u8ProductList.get(0);
+                    inputNum = u8Product.getIreceivedqty();
+                    inputStatus = "已入库";
+                }
                 //累计入库数-----
-                SetValue(rowId, colId, sheet, row, styletxtleft, "累计入库数");
+                SetValue(rowId, colId, sheet, row, styletxtleft, inputNum.stripTrailingZeros().toPlainString());
                 colId++;
                 //单据状态-----
-                SetValue(rowId, colId, sheet, row, styletxtleft, "单据状态");
+                SetValue(rowId, colId, sheet, row, styletxtleft, mesMain.getStatusId());
                 colId++;
                 //入库状态
-                SetValue(rowId, colId, sheet, row, styletxtleft, "入库状态");
+                SetValue(rowId, colId, sheet, row, styletxtleft, inputStatus);
                 colId++;
                 rowId++;
             }

@@ -18,6 +18,7 @@ public class OmMoDetails {
     @TableId(value = "MoDetailsID")
     private Integer modetailsid;
 
+    //订单主表ID
     private Integer moid;
 
     private String cinvcode;

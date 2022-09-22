@@ -1,5 +1,6 @@
 /*
- * mes部件表类
+ * mes部件表类,新增字段需要修改constructor,getter,setter,setEntity
+ * @author mijiahao
  */
 class OmMesPart {
 

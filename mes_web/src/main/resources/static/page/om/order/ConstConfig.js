@@ -12,13 +12,15 @@ const INDEX_HIDDEN = true;
 const DEFAULT_TAX_TATE = 13.00;
 
 const URL_BASE_ORDER = "/om/order/";
-const URL_BASE_COMMITTEE = "/om/order/metalworkcommittee";
+const URL_BASE_COMMITTEE = "/om/metalworkcommittee/";
+const URL_BASE_VENDOR = "/basicinfo/vendor/"
+const URL_GET_VENDOR_BY_EQUAL_FIND = URL_BASE_VENDOR+"equal_find";
 //分页查询mes委外订单url
 const URL_GET_MES_ORDER = URL_BASE_ORDER+"getmainlistbypage";
 //分页查询mes委外订单子表url
 const URL_GET_MES_DETAIL = URL_BASE_ORDER+"getdetaillist";
 //通过id查询mes委外订单表
-const URL_GET_MES_ORDER_BY_ID = URL_BASE_ORDER+"get_main_by_id"
+const URL_GET_MES_MAIN_BY_ID = URL_BASE_ORDER+"get_main_by_id"
 //通过mainId获取产品表
 const URL_GET_MES_PRODUCT_BY_MAIN_ID = URL_BASE_ORDER+"get_mes_product_by_main_id";
 //部件表等于查询
