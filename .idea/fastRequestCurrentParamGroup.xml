@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="fastRequestCurrentParamGroup">
+    <option name="className" value="com.web.om.controller.OmOrderController" />
+    <option name="method" value="deleteMainById" />
+    <option name="methodDescription" value="通过id作废委外订单" />
+    <option name="module" value="mes_web" />
+    <option name="originUrl" value="/om/order/delete_main_by_id" />
+    <option name="requestParamMap">
+      <map>
+        <entry key="id">
+          <value>
+            <Object />
+          </value>
+        </entry>
+        <entry key="mesId">
+          <value>
+            <Object />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="tempId" value="id_com.web.om.controller.OmOrderController.deleteMainById" />
+    <option name="url" value="/om/order/uncheck" />
+  </component>
+</project>
