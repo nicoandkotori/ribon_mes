@@ -6,9 +6,290 @@
         <option name="childList">
           <list>
             <CollectionDetail>
+              <option name="childList">
+                <list>
+                  <CollectionDetail>
+                    <option name="childList">
+                      <list>
+                        <CollectionDetail>
+                          <option name="domain" value="http://localhost:8036" />
+                          <option name="enableEnv" value="dev" />
+                          <option name="enableProject" value="ribon_mes" />
+                          <option name="id" value="id_com.web.om.controller.MetalWorkCommitteeController.getMaxCode" />
+                          <option name="name" value="查询最大的单据号" />
+                          <option name="paramGroup">
+                            <ParamGroupCollection>
+                              <option name="className" value="com.web.om.controller.MetalWorkCommitteeController" />
+                              <option name="method" value="getMaxCode" />
+                              <option name="methodDescription" value="查询最大的单据号" />
+                              <option name="multipartKeyValueListJson" value="[]" />
+                              <option name="originUrl" value="/om/metalworkcommittee/getmaxcode" />
+                              <option name="pathParamsKeyValueListJson" value="[]" />
+                              <option name="preScript" value="" />
+                              <option name="url" value="/om/metalworkcommittee/getmaxcode" />
+                              <option name="urlEncodedKeyValueListJson" value="[]" />
+                              <option name="urlParamsKeyValueListJson" value="[]" />
+                            </ParamGroupCollection>
+                          </option>
+                          <option name="tempId" value="id_com.web.om.controller.MetalWorkCommitteeController.getMaxCode" />
+                          <option name="type" value="2" />
+                        </CollectionDetail>
+                      </list>
+                    </option>
+                    <option name="id" value="20220924235415703" />
+                    <option name="name" value="MetalWorkCommitteeController" />
+                    <option name="type" value="3" />
+                  </CollectionDetail>
+                  <CollectionDetail>
+                    <option name="childList">
+                      <list>
+                        <CollectionDetail>
+                          <option name="apiParamGroup">
+                            <map>
+                              <entry key="委外">
+                                <value>
+                                  <ParamGroupCollection>
+                                    <option name="className" value="com.web.system.controller.IndexController" />
+                                    <option name="method" value="login" />
+                                    <option name="methodDescription" value="New Request" />
+                                    <option name="multipartKeyValueListJson" value="[]" />
+                                    <option name="originUrl" value="/login" />
+                                    <option name="pathParamsKeyValueListJson" value="[]" />
+                                    <option name="preScript" value="" />
+                                    <option name="url" value="/login" />
+                                    <option name="urlEncodedKeyValueListJson" value="[]" />
+                                    <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;username&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;username_4q04q&quot;},{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;password&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;password_9zs4f&quot;}]" />
+                                    <option name="urlParamsKeyValueListText" value="username=username_4q04q&#10;&amp;password=password_9zs4f" />
+                                  </ParamGroupCollection>
+                                </value>
+                              </entry>
+                            </map>
+                          </option>
+                          <option name="domain" value="http://localhost:8036" />
+                          <option name="enableEnv" value="dev" />
+                          <option name="enableProject" value="ribon_mes" />
+                          <option name="id" value="id_com.web.system.controller.IndexController.login" />
+                          <option name="name" value="New Request" />
+                          <option name="paramGroup">
+                            <ParamGroupCollection>
+                              <option name="className" value="com.web.system.controller.IndexController" />
+                              <option name="method" value="login" />
+                              <option name="methodDescription" value="New Request" />
+                              <option name="multipartKeyValueListJson" value="[]" />
+                              <option name="originUrl" value="/login" />
+                              <option name="pathParamsKeyValueListJson" value="[]" />
+                              <option name="preScript" value="" />
+                              <option name="url" value="/login" />
+                              <option name="urlEncodedKeyValueListJson" value="[]" />
+                              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;username&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;username_4q04q&quot;},{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;password&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;password_9zs4f&quot;}]" />
+                              <option name="urlParamsKeyValueListText" value="username=username_4q04q&#10;&amp;password=password_9zs4f" />
+                            </ParamGroupCollection>
+                          </option>
+                          <option name="tempId" value="id_com.web.system.controller.IndexController.login" />
+                          <option name="type" value="2" />
+                        </CollectionDetail>
+                      </list>
+                    </option>
+                    <option name="id" value="20220924224051080" />
+                    <option name="name" value="IndexController" />
+                    <option name="paramGroup">
+                      <ParamGroupCollection>
+                        <option name="methodDescription" value="IndexController" />
+                      </ParamGroupCollection>
+                    </option>
+                    <option name="type" value="3" />
+                  </CollectionDetail>
+                  <CollectionDetail>
+                    <option name="childList">
+                      <list>
+                        <CollectionDetail>
+                          <option name="domain" value="http://localhost:8036" />
+                          <option name="enableEnv" value="dev" />
+                          <option name="enableProject" value="ribon_mes" />
+                          <option name="id" value="id_com.web.om.controller.OmOrderController.unCheck" />
+                          <option name="name" value="弃审" />
+                          <option name="paramGroup">
+                            <ParamGroupCollection>
+                              <option name="className" value="com.web.om.controller.OmOrderController" />
+                              <option name="method" value="unCheck" />
+                              <option name="methodDescription" value="弃审" />
+                              <option name="multipartKeyValueListJson" value="[]" />
+                              <option name="originUrl" value="/om/order/uncheck" />
+                              <option name="pathParamsKeyValueListJson" value="[]" />
+                              <option name="preScript" value="" />
+                              <option name="url" value="/om/order/uncheck" />
+                              <option name="urlEncodedKeyValueListJson" value="[]" />
+                              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot; &quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;id&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;1&quot;},{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;mesId&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;mesId_h8q9j&quot;}]" />
+                              <option name="urlParamsKeyValueListText" value="id=1&#10;&amp;mesId=mesId_h8q9j" />
+                            </ParamGroupCollection>
+                          </option>
+                          <option name="tempId" value="id_com.web.om.controller.OmOrderController.unCheck" />
+                          <option name="type" value="2" />
+                        </CollectionDetail>
+                        <CollectionDetail>
+                          <option name="domain" value="http://localhost:8036" />
+                          <option name="enableEnv" value="dev" />
+                          <option name="enableProject" value="ribon_mes" />
+                          <option name="id" value="id_com.web.om.controller.OmOrderController.audit" />
+                          <option name="name" value="审核数据，写入U8" />
+                          <option name="paramGroup">
+                            <ParamGroupCollection>
+                              <option name="className" value="com.web.om.controller.OmOrderController" />
+                              <option name="method" value="audit" />
+                              <option name="methodDescription" value="审核数据，写入U8" />
+                              <option name="methodType" value="POST" />
+                              <option name="multipartKeyValueListJson" value="[]" />
+                              <option name="originUrl" value="/om/order/audit" />
+                              <option name="pathParamsKeyValueListJson" value="[]" />
+                              <option name="preScript" value="" />
+                              <option name="url" value="/om/order/audit" />
+                              <option name="urlEncodedKeyValueListJson" value="[{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;mainStr&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;mainStr_0g6l9&quot;},{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;productStr&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;productStr_mz1b8&quot;},{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;materialStr&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;materialStr_ww6wr&quot;}]" />
+                              <option name="urlEncodedKeyValueListText" value="mainStr=mainStr_0g6l9&#10;&amp;productStr=productStr_mz1b8&#10;&amp;materialStr=materialStr_ww6wr" />
+                              <option name="urlParamsKeyValueListJson" value="[]" />
+                            </ParamGroupCollection>
+                          </option>
+                          <option name="tempId" value="id_com.web.om.controller.OmOrderController.audit" />
+                          <option name="type" value="2" />
+                        </CollectionDetail>
+                        <CollectionDetail>
+                          <option name="domain" value="http://localhost:8036" />
+                          <option name="enableEnv" value="dev" />
+                          <option name="enableProject" value="ribon_mes" />
+                          <option name="id" value="id_com.web.om.controller.OmOrderController.deleteMainById" />
+                          <option name="name" value="通过id作废委外订单" />
+                          <option name="paramGroup">
+                            <ParamGroupCollection>
+                              <option name="className" value="com.web.om.controller.OmOrderController" />
+                              <option name="method" value="deleteMainById" />
+                              <option name="methodDescription" value="通过id作废委外订单" />
+                              <option name="methodType" value="POST" />
+                              <option name="multipartKeyValueListJson" value="[]" />
+                              <option name="originUrl" value="/om/order/delete_main_by_id" />
+                              <option name="pathParamsKeyValueListJson" value="[]" />
+                              <option name="preScript" value="" />
+                              <option name="url" value="/om/order/delete_main_by_id" />
+                              <option name="urlEncodedKeyValueListJson" value="[{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;id&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;id_agzp9&quot;}]" />
+                              <option name="urlEncodedKeyValueListText" value="id=id_agzp9" />
+                              <option name="urlParamsKeyValueListJson" value="[]" />
+                            </ParamGroupCollection>
+                          </option>
+                          <option name="tempId" value="id_com.web.om.controller.OmOrderController.deleteMainById" />
+                          <option name="type" value="2" />
+                        </CollectionDetail>
+                        <CollectionDetail>
+                          <option name="domain" value="http://localhost:8036" />
+                          <option name="enableEnv" value="dev" />
+                          <option name="enableProject" value="ribon_mes" />
+                          <option name="id" value="id_com.web.om.controller.OmOrderController.getAllMainDataById" />
+                          <option name="name" value="通过id查询一个订单中的所有数据" />
+                          <option name="paramGroup">
+                            <ParamGroupCollection>
+                              <option name="className" value="com.web.om.controller.OmOrderController" />
+                              <option name="method" value="getAllMainDataById" />
+                              <option name="methodDescription" value="通过id查询一个订单中的所有数据" />
+                              <option name="multipartKeyValueListJson" value="[]" />
+                              <option name="originUrl" value="/om/order/get_all_main_data_by_id" />
+                              <option name="pathParamsKeyValueListJson" value="[]" />
+                              <option name="preScript" value="" />
+                              <option name="url" value="/om/order/get_all_main_data_by_id" />
+                              <option name="urlEncodedKeyValueListJson" value="[]" />
+                              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;id&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;id_owr6c&quot;}]" />
+                              <option name="urlParamsKeyValueListText" value="id=id_owr6c" />
+                            </ParamGroupCollection>
+                          </option>
+                          <option name="tempId" value="id_com.web.om.controller.OmOrderController.getAllMainDataById" />
+                          <option name="type" value="2" />
+                        </CollectionDetail>
+                        <CollectionDetail>
+                          <option name="domain" value="http://localhost:8036" />
+                          <option name="enableEnv" value="dev" />
+                          <option name="enableProject" value="ribon_mes" />
+                          <option name="id" value="id_com.web.om.controller.OmOrderController.save" />
+                          <option name="name" value="保存委外订单到mes" />
+                          <option name="paramGroup">
+                            <ParamGroupCollection>
+                              <option name="className" value="com.web.om.controller.OmOrderController" />
+                              <option name="method" value="save" />
+                              <option name="methodDescription" value="保存委外订单到mes" />
+                              <option name="methodType" value="POST" />
+                              <option name="multipartKeyValueListJson" value="[]" />
+                              <option name="originUrl" value="/om/order/save" />
+                              <option name="pathParamsKeyValueListJson" value="[]" />
+                              <option name="preScript" value="" />
+                              <option name="url" value="/om/order/save" />
+                              <option name="urlEncodedKeyValueListJson" value="[{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;mainStr&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;mainStr_kl8hw&quot;},{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;productStr&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;productStr_buxid&quot;},{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;partStr&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;partStr_bqz5q&quot;},{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;materialStr&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;materialStr_x32fg&quot;}]" />
+                              <option name="urlEncodedKeyValueListText" value="mainStr=mainStr_kl8hw&#10;&amp;productStr=productStr_buxid&#10;&amp;partStr=partStr_bqz5q&#10;&amp;materialStr=materialStr_x32fg" />
+                              <option name="urlParamsKeyValueListJson" value="[]" />
+                            </ParamGroupCollection>
+                          </option>
+                          <option name="tempId" value="id_com.web.om.controller.OmOrderController.save" />
+                          <option name="type" value="2" />
+                        </CollectionDetail>
+                        <CollectionDetail>
+                          <option name="domain" value="http://localhost:8036" />
+                          <option name="enableEnv" value="dev" />
+                          <option name="enableProject" value="ribon_mes" />
+                          <option name="id" value="id_com.web.om.controller.OmOrderController.update" />
+                          <option name="name" value="更新mes委外订单" />
+                          <option name="paramGroup">
+                            <ParamGroupCollection>
+                              <option name="className" value="com.web.om.controller.OmOrderController" />
+                              <option name="method" value="update" />
+                              <option name="methodDescription" value="更新mes委外订单" />
+                              <option name="methodType" value="POST" />
+                              <option name="multipartKeyValueListJson" value="[]" />
+                              <option name="originUrl" value="/om/order/update" />
+                              <option name="pathParamsKeyValueListJson" value="[]" />
+                              <option name="preScript" value="" />
+                              <option name="url" value="/om/order/update" />
+                              <option name="urlEncodedKeyValueListJson" value="[{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;mainStr&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;mainStr_jk04l&quot;},{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;productStr&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;productStr_r2x1i&quot;},{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;partStr&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;partStr_yegu4&quot;},{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;materialStr&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;materialStr_0vt02&quot;}]" />
+                              <option name="urlEncodedKeyValueListText" value="mainStr=mainStr_jk04l&#10;&amp;productStr=productStr_r2x1i&#10;&amp;partStr=partStr_yegu4&#10;&amp;materialStr=materialStr_0vt02" />
+                              <option name="urlParamsKeyValueListJson" value="[]" />
+                            </ParamGroupCollection>
+                          </option>
+                          <option name="tempId" value="id_com.web.om.controller.OmOrderController.update" />
+                          <option name="type" value="2" />
+                        </CollectionDetail>
+                      </list>
+                    </option>
+                    <option name="id" value="20220924220405376" />
+                    <option name="name" value="OmOrderController" />
+                    <option name="paramGroup">
+                      <ParamGroupCollection>
+                        <option name="methodDescription" value="OmOrderController" />
+                      </ParamGroupCollection>
+                    </option>
+                    <option name="type" value="3" />
+                  </CollectionDetail>
+                </list>
+              </option>
+              <option name="id" value="20220924220406368" />
+              <option name="name" value="mes_web" />
+              <option name="type" value="4" />
+            </CollectionDetail>
+            <CollectionDetail>
+              <option name="childList">
+                <list>
+                  <CollectionDetail>
+                    <option name="id" value="20220924223849823" />
+                    <option name="name" value="委外" />
+                    <option name="paramGroup">
+                      <ParamGroupCollection>
+                        <option name="methodDescription" value="委外" />
+                      </ParamGroupCollection>
+                    </option>
+                    <option name="type" value="1" />
+                  </CollectionDetail>
+                </list>
+              </option>
               <option name="groupId" value="1" />
               <option name="id" value="1" />
               <option name="name" value="Default Group" />
+              <option name="paramGroup">
+                <ParamGroupCollection>
+                  <option name="methodDescription" value="Default Group" />
+                </ParamGroupCollection>
+              </option>
               <option name="type" value="1" />
             </CollectionDetail>
           </list>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="fastRequestCurrentProjectConfig">
-    <option name="classIconAnimate" value="true" />
     <option name="domain" value="http://localhost:8036" />
     <option name="enableEnv" value="dev" />
     <option name="enableProject" value="ribon_mes" />
