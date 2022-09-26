@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.common.util.*;
-import com.modules.data.mybatis.DBTypeEnum;
-import com.modules.data.mybatis.DbContextHolder;
 import com.modules.security.util.SecurityUtil;
 import com.web.basicinfo.entity.ComputationUnit;
 import com.web.basicinfo.entity.Inventory;
@@ -15,6 +13,9 @@ import com.web.basicinfo.mapper.ComputationUnitMapper;
 import com.web.basicinfo.mapper.InventoryMapper;
 import com.web.basicinfo.mapper.VendorMapper;
 import com.web.basicinfo.service.IInventoryService;
+import com.web.mo.dto.BomOpcomponentDTO;
+import com.web.mo.entity.BomOpcomponent;
+import com.web.mo.mapper.BomOpcomponentMapper;
 import com.web.om.dto.*;
 import com.web.om.entity.*;
 import com.web.om.mapper.*;
@@ -35,6 +36,7 @@ import java.util.stream.Collectors;
  */
 @Service
 public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrderMain> implements IOmOrderMainService {
+
 
     @Autowired
     private OmOrderMainMapper omOrderMainMapper;
@@ -74,6 +76,9 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
 
     @Autowired
     private U8SystemUtils u8SystemUtils;
+
+    @Autowired
+    private BomOpcomponentMapper bomOpcomponentMapper;
 
 
     @Value("${account.acountId}")
@@ -858,6 +863,7 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
 
             result.setResult(omProductPo.getMoid());
             result.setResult1(omProductPo.getCcode());
+            synchronizeBomComponent(mesProductList,mesMaterialList);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e.getMessage());
@@ -1104,5 +1110,43 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
         }
         return result;
     }
+
+    /**
+     * 同步bom子件信息
+     *
+     */
+    void synchronizeBomComponent(List<OmOrderDetail> productList,List<OmOrderMaterial> materialList) throws Exception{
+        for (OmOrderDetail product : productList){
+            String invCode = product.getProductInvCode();
+            //通过母件的产品编码查询其下所有子件，返回的子件带上子件的产品编码
+            List<BomOpcomponentDTO> componentList = bomOpcomponentMapper.getComponentWithParentInvCode(invCode);
+            if (componentList.size() == 0){
+                continue;
+            }
+            for (BomOpcomponentDTO component : componentList){
+                for (OmOrderMaterial material : materialList){
+                    if (component.getInvCode().equals(material.getInvCode())){
+                        //同步厚度
+                        component.setDefine28(material.getInvLand());
+                        //同步长度
+                        component.setDefine29(material.getInvLen());
+                        //同步宽度
+                        component.setDefine30(material.getInvWidth());
+                        //同步外径
+                        component.setDefine31(material.getInvExternalDiameter());
+                        //同步内径
+                        component.setDefine32(material.getInvInternalDiameter());
+                        int n = bomOpcomponentMapper.updateById(component);
+                        if (n <=0){
+                            throw new Exception("BOM子件同步失败");
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+
 
 }

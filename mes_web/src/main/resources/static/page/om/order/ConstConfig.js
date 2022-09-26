@@ -29,6 +29,7 @@ const URL_EQUAL_FIND_PART =URL_BASE_ORDER+ "equal_find_part";
 const URL_EQUAL_FIND_MATERIAL =URL_BASE_ORDER+ "equal_find_material";
 //修改委外订单
 const URL_UPDATE_MES_MAIN_BY_ID = URL_BASE_ORDER+"update";
+const URL_TEST_UPDATE_MES_MAIN_BY_ID = URL_BASE_ORDER+"testUpdate";
 //通过id作废委外订单
 const URL_DELETE_MES_ORDER_BY_ID = URL_BASE_ORDER+"delete_main_by_id"
 //通过id查询一个订单中的所有数据
