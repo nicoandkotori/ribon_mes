@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="fastRequestCurrentParamGroup">
+    <option name="className" value="com.web.om.controller.OmOrderController" />
+    <option name="method" value="save" />
+    <option name="methodDescription" value="保存委外订单到mes" />
+    <option name="methodType" value="POST" />
+    <option name="module" value="mes_web" />
+    <option name="originUrl" value="/om/order/save" />
+    <option name="requestParamMap">
+      <map>
+        <entry key="mainStr">
+          <value>
+            <Object />
+          </value>
+        </entry>
+        <entry key="materialStr">
+          <value>
+            <Object />
+          </value>
+        </entry>
+        <entry key="partStr">
+          <value>
+            <Object />
+          </value>
+        </entry>
+        <entry key="productStr">
+          <value>
+            <Object />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="url" value="/om/order/save" />
+  </component>
+</project>
