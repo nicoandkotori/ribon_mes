@@ -168,4 +168,12 @@
     </set>
     where id = #{material.id}
   </update>
+
+  <insert id="insertBatch" >
+    insert into om_order_material(id,detail_id, part_id, main_id, inv_code, inv_name, unit_material_price, unit_material_amount, inv_land, inv_width, inv_len, inv_external_diameter, inv_internal_diameter, inv_density, inv_size, iqty, tqty, create_user, create_date, update_user, update_date, iz_delete, delete_user, delete_date, itype, u8_mo_material_id, row_no, product_inv_std, product_inv_unit, product_inv_code, product_inv_name, part_inv_name, part_inv_code, part_qty, part_inv_std, part_inv_unit, inv_std, inv_unit, product_qty, record_id, part_row_id)
+    values
+    <foreach collection="materialList" item="entity" separator=",">
+      (#{entity.id},#{entity.detailId}, #{entity.partId}, #{entity.mainId}, #{entity.invCode}, #{entity.invName}, #{entity.unitMaterialPrice}, #{entity.unitMaterialAmount}, #{entity.invLand}, #{entity.invWidth}, #{entity.invLen}, #{entity.invExternalDiameter}, #{entity.invInternalDiameter}, #{entity.invDensity}, #{entity.invSize}, #{entity.iqty}, #{entity.tqty}, #{entity.createUser}, #{entity.createDate}, #{entity.updateUser}, #{entity.updateDate}, #{entity.izDelete}, #{entity.deleteUser}, #{entity.deleteDate}, #{entity.itype}, #{entity.u8MoMaterialId}, #{entity.rowNo}, #{entity.productInvStd}, #{entity.productInvUnit}, #{entity.productInvCode}, #{entity.productInvName}, #{entity.partInvName}, #{entity.partInvCode}, #{entity.partQty}, #{entity.partInvStd}, #{entity.partInvUnit}, #{entity.invStd}, #{entity.invUnit}, #{entity.productQty}, #{entity.recordId}, #{entity.partRowId})
+    </foreach>
+  </insert>
 </mapper>

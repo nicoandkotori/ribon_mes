@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace=".dao.OmOrderDetailDao">
+
+    <resultMap type=".entity.OmOrderDetail" id="OmOrderDetailMap">
+        <result property="id" column="id" jdbcType=""/>
+        <result property="mainId" column="main_id" jdbcType=""/>
+        <result property="productInvCode" column="product_inv_code" jdbcType=""/>
+        <result property="productInvName" column="product_inv_name" jdbcType=""/>
+        <result property="productInvStd" column="product_inv_std" jdbcType=""/>
+        <result property="productInvUnit" column="product_inv_unit" jdbcType=""/>
+        <result property="productQty" column="product_qty" jdbcType=""/>
+        <result property="materialPrice" column="material_price" jdbcType=""/>
+        <result property="materialAmount" column="material_amount" jdbcType=""/>
+        <result property="workPrice" column="work_price" jdbcType=""/>
+        <result property="totalWorkAmount" column="total_work_amount" jdbcType=""/>
+        <result property="price" column="price" jdbcType=""/>
+        <result property="amount" column="amount" jdbcType=""/>
+        <result property="planStartDate" column="plan_start_date" jdbcType=""/>
+        <result property="planEndDate" column="plan_end_date" jdbcType=""/>
+        <result property="createUser" column="create_user" jdbcType=""/>
+        <result property="createDate" column="create_date" jdbcType=""/>
+        <result property="updateUser" column="update_user" jdbcType=""/>
+        <result property="updateDate" column="update_date" jdbcType=""/>
+        <result property="izDelete" column="iz_delete" jdbcType=""/>
+        <result property="deleteUser" column="delete_user" jdbcType=""/>
+        <result property="deleteDate" column="delete_date" jdbcType=""/>
+        <result property="u8MoDetailId" column="u8_mo_detail_id" jdbcType=""/>
+        <result property="rowNo" column="row_no" jdbcType=""/>
+        <result property="taxRate" column="tax_rate" jdbcType="NUMERIC"/>
+        <result property="recordId" column="record_id" jdbcType="VARCHAR"/>
+        <result property="workPriceWithoutTax" column="work_price_without_tax" jdbcType="NUMERIC"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OmOrderDetailMap">
+        select
+          id, main_id, product_inv_code, product_inv_name, product_inv_std, product_inv_unit, product_qty, material_price, material_amount, work_price, total_work_amount, price, amount, plan_start_date, plan_end_date, create_user, create_date, update_user, update_date, iz_delete, delete_user, delete_date, u8_mo_detail_id, row_no, tax_rate, record_id, work_price_without_tax
+        from om_order_detail
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="OmOrderDetailMap">
+        select
+          id, main_id, product_inv_code, product_inv_name, product_inv_std, product_inv_unit, product_qty, material_price, material_amount, work_price, total_work_amount, price, amount, plan_start_date, plan_end_date, create_user, create_date, update_user, update_date, iz_delete, delete_user, delete_date, u8_mo_detail_id, row_no, tax_rate, record_id, work_price_without_tax
+        from om_order_detail
+        <where>
+            <if test="omOrderDetail.id != null and omOrderDetail.id != ''">
+                and id = #{omOrderDetail.id}
+            </if>
+            <if test="omOrderDetail.mainId != null and omOrderDetail.mainId != ''">
+                and main_id = #{omOrderDetail.mainId}
+            </if>
+            <if test="omOrderDetail.productInvCode != null and omOrderDetail.productInvCode != ''">
+                and product_inv_code = #{omOrderDetail.productInvCode}
+            </if>
+            <if test="omOrderDetail.productInvName != null and omOrderDetail.productInvName != ''">
+                and product_inv_name = #{omOrderDetail.productInvName}
+            </if>
+            <if test="omOrderDetail.productInvStd != null and omOrderDetail.productInvStd != ''">
+                and product_inv_std = #{omOrderDetail.productInvStd}
+            </if>
+            <if test="omOrderDetail.productInvUnit != null and omOrderDetail.productInvUnit != ''">
+                and product_inv_unit = #{omOrderDetail.productInvUnit}
+            </if>
+            <if test="omOrderDetail.productQty != null">
+                and product_qty = #{omOrderDetail.productQty}
+            </if>
+            <if test="omOrderDetail.materialPrice != null">
+                and material_price = #{omOrderDetail.materialPrice}
+            </if>
+            <if test="omOrderDetail.materialAmount != null">
+                and material_amount = #{omOrderDetail.materialAmount}
+            </if>
+            <if test="omOrderDetail.workPrice != null">
+                and work_price = #{omOrderDetail.workPrice}
+            </if>
+            <if test="omOrderDetail.totalWorkAmount != null">
+                and total_work_amount = #{omOrderDetail.totalWorkAmount}
+            </if>
+            <if test="omOrderDetail.price != null">
+                and price = #{omOrderDetail.price}
+            </if>
+            <if test="omOrderDetail.amount != null">
+                and amount = #{omOrderDetail.amount}
+            </if>
+            <if test="omOrderDetail.planStartDate != null">
+                and plan_start_date = #{omOrderDetail.planStartDate}
+            </if>
+            <if test="omOrderDetail.planEndDate != null">
+                and plan_end_date = #{omOrderDetail.planEndDate}
+            </if>
+            <if test="omOrderDetail.createUser != null and omOrderDetail.createUser != ''">
+                and create_user = #{omOrderDetail.createUser}
+            </if>
+            <if test="omOrderDetail.createDate != null">
+                and create_date = #{omOrderDetail.createDate}
+            </if>
+            <if test="omOrderDetail.updateUser != null and omOrderDetail.updateUser != ''">
+                and update_user = #{omOrderDetail.updateUser}
+            </if>
+            <if test="omOrderDetail.updateDate != null">
+                and update_date = #{omOrderDetail.updateDate}
+            </if>
+            <if test="omOrderDetail.izDelete != null">
+                and iz_delete = #{omOrderDetail.izDelete}
+            </if>
+            <if test="omOrderDetail.deleteUser != null and omOrderDetail.deleteUser != ''">
+                and delete_user = #{omOrderDetail.deleteUser}
+            </if>
+            <if test="omOrderDetail.deleteDate != null">
+                and delete_date = #{omOrderDetail.deleteDate}
+            </if>
+            <if test="omOrderDetail.u8MoDetailId != null">
+                and u8_mo_detail_id = #{omOrderDetail.u8MoDetailId}
+            </if>
+            <if test="omOrderDetail.rowNo != null">
+                and row_no = #{omOrderDetail.rowNo}
+            </if>
+            <if test="omOrderDetail.taxRate != null">
+                and tax_rate = #{omOrderDetail.taxRate}
+            </if>
+            <if test="omOrderDetail.recordId != null and omOrderDetail.recordId != ''">
+                and record_id = #{omOrderDetail.recordId}
+            </if>
+            <if test="omOrderDetail.workPriceWithoutTax != null">
+                and work_price_without_tax = #{omOrderDetail.workPriceWithoutTax}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from om_order_detail
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="mainId != null and mainId != ''">
+                and main_id = #{mainId}
+            </if>
+            <if test="productInvCode != null and productInvCode != ''">
+                and product_inv_code = #{productInvCode}
+            </if>
+            <if test="productInvName != null and productInvName != ''">
+                and product_inv_name = #{productInvName}
+            </if>
+            <if test="productInvStd != null and productInvStd != ''">
+                and product_inv_std = #{productInvStd}
+            </if>
+            <if test="productInvUnit != null and productInvUnit != ''">
+                and product_inv_unit = #{productInvUnit}
+            </if>
+            <if test="productQty != null">
+                and product_qty = #{productQty}
+            </if>
+            <if test="materialPrice != null">
+                and material_price = #{materialPrice}
+            </if>
+            <if test="materialAmount != null">
+                and material_amount = #{materialAmount}
+            </if>
+            <if test="workPrice != null">
+                and work_price = #{workPrice}
+            </if>
+            <if test="totalWorkAmount != null">
+                and total_work_amount = #{totalWorkAmount}
+            </if>
+            <if test="price != null">
+                and price = #{price}
+            </if>
+            <if test="amount != null">
+                and amount = #{amount}
+            </if>
+            <if test="planStartDate != null">
+                and plan_start_date = #{planStartDate}
+            </if>
+            <if test="planEndDate != null">
+                and plan_end_date = #{planEndDate}
+            </if>
+            <if test="createUser != null and createUser != ''">
+                and create_user = #{createUser}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+            <if test="updateUser != null and updateUser != ''">
+                and update_user = #{updateUser}
+            </if>
+            <if test="updateDate != null">
+                and update_date = #{updateDate}
+            </if>
+            <if test="izDelete != null">
+                and iz_delete = #{izDelete}
+            </if>
+            <if test="deleteUser != null and deleteUser != ''">
+                and delete_user = #{deleteUser}
+            </if>
+            <if test="deleteDate != null">
+                and delete_date = #{deleteDate}
+            </if>
+            <if test="u8MoDetailId != null">
+                and u8_mo_detail_id = #{u8MoDetailId}
+            </if>
+            <if test="rowNo != null">
+                and row_no = #{rowNo}
+            </if>
+            <if test="taxRate != null">
+                and tax_rate = #{taxRate}
+            </if>
+            <if test="recordId != null and recordId != ''">
+                and record_id = #{recordId}
+            </if>
+            <if test="workPriceWithoutTax != null">
+                and work_price_without_tax = #{workPriceWithoutTax}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into om_order_detail(main_id, product_inv_code, product_inv_name, product_inv_std, product_inv_unit, product_qty, material_price, material_amount, work_price, total_work_amount, price, amount, plan_start_date, plan_end_date, create_user, create_date, update_user, update_date, iz_delete, delete_user, delete_date, u8_mo_detail_id, row_no, tax_rate, record_id, work_price_without_tax)
+        values (#{mainId}, #{productInvCode}, #{productInvName}, #{productInvStd}, #{productInvUnit}, #{productQty}, #{materialPrice}, #{materialAmount}, #{workPrice}, #{totalWorkAmount}, #{price}, #{amount}, #{planStartDate}, #{planEndDate}, #{createUser}, #{createDate}, #{updateUser}, #{updateDate}, #{izDelete}, #{deleteUser}, #{deleteDate}, #{u8MoDetailId}, #{rowNo}, #{taxRate}, #{recordId}, #{workPriceWithoutTax})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into om_order_detail(main_id, product_inv_code, product_inv_name, product_inv_std, product_inv_unit, product_qty, material_price, material_amount, work_price, total_work_amount, price, amount, plan_start_date, plan_end_date, create_user, create_date, update_user, update_date, iz_delete, delete_user, delete_date, u8_mo_detail_id, row_no, tax_rate, record_id, work_price_without_tax)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.mainId}, #{entity.productInvCode}, #{entity.productInvName}, #{entity.productInvStd}, #{entity.productInvUnit}, #{entity.productQty}, #{entity.materialPrice}, #{entity.materialAmount}, #{entity.workPrice}, #{entity.totalWorkAmount}, #{entity.price}, #{entity.amount}, #{entity.planStartDate}, #{entity.planEndDate}, #{entity.createUser}, #{entity.createDate}, #{entity.updateUser}, #{entity.updateDate}, #{entity.izDelete}, #{entity.deleteUser}, #{entity.deleteDate}, #{entity.u8MoDetailId}, #{entity.rowNo}, #{entity.taxRate}, #{entity.recordId}, #{entity.workPriceWithoutTax})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into om_order_detail(main_id, product_inv_code, product_inv_name, product_inv_std, product_inv_unit, product_qty, material_price, material_amount, work_price, total_work_amount, price, amount, plan_start_date, plan_end_date, create_user, create_date, update_user, update_date, iz_delete, delete_user, delete_date, u8_mo_detail_id, row_no, tax_rate, record_id, work_price_without_tax)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.mainId}, #{entity.productInvCode}, #{entity.productInvName}, #{entity.productInvStd}, #{entity.productInvUnit}, #{entity.productQty}, #{entity.materialPrice}, #{entity.materialAmount}, #{entity.workPrice}, #{entity.totalWorkAmount}, #{entity.price}, #{entity.amount}, #{entity.planStartDate}, #{entity.planEndDate}, #{entity.createUser}, #{entity.createDate}, #{entity.updateUser}, #{entity.updateDate}, #{entity.izDelete}, #{entity.deleteUser}, #{entity.deleteDate}, #{entity.u8MoDetailId}, #{entity.rowNo}, #{entity.taxRate}, #{entity.recordId}, #{entity.workPriceWithoutTax})
+        </foreach>
+        on duplicate key update
+        main_id = values(main_id),
+        product_inv_code = values(product_inv_code),
+        product_inv_name = values(product_inv_name),
+        product_inv_std = values(product_inv_std),
+        product_inv_unit = values(product_inv_unit),
+        product_qty = values(product_qty),
+        material_price = values(material_price),
+        material_amount = values(material_amount),
+        work_price = values(work_price),
+        total_work_amount = values(total_work_amount),
+        price = values(price),
+        amount = values(amount),
+        plan_start_date = values(plan_start_date),
+        plan_end_date = values(plan_end_date),
+        create_user = values(create_user),
+        create_date = values(create_date),
+        update_user = values(update_user),
+        update_date = values(update_date),
+        iz_delete = values(iz_delete),
+        delete_user = values(delete_user),
+        delete_date = values(delete_date),
+        u8_mo_detail_id = values(u8_mo_detail_id),
+        row_no = values(row_no),
+        tax_rate = values(tax_rate),
+        record_id = values(record_id),
+        work_price_without_tax = values(work_price_without_tax)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update om_order_detail
+        <set>
+            <if test="mainId != null and mainId != ''">
+                main_id = #{mainId},
+            </if>
+            <if test="productInvCode != null and productInvCode != ''">
+                product_inv_code = #{productInvCode},
+            </if>
+            <if test="productInvName != null and productInvName != ''">
+                product_inv_name = #{productInvName},
+            </if>
+            <if test="productInvStd != null and productInvStd != ''">
+                product_inv_std = #{productInvStd},
+            </if>
+            <if test="productInvUnit != null and productInvUnit != ''">
+                product_inv_unit = #{productInvUnit},
+            </if>
+            <if test="productQty != null">
+                product_qty = #{productQty},
+            </if>
+            <if test="materialPrice != null">
+                material_price = #{materialPrice},
+            </if>
+            <if test="materialAmount != null">
+                material_amount = #{materialAmount},
+            </if>
+            <if test="workPrice != null">
+                work_price = #{workPrice},
+            </if>
+            <if test="totalWorkAmount != null">
+                total_work_amount = #{totalWorkAmount},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="amount != null">
+                amount = #{amount},
+            </if>
+            <if test="planStartDate != null">
+                plan_start_date = #{planStartDate},
+            </if>
+            <if test="planEndDate != null">
+                plan_end_date = #{planEndDate},
+            </if>
+            <if test="createUser != null and createUser != ''">
+                create_user = #{createUser},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="updateUser != null and updateUser != ''">
+                update_user = #{updateUser},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate},
+            </if>
+            <if test="izDelete != null">
+                iz_delete = #{izDelete},
+            </if>
+            <if test="deleteUser != null and deleteUser != ''">
+                delete_user = #{deleteUser},
+            </if>
+            <if test="deleteDate != null">
+                delete_date = #{deleteDate},
+            </if>
+            <if test="u8MoDetailId != null">
+                u8_mo_detail_id = #{u8MoDetailId},
+            </if>
+            <if test="rowNo != null">
+                row_no = #{rowNo},
+            </if>
+            <if test="taxRate != null">
+                tax_rate = #{taxRate},
+            </if>
+            <if test="recordId != null and recordId != ''">
+                record_id = #{recordId},
+            </if>
+            <if test="workPriceWithoutTax != null">
+                work_price_without_tax = #{workPriceWithoutTax},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from om_order_detail where id = #{id}
+    </delete>
+
+</mapper>
+

@@ -4,6 +4,8 @@ import com.web.om.entity.OmOrderMaterial;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
 * @author mijiahao
 * @description 针对表【om_order_material】的数据库操作Mapper
@@ -21,6 +23,13 @@ public interface OmOrderMaterialMapper extends BaseMapper<OmOrderMaterial> {
      */
     int updateWithDBName(@Param("material") OmOrderMaterial material,@Param("database") String database);
 
+    /**
+     * 真正的批量插入
+     *
+     * @param materialList 材料列表
+     * @return int
+     */
+    int insertBatch(@Param("materialList")List<OmOrderMaterial> materialList);
 }
 
 

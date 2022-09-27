@@ -153,7 +153,7 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
                 material.setCreateInfo(materialId);
 
             });
-            materialService.saveBatch(materialList);
+            mesMaterialMapper.insertBatch(materialList);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -228,8 +228,7 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
                 product.setCreateInfo(productId);
                 productIdMap.put(product.getRecordId(), productId);
             });
-            //该方法的效率很低，因为底层还是一个一个insert
-            productService.saveBatch(productList);
+            mesProductMapper.insertBatch(productList);
             //部件表不是必传的
             if (partList != null) {
                 //再遍历部件列表
@@ -252,7 +251,7 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
                 material.setPartId(partIdMap.get(material.getPartRowId()));
                 material.setCreateInfo(materialId);
             });
-            materialService.saveBatch(materialList);
+            mesMaterialMapper.insertBatch(materialList);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -5,6 +5,8 @@ import com.web.om.entity.OmMoMaterials;
 import com.web.om.entity.OmOrderDetail;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface OmOrderDetailMapper   extends BaseMapper<OmOrderDetail> {
 
     /**
@@ -15,4 +17,12 @@ public interface OmOrderDetailMapper   extends BaseMapper<OmOrderDetail> {
      * @return int
      */
     int updateWithDBName(@Param("product")OmOrderDetail product,@Param("database")String databaseName);
+
+    /**
+     * 真正的批量插入
+     *
+     * @param productList 产品列表
+     * @return int
+     */
+    int insertBatch(@Param("productList") List<OmOrderDetail> productList);
 }

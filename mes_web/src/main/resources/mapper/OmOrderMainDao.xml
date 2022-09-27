@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace=".dao.OmOrderMainDao">
+
+    <resultMap type=".entity.OmOrderMain" id="OmOrderMainMap">
+        <result property="id" column="id" jdbcType=""/>
+        <result property="vouchCode" column="vouch_code" jdbcType=""/>
+        <result property="vouchDate" column="vouch_date" jdbcType=""/>
+        <result property="contractOm" column="contract_om" jdbcType=""/>
+        <result property="contractSale" column="contract_sale" jdbcType=""/>
+        <result property="venCode" column="ven_code" jdbcType=""/>
+        <result property="venName" column="ven_name" jdbcType=""/>
+        <result property="depCode" column="dep_code" jdbcType=""/>
+        <result property="depName" column="dep_name" jdbcType=""/>
+        <result property="personCode" column="person_code" jdbcType=""/>
+        <result property="personName" column="person_name" jdbcType=""/>
+        <result property="remark" column="remark" jdbcType=""/>
+        <result property="transportWay" column="transport_way" jdbcType=""/>
+        <result property="createUser" column="create_user" jdbcType=""/>
+        <result property="createDate" column="create_date" jdbcType=""/>
+        <result property="updateUser" column="update_user" jdbcType=""/>
+        <result property="updateDate" column="update_date" jdbcType=""/>
+        <result property="izDelete" column="iz_delete" jdbcType=""/>
+        <result property="deleteUser" column="delete_user" jdbcType=""/>
+        <result property="deleteDate" column="delete_date" jdbcType=""/>
+        <result property="checkUser" column="check_user" jdbcType=""/>
+        <result property="checkDate" column="check_date" jdbcType=""/>
+        <result property="u8Id" column="u8_id" jdbcType=""/>
+        <result property="statusId" column="status_id" jdbcType=""/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OmOrderMainMap">
+        select
+          id, vouch_code, vouch_date, contract_om, contract_sale, ven_code, ven_name, dep_code, dep_name, person_code, person_name, remark, transport_way, create_user, create_date, update_user, update_date, iz_delete, delete_user, delete_date, check_user, check_date, u8_id, status_id
+        from om_order_main
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="OmOrderMainMap">
+        select
+          id, vouch_code, vouch_date, contract_om, contract_sale, ven_code, ven_name, dep_code, dep_name, person_code, person_name, remark, transport_way, create_user, create_date, update_user, update_date, iz_delete, delete_user, delete_date, check_user, check_date, u8_id, status_id
+        from om_order_main
+        <where>
+            <if test="omOrderMain.id != null and omOrderMain.id != ''">
+                and id = #{omOrderMain.id}
+            </if>
+            <if test="omOrderMain.vouchCode != null and omOrderMain.vouchCode != ''">
+                and vouch_code = #{omOrderMain.vouchCode}
+            </if>
+            <if test="omOrderMain.vouchDate != null">
+                and vouch_date = #{omOrderMain.vouchDate}
+            </if>
+            <if test="omOrderMain.contractOm != null and omOrderMain.contractOm != ''">
+                and contract_om = #{omOrderMain.contractOm}
+            </if>
+            <if test="omOrderMain.contractSale != null and omOrderMain.contractSale != ''">
+                and contract_sale = #{omOrderMain.contractSale}
+            </if>
+            <if test="omOrderMain.venCode != null and omOrderMain.venCode != ''">
+                and ven_code = #{omOrderMain.venCode}
+            </if>
+            <if test="omOrderMain.venName != null and omOrderMain.venName != ''">
+                and ven_name = #{omOrderMain.venName}
+            </if>
+            <if test="omOrderMain.depCode != null and omOrderMain.depCode != ''">
+                and dep_code = #{omOrderMain.depCode}
+            </if>
+            <if test="omOrderMain.depName != null and omOrderMain.depName != ''">
+                and dep_name = #{omOrderMain.depName}
+            </if>
+            <if test="omOrderMain.personCode != null and omOrderMain.personCode != ''">
+                and person_code = #{omOrderMain.personCode}
+            </if>
+            <if test="omOrderMain.personName != null and omOrderMain.personName != ''">
+                and person_name = #{omOrderMain.personName}
+            </if>
+            <if test="omOrderMain.remark != null and omOrderMain.remark != ''">
+                and remark = #{omOrderMain.remark}
+            </if>
+            <if test="omOrderMain.transportWay != null and omOrderMain.transportWay != ''">
+                and transport_way = #{omOrderMain.transportWay}
+            </if>
+            <if test="omOrderMain.createUser != null and omOrderMain.createUser != ''">
+                and create_user = #{omOrderMain.createUser}
+            </if>
+            <if test="omOrderMain.createDate != null">
+                and create_date = #{omOrderMain.createDate}
+            </if>
+            <if test="omOrderMain.updateUser != null and omOrderMain.updateUser != ''">
+                and update_user = #{omOrderMain.updateUser}
+            </if>
+            <if test="omOrderMain.updateDate != null">
+                and update_date = #{omOrderMain.updateDate}
+            </if>
+            <if test="omOrderMain.izDelete != null">
+                and iz_delete = #{omOrderMain.izDelete}
+            </if>
+            <if test="omOrderMain.deleteUser != null and omOrderMain.deleteUser != ''">
+                and delete_user = #{omOrderMain.deleteUser}
+            </if>
+            <if test="omOrderMain.deleteDate != null">
+                and delete_date = #{omOrderMain.deleteDate}
+            </if>
+            <if test="omOrderMain.checkUser != null and omOrderMain.checkUser != ''">
+                and check_user = #{omOrderMain.checkUser}
+            </if>
+            <if test="omOrderMain.checkDate != null">
+                and check_date = #{omOrderMain.checkDate}
+            </if>
+            <if test="omOrderMain.u8Id != null">
+                and u8_id = #{omOrderMain.u8Id}
+            </if>
+            <if test="omOrderMain.statusId != null and omOrderMain.statusId != ''">
+                and status_id = #{omOrderMain.statusId}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from om_order_main
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="vouchCode != null and vouchCode != ''">
+                and vouch_code = #{vouchCode}
+            </if>
+            <if test="vouchDate != null">
+                and vouch_date = #{vouchDate}
+            </if>
+            <if test="contractOm != null and contractOm != ''">
+                and contract_om = #{contractOm}
+            </if>
+            <if test="contractSale != null and contractSale != ''">
+                and contract_sale = #{contractSale}
+            </if>
+            <if test="venCode != null and venCode != ''">
+                and ven_code = #{venCode}
+            </if>
+            <if test="venName != null and venName != ''">
+                and ven_name = #{venName}
+            </if>
+            <if test="depCode != null and depCode != ''">
+                and dep_code = #{depCode}
+            </if>
+            <if test="depName != null and depName != ''">
+                and dep_name = #{depName}
+            </if>
+            <if test="personCode != null and personCode != ''">
+                and person_code = #{personCode}
+            </if>
+            <if test="personName != null and personName != ''">
+                and person_name = #{personName}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="transportWay != null and transportWay != ''">
+                and transport_way = #{transportWay}
+            </if>
+            <if test="createUser != null and createUser != ''">
+                and create_user = #{createUser}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+            <if test="updateUser != null and updateUser != ''">
+                and update_user = #{updateUser}
+            </if>
+            <if test="updateDate != null">
+                and update_date = #{updateDate}
+            </if>
+            <if test="izDelete != null">
+                and iz_delete = #{izDelete}
+            </if>
+            <if test="deleteUser != null and deleteUser != ''">
+                and delete_user = #{deleteUser}
+            </if>
+            <if test="deleteDate != null">
+                and delete_date = #{deleteDate}
+            </if>
+            <if test="checkUser != null and checkUser != ''">
+                and check_user = #{checkUser}
+            </if>
+            <if test="checkDate != null">
+                and check_date = #{checkDate}
+            </if>
+            <if test="u8Id != null">
+                and u8_id = #{u8Id}
+            </if>
+            <if test="statusId != null and statusId != ''">
+                and status_id = #{statusId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into om_order_main(vouch_code, vouch_date, contract_om, contract_sale, ven_code, ven_name, dep_code, dep_name, person_code, person_name, remark, transport_way, create_user, create_date, update_user, update_date, iz_delete, delete_user, delete_date, check_user, check_date, u8_id, status_id)
+        values (#{vouchCode}, #{vouchDate}, #{contractOm}, #{contractSale}, #{venCode}, #{venName}, #{depCode}, #{depName}, #{personCode}, #{personName}, #{remark}, #{transportWay}, #{createUser}, #{createDate}, #{updateUser}, #{updateDate}, #{izDelete}, #{deleteUser}, #{deleteDate}, #{checkUser}, #{checkDate}, #{u8Id}, #{statusId})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into om_order_main(vouch_code, vouch_date, contract_om, contract_sale, ven_code, ven_name, dep_code, dep_name, person_code, person_name, remark, transport_way, create_user, create_date, update_user, update_date, iz_delete, delete_user, delete_date, check_user, check_date, u8_id, status_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.vouchCode}, #{entity.vouchDate}, #{entity.contractOm}, #{entity.contractSale}, #{entity.venCode}, #{entity.venName}, #{entity.depCode}, #{entity.depName}, #{entity.personCode}, #{entity.personName}, #{entity.remark}, #{entity.transportWay}, #{entity.createUser}, #{entity.createDate}, #{entity.updateUser}, #{entity.updateDate}, #{entity.izDelete}, #{entity.deleteUser}, #{entity.deleteDate}, #{entity.checkUser}, #{entity.checkDate}, #{entity.u8Id}, #{entity.statusId})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch">
+        insert into om_order_main(vouch_code, vouch_date, contract_om, contract_sale, ven_code, ven_name, dep_code, dep_name, person_code, person_name, remark, transport_way, create_user, create_date, update_user, update_date, iz_delete, delete_user, delete_date, check_user, check_date, u8_id, status_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.vouchCode}, #{entity.vouchDate}, #{entity.contractOm}, #{entity.contractSale}, #{entity.venCode}, #{entity.venName}, #{entity.depCode}, #{entity.depName}, #{entity.personCode}, #{entity.personName}, #{entity.remark}, #{entity.transportWay}, #{entity.createUser}, #{entity.createDate}, #{entity.updateUser}, #{entity.updateDate}, #{entity.izDelete}, #{entity.deleteUser}, #{entity.deleteDate}, #{entity.checkUser}, #{entity.checkDate}, #{entity.u8Id}, #{entity.statusId})
+        </foreach>
+        on duplicate key update
+        vouch_code = values(vouch_code),
+        vouch_date = values(vouch_date),
+        contract_om = values(contract_om),
+        contract_sale = values(contract_sale),
+        ven_code = values(ven_code),
+        ven_name = values(ven_name),
+        dep_code = values(dep_code),
+        dep_name = values(dep_name),
+        person_code = values(person_code),
+        person_name = values(person_name),
+        remark = values(remark),
+        transport_way = values(transport_way),
+        create_user = values(create_user),
+        create_date = values(create_date),
+        update_user = values(update_user),
+        update_date = values(update_date),
+        iz_delete = values(iz_delete),
+        delete_user = values(delete_user),
+        delete_date = values(delete_date),
+        check_user = values(check_user),
+        check_date = values(check_date),
+        u8_id = values(u8_id),
+        status_id = values(status_id)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update om_order_main
+        <set>
+            <if test="vouchCode != null and vouchCode != ''">
+                vouch_code = #{vouchCode},
+            </if>
+            <if test="vouchDate != null">
+                vouch_date = #{vouchDate},
+            </if>
+            <if test="contractOm != null and contractOm != ''">
+                contract_om = #{contractOm},
+            </if>
+            <if test="contractSale != null and contractSale != ''">
+                contract_sale = #{contractSale},
+            </if>
+            <if test="venCode != null and venCode != ''">
+                ven_code = #{venCode},
+            </if>
+            <if test="venName != null and venName != ''">
+                ven_name = #{venName},
+            </if>
+            <if test="depCode != null and depCode != ''">
+                dep_code = #{depCode},
+            </if>
+            <if test="depName != null and depName != ''">
+                dep_name = #{depName},
+            </if>
+            <if test="personCode != null and personCode != ''">
+                person_code = #{personCode},
+            </if>
+            <if test="personName != null and personName != ''">
+                person_name = #{personName},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="transportWay != null and transportWay != ''">
+                transport_way = #{transportWay},
+            </if>
+            <if test="createUser != null and createUser != ''">
+                create_user = #{createUser},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="updateUser != null and updateUser != ''">
+                update_user = #{updateUser},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate},
+            </if>
+            <if test="izDelete != null">
+                iz_delete = #{izDelete},
+            </if>
+            <if test="deleteUser != null and deleteUser != ''">
+                delete_user = #{deleteUser},
+            </if>
+            <if test="deleteDate != null">
+                delete_date = #{deleteDate},
+            </if>
+            <if test="checkUser != null and checkUser != ''">
+                check_user = #{checkUser},
+            </if>
+            <if test="checkDate != null">
+                check_date = #{checkDate},
+            </if>
+            <if test="u8Id != null">
+                u8_id = #{u8Id},
+            </if>
+            <if test="statusId != null and statusId != ''">
+                status_id = #{statusId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from om_order_main where id = #{id}
+    </delete>
+
+</mapper>
+
