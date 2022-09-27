@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>新增</title>
+    <title>变更</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -47,11 +47,16 @@
     <script src="../../../static/Scripts/easyui-1.7.0/jquery.easyui.min.js"></script>
     <script src="../../../static/Scripts/easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
     <script src="ConstConfig.js"></script>
+    <script src="entity/OmMesProduct.js"></script>
+    <script src="entity/OmMesPart.js"></script>
+    <script src="entity/OmMesMaterial.js"></script>
     <script src="util/JqGridRowHelper.js"></script>
     <script src="dto/U8QueryDTO.js"></script>
     <script src="dto/pageFindDTO.js"></script>
     <script src="ColModelConfig.js"></script>
-    <script src="IncludeFunction.js"></script>
+    <script src="functionallBack.js"></script>
+    <script src="functionpdateField.js"></script>
+    <script src="functionther.js"></script>
     <style>
         .layui-select, .layui-input {
             height: 24px;
@@ -63,10 +68,8 @@
 <div class="weadmin-body">
     <form class="layui-form">
         <div class="weadmin-block">
-            <button type="button" class="layui-btn layui-btn-sm" lay-filter="save" lay-submit="">保存</button>
-            <button type="button" class="layui-btn layui-btn-sm" lay-filter="audit" lay-submit="">审核</button>
-            <button type="button" class="layui-btn layui-btn-sm" onclick="btnNotAudit()">弃审</button>
             <button type="button" class="layui-btn layui-btn-sm" onclick="FnPrint()">打印</button>
+            <button type="button" class="layui-btn layui-btn-sm" lay-filter="change" lay-submit="">变更</button>
 
         </div>
 
@@ -89,32 +92,19 @@
                 <input type="text" id="vouchDate" name="vouchDate" readonly lay-verify="required"
                        class="layui-input weadmin-input-sm">
             </div>
-            <label for="contractOm" class="weadmin-lable-sm layui-col-md1">
+            <label for="contractPd" class="weadmin-lable-sm layui-col-md1">
                 委外合同
             </label>
             <div class="layui-col-md2">
-                <input type="text" id="contractOm" name="contractOm" class="layui-input weadmin-input-sm">
+                <input type="text" id="contractPd" name="contractPd" class="layui-input weadmin-input-sm">
             </div>
-        </div>
-        <div class="layui-form-item weadmin-item">
 
-            <label for="venCode" class="weadmin-lable-sm layui-col-md1">
-                <span class="we-red">*</span>供应商
-            </label>
-            <div class="layui-col-md5">
-                <select id="venCode" name="venCode" autocomplete="off" lay-verify="required" lay-filter="venCode"
-                        lay-search="">
-                </select>
-                <input type="hidden" id="venName" name="venName">
-
-            </div>
             <label for="contractSale" class="weadmin-lable-sm layui-col-md1">
                 销售合同
             </label>
             <div class="layui-col-md2">
                 <input type="text" id="contractSale" name="contractSale" class="layui-input weadmin-input-sm">
             </div>
-
         </div>
 
         <div class="layui-form-item weadmin-item">
@@ -168,12 +158,8 @@
     </form>
 </div>
 <div class="weadmin-body-table">
-    <button type="button" class="layui-btn layui-btn-sm" onclick="btnAddProductRow()">增行</button>
-    <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="deleteProductRow()">删行</button>
-    <button type="button" class="layui-btn layui-btn-sm" onclick="addPart()">编辑部件</button>
+
     <table id="jqGrid"></table>
-    <button type="button" class="layui-btn layui-btn-sm" onclick="btnAddMaterialRowEvent()">增行</button>
-    <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="btnDeleteMaterialRow()">删行</button>
     <table id="jqGridDetail"></table>
 
 </div>
@@ -209,8 +195,8 @@
     var materialMaxId = 1;
     //向打开的部件窗口传递的参数
     var addPartParams;
-    //允许审核的标志，每次保存完后会设为true，每次审核完后设为false，编辑页面默认为false
-    var ableToAudit = false;
+    //允许审核的标志，每次保存完后会设为true，每次审核完后设为false，编辑页面默认为true
+    var ableToAudit = true;
     $(function () {
         initJqgrid();
     });
@@ -289,8 +275,37 @@
                     layer.msg("保存失败!" + data.msg, {icon: 6});
                 }
             });
-
         })
+
+        /*
+         * 变更
+         */
+        form.on('submit(change)', function (data) {
+            console.debug("变更");
+            if (CurRow != "" && CurRow != undefined) {
+                $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
+            }
+            if (CurRow1 != "" && CurRow1 != undefined) {
+                $("#jqGridDetail").jqGrid('saveCell', CurRow1, CurCol1);
+            }
+            let productData = productHelper.getAllRowData();
+            let productDataStr = JSON.stringify(productData);
+            let materialData = materialHelper.getAllRowData();
+            let materialDataStr = JSON.stringify(materialData);
+            let mainId = $("#id").val();
+            sendPostReq(URL_CHANGE,{
+                mainStr: JSON.stringify(data.field),
+                productStr: productDataStr,
+                materialStr: materialDataStr
+            },function (data) {
+                if (data.success == true || data.success == "true") {
+                    layer.msg("变更成功", {icon: 6});
+                    console.debug("变更成功");
+                } else {
+                    layer.msg("保存失败!" + data.msg, {icon: 6});
+                }
+            })
+        });
 
 
 
@@ -306,45 +321,6 @@
         });
 
 
-        //监听提交
-        form.on('submit(save)', function (data) {
-
-            if (CurRow != "" && CurRow != undefined) {
-                $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
-            }
-            if (CurRow1 != "" && CurRow1 != undefined) {
-                $("#jqGridDetail").jqGrid('saveCell', CurRow1, CurCol1);
-            }
-
-            var productData = productHelper.getAllRowData();
-            var productDataStr = JSON.stringify(productData);
-            var materialData = materialHelper.getAllRowData();
-            var materialDataStr = JSON.stringify(materialData);
-            //map转成一维object数组
-            let partDataArray = convertPartDataMapToArray();
-            let partDataStr = JSON.stringify(partDataArray);
-            var flag = true;
-            if (flag) {
-                sendPostReq(URL_UPDATE_MES_MAIN_BY_ID, {
-                    mainStr: JSON.stringify(data.field),
-                    productStr: productDataStr,
-                    partStr: partDataStr,
-                    materialStr: materialDataStr
-                }, function (data) {
-                    if (data.success == true || data.success == "true") {
-                        layer.msg("保存成功", {icon: 6});
-                        ableToAudit = true;
-                        reloadAllData();
-                    } else {
-                        layer.msg("更新失败!" + data.msg, {icon: 6});
-                    }
-
-
-                });
-            }
-
-
-        });
     });
 
 
@@ -401,7 +377,83 @@
         $("#jqGrid").jqGrid({
             mtype: "GET",
             datatype: "local",
-            colModel: PRODUCT_COL_MODEL,
+            colModel: [
+                {name: U8_MO_DETAIL_ID, hidden: true},
+                {name: "modetailsid", key: true, hidden: true},
+                {name: ID, hidden: true},
+                {label:"产品表行标识",name: RECORD_ID,width: 80,sortable: false, editable: false, align: "center"},
+                {label: "产品编码", name: PRODUCT_INV_CODE, width: 110, sortable: false, editable: false, align: "center"},
+                {label: "产品名称", name: PRODUCT_INV_NAME, width: 90, sortable: false, editable: false, align: "center"},
+                {label: "规格型号", name: PRODUCT_INV_STD, width: 80, sortable: false, editable: false, align: "center"},
+                {label: "单位", name: PRODUCT_INV_UNIT, width: 40, sortable: false, editable: false, align: "center"},
+                {label: "数量", name: PRODUCT_QTY, width: 40, sortable: false, editable: true, align: "center"},
+                {label: "材料单价", name: MATERIAL_PRICE, width: 60, sortable: false, editable: false, align: "center"},
+                {label: "单件材料费", name: MATERIAL_AMOUNT, width: 70, sortable: false, editable: false, align: "center"},
+                {label: "单件加工费", name: WORK_PRICE, width: 70, sortable: false, editable: false, align: "center"},
+                {label: "加工费合计", name: TOTAL_WORK_AMOUNT, width: 70, sortable: false, editable: false, align: "center"},
+                {label: "单件价格", name: PRICE, width: 60, sortable: false, editable: false, align: "center"},
+                {label: "合计", name: AMOUNT, width: 70, sortable: false, editable: false, align: "center"},
+                {label: "税率", name: TAX_RATE, width: 70, sortable: false, editable: false, align: "center"},
+                {name: ROW_ID, hidden: true},
+                {name: MAIN_ID, hidden: true},
+                {
+                    label: "计划开工日期",
+                    name: PLAN_START_DATE,
+                    width: 80,
+                    editable: false,
+                    sortable: false,
+                    align: "center",
+                    datefmt: 'yyyy-mm-dd',
+                    editoptions: {
+                        dataInit: function (e) {
+                            $(e).datepicker({
+                                todayHighlight: true,
+                                language: "zh-CN",//语言
+                                autoclose: true,//自动关闭
+                                todayBtn: "linked",//
+                                format: "yyyy-mm-dd",//时间显示格式
+                            }).on('changeDate',function(e){
+                                let dateObj = e.date;
+                                //转换为年月日
+                                let time = dateObj.getFullYear()+"-"+(dateObj.getMonth()+1)+"-"+dateObj.getDate();
+                                planStartDate = time;
+                            });
+
+                            $(this).click(function (e) {//选中时间后隐藏
+                                $(e).parent().datepicker('hide');
+                            });
+                        }
+                    }
+                },
+                {
+                    label: "计划完工日期",
+                    name: PLAN_END_DATE,
+                    width: 80,
+                    editable: false,
+                    sortable: false,
+                    align: "center",
+                    datefmt: 'yyyy-mm-dd',
+                    editoptions: {
+                        dataInit: function (e) {
+                            $(e).datepicker({
+                                todayHighlight: true,
+                                language: "zh-CN",//语言
+                                autoclose: true,//自动关闭
+                                todayBtn: "linked",//
+                                format: "yyyy-mm-dd"//时间显示格式
+                            }).on('changeDate',function(e){
+                                let dateObj = e.date;
+                                //转换为年月日
+                                let time = dateObj.getFullYear()+"-"+(dateObj.getMonth()+1)+"-"+dateObj.getDate();
+                                planEndDate = time;
+                            });
+                            $(this).click(function (e) {//选中时间后隐藏
+                                $(e).parent().datepicker('hide');
+                            });
+                        }
+                    }
+                },
+            ],
             subGrid: true,
             subGridRowExpanded: function (subgrid_id, row_id) {
                 // we pass two parameters
@@ -420,7 +472,20 @@
                 $("#" + subgrid_table_id).jqGrid({
                     datatype: "local",
                     method: "post",
-                    colModel: PART_COL_MODEL,
+                    colModel: [
+                        // {name: RECORD_ID, hidden: true},
+                        {label:"产品表行标识",name: RECORD_ID,width: 80,sortable: false, editable: false, align: "center",hidden:INDEX_HIDDEN},
+                        {label: "部件表行标识",name: PART_ROW_ID, width: 80,hidden:INDEX_HIDDEN},
+                        {label: "部件编码", name: PART_INV_CODE, width: 110, sortable: false, editable: false, align: "center"},
+                        {label: "部件名称", name: PART_INV_NAME, width: 90, sortable: false, editable: false, align: "center"},
+                        {label: "规格型号", name: PART_INV_STD, width: 80, sortable: false, editable: false, align: "center"},
+                        {label: "单位", name: PART_INV_UNIT, width: 40, sortable: false, editable: false, align: "center"},
+                        {label: "数量", name: PART_QTY, width: 40, sortable: false, editable: false, align: "center"},
+                        {name: DETAIL_ID, hidden: true},
+                        {name: ROW_ID, hidden: true},
+                        {name: MAIN_ID, hidden: true},
+                        {name: ID, hidden: true},
+                    ],
                     cmTemplate: {sortable: false, align: "center"},
                     pager: false,
                     height: '100%',
@@ -473,7 +538,9 @@
                 jqXHR.setRequestHeader('Authorization', token);
 
             },
-            ondblClickRow: productOndblClickRow,
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+
+            },
 
             loadComplete: function () {
 
@@ -501,7 +568,41 @@
         $("#jqGridDetail").jqGrid({
             mtype: "GET",
             datatype: "local",
-            colModel:MATERIAL_COL_MODEL,
+            colModel: [
+                {name: U8_MO_MATERIAL_ID, hidden: true},
+                {name: ID, hidden: true},
+                {label:'产品表行标识',name: RECORD_ID, hidden: INDEX_HIDDEN,width: 80},
+                {label:"部件表行表示",name: PART_ROW_ID, hidden: INDEX_HIDDEN,width: 80},
+                {label: "产品编码", name: PRODUCT_INV_CODE, width: 110, sortable: false, editable: false, align: "center"},
+                {label: "产品名称", name: PRODUCT_INV_NAME, width: 90, sortable: false, editable: false, align: "center"},
+                {label: "规格型号", name: PRODUCT_INV_STD, width: 80, sortable: false, editable: false, align: "center"},
+                {label: "单位", name: PRODUCT_INV_UNIT, width: 40, sortable: false, editable: false, align: "center"},
+                {label: "产品数量", name: PRODUCT_QTY, width: 70, sortable: false, editable: false, align: "center"},
+                {label: "规格型号", name: PART_INV_STD, width: 80, sortable: false, editable: false, align: "center"},
+                {label: "单位", name: PART_INV_UNIT, width: 40, sortable: false, editable: false, align: "center"},
+                {label: "材料单价", name: UNIT_MATERIAL_PRICE, width: 60, sortable: false, editable: false, align: "center"},
+                {label: "单件材料费", name: UNIT_MATERIAL_AMOUNT, width: 70, sortable: false, editable: false, align: "center"},
+                {label: "材料编码", name: INV_CODE, width: 90, sortable: false, editable: false, align: "center"},
+                {label: "材料名称", name: INV_NAME, width: 120, sortable: false, editable: false, align: "center"},
+                {label: "材料规格", name: INV_STD, width: 80, sortable: false, editable: false, align: "center"},
+                {label: "厚度", name: INV_LAND, width: 40, sortable: false, editable: true, align: "center"},
+                {label: "长", name: INV_LEN, width: 45, sortable: false, editable: true, align: "center"},
+                {label: "宽", name: INV_WIDTH, width: 40, sortable: false, editable: true, align: "center"},
+                {label: "外径", name: INV_EXTERNAL_DIAMETER, width: 40, sortable: false, editable: true, align: "center"},
+                {label: "内径", name: INV_INTERNAL_DIAMETER, width: 40, sortable: false, editable: true, align: "center"},
+                {label: "密度", name: INV_DENSITY, width: 40, sortable: false, editable: true, align: "center"},
+                {label: "下料尺寸", name: INV_SIZE, width: 110, sortable: false, editable: false, align: "center"},
+                {label: "单耗", name: IQTY, width: 45, sortable: true, editable: true, align: "center"},
+                {label: "总量", name: TQTY, width: 45, sortable: true, editable: false, align: "center"},
+                {label: "单位", name: INV_UNIT,hidden:true },
+                {label: "部件编码", name: PART_INV_CODE,hidden: true, width: 110, sortable: false, editable: false, align: "center"},
+                {label: "部件名称", name: PART_INV_NAME,hidden: true, width: 90, sortable: false, editable: false, align: "center"},
+                {label: "规格型号", name: PART_INV_STD, hidden: true,width: 80, sortable: false, editable: false, align: "center"},
+                {label: "单位", name: PART_INV_UNIT, hidden: true,width: 40, sortable: false, editable: false, align: "center"},
+                {label: "部件数量", name: PART_QTY,hidden: true, width: 70, sortable: false, editable: false, align: "center"},
+                {name: ROW_ID, hidden: true},
+                {name: MAIN_ID, hidden: true},
+            ],
             viewrecords: true,
             multiselect: false,
             autowidth: true,
@@ -525,7 +626,9 @@
                 jqXHR.setRequestHeader('Authorization', token);
 
             },
-            ondblClickRow: materialOndblClickRow,
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+
+            },
 
             loadComplete: function () {
 
@@ -554,30 +657,6 @@
 
 
 
-    //产品编码
-    function choice(rowid) {
-        if (rowid != null && rowid != '') {
-            WeAdminShow('选择产品', '/components/choiceinventory.html?');
-        } else {
-            layer.alert("请先选择行再操作！");
-        }
-    }
-
-    /*
-   * 将partDataMap转换成array
-   */
-    function convertPartDataMapToArray(){
-        let partDataArray = [];
-        for ([key,value] of partDataMap){
-            let array = value;
-            array.forEach(function (row){
-                partDataArray.push(row);
-            })
-        }
-        return partDataArray;
-    }
-
-
 
     /*
      * 设置行数据
@@ -585,6 +664,8 @@
     function setRowData(tableId,rowId,rowData){
         $("#"+tableId).setRowData(rowId,rowData);
     }
+
+
 
 
 
@@ -611,39 +692,9 @@
         initData();
     }
 
-    /*
-     * 弃审
-     */
-    function btnNotAudit() {
-        var u8Id=$("#u8Id").val();
-        let mesId = $('#id').val();
-        if(u8Id!=""&&u8Id!=null)
-        {
-            $.ajax({
-                type: "post",
-                url: URL_NOT_AUDIT,
-                data: { id: u8Id,mesId:mesId},
-                success: function (text) {
-                    var data = text;
-                    if (data.success == true || data.success == "true") {
-                        layer.msg("弃审成功!");
-                        reloadAllData();
-                    }
-                    else {
-                        layer.alert(data.msg);
-                    }
 
-                },
-                error: function ()
-                { }
-            });
-        }
-        else
-        {
-            layer.alert("请先保存!");
-        }
 
-    }
+
 
 
 

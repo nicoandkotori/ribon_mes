@@ -4,5 +4,13 @@
     <option name="domain" value="http://localhost:8036" />
     <option name="enableEnv" value="dev" />
     <option name="enableProject" value="ribon_mes" />
+    <option name="headerList">
+      <list>
+        <DataMapping>
+          <option name="type" value="Authorization" />
+          <option name="value" value="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA" />
+        </DataMapping>
+      </list>
+    </option>
   </component>
 </project>

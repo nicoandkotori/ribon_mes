@@ -53,6 +53,7 @@ public class OmMoDetails {
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date darrivedate;
 
+    //入库数量
     private BigDecimal ireceivedqty;
 
     private BigDecimal ireceivednum;

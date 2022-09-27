@@ -60,6 +60,17 @@ function productOndblClickRow(rowid, iRow, iCol, e){
 }
 
 /*
+ * 材料表行双击函数
+ */
+function materialOndblClickRow(rowid, iRow, iCol, e) {
+    if (iCol == 14 || iCol == 15) {
+        chooseInvType = 'material';
+        //选择材料
+        choice(rowid);
+    }
+}
+
+/*
  * 材料表afterSaveCell
  */
 function materialAfterSaveCell(rowid, name, val, iRow, iCol) {
@@ -79,17 +90,6 @@ function materialAfterSaveCell(rowid, name, val, iRow, iCol) {
         updateTqty(rowid);
     }
 
-}
-
-/*
- * 材料表行双击函数
- */
-function materialOndblClickRow(rowid, iRow, iCol, e) {
-    if (iCol == 14 || iCol == 15) {
-        chooseInvType = 'material';
-        //选择材料
-        choice(rowid);
-    }
 }
 
 

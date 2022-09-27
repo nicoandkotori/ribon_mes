@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.pd.mapper.PdOrderMainMapper">
+
+    <resultMap id="BaseResultMap" type="com.web.pd.entity.PdOrderMain">
+            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <result property="vouchCode" column="vouch_code" jdbcType="VARCHAR"/>
+            <result property="vouchDate" column="vouch_date" jdbcType="TIMESTAMP"/>
+            <result property="contractPd" column="contract_pd" jdbcType="VARCHAR"/>
+            <result property="contractSale" column="contract_sale" jdbcType="VARCHAR"/>
+            <result property="venCode" column="ven_code" jdbcType="VARCHAR"/>
+            <result property="venName" column="ven_name" jdbcType="VARCHAR"/>
+            <result property="depCode" column="dep_code" jdbcType="VARCHAR"/>
+            <result property="depName" column="dep_name" jdbcType="VARCHAR"/>
+            <result property="personCode" column="person_code" jdbcType="VARCHAR"/>
+            <result property="personName" column="person_name" jdbcType="VARCHAR"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="transportWay" column="transport_way" jdbcType="VARCHAR"/>
+            <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+            <result property="createDate" column="create_date" jdbcType="TIMESTAMP"/>
+            <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
+            <result property="updateDate" column="update_date" jdbcType="TIMESTAMP"/>
+            <result property="izDelete" column="iz_delete" jdbcType="INTEGER"/>
+            <result property="deleteUser" column="delete_user" jdbcType="VARCHAR"/>
+            <result property="deleteDate" column="delete_date" jdbcType="TIMESTAMP"/>
+            <result property="checkUser" column="check_user" jdbcType="VARCHAR"/>
+            <result property="checkDate" column="check_date" jdbcType="TIMESTAMP"/>
+            <result property="u8Id" column="u8_id" jdbcType="INTEGER"/>
+            <result property="statusId" column="status_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,vouch_code,vouch_date,
+        contract_pd,contract_sale,ven_code,
+        ven_name,dep_code,dep_name,
+        person_code,person_name,remark,
+        transport_way,create_user,create_date,
+        update_user,update_date,iz_delete,
+        delete_user,delete_date,check_user,
+        check_date,u8_id,status_id
+    </sql>
+
+    <select id="findMainByPage" resultType="com.web.pd.dto.PdOrderMainDTO">
+        select *
+        from pd_order_main op
+        where 1=1 and iz_delete=0
+        <if test="main.remark != null   and main.remark != '' ">
+            AND op.remark like '%' + #{main.remark} + '%'
+        </if>
+        <if test="main.personName != null   and main.personName != '' ">
+            AND op.person_name like '%' + #{main.personName} + '%'
+        </if>
+        <if test="main.depName != null   and main.depName != '' ">
+            AND op.dep_name like '%' + #{main.depName} + '%'
+        </if>
+        <if test="main.venName != null   and main.venName != '' ">
+            AND op.ven_name like '%' + #{main.venName} + '%'
+        </if>
+        <if test="main.vouchCode != null   and main.vouchCode != '' ">
+            AND op.vouch_code like '%' + #{main.vouchCode} + '%'
+        </if>
+        <if test="main.contractPd != null   and main.contractPd != '' ">
+            AND op.contract_pd like '%' + #{main.contractPd} + '%'
+        </if>
+        <if test="main.contractSale != null   and main.contractSale != '' ">
+            AND op.contract_sale like '%' + #{main.contractSale} + '%'
+        </if>
+        <if test="main.statusId != null   and main.statusId !='' ">
+            AND op.status_id = #{main.statusId}
+        </if>
+        <if test="main.dateStart != null and main.dateStart != ''" >
+            AND op.vouch_date >= #{main.dateStart,jdbcType=TIMESTAMP}
+        </if>
+        <if test="main.dateEnd != null and main.dateEnd != ''">
+            AND op.vouch_date &lt; #{main.dateEnd,jdbcType=TIMESTAMP}
+        </if>
+        order by vouch_code desc
+    </select>
+
+    <select id="getMainAndProductList" resultType="com.web.pd.dto.PdOrderDetailDTO">
+        SELECT t1.main_id,
+               t1.product_inv_code,
+               t1.product_inv_name,
+               t1.product_inv_std,
+               t1.product_inv_unit,
+               t1.product_qty,
+               t1.material_price,
+               t1.material_amount,
+               t1.work_price,
+               t1.total_work_amount,
+               t1.price,
+               t1.amount,
+               t1.plan_start_date,
+               t1.plan_end_date,
+               t1.u8_mo_detail_id,
+               t2.id,
+               t2.detail_id,
+               t2.part_id,
+               t2.inv_code,
+               t2.inv_name,
+               t2.inv_std,
+               t2.inv_unit,
+               t2.unit_material_price,
+               t2.unit_material_amount,
+               t2.inv_land,
+               t2.inv_width,
+               t2.inv_len,
+               t2.inv_external_diameter,
+               t2.inv_internal_diameter,
+               t2.inv_density,
+               t2.inv_size,
+               t2.iqty,
+               t2.tqty
+        FROM pd_order_main t
+                 LEFT JOIN pd_order_detail t1 ON t.id = t1.main_id AND t1.iz_delete = 0
+                 LEFT JOIN pd_order_material t2 ON t1.id = t2.detail_id AND t2.iz_delete = 0
+        WHERE t.id = #{main.id,jdbcType=VARCHAR}
+        ORDER BY t1.row_no, t2.row_no
+    </select>
+</mapper>

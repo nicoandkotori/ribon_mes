@@ -64,8 +64,8 @@
     <form class="layui-form">
         <div class="weadmin-block">
             <button type="button" class="layui-btn layui-btn-sm" lay-filter="save" lay-submit="">保存</button>
-            <button type="button" class="layui-btn layui-btn-sm" lay-filter="audit" lay-submit="">审核</button>
-            <button type="button" class="layui-btn layui-btn-sm" onclick="btnNotAudit()">弃审</button>
+<!--            <button type="button" class="layui-btn layui-btn-sm" lay-filter="audit" lay-submit="">审核</button>-->
+<!--            <button type="button" class="layui-btn layui-btn-sm" onclick="btnNotAudit()">弃审</button>-->
             <button type="button" class="layui-btn layui-btn-sm" onclick="FnPrint()">打印</button>
 
         </div>
@@ -89,24 +89,11 @@
                 <input type="text" id="vouchDate" name="vouchDate" readonly lay-verify="required"
                        class="layui-input weadmin-input-sm">
             </div>
-            <label for="contractOm" class="weadmin-lable-sm layui-col-md1">
+            <label for="contractPd" class="weadmin-lable-sm layui-col-md1">
                 委外合同
             </label>
             <div class="layui-col-md2">
-                <input type="text" id="contractOm" name="contractOm" class="layui-input weadmin-input-sm">
-            </div>
-        </div>
-        <div class="layui-form-item weadmin-item">
-
-            <label for="venCode" class="weadmin-lable-sm layui-col-md1">
-                <span class="we-red">*</span>供应商
-            </label>
-            <div class="layui-col-md5">
-                <select id="venCode" name="venCode" autocomplete="off" lay-verify="required" lay-filter="venCode"
-                        lay-search="">
-                </select>
-                <input type="hidden" id="venName" name="venName">
-
+                <input type="text" id="contractPd" name="contractPd" class="layui-input weadmin-input-sm">
             </div>
             <label for="contractSale" class="weadmin-lable-sm layui-col-md1">
                 销售合同
@@ -114,7 +101,6 @@
             <div class="layui-col-md2">
                 <input type="text" id="contractSale" name="contractSale" class="layui-input weadmin-input-sm">
             </div>
-
         </div>
 
         <div class="layui-form-item weadmin-item">
@@ -244,12 +230,6 @@
             $("#personName").val(personName);
         });
 
-        //供应商
-        laySelect('venCode', '/basicinfo/vendor/getlist', {}, {id: "cvencode", text: "cvenname"}, false, form);
-        form.on('select(venCode)', function (data) {
-            let venName = $("#venCode").find("option:selected").text();
-            $("#venName").val(venName);
-        });
 
         /*
          * 审核
@@ -473,7 +453,15 @@
                 jqXHR.setRequestHeader('Authorization', token);
 
             },
-            ondblClickRow: productOndblClickRow,
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+                //iCol==6||
+                if (iCol == 5 || iCol == 6 || iCol == 7) {
+                    //选择母件
+                    chooseInvType = 'product'
+                    choice(rowid);
+                }
+
+            },
 
             loadComplete: function () {
 
@@ -525,7 +513,15 @@
                 jqXHR.setRequestHeader('Authorization', token);
 
             },
-            ondblClickRow: materialOndblClickRow,
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+                //iCol==6||
+
+                if (iCol == 14 || iCol == 12) {
+                    chooseInvType = 'material';
+                    //选择自建
+                    choice(rowid);
+                }
+            },
 
             loadComplete: function () {
 

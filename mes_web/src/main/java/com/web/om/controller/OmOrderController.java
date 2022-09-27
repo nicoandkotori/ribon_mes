@@ -36,8 +36,6 @@ public class OmOrderController extends BasicController {
     @Autowired
     private IOmOrderMainService mesMainService;
 
-    @Autowired
-    private IVendorService vendorService;
 
     @Autowired
     private IOmOrderDetailService mesProductService;
@@ -57,42 +55,6 @@ public class OmOrderController extends BasicController {
     @Autowired
     private OmMoDetailsMapper u8ProductMapper;
 
-    /**
-     * 查询最大的单据号
-     */
-    @RequestMapping(value = "/getmaxcode")
-    public ResponseResult getMaxCode() throws Exception {
-        ResponseResult result = new ResponseResult();
-        try{
-            String head = "OM" + DateUtil.getDateStr(new Date(), "yyyyMMdd");
-            String sortNum = "001";
-            int sortNumLength = 3;
-
-            LambdaQueryWrapper<OmOrderMain> select=new LambdaQueryWrapper<>();
-            select.select(OmOrderMain::getVouchCode)
-                    .like(OmOrderMain::getVouchCode, head);
-            select.orderByDesc(OmOrderMain::getVouchCode);
-            List<OmOrderMain> mainList = mesMainService.list(select);
-            if(mainList.size() > 0){
-                String maxCode = mainList.get(0).getVenCode();
-                if (CustomStringUtils.isNotBlank(maxCode)) {
-                    sortNum = Integer.parseInt(maxCode.substring(maxCode.length() - sortNumLength)) + 1 + "";
-                    while (sortNum.length() < sortNumLength) {
-                        sortNum = "0" + sortNum;
-                    }
-                }
-            }
-            result.setResult( head + sortNum);
-            result.setSuccess(true);
-        }catch(Exception e){
-
-            e.printStackTrace();
-            result.setSuccess(false);
-            result.setMsg(e.getMessage());
-        }
-        return result;
-
-    }
 
     /**
      * 委外单列表分页数据
@@ -120,6 +82,43 @@ public class OmOrderController extends BasicController {
         result.setRecords(resultPage.getTotal());
         result.setTotal((int)Math.ceil(resultPage.getTotal()/(double)resultPage.getSize()));
         result.setRows(resultPage.getRecords());
+        return result;
+
+    }
+
+    /**
+     * 生成最大单号
+     */
+    @RequestMapping(value = "/get_max_vouch_code")
+    public ResponseResult getMaxCode(){
+        ResponseResult result = new ResponseResult();
+        try{
+            String head = "WW" + DateUtil.getDateStr(new Date(), "yyyyMMdd");
+            String sortNum = "001";
+            int sortNumLength = 3;
+
+            LambdaQueryWrapper<OmOrderMain> select=new LambdaQueryWrapper<>();
+            select.select(OmOrderMain::getVouchCode)
+                    .like(OmOrderMain::getVouchCode, head);
+            select.orderByDesc(OmOrderMain::getVouchCode);
+            List<OmOrderMain> mainList = mesMainService.list(select);
+            if(mainList.size() > 0){
+                String maxCode = mainList.get(0).getVouchCode();
+                if (CustomStringUtils.isNotBlank(maxCode)) {
+                    sortNum = Integer.parseInt(maxCode.substring(maxCode.length() - sortNumLength)) + 1 + "";
+                    while (sortNum.length() < sortNumLength) {
+                        sortNum = "0" + sortNum;
+                    }
+                }
+            }
+            result.setResult( head + sortNum);
+            result.setSuccess(true);
+        }catch(Exception e){
+
+            e.printStackTrace();
+            result.setSuccess(false);
+            result.setMsg(e.getMessage());
+        }
         return result;
 
     }
