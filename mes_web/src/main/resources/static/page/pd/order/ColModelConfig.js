@@ -133,3 +133,52 @@ const PART_COL_MODEL = [
     {name: MAIN_ID, hidden: true},
     {name: ID, hidden: true},
 ]
+
+/*
+ * 二级部件表配置
+ */
+function partTableExpanded(subgrid_id, row_id){
+    // we pass two parameters
+    // subgrid_id is a id of the div tag created within a table
+    // the row_id is the id of the row
+    // If we want to pass additional parameters to the url we can use
+    // the method getRowData(row_id) - which returns associative array in type name-value
+    // here we can easy construct the following
+    var subgrid_table_id, pager_id;
+
+    subgrid_table_id = subgrid_id + "_t";
+    console.debug("加载部件表："+subgrid_table_id);
+    pager_id = "p_" + subgrid_table_id;
+    $("#" + subgrid_id).html("<table id='" + subgrid_table_id + "' class='scroll'></table><div id='" + pager_id + "' class='scroll'></div>");
+    var rwdata = $("#jqGrid").getRowData(row_id);
+    $("#" + subgrid_table_id).jqGrid({
+        datatype: "local",
+        method: "post",
+        colModel: PART_COL_MODEL,
+        cmTemplate: {sortable: false, align: "center"},
+        pager: false,
+        height: '100%',
+        rowNum: 500,
+        rowList: [20, 50, 100],
+        multiselect: false,
+        //双击事件
+        ondblClickRow: function (rowid, iRow, iCol, e) {
+            var partRwdata = $("#" + subgrid_table_id).getRowData(rowid);
+
+        },
+        //右键事件
+        onRightClickRow: function (rowid, iRow, iCol, e) {
+
+        }
+    });
+    //加载二级部件表的数据，这里需要去重的部件数据
+    let partDataArray = getPartDataByPartTableId(subgrid_table_id,partTableIdWithRecordIdMap,recordIdWithDistinctPartDataMap);
+
+    if (partDataArray != null && partDataArray != undefined){
+        //不打印这行，for里的length读不出数据
+        console.debug(partDataArray.length);
+        for ( var i = 0; i < partDataArray.length; i++){
+            $("#"+subgrid_table_id).jqGrid('addRowData', i + 1,partDataArray[i]);
+        }
+    }
+}

@@ -1,7 +1,10 @@
 package com.web.pd.mapper;
 
+import com.web.om.entity.OmOrderPart;
 import com.web.pd.entity.PdOrderPart;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
 * @author mijiahao
@@ -10,9 +13,14 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.web.pd.entity.PdOrderPart
 */
 public interface PdOrderPartMapper extends BaseMapper<PdOrderPart> {
-
+    /**
+     * 得到部件关联材料的数据
+     *
+     * @param mainId 主表ID
+     * @return {@link List}<{@link OmOrderPart}>
+     */
+    List<PdOrderPart> getPartsJoinMaterials(String mainId);
 }
-
 
 
 

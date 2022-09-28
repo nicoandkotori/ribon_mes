@@ -106,6 +106,7 @@ function updateAmount(rowId) {
     let productQty = getStringDecimal(productObj.getProductQty());
     productObj.setAmount((price * productQty).toFixed(2));
     productHelper.setRowDataById(rowId, productObj);
+    synchronizeOtherSameProductsRow(rowId);
 }
 
 /*
@@ -118,6 +119,7 @@ function updateWorkPriceWithoutTax(rowId) {
     let workPriceWithoutTax = (workPrice / (1 + DEFAULT_TAX_TATE * 0.01)).toFixed(2);
     productObj.setWorkPriceWithoutTax(workPriceWithoutTax);
     productHelper.setRowDataById(rowId, productObj);
+    synchronizeOtherSameProductsRow(rowId);
 }
 
 //修改数量后，同步更新该产品下材料的数量字段
@@ -157,26 +159,28 @@ function updateTotalWorkAmount(rowId) {
     let totalWorkAmount = (productQty * workPrice).toFixed(2);
     productObj.setTotalWorkAmount(totalWorkAmount);
     productHelper.setRowDataById(rowId, productObj);
+    synchronizeOtherSameProductsRow(rowId);
 }
 
 /*
  * 合计某产品下所有材料的材料单价和单件材料费
  */
 function sumMaterialPriceToProduct(recordId) {
+    console.debug("合计某产品下所有材料的材料单价和单件材料费")
     if (recordId === undefined) {
         layer.alert("recordId不能为空");
         return;
     }
     //查询对应的产品记录
     var idsMain = productHelper.getAllRowsId();
-    var rowMainId = "";
-    var rowMain = getEmptyMesProduct();
-    for (let i = 0; i < idsMain.length; i++) {
-        var rowData1 = $("#jqGrid").getRowData(idsMain[i]);
+    let productObjList = [];
+    for (let i = 1; i <= idsMain.length; i++) {
+        var rowData1 = productHelper.getRowDataById(i);
         if (rowData1.recordId == recordId) {
-            rowMainId = idsMain[i];
-            rowMain.setEntity(rowData1);
-            break;
+            let productObj = getEmptyMesProduct();
+            productObj.setEntity(rowData1);
+            productObj.setRowId(i)
+            productObjList.push(productObj);
         }
     }
     //循环子表合计材料单价和单件材料费
@@ -191,18 +195,22 @@ function sumMaterialPriceToProduct(recordId) {
             totalUnitMaterialAmount = totalUnitMaterialAmount + parseFloat(materialObjForTotalPrice.getUnitMaterialAmount() - 0);
         }
     }
+    //实际上不用在这里去做相同产品记录的更新.....
+    if (productObjList.length !== 0) {
+        productObjList.forEach(function (product){
+            let rowId = product.getRowId();
+            //单件加工费
+            let workPrice = getStringDecimal(product.getWorkPrice())
+            var price = ((totalUnitMaterialAmount - 0) + (workPrice - 0)) - 0;
+            product.setMaterialPrice(totalUnitMaterialPrice.toFixed(2));
+            product.setMaterialAmount(totalUnitMaterialAmount.toFixed(2));
+            product.setPrice(price);
+            product.setAmount((price * product.getProductQty).toFixed(2));
+            productHelper.setRowDataById(rowId, product);
+            //更新单件价格字段
+            updatePrice(rowId)
+        })
 
-    if (rowMain != null) {
-        //单件加工费
-        let workPrice = getStringDecimal(rowMain.getWorkPrice())
-        var price = ((totalUnitMaterialAmount - 0) + (workPrice - 0)) - 0;
-        rowMain.setMaterialPrice(totalUnitMaterialPrice.toFixed(2));
-        rowMain.setMaterialAmount(totalUnitMaterialAmount.toFixed(2));
-        rowMain.setPrice(price);
-        rowMain.setAmount((price * rowMain.getProductQty).toFixed(2));
-        productHelper.setRowDataById(rowMainId, rowMain);
-        //更新单件价格字段
-        updatePrice(rowMainId)
     }
 }
 
@@ -428,4 +436,20 @@ function SetInventory(rowid, itype) {
     }
 
 
+}
+
+/*
+ * 当修改了一条产品记录的信息后，同步其它所有相同的产品记录
+ */
+function synchronizeOtherSameProductsRow(rowId){
+    let product = productHelper.getRowDataById(rowId);
+    let updatedProductObj = getMesProductWithData(product);
+    let productIds = productHelper.getAllRowsId();
+    productIds.forEach(function (id) {
+        let product = productHelper.getRowDataById(id);
+        let productObj = getMesProductWithData(product);
+        if (updatedProductObj.getRecordId() === productObj.getRecordId()){
+            productHelper.setRowDataById(id,updatedProductObj);
+        }
+    })
 }

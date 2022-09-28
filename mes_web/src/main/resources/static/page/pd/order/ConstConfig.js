@@ -8,7 +8,7 @@ const MATERIAL_TABLE_ID = "jqGridDetail";
 const SELECTOR_MATERIAL_TABLE_ID = "#"+MATERIAL_TABLE_ID;
 //行标识隐藏flag
 const INDEX_HIDDEN = true;
-const HIDE_FIELD = true;
+const HIDE_FIELD = false;
 //默认税率
 const DEFAULT_TAX_TATE = 13.00;
 

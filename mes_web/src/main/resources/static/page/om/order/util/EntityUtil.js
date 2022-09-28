@@ -62,3 +62,20 @@ function getMesMaterialWithData(data){
     materialObj.setEntity(data);
     return materialObj;
 }
+
+function getEmptyMesPart(){
+    return new OmMesMaterial();
+}
+
+function getMesPartWithData(data){
+    return getEmptyMesProduct().setEntity(data);
+}
+
+function getMesPartListWithData(partList){
+    let partObjList = [];
+    partList.forEach(function (product) {
+        let productObj = getMesMaterialWithData(product);
+        partObjList.push(productObj);
+    })
+    return partObjList;
+}

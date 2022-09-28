@@ -33,4 +33,14 @@
         iz_delete,delete_user,delete_date,
         row_no,record_id,part_row_id
     </sql>
+
+    <select id="getPartsJoinMaterials" resultType="com.web.pd.entity.PdOrderPart">
+        SELECT part.*
+        FROM pd_order_part part
+                 JOIN pd_order_material material ON part.id = material.part_id
+        WHERE
+            part.main_id = #{mainId}
+          AND part.iz_delete = 0
+          AND material.iz_delete = 0;
+    </select>
 </mapper>

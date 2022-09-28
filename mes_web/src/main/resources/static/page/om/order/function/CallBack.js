@@ -16,10 +16,23 @@ function addPartCallBack(product,partArray,materialArray,otherParams){
     //部件表赋值
     let partTableId = getPartTableId(productHelper.getSelectedRowId());
     console.debug("增加部件表-部件赋值-部件表id："+partTableId);
-    partDataMap.set(partTableId,partArray);
-    array = partArray;
     let productObj = new OmMesProduct();
     productObj.setEntity(product);
+    let recordId = productObj.getRecordId();
+    recordIdWithPartDataMap.set(recordId,partArray);
+    //对部件数据去重，然后保存到map
+    let distinctPartList = [];
+    let partRowIds = []
+    let partObjList = getMesPartListWithData(partArray);
+    partObjList.forEach(part =>{
+        if (partRowIds.includes(part.getPartRowId())){
+            return;
+        }
+        distinctPartList.push(part);
+        partRowIds.push(part.getPartRowId());
+    })
+    recordIdWithDistinctPartDataMap.set(recordId,distinctPartList);
+    array = partArray;
     //合计该产品下所有材料的材料单价和单件材料费
     sumMaterialPriceToProduct(productObj.getRecordId())
     console.debug("增加部件表-带回材料表数据↓");

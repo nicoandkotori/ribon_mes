@@ -189,8 +189,12 @@
     //产品表当前选中行id
     var selectedProductRowIndex;
     var rowNum = 1;
-    //部件表数据map，key是部件表ID，value是部件表数组
-    var partDataMap = new Map();
+    //部件表数据map，key是部件表ID，value是recordId
+    var partTableIdWithRecordIdMap = new Map();
+    //key是recordId，value是该产品下的部件数据
+    var recordIdWithPartDataMap = new Map();
+    //key是recordId，value是该产品下的部件数据（去重的）
+    var recordIdWithDistinctPartDataMap = new Map();
     var array;
     var id = GetQueryString("id");
     var productHelper = new JqGridRowHelper($('#'+PRODUCT_TABLE_ID));
@@ -353,47 +357,7 @@
      */
     function initData() {
         //获取主表及其所有字表数据
-        sendGetReq(URL_GET_ALL_MAIN_DATA_BY_ID, {id: id}, function (result) {
-            let data = result.data;
-            if (data != null){
-                console.debug("初始化数据-主表赋值");
-                $("form").setForm(data.main);
-                layui.form.render();
-                let productList = data.productList;
-                let partList = data.partList;
-                let materialList = data.materialList;
-                //添加产品数据
-                productList.forEach(function (product) {
-                    addProductRow(product);
-                })
-                //为每条产品设置对应的部件记录
-                let allProductRow = productHelper.getAllRowData();
-                allProductRow.forEach(function (productRow) {
-                    let productObj = new OmMesProduct();
-                    productObj.setEntity(productRow);
-                    let partTableId = getPartTableId(productObj.getRowId());
-                    let partArray = [];
-                    let partObj = new OmMesPart();
-                    //找出部件记录中部件ID和产品ID相同的记录
-                    partList.forEach(function (part) {
-                        partObj.setEntity(part)
-                        if (partObj.getDetailId() === productObj.getId()){
-                            partArray.push(part);
-                        }
-                    })
-                    partDataMap.set(partTableId,partArray);
-                })
-                //添加材料数据
-                materialList.forEach(function (material) {
-                    addMaterialRow(material);
-                })
-                console.debug(data);
-            }
-        });
-
-
-
-
+        getAllDataByMainId(id);
     }
 
 
@@ -403,53 +367,7 @@
             datatype: "local",
             colModel: PRODUCT_COL_MODEL,
             subGrid: true,
-            subGridRowExpanded: function (subgrid_id, row_id) {
-                // we pass two parameters
-                // subgrid_id is a id of the div tag created within a table
-                // the row_id is the id of the row
-                // If we want to pass additional parameters to the url we can use
-                // the method getRowData(row_id) - which returns associative array in type name-value
-                // here we can easy construct the following
-                var subgrid_table_id, pager_id;
-
-                subgrid_table_id = subgrid_id + "_t";
-                console.debug("加载部件表："+subgrid_table_id);
-                pager_id = "p_" + subgrid_table_id;
-                $("#" + subgrid_id).html("<table id='" + subgrid_table_id + "' class='scroll'></table><div id='" + pager_id + "' class='scroll'></div>");
-                var rwdata = $("#jqGrid").getRowData(row_id);
-                $("#" + subgrid_table_id).jqGrid({
-                    datatype: "local",
-                    method: "post",
-                    colModel: PART_COL_MODEL,
-                    cmTemplate: {sortable: false, align: "center"},
-                    pager: false,
-                    height: '100%',
-                    rowNum: 500,
-                    rowList: [20, 50, 100],
-                    multiselect: false,
-                    //双击事件
-                    ondblClickRow: function (rowid, iRow, iCol, e) {
-                        var partRwdata = $("#" + subgrid_table_id).getRowData(rowid);
-
-                    },
-                    //右键事件
-                    onRightClickRow: function (rowid, iRow, iCol, e) {
-
-                    }
-                });
-                //加载二级表的数据
-                let partDataArray = partDataMap.get(subgrid_table_id);
-
-                if (partDataArray != null && partDataArray != undefined){
-                    //不打印这行，for里的length读不出数据
-                    console.debug(partDataArray.length);
-                    for ( var i = 0; i < partDataArray.length; i++){
-                        $("#"+subgrid_table_id).jqGrid('addRowData', i + 1,partDataArray[i]);
-                    }
-                }
-
-
-            },
+            subGridRowExpanded: partTableExpanded,
             viewrecords: true,
             multiselect: false,
             autowidth: true,
@@ -563,19 +481,7 @@
         }
     }
 
-    /*
-   * 将partDataMap转换成array
-   */
-    function convertPartDataMapToArray(){
-        let partDataArray = [];
-        for ([key,value] of partDataMap){
-            let array = value;
-            array.forEach(function (row){
-                partDataArray.push(row);
-            })
-        }
-        return partDataArray;
-    }
+
 
 
 
@@ -607,7 +513,7 @@
             productHelper.deleteRowById(id)
         })
         //清空部件数据
-        partDataMap = new Map();
+        partTableIdWithRecordIdMap = new Map();
         initData();
     }
 

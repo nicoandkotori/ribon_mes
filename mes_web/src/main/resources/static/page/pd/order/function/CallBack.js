@@ -16,10 +16,23 @@ function addPartCallBack(product,partArray,materialArray,otherParams){
     //部件表赋值
     let partTableId = getPartTableId(productHelper.getSelectedRowId());
     console.debug("增加部件表-部件赋值-部件表id："+partTableId);
-    partDataMap.set(partTableId,partArray);
-    array = partArray;
     let productObj = new OmMesProduct();
     productObj.setEntity(product);
+    let recordId = productObj.getRecordId();
+    recordIdWithPartDataMap.set(recordId,partArray);
+    //对部件数据去重，然后保存到map
+    let distinctPartList = [];
+    let partRowIds = []
+    let partObjList = getMesPartListWithData(partArray);
+    partObjList.forEach(part =>{
+        if (partRowIds.includes(part.getPartRowId())){
+            return;
+        }
+        distinctPartList.push(part);
+        partRowIds.push(part.getPartRowId());
+    })
+    recordIdWithDistinctPartDataMap.set(recordId,distinctPartList);
+    array = partArray;
     //合计该产品下所有材料的材料单价和单件材料费
     sumMaterialPriceToProduct(productObj.getRecordId())
     console.debug("增加部件表-带回材料表数据↓");
@@ -48,7 +61,7 @@ function chooseInventoryCallBack(u8Data){
     //根据选择物料类型来为产品表或材料表赋值，不算优雅的设计，但受限于框架没有更好的实现方式
     switch (chooseInvType) {
         case 'product':
-            console.debug("选择产品信息");
+            console.debug("选择产品信息回调");
             productHelper.saveCell(CurRow,CurCol);
             materialHelper.saveCell(CurRow1,CurCol1);
             let mesProduct = new OmMesProduct();

@@ -38,12 +38,14 @@ function addPart(){
     }
     //产品信息
     let productData = productHelper.getSelectedRowData();
-    //当前产品的部件信息
-    let partList = partDataMap.get(getPartTableId(id));
+    //传给部件窗口的部件数据，这里需要没有去重的部件数据
+    let partList = getPartDataByPartTableId(getPartTableId(id),partTableIdWithRecordIdMap,recordIdWithPartDataMap);
     //当前产品部件的材料信息
     let materialList = [];
-    if (partList != null){
-        partList.forEach(function (part) {
+    //当前产品部件的材料信息，这里需要根据已经去重的部件数据去获取
+    let disdinctPartList = getPartDataByPartTableId(getPartTableId(id),partTableIdWithRecordIdMap,recordIdWithDistinctPartDataMap)
+    if (disdinctPartList != null){
+        disdinctPartList.forEach(function (part) {
             let partRowId = part.partRowId;
             let allMaterial = materialHelper.getAllRowData();
             allMaterial.forEach(function (material) {
@@ -53,7 +55,7 @@ function addPart(){
             })
         })
     }
-
+    //传递数据给打开的部件窗口
     let param = {
         productData:productData,
         partList:partList,
@@ -72,7 +74,9 @@ function btnAddProductRow() {
     let productObj = new OmMesProduct();
     productObj.setPlanStartDate(planStartDate);
     productObj.setPlanEndDate(planEndDate);
-    productObj.setRecordId("r"+productMaxId);
+    let recordId = "r"+productMaxId;
+    productObj.setRecordId(recordId);
+    partTableIdWithRecordIdMap.set(getPartTableId(productMaxId),recordId)
     productHelper.saveCell(CurRow,CurCol);
     addProductRow(productObj);
 }
@@ -177,6 +181,92 @@ function exportToExcel(){
 }
 
 /*
+ * 获取主表及其所有字表数据
+ */
+function getAllDataByMainId(mainId){
+    sendGetReq(URL_GET_ALL_MAIN_DATA_BY_ID, {id: mainId}, function (result) {
+        let data = result.data;
+
+        if (data != null){
+            console.debug("初始化数据-主表赋值");
+            $("form").setForm(data.main);
+            layui.form.render();
+            //存放已经push的部件表数据的partRowId，用于去重
+            let partRowIds = [];
+            let productList = data.productList;
+            let partList = data.partList;
+            let materialList = data.materialList;
+            //添加产品数据
+            productList.forEach(function (product) {
+                addProductRow(product);
+            })
+            //为每条产品设置对应的部件记录
+            let allProductRow = productHelper.getAllRowData();
+            allProductRow.forEach(function (productRow) {
+                let productObj = getMesProductWithData(productRow);
+                let recordId = productObj.getRecordId();
+                let partTableId = getPartTableId(productObj.getRowId());
+                //存放没有去重的部件数据
+                let partArray = [];
+                //存放已经去重的部件数据
+                let distinctParArray = [];
+                let partObj = new OmMesPart();
+                //找出部件记录中部件ID和产品ID相同的记录
+                partList.forEach(function (part) {
+                    partObj.setEntity(part);
+                    if (partObj.getDetailId() === productObj.getId()){
+                        partArray.push(part);
+                        //去重部件数据
+                        if (!partRowIds.includes(partObj.getPartRowId())){
+                            distinctParArray.push(part);
+                        }
+                        partRowIds.push(partObj.getPartRowId());
+                    }
+                })
+
+                partTableIdWithRecordIdMap.set(partTableId,recordId);
+                //如果recordId已经存在则不用继续设置map
+                if (!recordIdWithPartDataMap.has(recordId)){
+                    recordIdWithPartDataMap.set(recordId,partArray);
+                }
+                if (!recordIdWithDistinctPartDataMap.has(recordId)){
+                    recordIdWithDistinctPartDataMap.set(recordId,distinctParArray);
+                }
+
+            })
+            //添加材料数据
+            materialList.forEach(function (material) {
+                addMaterialRow(material);
+            })
+        }
+    });
+}
+
+/*
+ * 根据产品表ID获取产品表数据
+ */
+function getPartDataByPartTableId(partTableId,partTableIdWithRecordIdMap,recordIdWithPartDataMap){
+    console.debug("根据产品表ID获取产品表数据")
+    let recordId = partTableIdWithRecordIdMap.get(partTableId);
+    let partData = recordIdWithPartDataMap.get(recordId);
+    return partData;
+}
+
+/*
+ * 将partTableIdWithRecordIdMap转换成array
+ */
+function convertPartDataMapToArray(){
+    let partDataArray = [];
+    for ([key,value] of recordIdWithPartDataMap){
+        let array = value;
+        array.forEach(function (row){
+            partDataArray.push(row);
+        })
+    }
+    return partDataArray;
+}
+
+/*
  * 打印
  */
 function FnPrint() {
@@ -215,6 +305,16 @@ function FnPrint() {
         layer.alert("请先保存！");
     }
 
+}
+
+/*
+ * 根据产品表ID获取产品表数据
+ */
+function getPartDataByPartTableId(partTableId,partTableIdWithRecordIdMap,recordIdWithPartDataMap){
+    console.debug("根据产品表ID获取产品表数据")
+    let recordId = partTableIdWithRecordIdMap.get(partTableId);
+    let partData = recordIdWithPartDataMap.get(recordId);
+    return partData;
 }
 
 //打印生产单明细

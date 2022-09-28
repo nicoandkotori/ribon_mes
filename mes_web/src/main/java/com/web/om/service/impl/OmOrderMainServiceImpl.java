@@ -70,6 +70,8 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
     @Autowired
     private OmMoMaterialsMapper omMoMaterialsMapper;
     @Autowired
+    private OmOrderPartMapper mesPartMapper;
+    @Autowired
     private ComputationUnitMapper computationUnitMapper;
     @Autowired
     private VendorMapper vendorMapper;
@@ -122,14 +124,18 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
             //部件表的ID的mao，key是partRowId,value是部件记录的ID
             Map<String, String> partIdMap = new HashMap<>();
             //先遍历产品列表
-            productList.forEach(product -> {
+            for (OmOrderDetail product: productList){
+                if (productIdMap.containsKey(product.getRecordId())){
+                    continue;
+                }
                 String productId = String.valueOf(SnowFlakeUtils.getFlowIdInstance().nextId());
                 product.setId(productId);
                 product.setMainId(mainId);
                 product.setCreateInfo(productId);
                 productIdMap.put(product.getRecordId(), productId);
+                product.setRecordId(productId);
                 productService.save(product);
-            });
+            }
             //部件表不是必传的
             if (partList != null) {
                 //再遍历部件列表
@@ -138,8 +144,10 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
                     part.setId(partId);
                     part.setMainId(mainId);
                     part.setDetailId(productIdMap.get(part.getRecordId()));
+                    part.setRecordId(productIdMap.get(part.getRecordId()));
                     part.setCreateInfo(partId);
                     partIdMap.put(part.getPartRowId(), partId);
+                    part.setPartRowId(partId);
                     partService.save(part);
                 });
             }
@@ -149,9 +157,10 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
                 material.setId(materialId);
                 material.setMainId(mainId);
                 material.setDetailId(productIdMap.get(material.getRecordId()));
+                material.setRecordId(productIdMap.get(material.getRecordId()));
                 material.setPartId(partIdMap.get(material.getPartRowId()));
+                material.setPartRowId(partIdMap.get(material.getPartRowId()));
                 material.setCreateInfo(materialId);
-
             });
             mesMaterialMapper.insertBatch(materialList);
 
@@ -221,38 +230,50 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
             //部件表的ID的mao，key是partRowId,value是部件记录的ID
             Map<String, String> partIdMap = new HashMap<>();
             //先遍历产品列表
-            productList.forEach(product -> {
+            for (OmOrderDetail product: productList){
+                if (productIdMap.containsKey(product.getRecordId())){
+                    continue;
+                }
                 String productId = String.valueOf(SnowFlakeUtils.getFlowIdInstance().nextId());
                 product.setId(productId);
                 product.setMainId(mainId);
                 product.setCreateInfo(productId);
                 productIdMap.put(product.getRecordId(), productId);
-            });
-            mesProductMapper.insertBatch(productList);
+                product.setRecordId(productId);
+                productService.save(product);
+            }
             //部件表不是必传的
             if (partList != null) {
                 //再遍历部件列表
-                partList.forEach(part -> {
+                for (OmOrderPart part : partList){
+                    if (partIdMap.containsKey(part.getPartRowId())){
+                        continue;
+                    }
                     String partId = String.valueOf(SnowFlakeUtils.getFlowIdInstance().nextId());
                     part.setId(partId);
                     part.setMainId(mainId);
                     part.setDetailId(productIdMap.get(part.getRecordId()));
-                    part.setCreateInfo(partId);
+                    part.setRecordId(productIdMap.get(part.getRecordId()));
                     partIdMap.put(part.getPartRowId(), partId);
-                });
+                    part.setPartRowId(partId);
+                    part.setCreateInfo(partId);
+                    partService.save(part);
+                }
             }
-            partService.saveBatch(partList);
             //最后遍历材料列表
             materialList.forEach(material -> {
                 String materialId = String.valueOf(SnowFlakeUtils.getFlowIdInstance().nextId());
                 material.setId(materialId);
                 material.setMainId(mainId);
                 material.setDetailId(productIdMap.get(material.getRecordId()));
+                material.setRecordId(productIdMap.get(material.getRecordId()));
                 material.setPartId(partIdMap.get(material.getPartRowId()));
+                material.setPartRowId(partIdMap.get(material.getPartRowId()));
                 material.setCreateInfo(materialId);
             });
             mesMaterialMapper.insertBatch(materialList);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
         return result;
@@ -315,15 +336,9 @@ public class OmOrderMainServiceImpl extends ServiceImpl<OmOrderMainMapper, OmOrd
         TableResult<OmOrderMain> result = new TableResult<>();
         OmOrderMain main = this.getById(id);
         //获取所有产品数据
-        LambdaQueryWrapper<OmOrderDetail> productWrapper = new LambdaQueryWrapper<OmOrderDetail>();
-        productWrapper.eq(OmOrderDetail::getMainId, id);
-        productWrapper.eq(OmOrderDetail::getIzDelete, 0);
-        List<OmOrderDetail> productList = productService.list(productWrapper);
+        List<OmOrderDetail> productList = mesProductMapper.getProductJoinMaterials(id);
         //获取所有部件数据
-        LambdaQueryWrapper<OmOrderPart> partWrapper = new LambdaQueryWrapper<OmOrderPart>();
-        partWrapper.eq(OmOrderPart::getMainId, id);
-        partWrapper.eq(OmOrderPart::getIzDelete, 0);
-        List<OmOrderPart> partList = partService.list(partWrapper);
+        List<OmOrderPart> partList = mesPartMapper.getPartsJoinMaterials(id);
         //获取所有材料数据
         LambdaQueryWrapper<OmOrderMaterial> materialWrapper = new LambdaQueryWrapper<>();
         materialWrapper.eq(OmOrderMaterial::getMainId, id);

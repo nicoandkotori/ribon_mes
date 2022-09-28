@@ -12,6 +12,8 @@ import com.web.pd.entity.PdOrderDetail;
 import com.web.pd.entity.PdOrderMain;
 import com.web.pd.entity.PdOrderMaterial;
 import com.web.pd.entity.PdOrderPart;
+import com.web.pd.mapper.PdOrderDetailMapper;
+import com.web.pd.mapper.PdOrderPartMapper;
 import com.web.pd.service.PdOrderDetailService;
 import com.web.pd.service.PdOrderMainService;
 import com.web.pd.mapper.PdOrderMainMapper;
@@ -44,6 +46,10 @@ public class PdOrderMainServiceImpl extends ServiceImpl<PdOrderMainMapper, PdOrd
 
     @Autowired
     PdOrderMaterialService materialService;
+    @Autowired
+    PdOrderPartMapper mesPartMapper;
+    @Autowired
+    PdOrderDetailMapper mesProductMapper;
 
     @Override
     public IPage<PdOrderMainDTO> getMainList(PdOrderMainDTO query, IPage<PdOrderMainDTO> page) throws Exception {
@@ -80,11 +86,15 @@ public class PdOrderMainServiceImpl extends ServiceImpl<PdOrderMainMapper, PdOrd
             Map<String, String> partIdMap = new HashMap<>();
             //先遍历产品列表
             productList.forEach(product -> {
+                if (productIdMap.containsKey(product.getRecordId())){
+                    return;
+                }
                 String productId = String.valueOf(SnowFlakeUtils.getFlowIdInstance().nextId());
                 product.setId(productId);
                 product.setMainId(mainId);
                 product.setCreateInfo(productId);
                 productIdMap.put(product.getRecordId(), productId);
+                product.setRecordId(productId);
                 productService.save(product);
             });
             //部件表不是必传的
@@ -95,8 +105,10 @@ public class PdOrderMainServiceImpl extends ServiceImpl<PdOrderMainMapper, PdOrd
                     part.setId(partId);
                     part.setMainId(mainId);
                     part.setDetailId(productIdMap.get(part.getRecordId()));
+                    part.setRecordId(productIdMap.get(part.getRecordId()));
                     part.setCreateInfo(partId);
                     partIdMap.put(part.getPartRowId(), partId);
+                    part.setPartRowId(partId);
                     partService.save(part);
                 });
             }
@@ -106,9 +118,10 @@ public class PdOrderMainServiceImpl extends ServiceImpl<PdOrderMainMapper, PdOrd
                 material.setId(materialId);
                 material.setMainId(mainId);
                 material.setDetailId(productIdMap.get(material.getRecordId()));
+                material.setRecordId(productIdMap.get(material.getRecordId()));
                 material.setPartId(partIdMap.get(material.getPartRowId()));
+                material.setPartRowId(partIdMap.get(material.getPartRowId()));
                 material.setCreateInfo(materialId);
-
             });
             materialService.saveBatch(materialList);
 
@@ -179,38 +192,49 @@ public class PdOrderMainServiceImpl extends ServiceImpl<PdOrderMainMapper, PdOrd
             Map<String, String> partIdMap = new HashMap<>();
             //先遍历产品列表
             productList.forEach(product -> {
+                if (productIdMap.containsKey(product.getRecordId())){
+                    return;
+                }
                 String productId = String.valueOf(SnowFlakeUtils.getFlowIdInstance().nextId());
                 product.setId(productId);
                 product.setMainId(mainId);
                 product.setCreateInfo(productId);
                 productIdMap.put(product.getRecordId(), productId);
+                product.setRecordId(productId);
+                productService.save(product);
             });
-            //该方法的效率很低，因为底层还是一个一个insert
-            productService.saveBatch(productList);
             //部件表不是必传的
             if (partList != null) {
                 //再遍历部件列表
                 partList.forEach(part -> {
+                    if (partIdMap.containsKey(part.getPartRowId())){
+                        return;
+                    }
                     String partId = String.valueOf(SnowFlakeUtils.getFlowIdInstance().nextId());
                     part.setId(partId);
                     part.setMainId(mainId);
                     part.setDetailId(productIdMap.get(part.getRecordId()));
-                    part.setCreateInfo(partId);
+                    part.setRecordId(productIdMap.get(part.getRecordId()));
                     partIdMap.put(part.getPartRowId(), partId);
+                    part.setPartRowId(partId);
+                    part.setCreateInfo(partId);
+                    partService.save(part);
                 });
             }
-            partService.saveBatch(partList);
             //最后遍历材料列表
             materialList.forEach(material -> {
                 String materialId = String.valueOf(SnowFlakeUtils.getFlowIdInstance().nextId());
                 material.setId(materialId);
                 material.setMainId(mainId);
                 material.setDetailId(productIdMap.get(material.getRecordId()));
+                material.setRecordId(productIdMap.get(material.getRecordId()));
                 material.setPartId(partIdMap.get(material.getPartRowId()));
+                material.setPartRowId(partIdMap.get(material.getPartRowId()));
                 material.setCreateInfo(materialId);
             });
             materialService.saveBatch(materialList);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
         return result;
@@ -273,15 +297,9 @@ public class PdOrderMainServiceImpl extends ServiceImpl<PdOrderMainMapper, PdOrd
         TableResult<PdOrderMain> result = new TableResult<>();
         PdOrderMain main = this.getById(id);
         //获取所有产品数据
-        LambdaQueryWrapper<PdOrderDetail> productWrapper = new LambdaQueryWrapper<PdOrderDetail>();
-        productWrapper.eq(PdOrderDetail::getMainId, id);
-        productWrapper.eq(PdOrderDetail::getIzDelete, 0);
-        List<PdOrderDetail> productList = productService.list(productWrapper);
+        List<PdOrderDetail> productList = mesProductMapper.getProductJoinMaterials(id);
         //获取所有部件数据
-        LambdaQueryWrapper<PdOrderPart> partWrapper = new LambdaQueryWrapper<PdOrderPart>();
-        partWrapper.eq(PdOrderPart::getMainId, id);
-        partWrapper.eq(PdOrderPart::getIzDelete, 0);
-        List<PdOrderPart> partList = partService.list(partWrapper);
+        List<PdOrderPart> partList = mesPartMapper.getPartsJoinMaterials(id);
         //获取所有材料数据
         LambdaQueryWrapper<PdOrderMaterial> materialWrapper = new LambdaQueryWrapper<>();
         materialWrapper.eq(PdOrderMaterial::getMainId, id);
