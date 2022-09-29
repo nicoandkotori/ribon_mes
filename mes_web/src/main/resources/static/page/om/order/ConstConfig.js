@@ -17,6 +17,8 @@ const URL_BASE_VENDOR = "/basicinfo/vendor/"
 const URL_GET_VENDOR_BY_EQUAL_FIND = URL_BASE_VENDOR+"equal_find";
 //分页查询mes委外订单url
 const URL_GET_MES_ORDER = URL_BASE_ORDER+"getmainlistbypage";
+//获取mes中的最大委外单号
+const URL_GET_MAX_VOUCH_CODE = URL_BASE_ORDER+"get_max_vouch_code";
 //分页查询mes委外订单子表url
 const URL_GET_MES_DETAIL = URL_BASE_ORDER+"getdetaillist";
 //通过id查询mes委外订单表

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../static/css/font.css">
+    <link rel="stylesheet" href="../../../static/css/weadmin.css">
+    <!-- jqgrid -->
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/jquery-ui.theme.min.css'/>
+    <link rel="stylesheet" href='../../../static/Scripts/jqgrid/css/ui.jqgrid.css'/>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="../../../static/css/bootstrap.min.css">
+    <!-- datepicker -->
+    <link rel="stylesheet" href='../../../static/Scripts/datepicker/bootstrap-datetimepicker.css'/>
+    <link rel="stylesheet" href='../../../static/Scripts/datepicker/bootstrap-datepicker.min.css'/>
+    <!--easyui-->
+    <link rel="stylesheet" href="../../../static/Scripts/easyui-1.7.0/themes/default/easyui.css">
+    <link rel="stylesheet" href="../../../static/Scripts/easyui-1.7.0/themes/icon.css">
+
+    <!--jquery-->
+    <script src='../../../static/Scripts/jquery-1.10.2.min.js'></script>
+    <script src='../../../static/Scripts/jquery.json.js'></script>
+    <script src='../../../static/Scripts/Common.js'></script>
+    <script src='../../../static/Scripts/Print.js'></script>
+    <script src='../../../static/Scripts/lodop/LodopFuncs.js'></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="../../../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+    <!--jqgrid-->
+    <script src='../../../static/Scripts/jqgrid/js/i18n/grid.locale-cn.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery-ui.min.js'></script>
+    <script src='../../../static/Scripts/jqgrid/js/jquery.jqGrid.js'></script>
+    <!-- datepicker -->
+    <script src='../../../static/Scripts/datepicker/bootstrap-datepicker.js'></script>
+    <script src='../../../static/Scripts/datepicker/bootstrap-datepicker.zh-CN.js'></script>
+    <script src='../../../static/Scripts/datepicker/bootstrap-datetimepicker.js'></script>
+    <script src='../../../static/Scripts/datepicker/bootstrap-datetimepicker.zh-CN.js'></script>
+    <!--easyui-->
+    <script src="../../../static/Scripts/easyui-1.7.0/jquery.easyui.min.js"></script>
+    <script src="../../../static/Scripts/easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
+    <script src="ConstConfig.js"></script>
+    <script src="util/JqGridRowHelper.js"></script>
+    <script src="dto/U8QueryDTO.js"></script>
+    <script src="dto/pageFindDTO.js"></script>
+    <script src="ColModelConfig.js"></script>
+    <script src="IncludeFunction.js"></script>
+    <style>
+        .layui-select, .layui-input {
+            height: 24px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="weadmin-body">
+    <form class="layui-form">
+        <div class="weadmin-block">
+            <button type="button" class="layui-btn layui-btn-sm" lay-filter="save" lay-submit="">保存</button>
+<!--            <button type="button" class="layui-btn layui-btn-sm" lay-filter="audit" lay-submit="">审核</button>-->
+<!--            <button type="button" class="layui-btn layui-btn-sm" onclick="btnNotAudit()">弃审</button>-->
+            <button type="button" class="layui-btn layui-btn-sm" onclick="FnPrint()">打印</button>
+
+        </div>
+
+
+        <div class="layui-form-item weadmin-item">
+            <input type="hidden" id="id" name="id">
+            <input type="hidden" id="u8Id" name="u8Id">
+            <input type="hidden" id="statusId" name="statusId">
+
+            <label for="vouchCode" class="weadmin-lable-sm layui-col-md1">
+                <span class="we-red">*</span>订单编号
+            </label>
+            <div class="layui-col-md2">
+                <input type="text" id="vouchCode" name="vouchCode" readonly class="layui-input weadmin-input-sm">
+            </div>
+            <label for="vouchDate" class="weadmin-lable-sm layui-col-md1">
+                <span class="we-red">*</span>日期
+            </label>
+            <div class="layui-col-md2">
+                <input type="text" id="vouchDate" name="vouchDate" readonly lay-verify="required"
+                       class="layui-input weadmin-input-sm">
+            </div>
+            <label for="contractPd" class="weadmin-lable-sm layui-col-md1">
+                委外合同
+            </label>
+            <div class="layui-col-md2">
+                <input type="text" id="contractPd" name="contractPd" class="layui-input weadmin-input-sm">
+            </div>
+            <label for="contractSale" class="weadmin-lable-sm layui-col-md1">
+                销售合同
+            </label>
+            <div class="layui-col-md2">
+                <input type="text" id="contractSale" name="contractSale" class="layui-input weadmin-input-sm">
+            </div>
+        </div>
+
+        <div class="layui-form-item weadmin-item">
+
+            <label for="depCode" class="weadmin-lable-sm layui-col-md1">
+                <span class="we-red">*</span>部门
+            </label>
+            <div class="layui-col-md2">
+                <select id="depCode" name="depCode" autocomplete="off" lay-verify="required" lay-filter="depCode"
+                        lay-search="">
+                </select>
+                <input type="hidden" id="depName" name="depName">
+
+            </div>
+            <label for="personCode" class="weadmin-lable-sm layui-col-md1">
+                <span class="we-red">*</span>业务员
+            </label>
+            <div class="layui-col-md2">
+                <select id="personCode" name="personCode" autocomplete="off" lay-verify="" lay-filter="personCode"
+                        lay-search="">
+                </select>
+                <input type="hidden" id="personName" name="personName">
+
+            </div>
+            <label for="transportWay" class="weadmin-lable-sm layui-col-md1">
+                运输方式
+            </label>
+            <div class="layui-col-md2">
+
+                <div class="layui-inline">
+                    <select id="transportWay" name="transportWay" placeholder="" lay-filter="transportWay" lay-search="">
+                        <option value=></option>
+                        <option value="自提">自提</option>
+                        <option value="送货">送货</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="layui-form-item weadmin-item">
+
+            <label for="remark" class="weadmin-lable-sm layui-col-md1">
+                备注
+            </label>
+            <div class="layui-col-md8">
+                <input type="text" id="remark" name="remark" autocomplete="off"
+                       class="layui-input weadmin-input-sm">
+            </div>
+        </div>
+    </form>
+</div>
+<div class="weadmin-body-table">
+    <button type="button" class="layui-btn layui-btn-sm" onclick="btnAddProductRow()">增行</button>
+    <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="deleteProductRow()">删行</button>
+    <button type="button" class="layui-btn layui-btn-sm" onclick="addPart()">编辑部件</button>
+    <table id="jqGrid"></table>
+    <button type="button" class="layui-btn layui-btn-sm" onclick="btnAddMaterialRowEvent()">增行</button>
+    <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="btnDeleteMaterialRow()">删行</button>
+    <table id="jqGridDetail"></table>
+
+</div>
+
+</body>
+<script>
+    var prevEditRow, prevEditCol;
+    var baseUrl = "/om/metalworkcommittee/";
+    var CurRow;
+    var CurCol;
+    var CurRow1;
+    var CurCol1;
+    //产品表当前选中行id
+    var selectedProductRowIndex;
+    var rowNum = 1;
+    //部件表数据map，key是部件表ID，value是部件表数组
+    var partDataMap = new Map();
+    var array;
+    var id = GetQueryString("id");
+    var productHelper = new JqGridRowHelper($('#'+PRODUCT_TABLE_ID));
+    var materialHelper = new JqGridRowHelper($('#'+MATERIAL_TABLE_ID));
+    //选择物料的类型，包括'product'和'material'，
+    var chooseInvType = '';
+    //计划开工日期
+    var planStartDate = '';
+    //计划结束日期
+    var planEndDate = '';
+    //产品表最大行ID
+    var productMaxId = 1;
+    //部件表最大行ID
+    var partMaxId = 1;
+    //材料表最大行ID
+    var materialMaxId = 1;
+    //向打开的部件窗口传递的参数
+    var addPartParams;
+    //允许审核的标志，每次保存完后会设为true，每次审核完后设为false，编辑页面默认为false
+    var ableToAudit = false;
+    $(function () {
+        initJqgrid();
+    });
+
+    layui.use(['form', 'admin', 'jquery', 'table', 'layer', 'laydate', 'treeSelect', "upload", 'tableSelect'], function () {
+        var form = layui.form,
+            admin = layui.admin,
+            $ = layui.jquery,
+            table = layui.table,
+            layer = layui.layer,
+            form = layui.form,
+            laydate = layui.laydate,
+            treeSelect = layui.treeSelect,
+            upload = layui.upload,
+            tableSelect = layui.tableSelect;
+
+
+        //部门
+        laySelect('depCode', '/basicinfo/department/getlist', {}, {id: "cdepcode", text: "cdepname"}, false, form);
+        form.on('select(depCode)', function (data) {
+            let depName = $("#depCode").find("option:selected").text();
+            $("#depName").val(depName);
+        });
+        //业务员
+        laySelect('personCode', '/basicinfo/person/getlist', {}, {
+            id: "cpersoncode",
+            text: "cpersonname"
+        }, false, form);
+        form.on('select(personCode)', function (data) {
+            let personName = $("#personCode").find("option:selected").text();
+            $("#personName").val(personName);
+        });
+
+
+        /*
+         * 审核
+         */
+        form.on('submit(audit)', function (data) {
+            console.debug("审核");
+            if (CurRow != "" && CurRow != undefined) {
+                $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
+            }
+            if (CurRow1 != "" && CurRow1 != undefined) {
+                $("#jqGridDetail").jqGrid('saveCell', CurRow1, CurCol1);
+            }
+            var productData = productHelper.getAllRowData();
+            var productDataStr = JSON.stringify(productData);
+            var materialData = materialHelper.getAllRowData();
+            var materialDataStr = JSON.stringify(materialData);
+            //map转成一维object数组
+            let partDataArray = convertPartDataMapToArray();
+            let partDataStr = JSON.stringify(partDataArray);
+            let mainId = $("#id").val();
+            if (!ableToAudit){
+                layer.alert("请先保存！")
+                return;
+            }
+            sendPostReq(URL_AUDIT, {
+                mainStr: JSON.stringify(data.field),
+                productStr: productDataStr,
+                partStr: partDataStr,
+                materialStr: materialDataStr
+            }, function (data) {
+                if (data.success == true || data.success == "true") {
+                    layer.msg("审核成功", {icon: 6});
+                    console.debug("审核成功");
+                    ableToAudit = false;
+                    reloadAllData();
+                } else {
+                    layer.msg("保存失败!" + data.msg, {icon: 6});
+                }
+            });
+
+        })
+
+
+
+
+        initData();
+
+
+        form.render();
+        laydate.render({
+            elem: '#vouchDate'
+            , value: new Date()
+            , theme: 'molv'
+        });
+
+
+        //监听提交
+        form.on('submit(save)', function (data) {
+
+            if (CurRow != "" && CurRow != undefined) {
+                $("#jqGrid").jqGrid('saveCell', CurRow, CurCol);
+            }
+            if (CurRow1 != "" && CurRow1 != undefined) {
+                $("#jqGridDetail").jqGrid('saveCell', CurRow1, CurCol1);
+            }
+
+            var productData = productHelper.getAllRowData();
+            var productDataStr = JSON.stringify(productData);
+            var materialData = materialHelper.getAllRowData();
+            var materialDataStr = JSON.stringify(materialData);
+            //map转成一维object数组
+            let partDataArray = convertPartDataMapToArray();
+            let partDataStr = JSON.stringify(partDataArray);
+            var flag = true;
+            if (flag) {
+                sendPostReq(URL_UPDATE_MES_MAIN_BY_ID, {
+                    mainStr: JSON.stringify(data.field),
+                    productStr: productDataStr,
+                    partStr: partDataStr,
+                    materialStr: materialDataStr
+                }, function (data) {
+                    if (data.success == true || data.success == "true") {
+                        layer.msg("保存成功", {icon: 6});
+                        ableToAudit = true;
+                        reloadAllData();
+                    } else {
+                        layer.msg("更新失败!" + data.msg, {icon: 6});
+                    }
+
+
+                });
+            }
+
+
+        });
+    });
+
+
+    /*
+     * 初始化数据
+     */
+    function initData() {
+        //获取主表及其所有字表数据
+        sendGetReq(URL_GET_ALL_MAIN_DATA_BY_ID, {id: id}, function (result) {
+            let data = result.data;
+            if (data != null){
+                console.debug("初始化数据-主表赋值");
+                $("form").setForm(data.main);
+                layui.form.render();
+                let productList = data.productList;
+                let partList = data.partList;
+                let materialList = data.materialList;
+                //添加产品数据
+                productList.forEach(function (product) {
+                    addProductRow(product);
+                })
+                //为每条产品设置对应的部件记录
+                let allProductRow = productHelper.getAllRowData();
+                allProductRow.forEach(function (productRow) {
+                    let productObj = new OmMesProduct();
+                    productObj.setEntity(productRow);
+                    let partTableId = getPartTableId(productObj.getRowId());
+                    let partArray = [];
+                    let partObj = new OmMesPart();
+                    //找出部件记录中部件ID和产品ID相同的记录
+                    partList.forEach(function (part) {
+                        partObj.setEntity(part)
+                        if (partObj.getDetailId() === productObj.getId()){
+                            partArray.push(part);
+                        }
+                    })
+                    partDataMap.set(partTableId,partArray);
+                })
+                //添加材料数据
+                materialList.forEach(function (material) {
+                    addMaterialRow(material);
+                })
+                console.debug(data);
+            }
+        });
+
+
+
+
+    }
+
+
+    function initJqgrid() {
+        $("#jqGrid").jqGrid({
+            mtype: "GET",
+            datatype: "local",
+            colModel: PRODUCT_COL_MODEL,
+            subGrid: true,
+            subGridRowExpanded: function (subgrid_id, row_id) {
+                // we pass two parameters
+                // subgrid_id is a id of the div tag created within a table
+                // the row_id is the id of the row
+                // If we want to pass additional parameters to the url we can use
+                // the method getRowData(row_id) - which returns associative array in type name-value
+                // here we can easy construct the following
+                var subgrid_table_id, pager_id;
+
+                subgrid_table_id = subgrid_id + "_t";
+                console.debug("加载部件表："+subgrid_table_id);
+                pager_id = "p_" + subgrid_table_id;
+                $("#" + subgrid_id).html("<table id='" + subgrid_table_id + "' class='scroll'></table><div id='" + pager_id + "' class='scroll'></div>");
+                var rwdata = $("#jqGrid").getRowData(row_id);
+                $("#" + subgrid_table_id).jqGrid({
+                    datatype: "local",
+                    method: "post",
+                    colModel: PART_COL_MODEL,
+                    cmTemplate: {sortable: false, align: "center"},
+                    pager: false,
+                    height: '100%',
+                    rowNum: 500,
+                    rowList: [20, 50, 100],
+                    multiselect: false,
+                    //双击事件
+                    ondblClickRow: function (rowid, iRow, iCol, e) {
+                        var partRwdata = $("#" + subgrid_table_id).getRowData(rowid);
+
+                    },
+                    //右键事件
+                    onRightClickRow: function (rowid, iRow, iCol, e) {
+
+                    }
+                });
+                //加载二级表的数据
+                let partDataArray = partDataMap.get(subgrid_table_id);
+
+                if (partDataArray != null && partDataArray != undefined){
+                    //不打印这行，for里的length读不出数据
+                    console.debug(partDataArray.length);
+                    for ( var i = 0; i < partDataArray.length; i++){
+                        $("#"+subgrid_table_id).jqGrid('addRowData', i + 1,partDataArray[i]);
+                    }
+                }
+
+
+            },
+            viewrecords: true,
+            multiselect: false,
+            autowidth: true,
+            shrinkToFit: false,
+            autoScroll: true,
+            scrollrows: true, // 是否显示行滚动条
+            rownumbers: true,
+            rowNum: 999999999,
+            colMenu: false,
+            cellEdit: true,
+            cellsubmit: 'clientArray',
+            footerrow: false,//分页上添加一行，用于显示统计信息
+            beforeProcessing: function (data, st, xhr) {//登录失效时请求将被拦截，提示用户：未登录
+                if (data.success == false) {
+                    layer.msg(data.msg);
+                }
+                return true;
+            },
+            loadBeforeSend: function (jqXHR) {
+                var token = sessionStorage.getItem("mestoken");
+                jqXHR.setRequestHeader('Authorization', token);
+
+            },
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+                //iCol==6||
+                if (iCol == 5 || iCol == 6 || iCol == 7) {
+                    //选择母件
+                    chooseInvType = 'product'
+                    choice(rowid);
+                }
+
+            },
+
+            loadComplete: function () {
+
+
+            },
+            afterSaveCell: productAfterSaveCell,
+            onCellSelect: function (rowid, iCol, cellcontent, e) { //单击选择行
+                selectedProductRowIndex = rowid;
+
+            },
+            beforeEditCell: function (rowid, cellname, value, iRow, iCol) {
+                CurRow = iRow;
+                CurCol = iCol;
+
+            },
+            gridComplete: function () {
+
+            }
+        });
+
+
+        $("#jqGrid").setGridHeight((150));
+
+
+        $("#jqGridDetail").jqGrid({
+            mtype: "GET",
+            datatype: "local",
+            colModel:MATERIAL_COL_MODEL,
+            viewrecords: true,
+            multiselect: false,
+            autowidth: true,
+            shrinkToFit: false,
+            autoScroll: true,
+            scrollrows: true, // 是否显示行滚动条
+            rownumbers: true,
+            rowNum: 999999999,
+            colMenu: false,
+            cellEdit: true,
+            cellsubmit: 'clientArray',
+            footerrow: false,//分页上添加一行，用于显示统计信息
+            beforeProcessing: function (data, st, xhr) {//登录失效时请求将被拦截，提示用户：未登录
+                if (data.success == false) {
+                    layer.msg(data.msg);
+                }
+                return true;
+            },
+            loadBeforeSend: function (jqXHR) {
+                var token = sessionStorage.getItem("mestoken");
+                jqXHR.setRequestHeader('Authorization', token);
+
+            },
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+                //iCol==6||
+
+                if (iCol == 14 || iCol == 12) {
+                    chooseInvType = 'material';
+                    //选择自建
+                    choice(rowid);
+                }
+            },
+
+            loadComplete: function () {
+
+
+            },
+            afterSaveCell: materialAfterSaveCell,
+            onCellSelect: function (rowid, iCol, cellcontent, e) { //单击选择行
+
+
+            },
+            beforeEditCell: function (rowid, cellname, value, iRow, iCol) {
+                CurRow1 = iRow;
+                CurCol1 = iCol;
+
+
+            },
+            gridComplete: function () {
+
+            }
+        });
+
+        $("#jqGridDetail").setGridHeight(($(window).outerHeight() - $(".weadmin-body").height() - 300));
+    }
+
+
+
+
+
+    //产品编码
+    function choice(rowid) {
+        if (rowid != null && rowid != '') {
+            WeAdminShow('选择产品', '/components/choiceinventory.html?');
+        } else {
+            layer.alert("请先选择行再操作！");
+        }
+    }
+
+    /*
+   * 将partDataMap转换成array
+   */
+    function convertPartDataMapToArray(){
+        let partDataArray = [];
+        for ([key,value] of partDataMap){
+            let array = value;
+            array.forEach(function (row){
+                partDataArray.push(row);
+            })
+        }
+        return partDataArray;
+    }
+
+
+
+    /*
+     * 设置行数据
+     */
+    function setRowData(tableId,rowId,rowData){
+        $("#"+tableId).setRowData(rowId,rowData);
+    }
+
+
+
+    /*
+     * 重新加载所有数据
+     */
+    function reloadAllData(){
+        console.debug("重新加载所有数据");
+        productMaxId = 1;
+        materialMaxId = 1;
+        partMaxId = 1;
+        let allMaterialId = materialHelper.getAllRowsId();
+        //清空材料数据
+        allMaterialId.forEach(function (id) {
+            materialHelper.deleteRowById(id)
+        })
+        //清空产品数据
+        let allProductId = productHelper.getAllRowsId()
+        allProductId.forEach(function (id) {
+            productHelper.deleteRowById(id)
+        })
+        //清空部件数据
+        partDataMap = new Map();
+        initData();
+    }
+
+    /*
+     * 弃审
+     */
+    function btnNotAudit() {
+        var u8Id=$("#u8Id").val();
+        let mesId = $('#id').val();
+        if(u8Id!=""&&u8Id!=null)
+        {
+            $.ajax({
+                type: "post",
+                url: URL_NOT_AUDIT,
+                data: { id: u8Id,mesId:mesId},
+                success: function (text) {
+                    var data = text;
+                    if (data.success == true || data.success == "true") {
+                        layer.msg("弃审成功!");
+                        reloadAllData();
+                    }
+                    else {
+                        layer.alert(data.msg);
+                    }
+
+                },
+                error: function ()
+                { }
+            });
+        }
+        else
+        {
+            layer.alert("请先保存!");
+        }
+
+    }
+
+
+
+
+
+</script>
+</html>

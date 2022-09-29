@@ -1,65 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.web.mo.mapper.BomOpcomponentMapper">
-  <resultMap id="BaseResultMap" type="com.web.mo.entity.BomOpcomponent">
-    <!--@mbg.generated-->
-    <!--@Table bom_opcomponent-->
-    <id column="OpComponentId" jdbcType="INTEGER" property="opcomponentid" />
-    <result column="BomId" jdbcType="INTEGER" property="bomid" />
-    <result column="SortSeq" jdbcType="INTEGER" property="sortseq" />
-    <result column="OpSeq" jdbcType="VARCHAR" property="opseq" />
-    <result column="ComponentId" jdbcType="INTEGER" property="componentid" />
-    <result column="EffBegDate" jdbcType="TIMESTAMP" property="effbegdate" />
-    <result column="EffEndDate" jdbcType="TIMESTAMP" property="effenddate" />
-    <result column="FVFlag" jdbcType="TINYINT" property="fvflag" />
-    <result column="BaseQtyN" jdbcType="OTHER" property="baseqtyn" />
-    <result column="BaseQtyD" jdbcType="OTHER" property="baseqtyd" />
-    <result column="CompScrap" jdbcType="OTHER" property="compscrap" />
-    <result column="ByproductFlag" jdbcType="BIT" property="byproductflag" />
-    <result column="OptionsId" jdbcType="INTEGER" property="optionsid" />
-    <result column="Ufts" jdbcType="TIMESTAMP" property="ufts" />
-    <result column="AuxUnitCode" jdbcType="VARCHAR" property="auxunitcode" />
-    <result column="ChangeRate" jdbcType="OTHER" property="changerate" />
-    <result column="AuxBaseQtyN" jdbcType="OTHER" property="auxbaseqtyn" />
-    <result column="ProductType" jdbcType="TINYINT" property="producttype" />
-    <result column="Define22" jdbcType="VARCHAR" property="define22" />
-    <result column="Define23" jdbcType="VARCHAR" property="define23" />
-    <result column="Define24" jdbcType="VARCHAR" property="define24" />
-    <result column="Define25" jdbcType="VARCHAR" property="define25" />
-    <result column="Define26" jdbcType="FLOAT" property="define26" />
-    <result column="Define27" jdbcType="FLOAT" property="define27" />
-    <result column="Define28" jdbcType="VARCHAR" property="define28" />
-    <result column="Define29" jdbcType="VARCHAR" property="define29" />
-    <result column="Define30" jdbcType="VARCHAR" property="define30" />
-    <result column="Define31" jdbcType="VARCHAR" property="define31" />
-    <result column="Define32" jdbcType="VARCHAR" property="define32" />
-    <result column="Define33" jdbcType="VARCHAR" property="define33" />
-    <result column="Define34" jdbcType="INTEGER" property="define34" />
-    <result column="Define35" jdbcType="INTEGER" property="define35" />
-    <result column="Define36" jdbcType="TIMESTAMP" property="define36" />
-    <result column="Define37" jdbcType="TIMESTAMP" property="define37" />
-    <result column="Remark" jdbcType="VARCHAR" property="remark" />
-    <result column="RecursiveFlag" jdbcType="BIT" property="recursiveflag" />
-    <result column="Free1" jdbcType="VARCHAR" property="free1" />
-    <result column="Free2" jdbcType="VARCHAR" property="free2" />
-    <result column="Free3" jdbcType="VARCHAR" property="free3" />
-    <result column="Free4" jdbcType="VARCHAR" property="free4" />
-    <result column="Free5" jdbcType="VARCHAR" property="free5" />
-    <result column="Free6" jdbcType="VARCHAR" property="free6" />
-    <result column="Free7" jdbcType="VARCHAR" property="free7" />
-    <result column="Free8" jdbcType="VARCHAR" property="free8" />
-    <result column="Free9" jdbcType="VARCHAR" property="free9" />
-    <result column="Free10" jdbcType="VARCHAR" property="free10" />
-    <result column="bProcessProduct" jdbcType="BIT" property="bprocessproduct" />
-    <result column="bProcessMaterial" jdbcType="BIT" property="bprocessmaterial" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    OpComponentId, BomId, SortSeq, OpSeq, ComponentId, EffBegDate, EffEndDate, FVFlag, 
-    BaseQtyN, BaseQtyD, CompScrap, ByproductFlag, OptionsId, Ufts, AuxUnitCode, ChangeRate, 
-    AuxBaseQtyN, ProductType, Define22, Define23, Define24, Define25, Define26, Define27, 
-    Define28, Define29, Define30, Define31, Define32, Define33, Define34, Define35, Define36, 
-    Define37, Remark, RecursiveFlag, Free1, Free2, Free3, Free4, Free5, Free6, Free7, 
-    Free8, Free9, Free10, bProcessProduct, bProcessMaterial
-  </sql>
+    <resultMap id="BaseResultMap" type="com.web.mo.entity.BomOpcomponent">
+        <!--@mbg.generated-->
+        <!--@Table bom_opcomponent-->
+        <id column="OpComponentId" jdbcType="INTEGER" property="opcomponentid"/>
+        <result column="BomId" jdbcType="INTEGER" property="bomid"/>
+        <result column="SortSeq" jdbcType="INTEGER" property="sortseq"/>
+        <result column="OpSeq" jdbcType="VARCHAR" property="opseq"/>
+        <result column="ComponentId" jdbcType="INTEGER" property="componentid"/>
+        <result column="EffBegDate" jdbcType="TIMESTAMP" property="effbegdate"/>
+        <result column="EffEndDate" jdbcType="TIMESTAMP" property="effenddate"/>
+        <result column="FVFlag" jdbcType="TINYINT" property="fvflag"/>
+        <result column="BaseQtyN" jdbcType="OTHER" property="baseqtyn"/>
+        <result column="BaseQtyD" jdbcType="OTHER" property="baseqtyd"/>
+        <result column="CompScrap" jdbcType="OTHER" property="compscrap"/>
+        <result column="ByproductFlag" jdbcType="BIT" property="byproductflag"/>
+        <result column="OptionsId" jdbcType="INTEGER" property="optionsid"/>
+        <result column="Ufts" jdbcType="TIMESTAMP" property="ufts"/>
+        <result column="AuxUnitCode" jdbcType="VARCHAR" property="auxunitcode"/>
+        <result column="ChangeRate" jdbcType="OTHER" property="changerate"/>
+        <result column="AuxBaseQtyN" jdbcType="OTHER" property="auxbaseqtyn"/>
+        <result column="ProductType" jdbcType="TINYINT" property="producttype"/>
+        <result column="Define22" jdbcType="VARCHAR" property="define22"/>
+        <result column="Define23" jdbcType="VARCHAR" property="define23"/>
+        <result column="Define24" jdbcType="VARCHAR" property="define24"/>
+        <result column="Define25" jdbcType="VARCHAR" property="define25"/>
+        <result column="Define26" jdbcType="FLOAT" property="define26"/>
+        <result column="Define27" jdbcType="FLOAT" property="define27"/>
+        <result column="Define28" jdbcType="VARCHAR" property="define28"/>
+        <result column="Define29" jdbcType="VARCHAR" property="define29"/>
+        <result column="Define30" jdbcType="VARCHAR" property="define30"/>
+        <result column="Define31" jdbcType="VARCHAR" property="define31"/>
+        <result column="Define32" jdbcType="VARCHAR" property="define32"/>
+        <result column="Define33" jdbcType="VARCHAR" property="define33"/>
+        <result column="Define34" jdbcType="INTEGER" property="define34"/>
+        <result column="Define35" jdbcType="INTEGER" property="define35"/>
+        <result column="Define36" jdbcType="TIMESTAMP" property="define36"/>
+        <result column="Define37" jdbcType="TIMESTAMP" property="define37"/>
+        <result column="Remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="RecursiveFlag" jdbcType="BIT" property="recursiveflag"/>
+        <result column="Free1" jdbcType="VARCHAR" property="free1"/>
+        <result column="Free2" jdbcType="VARCHAR" property="free2"/>
+        <result column="Free3" jdbcType="VARCHAR" property="free3"/>
+        <result column="Free4" jdbcType="VARCHAR" property="free4"/>
+        <result column="Free5" jdbcType="VARCHAR" property="free5"/>
+        <result column="Free6" jdbcType="VARCHAR" property="free6"/>
+        <result column="Free7" jdbcType="VARCHAR" property="free7"/>
+        <result column="Free8" jdbcType="VARCHAR" property="free8"/>
+        <result column="Free9" jdbcType="VARCHAR" property="free9"/>
+        <result column="Free10" jdbcType="VARCHAR" property="free10"/>
+        <result column="bProcessProduct" jdbcType="BIT" property="bprocessproduct"/>
+        <result column="bProcessMaterial" jdbcType="BIT" property="bprocessmaterial"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        OpComponentId, BomId, SortSeq, OpSeq, ComponentId, EffBegDate, EffEndDate, FVFlag,
+        BaseQtyN, BaseQtyD, CompScrap, ByproductFlag, OptionsId, Ufts, AuxUnitCode, ChangeRate,
+        AuxBaseQtyN, ProductType, Define22, Define23, Define24, Define25, Define26, Define27,
+        Define28, Define29, Define30, Define31, Define32, Define33, Define34, Define35, Define36,
+        Define37, Remark, RecursiveFlag, Free1, Free2, Free3, Free4, Free5, Free6, Free7,
+        Free8, Free9, Free10, bProcessProduct, bProcessMaterial
+    </sql>
+
+    <select id="getComponentWithParentInvCode" resultType="com.web.mo.dto.BomOpcomponentDTO">
+        --只有母件没有子件的不要
+        SELECT part2.InvCode, component.*
+        FROM bas_part AS part1
+            JOIN bom_parent AS parent ON part1.PartId = parent.ParentId
+            JOIN bom_bom AS bom ON bom.BomId = parent.BomId
+            JOIN bom_opcomponent AS component ON component.BomId = bom.BomId
+            JOIN bas_part AS part2 ON component.ComponentId = part2.PartId
+        <where>
+            <if test="InvCode != null and InvCode != ''">
+                part1.InvCode = #{InvCode}
+            </if>
+        </where>
+    </select>
 </mapper>

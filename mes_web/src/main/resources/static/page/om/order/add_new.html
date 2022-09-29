@@ -369,7 +369,7 @@
 
 
     function initData() {
-        $.get("/om/metalworkcommittee/getmaxcode", {}, function (text) {
+        $.get(URL_GET_MAX_VOUCH_CODE, {}, function (text) {
             $("#vouchCode").val(text.result);
         });
 
@@ -481,15 +481,7 @@
                 jqXHR.setRequestHeader('Authorization', token);
 
             },
-            ondblClickRow: function (rowid, iRow, iCol, e) {
-                //iCol==6||
-                if (iCol == 5 || iCol == 6 || iCol == 7) {
-                    //选择母件
-                    chooseInvType = 'product'
-                    choice(rowid);
-                }
-
-            },
+            ondblClickRow: productOndblClickRow,
 
             loadComplete: function () {
 
@@ -542,15 +534,7 @@
                 jqXHR.setRequestHeader('Authorization', token);
 
             },
-            ondblClickRow: function (rowid, iRow, iCol, e) {
-                //iCol==6||
-
-                if (iCol == 14 || iCol == 12) {
-                    chooseInvType = 'material';
-                    //选择自建
-                    choice(rowid);
-                }
-            },
+            ondblClickRow: materialOndblClickRow,
 
             loadComplete: function () {
 

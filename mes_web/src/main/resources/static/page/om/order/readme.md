@@ -14,3 +14,4 @@
 ##### 5.ColModelConfig.js--存放新增和编辑页面中的ColModel
 ##### 6.IncludeFunction.js--多个html引入该js后，可以通过修改该文件统一引入js文件
 ##### 7.ConstConfig.js--常量配置文件
+流程图及文档请看：https://www.processon.com/view/link/633268525653bb1ab0f051b9

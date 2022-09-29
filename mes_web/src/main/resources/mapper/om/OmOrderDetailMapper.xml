@@ -121,4 +121,12 @@
     </set>
     where id = #{product.id}
   </update>
+
+  <insert id="insertBatch" >
+    insert into om_order_detail(id,main_id, product_inv_code, product_inv_name, product_inv_std, product_inv_unit, product_qty, material_price, material_amount, work_price, total_work_amount, price, amount, plan_start_date, plan_end_date, create_user, create_date, update_user, update_date, iz_delete, delete_user, delete_date, u8_mo_detail_id, row_no, tax_rate, record_id, work_price_without_tax)
+    values
+    <foreach collection="productList" item="entity" separator=",">
+      (#{entity.id},#{entity.mainId}, #{entity.productInvCode}, #{entity.productInvName}, #{entity.productInvStd}, #{entity.productInvUnit}, #{entity.productQty}, #{entity.materialPrice}, #{entity.materialAmount}, #{entity.workPrice}, #{entity.totalWorkAmount}, #{entity.price}, #{entity.amount}, #{entity.planStartDate}, #{entity.planEndDate}, #{entity.createUser}, #{entity.createDate}, #{entity.updateUser}, #{entity.updateDate}, #{entity.izDelete}, #{entity.deleteUser}, #{entity.deleteDate}, #{entity.u8MoDetailId}, #{entity.rowNo}, #{entity.taxRate}, #{entity.recordId}, #{entity.workPriceWithoutTax})
+    </foreach>
+  </insert>
 </mapper>

@@ -3,7 +3,7 @@ const PRODUCT_COL_MODEL = [
     {name: "momaterialsid", hidden: true},
     {name: U8_MO_DETAIL_ID, key: true, hidden: true},
     {name: ID, hidden: true},
-    {label:"产品表行标识",name: RECORD_ID,width: 80,sortable: false, editable: true, align: "center"},
+    {label:"产品表行标识",name: RECORD_ID,width: 80,hidden: INDEX_HIDDEN,sortable: false, editable: true, align: "center"},
     {label: "产品编码", name: PRODUCT_INV_CODE, width: 110, sortable: false, editable: true, align: "center"},
     {label: "产品名称", name: PRODUCT_INV_NAME, width: 90, sortable: false, editable: false, align: "center"},
     {label: "规格型号", name: PRODUCT_INV_STD, width: 80, sortable: false, editable: false, align: "center"},

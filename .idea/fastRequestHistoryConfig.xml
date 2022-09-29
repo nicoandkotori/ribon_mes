@@ -4,30 +4,523 @@
     <option name="historyList">
       <list>
         <ResponseHistory>
-          <option name="className" value="com.web.system.controller.IndexController" />
+          <option name="className" value="com.web.pd.controller.PdOrderController" />
           <option name="code" value="200" />
           <option name="enableEnv" value="dev" />
           <option name="enableProject" value="ribon_mes" />
-          <option name="method" value="login" />
-          <option name="methodType" value="GET" />
-          <option name="name" value="New Request" />
+          <option name="method" value="getDetailList" />
+          <option name="methodType" value="POST" />
+          <option name="name" value="查询主表join产品表的数据" />
           <option name="paramGroup">
             <ParamGroupCollection>
-              <option name="className" value="com.web.system.controller.IndexController" />
-              <option name="method" value="login" />
-              <option name="methodDescription" value="New Request" />
+              <option name="className" value="com.web.pd.controller.PdOrderController" />
+              <option name="method" value="getDetailList" />
+              <option name="methodDescription" value="查询主表join产品表的数据" />
               <option name="multipartKeyValueListJson" value="[]" />
-              <option name="originUrl" value="/login" />
+              <option name="originUrl" value="/pd/order/get_main_and_product_list" />
               <option name="pathParamsKeyValueListJson" value="[]" />
-              <option name="url" value="/login" />
+              <option name="url" value="/pd/order/get_main_and_product_list" />
               <option name="urlEncodedKeyValueListJson" value="[]" />
-              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;username&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;admin&quot;},{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;password&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;1234&quot;}]" />
-              <option name="urlParamsKeyValueListText" value="username=admin&#10;&amp;password=1234" />
+              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot; &quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;id&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;587063328489082880&quot;}]" />
+              <option name="urlParamsKeyValueListText" value="id=587063328489082880" />
             </ParamGroupCollection>
           </option>
-          <option name="requestInfo" value="Request Url: http://localhost:8036/login?password=1234&amp;username=admin&#13;&#10;Request Headers: &#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
-          <option name="response" value="{&quot;code&quot;:200,&quot;msg&quot;:&quot;操作成功&quot;,&quot;token&quot;:&quot;eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDA2NjcxOSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQwMzA3MTk4MzcsImF1dGhvcml0aWVzIjpbXX0.sykpdtPXV8P-1kraOs-qoDxCqZxw-3_aeiccaV68cSK2vycJuWobWFi3jY6X-wS-ryYnCRPmetRitRBOBnPkCw&quot;,&quot;account&quot;:&quot;&quot;,&quot;userName&quot;:&quot;admin&quot;}" />
-          <option name="url" value="/login" />
+          <option name="requestInfo" value="Request Url: http://localhost:8036/pd/order/get_main_and_product_list?id=587063328489082880&#13;&#10;Request Headers: &#13;&#10;    Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA&#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
+          <option name="response" value="[{&quot;id&quot;:&quot;587063328698798080&quot;,&quot;mainId&quot;:&quot;587063328489082880&quot;,&quot;productInvCode&quot;:&quot;(2020)绿源第0917-2&quot;,&quot;productInvName&quot;:&quot;驴肉加工车间设备（热加工类）&quot;,&quot;productInvStd&quot;:&quot;&quot;,&quot;productInvUnit&quot;:&quot;批&quot;,&quot;productQty&quot;:3.00,&quot;materialPrice&quot;:70.79,&quot;materialAmount&quot;:141.58,&quot;workPrice&quot;:null,&quot;totalWorkAmount&quot;:0.00,&quot;price&quot;:141.58,&quot;amount&quot;:424.74,&quot;planStartDate&quot;:&quot;2022-09-27T16:00:00.000+0000&quot;,&quot;planEndDate&quot;:&quot;2022-09-29T16:00:00.000+0000&quot;,&quot;createUser&quot;:null,&quot;createDate&quot;:null,&quot;updateUser&quot;:null,&quot;updateDate&quot;:null,&quot;izDelete&quot;:null,&quot;deleteUser&quot;:null,&quot;deleteDate&quot;:null,&quot;u8MoDetailId&quot;:null,&quot;rowNo&quot;:null,&quot;taxRate&quot;:null,&quot;recordId&quot;:null,&quot;workPriceWithoutTax&quot;:null}]" />
+          <option name="url" value="/pd/order/get_main_and_product_list" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="com.web.pd.controller.PdOrderController" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="dev" />
+          <option name="enableProject" value="ribon_mes" />
+          <option name="method" value="getDetailList" />
+          <option name="methodType" value="GET" />
+          <option name="name" value="查询主表join产品表的数据" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="className" value="com.web.pd.controller.PdOrderController" />
+              <option name="method" value="getDetailList" />
+              <option name="methodDescription" value="查询主表join产品表的数据" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/pd/order/get_main_and_product_list" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/pd/order/get_main_and_product_list" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot; &quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;id&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;586650240392630272&quot;}]" />
+              <option name="urlParamsKeyValueListText" value="id=586650240392630272" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8036/pd/order/get_main_and_product_list?id=586650240392630272&#13;&#10;Request Headers: &#13;&#10;    Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA&#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
+          <option name="response" value="[]" />
+          <option name="url" value="/pd/order/get_main_and_product_list" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="com.web.pd.controller.PdOrderController" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="dev" />
+          <option name="enableProject" value="ribon_mes" />
+          <option name="method" value="getDetailList" />
+          <option name="methodType" value="GET" />
+          <option name="name" value="查询主表join产品表的数据" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="className" value="com.web.pd.controller.PdOrderController" />
+              <option name="method" value="getDetailList" />
+              <option name="methodDescription" value="查询主表join产品表的数据" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/pd/order/get_main_and_product_list" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/pd/order/get_main_and_product_list" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot; &quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;id&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;586650240392630272&quot;}]" />
+              <option name="urlParamsKeyValueListText" value="id=586650240392630272" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8036/pd/order/get_main_and_product_list?id=586650240392630272&#13;&#10;Request Headers: &#13;&#10;    Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA&#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
+          <option name="response" value="[]" />
+          <option name="url" value="/pd/order/get_main_and_product_list" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="com.web.pd.controller.PdOrderController" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="dev" />
+          <option name="enableProject" value="ribon_mes" />
+          <option name="method" value="getDetailList" />
+          <option name="methodType" value="GET" />
+          <option name="name" value="查询主表join产品表的数据" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="className" value="com.web.pd.controller.PdOrderController" />
+              <option name="method" value="getDetailList" />
+              <option name="methodDescription" value="查询主表join产品表的数据" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/pd/order/get_main_and_product_list" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/pd/order/get_main_and_product_list" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot; &quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;id&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;587025789539586048&quot;}]" />
+              <option name="urlParamsKeyValueListText" value="id=587025789539586048" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8036/pd/order/get_main_and_product_list?id=587025789539586048&#13;&#10;Request Headers: &#13;&#10;    Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA&#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
+          <option name="response" value="[null]" />
+          <option name="url" value="/pd/order/get_main_and_product_list" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="com.web.pd.controller.PdOrderController" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="dev" />
+          <option name="enableProject" value="ribon_mes" />
+          <option name="method" value="getDetailList" />
+          <option name="methodType" value="GET" />
+          <option name="name" value="查询主表join产品表的数据" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="className" value="com.web.pd.controller.PdOrderController" />
+              <option name="method" value="getDetailList" />
+              <option name="methodDescription" value="查询主表join产品表的数据" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/pd/order/get_main_and_product_list" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/pd/order/get_main_and_product_list" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot; &quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;id&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;587025789539586048&quot;}]" />
+              <option name="urlParamsKeyValueListText" value="id=587025789539586048" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8036/pd/order/get_main_and_product_list?id=587025789539586048&#13;&#10;Request Headers: &#13;&#10;    Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA&#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
+          <option name="response" value="[]" />
+          <option name="url" value="/pd/order/get_main_and_product_list" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="com.web.pd.controller.PdOrderController" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="dev" />
+          <option name="enableProject" value="ribon_mes" />
+          <option name="method" value="findPage" />
+          <option name="methodType" value="GET" />
+          <option name="name" value="分页模糊查询" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="className" value="com.web.pd.controller.PdOrderController" />
+              <option name="method" value="findPage" />
+              <option name="methodDescription" value="分页模糊查询" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/pd/order/find_page" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/pd/order/find_page" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot;页面&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;page&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;1&quot;},{&quot;comment&quot;:&quot;行&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;rows&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;1&quot;},{&quot;comment&quot;:&quot;querystr&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;querystr&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;&quot;}]" />
+              <option name="urlParamsKeyValueListText" value="page=1&#10;&amp;rows=1&#10;&amp;querystr=" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8036/pd/order/find_page?page=1&amp;rows=1&amp;querystr=&#13;&#10;Request Headers: &#13;&#10;    Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA&#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
+          <option name="response" value="{&quot;success&quot;:true,&quot;errorcode&quot;:&quot;ok&quot;,&quot;errormsg&quot;:&quot;&quot;,&quot;rows&quot;:[],&quot;records&quot;:0,&quot;total&quot;:0,&quot;data&quot;:null}" />
+          <option name="url" value="/pd/order/find_page" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="com.web.pd.controller.PdOrderController" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="dev" />
+          <option name="enableProject" value="ribon_mes" />
+          <option name="method" value="getMaxCode" />
+          <option name="methodType" value="GET" />
+          <option name="name" value="生成最大单号" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="className" value="com.web.pd.controller.PdOrderController" />
+              <option name="method" value="getMaxCode" />
+              <option name="methodDescription" value="生成最大单号" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/pd/order/get_max_vouch_code" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/pd/order/get_max_vouch_code" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[]" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8036/pd/order/get_max_vouch_code&#13;&#10;Request Headers: &#13;&#10;    Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA&#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
+          <option name="response" value="{&quot;success&quot;:true,&quot;msg&quot;:&quot;&quot;,&quot;code&quot;:&quot;200&quot;,&quot;result&quot;:&quot;OM20220927001&quot;,&quot;result1&quot;:null}" />
+          <option name="url" value="/pd/order/get_max_vouch_code" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="com.web.pd.controller.PdOrderController" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="dev" />
+          <option name="enableProject" value="ribon_mes" />
+          <option name="method" value="findPage" />
+          <option name="methodType" value="GET" />
+          <option name="name" value="分页模糊查询" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="className" value="com.web.pd.controller.PdOrderController" />
+              <option name="method" value="findPage" />
+              <option name="methodDescription" value="分页模糊查询" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/om/order/find_page" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/om/order/find_page" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot;页面&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;page&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;1&quot;},{&quot;comment&quot;:&quot;限制&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;rows&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;1&quot;},{&quot;comment&quot;:&quot;查询条件&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;query&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;query_yq2cf&quot;}]" />
+              <option name="urlParamsKeyValueListText" value="page=1&#10;&amp;rows=1&#10;&amp;query=query_yq2cf" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8036/om/order/find_page?page=1&amp;rows=1&amp;query=query_yq2cf&#13;&#10;Request Headers: &#13;&#10;    Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA&#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
+          <option name="response" value="{&quot;success&quot;:true,&quot;errorcode&quot;:&quot;ok&quot;,&quot;errormsg&quot;:&quot;&quot;,&quot;rows&quot;:[],&quot;records&quot;:0,&quot;total&quot;:0,&quot;data&quot;:null}" />
+          <option name="url" value="/om/order/find_page" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="com.web.pd.controller.PdOrderController" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="dev" />
+          <option name="enableProject" value="ribon_mes" />
+          <option name="method" value="findPage" />
+          <option name="methodType" value="GET" />
+          <option name="name" value="分页模糊查询" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="className" value="com.web.pd.controller.PdOrderController" />
+              <option name="method" value="findPage" />
+              <option name="methodDescription" value="分页模糊查询" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/om/order/find_page" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/om/order/find_page" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot;页面&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;page&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;1&quot;},{&quot;comment&quot;:&quot;限制&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;rows&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;1&quot;},{&quot;comment&quot;:&quot;查询条件&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;query&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;query_yq2cf&quot;}]" />
+              <option name="urlParamsKeyValueListText" value="page=1&#10;&amp;rows=1&#10;&amp;query=query_yq2cf" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8036/om/order/find_page?page=1&amp;rows=1&amp;query=query_yq2cf&#13;&#10;Request Headers: &#13;&#10;    Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA&#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
+          <option name="response" value="{&quot;success&quot;:true,&quot;errorcode&quot;:&quot;ok&quot;,&quot;errormsg&quot;:&quot;nested exception is org.apache.ibatis.builder.BuilderException: Error evaluating expression 'main.dateStart != null '. Cause: org.apache.ibatis.ognl.NoSuchPropertyException: com.web.pd.entity.PdOrderMain.dateStart&quot;,&quot;rows&quot;:null,&quot;records&quot;:0,&quot;total&quot;:0,&quot;data&quot;:null}" />
+          <option name="url" value="/om/order/find_page" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="com.web.pd.controller.PdOrderController" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="dev" />
+          <option name="enableProject" value="ribon_mes" />
+          <option name="method" value="findPage" />
+          <option name="methodType" value="GET" />
+          <option name="name" value="分页模糊查询" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="className" value="com.web.pd.controller.PdOrderController" />
+              <option name="method" value="findPage" />
+              <option name="methodDescription" value="分页模糊查询" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/om/order/find_page" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/om/order/find_page" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot;页面&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;page&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;1&quot;},{&quot;comment&quot;:&quot;限制&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;rows&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;1&quot;},{&quot;comment&quot;:&quot;查询条件&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;query&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;query_yq2cf&quot;}]" />
+              <option name="urlParamsKeyValueListText" value="page=1&#10;&amp;rows=1&#10;&amp;query=query_yq2cf" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8036/om/order/find_page?page=1&amp;rows=1&amp;query=query_yq2cf&#13;&#10;Request Headers: &#13;&#10;    Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA&#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
+          <option name="response" value="{&quot;success&quot;:true,&quot;errorcode&quot;:&quot;ok&quot;,&quot;errormsg&quot;:&quot;&quot;,&quot;rows&quot;:[],&quot;records&quot;:0,&quot;total&quot;:0,&quot;data&quot;:null}" />
+          <option name="url" value="/om/order/find_page" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="com.web.pd.controller.PdOrderController" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="dev" />
+          <option name="enableProject" value="ribon_mes" />
+          <option name="method" value="equalFind" />
+          <option name="methodType" value="GET" />
+          <option name="name" value="分页等于查询" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="className" value="com.web.pd.controller.PdOrderController" />
+              <option name="method" value="equalFind" />
+              <option name="methodDescription" value="分页等于查询" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/om/order/equal_find" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/om/order/equal_find" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot;页号&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;page&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;1&quot;},{&quot;comment&quot;:&quot;页面大小&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;limit&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;10&quot;},{&quot;comment&quot;:&quot;查询条件&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;query&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;&quot;}]" />
+              <option name="urlParamsKeyValueListText" value="page=1&#10;&amp;limit=10&#10;&amp;query=" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8036/om/order/equal_find?limit=10&amp;page=1&amp;query=&#13;&#10;Request Headers: &#13;&#10;    Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA&#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
+          <option name="response" value="{&quot;success&quot;:true,&quot;errorcode&quot;:&quot;ok&quot;,&quot;errormsg&quot;:&quot;查询不到数据&quot;,&quot;rows&quot;:null,&quot;records&quot;:0,&quot;total&quot;:0,&quot;data&quot;:null}" />
+          <option name="url" value="/om/order/equal_find" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="com.web.pd.controller.PdOrderController" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="dev" />
+          <option name="enableProject" value="ribon_mes" />
+          <option name="method" value="equalFind" />
+          <option name="methodType" value="GET" />
+          <option name="name" value="分页等于查询" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="className" value="com.web.pd.controller.PdOrderController" />
+              <option name="method" value="equalFind" />
+              <option name="methodDescription" value="分页等于查询" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/om/order/equal_find" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/om/order/equal_find" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot;页号&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;page&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;1&quot;},{&quot;comment&quot;:&quot;页面大小&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;limit&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;10&quot;},{&quot;comment&quot;:&quot;查询条件&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;query&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;&quot;}]" />
+              <option name="urlParamsKeyValueListText" value="page=1&#10;&amp;limit=10&#10;&amp;query=" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8036/om/order/equal_find?limit=10&amp;page=1&amp;query=&#13;&#10;Request Headers: &#13;&#10;    Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA&#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
+          <option name="response" value="{&quot;success&quot;:true,&quot;errorcode&quot;:&quot;ok&quot;,&quot;errormsg&quot;:null,&quot;rows&quot;:null,&quot;records&quot;:0,&quot;total&quot;:0,&quot;data&quot;:null}" />
+          <option name="url" value="/om/order/equal_find" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="com.web.pd.controller.PdOrderController" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="dev" />
+          <option name="enableProject" value="ribon_mes" />
+          <option name="method" value="equalFind" />
+          <option name="methodType" value="GET" />
+          <option name="name" value="分页等于查询" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="className" value="com.web.pd.controller.PdOrderController" />
+              <option name="method" value="equalFind" />
+              <option name="methodDescription" value="分页等于查询" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/om/order/equal_find" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/om/order/equal_find" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot;页号&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;page&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;1&quot;},{&quot;comment&quot;:&quot;页面大小&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;limit&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;10&quot;},{&quot;comment&quot;:&quot;查询条件&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;query&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;&quot;}]" />
+              <option name="urlParamsKeyValueListText" value="page=1&#10;&amp;limit=10&#10;&amp;query=" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8036/om/order/equal_find?limit=10&amp;page=1&amp;query=&#13;&#10;Request Headers: &#13;&#10;    Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA&#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
+          <option name="response" value="{&quot;success&quot;:true,&quot;errorcode&quot;:&quot;ok&quot;,&quot;errormsg&quot;:null,&quot;rows&quot;:null,&quot;records&quot;:0,&quot;total&quot;:0,&quot;data&quot;:null}" />
+          <option name="url" value="/om/order/equal_find" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="com.web.pd.controller.PdOrderController" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="dev" />
+          <option name="enableProject" value="ribon_mes" />
+          <option name="method" value="equalFind" />
+          <option name="methodType" value="GET" />
+          <option name="name" value="分页等于查询" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="className" value="com.web.pd.controller.PdOrderController" />
+              <option name="method" value="equalFind" />
+              <option name="methodDescription" value="分页等于查询" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/om/order/equal_find" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/om/order/equal_find" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot;页号&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;page&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;1&quot;},{&quot;comment&quot;:&quot;页面大小&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;limit&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;10&quot;},{&quot;comment&quot;:&quot;查询条件&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;query&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;&quot;}]" />
+              <option name="urlParamsKeyValueListText" value="page=1&#10;&amp;limit=10&#10;&amp;query=" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8036/om/order/equal_find?limit=10&amp;page=1&amp;query=&#13;&#10;Request Headers: &#13;&#10;    Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA&#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
+          <option name="response" value="{&quot;success&quot;:true,&quot;errorcode&quot;:&quot;ok&quot;,&quot;errormsg&quot;:null,&quot;rows&quot;:null,&quot;records&quot;:0,&quot;total&quot;:0,&quot;data&quot;:null}" />
+          <option name="url" value="/om/order/equal_find" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="com.web.pd.controller.PdOrderController" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="dev" />
+          <option name="enableProject" value="ribon_mes" />
+          <option name="method" value="equalFind" />
+          <option name="methodType" value="GET" />
+          <option name="name" value="分页等于查询" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="className" value="com.web.pd.controller.PdOrderController" />
+              <option name="method" value="equalFind" />
+              <option name="methodDescription" value="分页等于查询" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/om/order/equal_find" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/om/order/equal_find" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot;页号&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;page&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;1&quot;},{&quot;comment&quot;:&quot;页面大小&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;limit&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;10&quot;},{&quot;comment&quot;:&quot;查询条件&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;query&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;&quot;}]" />
+              <option name="urlParamsKeyValueListText" value="page=1&#10;&amp;limit=10&#10;&amp;query=" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8036/om/order/equal_find?limit=10&amp;page=1&amp;query=&#13;&#10;Request Headers: &#13;&#10;    Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA&#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
+          <option name="response" value="{&quot;success&quot;:true,&quot;errorcode&quot;:&quot;ok&quot;,&quot;errormsg&quot;:null,&quot;rows&quot;:null,&quot;records&quot;:0,&quot;total&quot;:0,&quot;data&quot;:null}" />
+          <option name="url" value="/om/order/equal_find" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="com.web.pd.controller.PdOrderController" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="dev" />
+          <option name="enableProject" value="ribon_mes" />
+          <option name="method" value="equalFind" />
+          <option name="methodType" value="GET" />
+          <option name="name" value="分页等于查询" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="className" value="com.web.pd.controller.PdOrderController" />
+              <option name="method" value="equalFind" />
+              <option name="methodDescription" value="分页等于查询" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/om/order/equal_find" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/om/order/equal_find" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot;页号&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;page&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;1&quot;},{&quot;comment&quot;:&quot;页面大小&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;limit&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;10&quot;},{&quot;comment&quot;:&quot;查询条件&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;query&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;&quot;}]" />
+              <option name="urlParamsKeyValueListText" value="page=1&#10;&amp;limit=10&#10;&amp;query=" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8036/om/order/equal_find?limit=10&amp;page=1&amp;query=&#13;&#10;Request Headers: &#13;&#10;    Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA&#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
+          <option name="response" value="{&quot;success&quot;:true,&quot;errorcode&quot;:&quot;ok&quot;,&quot;errormsg&quot;:null,&quot;rows&quot;:null,&quot;records&quot;:0,&quot;total&quot;:0,&quot;data&quot;:null}" />
+          <option name="url" value="/om/order/equal_find" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="com.web.pd.controller.PdOrderController" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="dev" />
+          <option name="enableProject" value="ribon_mes" />
+          <option name="method" value="equalFind" />
+          <option name="methodType" value="GET" />
+          <option name="name" value="分页等于查询" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="className" value="com.web.pd.controller.PdOrderController" />
+              <option name="method" value="equalFind" />
+              <option name="methodDescription" value="分页等于查询" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/om/order/equal_find" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/om/order/equal_find" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot;页号&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;page&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;1&quot;},{&quot;comment&quot;:&quot;页面大小&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;limit&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;10&quot;},{&quot;comment&quot;:&quot;查询条件&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;query&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;&quot;}]" />
+              <option name="urlParamsKeyValueListText" value="page=1&#10;&amp;limit=10&#10;&amp;query=" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8036/om/order/equal_find?limit=10&amp;page=1&amp;query=&#13;&#10;Request Headers: &#13;&#10;    Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA&#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
+          <option name="response" value="{&quot;success&quot;:true,&quot;errorcode&quot;:&quot;ok&quot;,&quot;errormsg&quot;:null,&quot;rows&quot;:null,&quot;records&quot;:0,&quot;total&quot;:0,&quot;data&quot;:null}" />
+          <option name="url" value="/om/order/equal_find" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="com.web.pd.controller.PdOrderController" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="dev" />
+          <option name="enableProject" value="ribon_mes" />
+          <option name="method" value="equalFind" />
+          <option name="methodType" value="GET" />
+          <option name="name" value="分页等于查询" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="className" value="com.web.pd.controller.PdOrderController" />
+              <option name="method" value="equalFind" />
+              <option name="methodDescription" value="分页等于查询" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/om/order/equal_find" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/om/order/equal_find" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot;页号&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;page&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;1&quot;},{&quot;comment&quot;:&quot;页面大小&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;limit&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;10&quot;},{&quot;comment&quot;:&quot;查询条件&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;query&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;&quot;}]" />
+              <option name="urlParamsKeyValueListText" value="page=1&#10;&amp;limit=10&#10;&amp;query=" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8036/om/order/equal_find?limit=10&amp;page=1&amp;query=&#13;&#10;Request Headers: &#13;&#10;    Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA&#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
+          <option name="response" value="{&quot;success&quot;:true,&quot;errorcode&quot;:&quot;ok&quot;,&quot;errormsg&quot;:null,&quot;rows&quot;:null,&quot;records&quot;:0,&quot;total&quot;:0,&quot;data&quot;:null}" />
+          <option name="url" value="/om/order/equal_find" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="com.web.pd.controller.PdOrderController" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="dev" />
+          <option name="enableProject" value="ribon_mes" />
+          <option name="method" value="equalFind" />
+          <option name="methodType" value="GET" />
+          <option name="name" value="分页等于查询" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="className" value="com.web.pd.controller.PdOrderController" />
+              <option name="method" value="equalFind" />
+              <option name="methodDescription" value="分页等于查询" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/om/order/equal_find" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/om/order/equal_find" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot;页号&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;page&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;1&quot;},{&quot;comment&quot;:&quot;页面大小&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;limit&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;10&quot;},{&quot;comment&quot;:&quot;查询条件&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;query&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;&quot;}]" />
+              <option name="urlParamsKeyValueListText" value="page=1&#10;&amp;limit=10&#10;&amp;query=" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8036/om/order/equal_find?limit=10&amp;page=1&amp;query=&#13;&#10;Request Headers: &#13;&#10;    Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA&#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
+          <option name="response" value="{&quot;success&quot;:true,&quot;errorcode&quot;:&quot;ok&quot;,&quot;errormsg&quot;:null,&quot;rows&quot;:null,&quot;records&quot;:0,&quot;total&quot;:0,&quot;data&quot;:null}" />
+          <option name="url" value="/om/order/equal_find" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="com.web.pd.controller.PdOrderController" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="dev" />
+          <option name="enableProject" value="ribon_mes" />
+          <option name="method" value="equalFind" />
+          <option name="methodType" value="GET" />
+          <option name="name" value="分页等于查询" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="className" value="com.web.pd.controller.PdOrderController" />
+              <option name="method" value="equalFind" />
+              <option name="methodDescription" value="分页等于查询" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/om/order/equal_find" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="url" value="/om/order/equal_find" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot;页号&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;page&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;1&quot;},{&quot;comment&quot;:&quot;页面大小&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;limit&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;10&quot;},{&quot;comment&quot;:&quot;查询条件&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;query&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;&quot;}]" />
+              <option name="urlParamsKeyValueListText" value="page=1&#10;&amp;limit=10&#10;&amp;query=" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:8036/om/order/equal_find?limit=10&amp;page=1&amp;query=&#13;&#10;Request Headers: &#13;&#10;    Authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA&#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
+          <option name="response" value="{&quot;success&quot;:true,&quot;errorcode&quot;:&quot;ok&quot;,&quot;errormsg&quot;:null,&quot;rows&quot;:null,&quot;records&quot;:0,&quot;total&quot;:0,&quot;data&quot;:null}" />
+          <option name="url" value="/om/order/equal_find" />
         </ResponseHistory>
       </list>
     </option>

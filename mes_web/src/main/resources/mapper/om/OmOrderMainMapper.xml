@@ -69,7 +69,6 @@
             AND op.vouch_date &lt; #{main.dateEnd,jdbcType=TIMESTAMP}
         </if>
         order by vouch_code desc
-
     </select>
 
     <select id="getDetailList" resultType="com.web.om.dto.OmOrderMainDTO">

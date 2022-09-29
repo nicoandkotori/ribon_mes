@@ -1,26 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="fastRequestCurrentParamGroup">
-    <option name="className" value="com.web.om.controller.OmOrderController" />
-    <option name="method" value="deleteMainById" />
-    <option name="methodDescription" value="通过id作废委外订单" />
+    <option name="className" value="com.web.pd.controller.PdOrderController" />
+    <option name="method" value="getMesProductByMainId" />
+    <option name="methodDescription" value="通过mainId获取产品表" />
     <option name="module" value="mes_web" />
-    <option name="originUrl" value="/om/order/delete_main_by_id" />
+    <option name="originUrl" value="/pd/order/get_mes_product_by_main_id" />
     <option name="requestParamMap">
       <map>
-        <entry key="id">
-          <value>
-            <Object />
-          </value>
-        </entry>
-        <entry key="mesId">
+        <entry key="mainId">
           <value>
             <Object />
           </value>
         </entry>
       </map>
     </option>
-    <option name="tempId" value="id_com.web.om.controller.OmOrderController.deleteMainById" />
-    <option name="url" value="/om/order/uncheck" />
+    <option name="tempId" value="" />
+    <option name="url" value="/pd/order/get_mes_product_by_main_id" />
   </component>
 </project>

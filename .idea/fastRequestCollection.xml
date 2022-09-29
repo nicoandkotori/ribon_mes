@@ -15,6 +15,281 @@
                           <option name="domain" value="http://localhost:8036" />
                           <option name="enableEnv" value="dev" />
                           <option name="enableProject" value="ribon_mes" />
+                          <option name="id" value="id_com.web.pd.controller.PdOrderController.getMesProductByMainId" />
+                          <option name="name" value="通过mainId获取产品表" />
+                          <option name="paramGroup">
+                            <ParamGroupCollection>
+                              <option name="className" value="com.web.pd.controller.PdOrderController" />
+                              <option name="method" value="getMesProductByMainId" />
+                              <option name="methodDescription" value="通过mainId获取产品表" />
+                              <option name="multipartKeyValueListJson" value="[]" />
+                              <option name="originUrl" value="/pd/order/get_mes_product_by_main_id" />
+                              <option name="pathParamsKeyValueListJson" value="[]" />
+                              <option name="preScript" value="" />
+                              <option name="url" value="/pd/order/get_mes_product_by_main_id" />
+                              <option name="urlEncodedKeyValueListJson" value="[]" />
+                              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;mainId&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;mainId_qabab&quot;}]" />
+                              <option name="urlParamsKeyValueListText" value="mainId=mainId_qabab" />
+                            </ParamGroupCollection>
+                          </option>
+                          <option name="tempId" value="id_com.web.pd.controller.PdOrderController.getMesProductByMainId" />
+                          <option name="type" value="2" />
+                        </CollectionDetail>
+                        <CollectionDetail>
+                          <option name="domain" value="http://localhost:8036" />
+                          <option name="enableEnv" value="dev" />
+                          <option name="enableProject" value="ribon_mes" />
+                          <option name="id" value="id_com.web.pd.controller.PdOrderController.getById" />
+                          <option name="name" value="根据id查询委外订单主表" />
+                          <option name="paramGroup">
+                            <ParamGroupCollection>
+                              <option name="className" value="com.web.pd.controller.PdOrderController" />
+                              <option name="method" value="getById" />
+                              <option name="methodDescription" value="根据id查询委外订单主表" />
+                              <option name="multipartKeyValueListJson" value="[]" />
+                              <option name="originUrl" value="/pd/order/get_main_by_id" />
+                              <option name="pathParamsKeyValueListJson" value="[]" />
+                              <option name="preScript" value="" />
+                              <option name="url" value="/pd/order/get_main_by_id" />
+                              <option name="urlEncodedKeyValueListJson" value="[]" />
+                              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot;id&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;id&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;id_theib&quot;}]" />
+                              <option name="urlParamsKeyValueListText" value="id=id_theib" />
+                            </ParamGroupCollection>
+                          </option>
+                          <option name="tempId" value="id_com.web.pd.controller.PdOrderController.getById" />
+                          <option name="type" value="2" />
+                        </CollectionDetail>
+                        <CollectionDetail>
+                          <option name="domain" value="http://localhost:8036" />
+                          <option name="enableEnv" value="dev" />
+                          <option name="enableProject" value="ribon_mes" />
+                          <option name="id" value="id_com.web.pd.controller.PdOrderController.getDetailList" />
+                          <option name="name" value="查询主表join产品表的数据" />
+                          <option name="paramGroup">
+                            <ParamGroupCollection>
+                              <option name="className" value="com.web.pd.controller.PdOrderController" />
+                              <option name="method" value="getDetailList" />
+                              <option name="methodDescription" value="查询主表join产品表的数据" />
+                              <option name="multipartKeyValueListJson" value="[]" />
+                              <option name="originUrl" value="/pd/order/get_main_and_product_list" />
+                              <option name="pathParamsKeyValueListJson" value="[]" />
+                              <option name="preScript" value="" />
+                              <option name="url" value="/pd/order/get_main_and_product_list" />
+                              <option name="urlEncodedKeyValueListJson" value="[]" />
+                              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot; &quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;id&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;id_umr7i&quot;}]" />
+                              <option name="urlParamsKeyValueListText" value="id=id_umr7i" />
+                            </ParamGroupCollection>
+                          </option>
+                          <option name="tempId" value="id_com.web.pd.controller.PdOrderController.getDetailList" />
+                          <option name="type" value="2" />
+                        </CollectionDetail>
+                        <CollectionDetail>
+                          <option name="domain" value="http://localhost:8036" />
+                          <option name="enableEnv" value="dev" />
+                          <option name="enableProject" value="ribon_mes" />
+                          <option name="headerList">
+                            <list>
+                              <DataMapping>
+                                <option name="type" value="Authorization" />
+                                <option name="value" value="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA" />
+                              </DataMapping>
+                            </list>
+                          </option>
+                          <option name="id" value="id_com.web.pd.controller.PdOrderController.deleteMainById" />
+                          <option name="name" value="通过id作废生产订单" />
+                          <option name="paramGroup">
+                            <ParamGroupCollection>
+                              <option name="className" value="com.web.pd.controller.PdOrderController" />
+                              <option name="method" value="deleteMainById" />
+                              <option name="methodDescription" value="通过id作废生产订单" />
+                              <option name="methodType" value="POST" />
+                              <option name="multipartKeyValueListJson" value="[]" />
+                              <option name="originUrl" value="/pd/order/delete_main_by_id" />
+                              <option name="pathParamsKeyValueListJson" value="[]" />
+                              <option name="preScript" value="" />
+                              <option name="url" value="/pd/order/delete_main_by_id" />
+                              <option name="urlEncodedKeyValueListJson" value="[{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;id&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;id_a8ytl&quot;}]" />
+                              <option name="urlEncodedKeyValueListText" value="id=id_a8ytl" />
+                              <option name="urlParamsKeyValueListJson" value="[]" />
+                            </ParamGroupCollection>
+                          </option>
+                          <option name="tempId" value="id_com.web.pd.controller.PdOrderController.deleteMainById" />
+                          <option name="type" value="2" />
+                        </CollectionDetail>
+                        <CollectionDetail>
+                          <option name="domain" value="http://localhost:8036" />
+                          <option name="enableEnv" value="dev" />
+                          <option name="enableProject" value="ribon_mes" />
+                          <option name="headerList">
+                            <list>
+                              <DataMapping>
+                                <option name="type" value="Authorization" />
+                                <option name="value" value="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA" />
+                              </DataMapping>
+                            </list>
+                          </option>
+                          <option name="id" value="id_com.web.pd.controller.PdOrderController.getAllMainDataById" />
+                          <option name="name" value="通过id查询一个订单中的所有数据" />
+                          <option name="paramGroup">
+                            <ParamGroupCollection>
+                              <option name="className" value="com.web.pd.controller.PdOrderController" />
+                              <option name="method" value="getAllMainDataById" />
+                              <option name="methodDescription" value="通过id查询一个订单中的所有数据" />
+                              <option name="multipartKeyValueListJson" value="[]" />
+                              <option name="originUrl" value="/pd/order/get_all_main_data_by_id" />
+                              <option name="pathParamsKeyValueListJson" value="[]" />
+                              <option name="preScript" value="" />
+                              <option name="url" value="/pd/order/get_all_main_data_by_id" />
+                              <option name="urlEncodedKeyValueListJson" value="[]" />
+                              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;id&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;id_ubv6j&quot;}]" />
+                              <option name="urlParamsKeyValueListText" value="id=id_ubv6j" />
+                            </ParamGroupCollection>
+                          </option>
+                          <option name="tempId" value="id_com.web.pd.controller.PdOrderController.getAllMainDataById" />
+                          <option name="type" value="2" />
+                        </CollectionDetail>
+                        <CollectionDetail>
+                          <option name="domain" value="http://localhost:8036" />
+                          <option name="enableEnv" value="dev" />
+                          <option name="enableProject" value="ribon_mes" />
+                          <option name="headerList">
+                            <list>
+                              <DataMapping>
+                                <option name="type" value="Authorization" />
+                                <option name="value" value="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2NDI3ODk2OSwidXNlcmlkIjoiMSIsImNyZWF0ZWQiOjE2NjQyNDI5Njk0MTgsImF1dGhvcml0aWVzIjpbXX0.7ep3uFiBdUsao2x-3qDkMUfSgSaJd_namEK-ZYxtVERNDY0SC9zHVPDF1JvpEUdXiNt-KGqKRlJgZfh5cp2ZsA" />
+                              </DataMapping>
+                            </list>
+                          </option>
+                          <option name="id" value="id_com.web.pd.controller.PdOrderController.export" />
+                          <option name="name" value="导出excel" />
+                          <option name="paramGroup">
+                            <ParamGroupCollection>
+                              <option name="className" value="com.web.pd.controller.PdOrderController" />
+                              <option name="method" value="export" />
+                              <option name="methodDescription" value="导出excel" />
+                              <option name="multipartKeyValueListJson" value="[]" />
+                              <option name="originUrl" value="/pd/order/export" />
+                              <option name="pathParamsKeyValueListJson" value="[]" />
+                              <option name="preScript" value="" />
+                              <option name="url" value="/pd/order/export" />
+                              <option name="urlEncodedKeyValueListJson" value="[]" />
+                              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot;mesId&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;mesId&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;mesId_xbfgy&quot;}]" />
+                              <option name="urlParamsKeyValueListText" value="mesId=mesId_xbfgy" />
+                            </ParamGroupCollection>
+                          </option>
+                          <option name="tempId" value="id_com.web.pd.controller.PdOrderController.export" />
+                          <option name="type" value="2" />
+                        </CollectionDetail>
+                        <CollectionDetail>
+                          <option name="domain" value="http://localhost:8036" />
+                          <option name="enableEnv" value="dev" />
+                          <option name="enableProject" value="ribon_mes" />
+                          <option name="id" value="id_com.web.pd.controller.PdOrderController.update" />
+                          <option name="name" value="更新mes生产订单" />
+                          <option name="paramGroup">
+                            <ParamGroupCollection>
+                              <option name="className" value="com.web.pd.controller.PdOrderController" />
+                              <option name="method" value="update" />
+                              <option name="methodDescription" value="更新mes生产订单" />
+                              <option name="methodType" value="POST" />
+                              <option name="multipartKeyValueListJson" value="[]" />
+                              <option name="originUrl" value="/pd/order/update" />
+                              <option name="pathParamsKeyValueListJson" value="[]" />
+                              <option name="preScript" value="" />
+                              <option name="url" value="/pd/order/update" />
+                              <option name="urlEncodedKeyValueListJson" value="[{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;mainStr&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;mainStr_reh95&quot;},{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;productStr&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;productStr_eitqu&quot;},{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;partStr&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;partStr_gk6pc&quot;},{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;materialStr&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;materialStr_8lmwz&quot;}]" />
+                              <option name="urlEncodedKeyValueListText" value="mainStr=mainStr_reh95&#10;&amp;productStr=productStr_eitqu&#10;&amp;partStr=partStr_gk6pc&#10;&amp;materialStr=materialStr_8lmwz" />
+                              <option name="urlParamsKeyValueListJson" value="[]" />
+                            </ParamGroupCollection>
+                          </option>
+                          <option name="tempId" value="id_com.web.pd.controller.PdOrderController.update" />
+                          <option name="type" value="2" />
+                        </CollectionDetail>
+                        <CollectionDetail>
+                          <option name="domain" value="http://localhost:8036" />
+                          <option name="enableEnv" value="dev" />
+                          <option name="enableProject" value="ribon_mes" />
+                          <option name="id" value="id_com.web.pd.controller.PdOrderController.save" />
+                          <option name="name" value="保存生产订单到mes" />
+                          <option name="paramGroup">
+                            <ParamGroupCollection>
+                              <option name="className" value="com.web.pd.controller.PdOrderController" />
+                              <option name="method" value="save" />
+                              <option name="methodDescription" value="保存生产订单到mes" />
+                              <option name="methodType" value="POST" />
+                              <option name="multipartKeyValueListJson" value="[]" />
+                              <option name="originUrl" value="/pd/order/save" />
+                              <option name="pathParamsKeyValueListJson" value="[]" />
+                              <option name="preScript" value="" />
+                              <option name="url" value="/pd/order/save" />
+                              <option name="urlEncodedKeyValueListJson" value="[{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;mainStr&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;mainStr_zuhzv&quot;},{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;productStr&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;productStr_6pvxk&quot;},{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;partStr&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;partStr_5arej&quot;},{&quot;comment&quot;:&quot;&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;materialStr&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;materialStr_83yo9&quot;}]" />
+                              <option name="urlEncodedKeyValueListText" value="mainStr=mainStr_zuhzv&#10;&amp;productStr=productStr_6pvxk&#10;&amp;partStr=partStr_5arej&#10;&amp;materialStr=materialStr_83yo9" />
+                              <option name="urlParamsKeyValueListJson" value="[]" />
+                            </ParamGroupCollection>
+                          </option>
+                          <option name="tempId" value="id_com.web.pd.controller.PdOrderController.save" />
+                          <option name="type" value="2" />
+                        </CollectionDetail>
+                        <CollectionDetail>
+                          <option name="domain" value="http://localhost:8036" />
+                          <option name="enableEnv" value="dev" />
+                          <option name="enableProject" value="ribon_mes" />
+                          <option name="id" value="id_com.web.pd.controller.PdOrderController.getMaxCode" />
+                          <option name="name" value="生成最大单号" />
+                          <option name="paramGroup">
+                            <ParamGroupCollection>
+                              <option name="className" value="com.web.pd.controller.PdOrderController" />
+                              <option name="method" value="getMaxCode" />
+                              <option name="methodDescription" value="生成最大单号" />
+                              <option name="multipartKeyValueListJson" value="[]" />
+                              <option name="originUrl" value="/pd/order/get_max_vouch_code" />
+                              <option name="pathParamsKeyValueListJson" value="[]" />
+                              <option name="preScript" value="" />
+                              <option name="url" value="/pd/order/get_max_vouch_code" />
+                              <option name="urlEncodedKeyValueListJson" value="[]" />
+                              <option name="urlParamsKeyValueListJson" value="[]" />
+                            </ParamGroupCollection>
+                          </option>
+                          <option name="tempId" value="id_com.web.pd.controller.PdOrderController.getMaxCode" />
+                          <option name="type" value="2" />
+                        </CollectionDetail>
+                        <CollectionDetail>
+                          <option name="domain" value="http://localhost:8036" />
+                          <option name="enableEnv" value="dev" />
+                          <option name="enableProject" value="ribon_mes" />
+                          <option name="id" value="id_com.web.pd.controller.PdOrderController.findPage" />
+                          <option name="name" value="分页模糊查询" />
+                          <option name="paramGroup">
+                            <ParamGroupCollection>
+                              <option name="className" value="com.web.pd.controller.PdOrderController" />
+                              <option name="method" value="findPage" />
+                              <option name="methodDescription" value="分页模糊查询" />
+                              <option name="multipartKeyValueListJson" value="[]" />
+                              <option name="originUrl" value="/pd/order/find_page" />
+                              <option name="pathParamsKeyValueListJson" value="[]" />
+                              <option name="preScript" value="" />
+                              <option name="url" value="/pd/order/find_page" />
+                              <option name="urlEncodedKeyValueListJson" value="[]" />
+                              <option name="urlParamsKeyValueListJson" value="[{&quot;comment&quot;:&quot;页面&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;page&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;1&quot;},{&quot;comment&quot;:&quot;行&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;rows&quot;,&quot;type&quot;:&quot;Number&quot;,&quot;value&quot;:&quot;1&quot;},{&quot;comment&quot;:&quot;querystr&quot;,&quot;customFlag&quot;:2,&quot;enabled&quot;:true,&quot;key&quot;:&quot;querystr&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;querystr_sqymw&quot;}]" />
+                              <option name="urlParamsKeyValueListText" value="page=1&#10;&amp;rows=1&#10;&amp;querystr=querystr_sqymw" />
+                            </ParamGroupCollection>
+                          </option>
+                          <option name="tempId" value="id_com.web.pd.controller.PdOrderController.findPage" />
+                          <option name="type" value="2" />
+                        </CollectionDetail>
+                      </list>
+                    </option>
+                    <option name="id" value="20220927100833768" />
+                    <option name="name" value="PdOrderController" />
+                    <option name="type" value="3" />
+                  </CollectionDetail>
+                  <CollectionDetail>
+                    <option name="childList">
+                      <list>
+                        <CollectionDetail>
+                          <option name="domain" value="http://localhost:8036" />
+                          <option name="enableEnv" value="dev" />
+                          <option name="enableProject" value="ribon_mes" />
                           <option name="id" value="id_com.web.om.controller.MetalWorkCommitteeController.getMaxCode" />
                           <option name="name" value="查询最大的单据号" />
                           <option name="paramGroup">
@@ -38,6 +313,11 @@
                     </option>
                     <option name="id" value="20220924235415703" />
                     <option name="name" value="MetalWorkCommitteeController" />
+                    <option name="paramGroup">
+                      <ParamGroupCollection>
+                        <option name="methodDescription" value="MetalWorkCommitteeController" />
+                      </ParamGroupCollection>
+                    </option>
                     <option name="type" value="3" />
                   </CollectionDetail>
                   <CollectionDetail>
@@ -102,6 +382,29 @@
                   <CollectionDetail>
                     <option name="childList">
                       <list>
+                        <CollectionDetail>
+                          <option name="domain" value="http://localhost:8036" />
+                          <option name="enableEnv" value="dev" />
+                          <option name="enableProject" value="ribon_mes" />
+                          <option name="id" value="id_com.web.om.controller.OmOrderController.getMaxCode" />
+                          <option name="name" value="生成最大单号" />
+                          <option name="paramGroup">
+                            <ParamGroupCollection>
+                              <option name="className" value="com.web.om.controller.OmOrderController" />
+                              <option name="method" value="getMaxCode" />
+                              <option name="methodDescription" value="生成最大单号" />
+                              <option name="multipartKeyValueListJson" value="[]" />
+                              <option name="originUrl" value="/om/order/get_max_vouch_code" />
+                              <option name="pathParamsKeyValueListJson" value="[]" />
+                              <option name="preScript" value="" />
+                              <option name="url" value="/om/order/get_max_vouch_code" />
+                              <option name="urlEncodedKeyValueListJson" value="[]" />
+                              <option name="urlParamsKeyValueListJson" value="[]" />
+                            </ParamGroupCollection>
+                          </option>
+                          <option name="tempId" value="id_com.web.om.controller.OmOrderController.getMaxCode" />
+                          <option name="type" value="2" />
+                        </CollectionDetail>
                         <CollectionDetail>
                           <option name="domain" value="http://localhost:8036" />
                           <option name="enableEnv" value="dev" />
@@ -268,20 +571,6 @@
               <option name="type" value="4" />
             </CollectionDetail>
             <CollectionDetail>
-              <option name="childList">
-                <list>
-                  <CollectionDetail>
-                    <option name="id" value="20220924223849823" />
-                    <option name="name" value="委外" />
-                    <option name="paramGroup">
-                      <ParamGroupCollection>
-                        <option name="methodDescription" value="委外" />
-                      </ParamGroupCollection>
-                    </option>
-                    <option name="type" value="1" />
-                  </CollectionDetail>
-                </list>
-              </option>
               <option name="groupId" value="1" />
               <option name="id" value="1" />
               <option name="name" value="Default Group" />
