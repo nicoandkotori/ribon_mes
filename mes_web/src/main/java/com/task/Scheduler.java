@@ -33,22 +33,18 @@ public class Scheduler {
 
 
 
-//    /**
-//     * 功能：同步OA合同数据到U8
-//     * 定时：从第1分钟开始，每10分钟执行一次
-//     */
-////    @Scheduled(cron = "0 1/10 * * * ? ")
+    /**
+     * 功能：同步OA合同数据到U8
+     * 定时：从第1分钟开始，每10分钟执行一次
+     */
+//    @Scheduled(cron = "0 1/10 * * * ? ")
 //    @Scheduled(cron = "0 0/5 * * * ? ")
 //    public void syncSaleOrder() {
 //        log.info("定时任务(同步订单)执行时间：" + DateUtil.getDateStr(new Date(), "yyyy-MM-dd hh:mm:ss"));
 //        try {
 //            //DB2是U8连接
 //            DbContextHolder.setDbType(DBTypeEnum.db2);
-//            /**
-//             * DATE: 2022/9/19
-//             * mijiahao TODO: 定时任务已取消
-//             */
-////            oaSaleContractService.syncSaleContractData();
+//            oaSaleContractService.syncSaleContractData();
 //            //调用Service方法
 //        } catch (Exception e) {
 //            log.error(e.getMessage());
@@ -61,7 +57,7 @@ public class Scheduler {
 //        try {
 //            //DB2是U8连接
 //            DbContextHolder.setDbType(DBTypeEnum.db2);
-////            oaSaleContractService.syncSaleContractDataEdit();
+//            oaSaleContractService.syncSaleContractDataEdit();
 //            //调用Service方法
 //        } catch (Exception e) {
 //            log.error(e.getMessage());
@@ -75,12 +71,60 @@ public class Scheduler {
 //        try {
 //            //DB2是U8连接
 //            DbContextHolder.setDbType(DBTypeEnum.db2);
-////            oaSaleContractService.syncSaleContractDataDelete();
+//            oaSaleContractService.syncSaleContractDataDelete();
 //            //调用Service方法
 //        } catch (Exception e) {
 //            log.error(e.getMessage());
 //        }
 //    }
+//
+//
+//
+//
+//    @Scheduled(cron = "0 0/6 * * * ? ")
+//    public void syncSaleOrderTrialContract() {
+//        log.info("定时任务(同步试制订单)执行时间：" + DateUtil.getDateStr(new Date(), "yyyy-MM-dd hh:mm:ss"));
+//        try {
+//            //DB2是U8连接
+//            DbContextHolder.setDbType(DBTypeEnum.db2);
+//            oaSaleContractService.syncSaleTrialContractData();
+//            //调用Service方法
+//        } catch (Exception e) {
+//            log.error(e.getMessage());
+//        }
+//    }
+//
+//
+//
+//
+//    @Scheduled(cron = "0 0/6 * * * ? ")
+//    public void syncSaleOrderTrialContractEdit() {
+//        log.info("定时任务(同步试制订单编辑)执行时间：" + DateUtil.getDateStr(new Date(), "yyyy-MM-dd hh:mm:ss"));
+//        try {
+//            //DB2是U8连接
+//            DbContextHolder.setDbType(DBTypeEnum.db2);
+////            oaSaleContractService.syncSaleTrialContractDataEdit();
+//            //调用Service方法
+//        } catch (Exception e) {
+//            log.error(e.getMessage());
+//        }
+//    }
+//
+//
+//
+//    @Scheduled(cron = "0 0/6 * * * ? ")
+//    public void syncSaleOrderTrialContractDelete() {
+//        log.info("定时任务(同步订单删除的情况)执行时间：" + DateUtil.getDateStr(new Date(), "yyyy-MM-dd hh:mm:ss"));
+//        try {
+//            //DB2是U8连接
+//            DbContextHolder.setDbType(DBTypeEnum.db2);
+////            oaSaleContractService.syncSaleTrialContractDataDelete();
+//            //调用Service方法
+//        } catch (Exception e) {
+//            log.error(e.getMessage());
+//        }
+//    }
+//
 //
 //    /**
 //     * 功能：同步OA存貨U8
@@ -92,7 +136,7 @@ public class Scheduler {
 //        try {
 //            //DB2是U8连接
 //            DbContextHolder.setDbType(DBTypeEnum.db2);
-////            oaInventoryApplyService.syncInventoryApplyData();
+//            oaInventoryApplyService.syncInventoryApplyData();
 //            //调用Service方法
 //        } catch (Exception e) {
 //            log.error(e.getMessage());

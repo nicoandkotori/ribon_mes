@@ -40,7 +40,13 @@
 <!--  and COALESCE(field0046,'')='' and  COALESCE(field0018,'')!=''-->
 <!--  and (t1.field0031!='' or t1.field0032 is  not null)-->
   <update id="updateSoCode" parameterType="com.web.sa.entity.OaSaleContractContrastDetail">
-    Update ${database}.dbo.formson_0111 Set field0046= #{main.field0046,jdbcType=VARCHAR}  where ID=#{main.id,jdbcType=BIGINT}
+    Update ${database}.dbo.formson_0111 Set field0046= #{main.field0046,jdbcType=VARCHAR},field0098=''  where ID=#{main.id,jdbcType=BIGINT}
 
   </update>
+
+  <update id="updateError" parameterType="com.web.sa.entity.OaSaleContractContrastDetail">
+    Update ${database}.dbo.formson_0111 Set field0098= #{error,jdbcType=VARCHAR}  where id=#{id,jdbcType=BIGINT}
+
+  </update>
+
 </mapper>

@@ -137,7 +137,12 @@
         where COALESCE(f111.field0046,'')='' and  COALESCE(f111.field0018,'')!='' and COALESCE(f111.field0021,0)!=0
         and httype.SHOWVALUE='商务合同' and f102.field0001 not in (select field0001 from   ${database}.dbo.view_u8so_begin)
         and COALESCE(i.SHOWVALUE,'')!='整机试制'
-
+        <if test="izError ==1">
+            and COALESCE(f111.field0098,'')!=''
+        </if>
+        <if test="izError ==0">
+            and COALESCE(f111.field0098,'')=''
+        </if>
     </select>
 
 
@@ -173,6 +178,13 @@
         and httype.SHOWVALUE='商务合同'
         and f111.id in (select COALESCE(id,'')  from  ${database}.dbo.view_so_edit)
         and COALESCE(i.SHOWVALUE,'')!='整机试制'
+
+        <if test="izError ==1">
+            and COALESCE(f111.field0098,'')!=''
+        </if>
+        <if test="izError ==0">
+            and COALESCE(f111.field0098,'')=''
+        </if>
     </select>
 
 

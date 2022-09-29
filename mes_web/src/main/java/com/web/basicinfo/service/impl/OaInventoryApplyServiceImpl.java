@@ -11,6 +11,7 @@ import com.web.basicinfo.entity.*;
 import com.web.basicinfo.mapper.*;
 import com.web.basicinfo.service.IInventoryService;
 import com.web.basicinfo.service.IOaInventoryApplyService;
+import com.web.sa.entity.OaSaleContract;
 import com.web.u8system.util.U8SystemUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -56,12 +57,15 @@ public class OaInventoryApplyServiceImpl extends ServiceImpl<OaInventoryApplyMap
      * @return
      */
     @Override
-    @Transactional(rollbackFor = Exception.class)
+
     public void syncInventoryApplyData()
     {
         //DB2是U8连接
         DbContextHolder.setDbType(DBTypeEnum.db2);
-        syncInventory();
+        //同步存货信息--已经存在异常的
+        syncInventory(1);
+        //同步存货信息--不存在异常的
+        syncInventory(0);
     }
 
     /**
@@ -70,16 +74,19 @@ public class OaInventoryApplyServiceImpl extends ServiceImpl<OaInventoryApplyMap
      */
 //    @Override
     @Transactional(rollbackFor = Exception.class)
-    public ResponseResult syncInventory() {
+    public ResponseResult syncInventory(Integer errState) {
         ResponseResult result = new ResponseResult();
+        OaInventoryApplyDetail syncData=null;
+        int izError=0;
+        String errorMsg="";
         try{
-
-            List<OaInventoryApplyDetail> listSync=oaInventoryApplyDetailMapper.getListBySync(new OaInventoryApplyDetail(),ParamUtil.getParam("oaDatabase").toString());
+            List<OaInventoryApplyDetail> listSync=oaInventoryApplyDetailMapper.getListBySync(new OaInventoryApplyDetail(),ParamUtil.getParam("oaDatabase").toString(),errState);
             if(listSync!=null)
             {
                 for(OaInventoryApplyDetail q:listSync)
                 {
-
+                    //同步的数据
+                    syncData=q;
 
                     Inventory inventory=new Inventory();
                     inventory.setDefaultValue();
@@ -341,7 +348,19 @@ public class OaInventoryApplyServiceImpl extends ServiceImpl<OaInventoryApplyMap
             }
 
         }catch (Exception e){
+            izError=1;
+            errorMsg=e.getMessage();
             throw new RuntimeException(e.getMessage());
+        }finally {
+            //发生异常，反写错误信息
+            if(izError==1&&syncData!=null&&syncData.getId()!=null)
+            {
+                if(errorMsg.length()>1000)
+                {
+                    errorMsg.substring(0,2000);
+                }
+                oaInventoryApplyDetailMapper.updateError(syncData.getId(),errorMsg,ParamUtil.getParam("oaDatabase").toString());
+            }
         }
         return result;
     }

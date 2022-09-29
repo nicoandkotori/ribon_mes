@@ -37,13 +37,16 @@
             on Inventory.cinvcode=matsort.ps_code left join ComputationUnit ComputationUnit
             on Inventory.cComUnitCode=ComputationUnit.cComunitCode  left join mps_plancode ppo
             on MatSort.order_no=ppo.PlanCode where qtys>0 and case when iz_delete is null then 0 else iz_delete end = 0 and
-            (pro_type='金工' or pro_type='外购'  or pro_type='半成品' or (case when pro_type is null then '' else pro_type end = '' and Inventory.bPurchase = 1)) and order_no=#{orderNo}
+            (pro_type='金工' or pro_type='外购'  or pro_type='半成品' or pro_type='外协' or (case when pro_type is null then '' else pro_type end = '' and Inventory.bPurchase = 1)) and order_no=#{orderNo}
     <if test="proType != null and proType != ''">
       <if test='proType == "金工"'>
         and matsort.pro_type = '金工'
       </if>
       <if test='proType == "半成品"'>
         and matsort.pro_type = '半成品'
+      </if>
+      <if test='proType == "外协"'>
+        and matsort.pro_type = '外协'
       </if>
       <if test='proType == "外购"'>
         and (matsort.pro_type = '外购' or (case when matsort.pro_type is null then '' else matsort.pro_type end = '' and Inventory.bPurchase = 1))
@@ -73,6 +76,9 @@
       <if test='proType == "半成品"'>
         and t1.pro_type = '半成品'
       </if>
+      <if test='proType == "外协"'>
+        and t1.pro_type = '外协'
+      </if>
       <if test='proType == "外购"'>
         and (t1.pro_type = '外购' or (case when t1.pro_type is null then '' else t1.pro_type end = '' and inv.bPurchase = 1))
       </if>
@@ -92,7 +98,7 @@
     on Inventory.cinvcode=matsort.ps_code left join ComputationUnit ComputationUnit
     on Inventory.cComUnitCode=ComputationUnit.cComunitCode  left join mps_plancode ppo
     on MatSort.order_no=ppo.PlanCode where qtys>0 and case when iz_delete is null then 0 else iz_delete end = 0 and
-    (pro_type='金工' or pro_type='外购'  or pro_type='半成品' or (case when pro_type is null then '' else pro_type end = '' and Inventory.bPurchase = 1))
+    (pro_type='金工' or pro_type='外购'  or pro_type='半成品' or pro_type='外协' or (case when pro_type is null then '' else pro_type end = '' and Inventory.bPurchase = 1))
     and matsort.order_no=#{orderNo} and Inventory.i_id = #{barcode}
     group by ComputationUnit.cComunitName,order_no,ps_code,Inventory.cInvName,Inventory.cInvStd,
     case when pro_type is null then '' else pro_type end,matsort.from_no) t

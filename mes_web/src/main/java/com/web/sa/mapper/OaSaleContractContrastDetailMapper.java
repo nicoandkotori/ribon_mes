@@ -13,4 +13,7 @@ public interface OaSaleContractContrastDetailMapper  extends BaseMapper<OaSaleCo
     List<OaSaleContractContrastDetail> getList(@Param("main") OaSaleContractContrastDetail mainDTO, @Param("database") String database);
 
     int updateSoCode(@Param("main") OaSaleContractContrastDetail record, @Param("database") String database);
+
+
+    int updateError(@Param("id") Long id, @Param("error") String error, @Param("database") String database);
 }

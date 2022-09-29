@@ -51,11 +51,25 @@
     left join  ${database}.dbo.CTP_ENUM_ITEM class on class.id=t.field0033
     where (t1.field0020!='' or t1.field0021 is  not null)  and COALESCE(t.field0015,'')=''
     and COALESCE(t.field0006,'')!=''
+
+    <if test="izError ==1">
+      and COALESCE(t.field0039,'')!=''
+    </if>
+    <if test="izError ==0">
+      and COALESCE(t.field0039,'')=''
+    </if>
   </select>
 
 
   <update id="updateInvCode" parameterType="com.web.basicinfo.entity.OaInventoryApplyDetail">
-    Update ${database}.dbo.formson_0097 Set field0015= #{main.field0015,jdbcType=VARCHAR}  where ID=#{main.id,jdbcType=BIGINT}
+    Update ${database}.dbo.formson_0097 Set field0015= #{main.field0015,jdbcType=VARCHAR},field0039=''  where ID=#{main.id,jdbcType=BIGINT}
+
+  </update>
+
+
+
+  <update id="updateError" parameterType="com.web.basicinfo.entity.OaInventoryApplyDetail">
+    Update ${database}.dbo.formson_0097 Set field0039= #{error,jdbcType=VARCHAR}  where ID=#{id,jdbcType=BIGINT}
 
   </update>
 

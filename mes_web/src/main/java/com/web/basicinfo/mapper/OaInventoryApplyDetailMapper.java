@@ -10,7 +10,9 @@ import java.util.List;
 
 public interface OaInventoryApplyDetailMapper extends BaseMapper<OaInventoryApplyDetail> {
 
-    List<OaInventoryApplyDetail> getListBySync(@Param("main") OaInventoryApplyDetail mainDTO,@Param("database") String database);
+    List<OaInventoryApplyDetail> getListBySync(@Param("main") OaInventoryApplyDetail mainDTO,@Param("database") String database,@Param("izError")Integer izError);
 
     int updateInvCode(@Param("main") OaInventoryApplyDetail record,@Param("database") String database);
+
+    int updateError(@Param("id") Long id, @Param("error") String error, @Param("database") String database);
 }

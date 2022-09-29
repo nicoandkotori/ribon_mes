@@ -281,25 +281,25 @@ public class BomServiceImpl extends ServiceImpl<BomMapper, Bom> implements IBomS
             }
             else
             {
-                Inventory inventory=new Inventory();
-                inventory.setCinvcode(main.getInvCode());
-                inventory.setCinvdefine3("");
-                inventory.setBpurchase(false);
-                inventory.setBproxyforeign(false);
-                inventory.setBself(true);
-
-                inventory.setBproductbill(true);
-                inventory.setBbommain(true);
-                inventory.setBbomsub(true);
-                inventory.setIplandefault(Short.valueOf("1"));
-                inventory.setBcomsume(true);
-                inventory.setBproducing(true);
-                //只更新加工类型
-                int n= inventoryMapper.updateById(inventory);
-                if(n<=0)
-                {
-                    throw new  Exception("更新存货档案出错！");
-                }
+//                Inventory inventory=new Inventory();
+//                inventory.setCinvcode(main.getInvCode());
+//                inventory.setCinvdefine3("");
+//                inventory.setBpurchase(false);
+//                inventory.setBproxyforeign(false);
+//                inventory.setBself(true);
+//
+//                inventory.setBproductbill(true);
+//                inventory.setBbommain(true);
+//                inventory.setBbomsub(true);
+//                inventory.setIplandefault(Short.valueOf("1"));
+//                inventory.setBcomsume(true);
+//                inventory.setBproducing(true);
+//                //只更新加工类型
+//                int n= inventoryMapper.updateById(inventory);
+//                if(n<=0)
+//                {
+//                    throw new  Exception("更新存货档案出错！");
+//                }
             }
 
 
@@ -532,25 +532,25 @@ public class BomServiceImpl extends ServiceImpl<BomMapper, Bom> implements IBomS
                 }
                 else
                 {
-                    Inventory inventory=new Inventory();
-                    inventory.setCinvcode(bomDTO.getInvCode());
-                    inventory.setCinvdefine3("");
-                    inventory.setBpurchase(false);
-                    inventory.setBproxyforeign(false);
-                    inventory.setBself(true);
-
-                    inventory.setBproductbill(true);
-                    inventory.setBbommain(true);
-                    inventory.setBbomsub(true);
-                    inventory.setIplandefault(Short.valueOf("1"));
-                    inventory.setBcomsume(true);
-                    inventory.setBproducing(true);
-                    //只更新加工类型
-                    int n= inventoryMapper.updateById(inventory);
-                    if(n<=0)
-                    {
-                        throw new  Exception("更新存货档案出错！");
-                    }
+//                    Inventory inventory=new Inventory();
+//                    inventory.setCinvcode(bomDTO.getInvCode());
+//                    inventory.setCinvdefine3("");
+//                    inventory.setBpurchase(false);
+//                    inventory.setBproxyforeign(false);
+//                    inventory.setBself(true);
+//
+//                    inventory.setBproductbill(true);
+//                    inventory.setBbommain(true);
+//                    inventory.setBbomsub(true);
+//                    inventory.setIplandefault(Short.valueOf("1"));
+//                    inventory.setBcomsume(true);
+//                    inventory.setBproducing(true);
+//                    //只更新加工类型
+//                    int n= inventoryMapper.updateById(inventory);
+//                    if(n<=0)
+//                    {
+//                        throw new  Exception("更新存货档案出错！");
+//                    }
                 }
 
 
